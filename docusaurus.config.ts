@@ -33,9 +33,8 @@ const config: Config = {
       {
         docs: {
           sidebarPath: "./sidebars.ts",
-          // Remove this to remove the "edit this page" links.
           editUrl:
-            "https://github.com/jc4-mp/docs.jc4mp.com/tree/main/packages/create-docusaurus/templates/shared/",
+            "https://github.com/jc4-mp/docs.jc4mp.com/edit/main/",
         },
         blog: false,
         theme: {
