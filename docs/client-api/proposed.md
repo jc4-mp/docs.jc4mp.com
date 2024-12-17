@@ -127,3 +127,117 @@ These are proposed API changes for the client environment.
 - `SetValue(action: Action, value: number)`
 - `SetValue(action: Action, value: number, force: boolean)`
 
+## `Waypoint` class
+
+### Methods
+- `GetPosition(): Vector3, boolean`
+- `Remove()`
+- `SetPosition(position: Vector3)`
+
+## `Game` class
+
+### Methods
+- `FireEvent(eventName: string)`
+- `GetHeat(): table`
+- `GetSetting(setting: GameSetting): number`
+- `GetState(): GUIState`
+- `GetTime(): number`
+- `SetHeat(level: HeatLevel, value: number)`
+- `ResetHeat()`
+- `ShowPopup(text: string, useGameTime: boolean)`
+
+## `Physics` class
+
+### Methods
+- `GetTerrainHeight(position: Vector3): number`
+- `GetTerrainHeight(position: Vector2): number`
+- `Raycast(origin: Vector3, direction: Vector3, minDistance: number, maxDistance: number): table`
+
+## `Mouse` class
+
+### Methods
+- `GetPosition(): Vector2`
+- `GetVisible(): boolean`
+- `SetPosition(position: Vector2)`
+- `SetVisible(visible: boolean)`
+
+## `Key` class
+
+### Methods
+- `IsDown(keyCode: number): boolean`
+
+## `Client` class
+
+### Methods
+- `GetElapsedSeconds(): number`
+- `GetPlayers(): iterator`
+- `GetStaticObjects(): iterator`
+- `GetStreamedPlayers(): iterator`
+- `GetVehicles(): iterator`
+
+## `Chat` class
+
+### Methods
+- `GetActive(): boolean`
+- `GetEnabled(): boolean`
+- `Print(text: string, color: Color)`
+- `SetActive(active: boolean)`
+- `SetEnabled(enabled: boolean)`
+
+## `ClientEffect` class
+
+### Static Methods
+- `Create(location: AssetLocation, config: table): ClientEffect`
+- `Play(location: AssetLocation, config: table)`
+
+### Methods
+- `GetEffectId(): number`
+- `IsPlaying(): boolean`
+- `Play()`
+- `Remove()`
+- `Stop()`
+
+## `ClientParticleSystem` class
+
+### Static Methods
+- `Create(config: table): ClientParticleSystem`
+- `Play(config: table)`
+
+### Methods
+- `GetPath(): string`
+- `IsPlaying(): boolean`
+- `Play()`
+- `Remove()`
+- `Stop()`
+
+## `ClientSound` class
+
+### Static Methods
+- `Create(location: AssetLocation, config: table): ClientSound`
+- `Play(location: AssetLocation, config: table)`
+
+### Methods
+- `GetBankId(): number`
+- `GetSoundId(): number`
+- `IsPlaying(): boolean`
+- `Play()`
+- `Remove()`
+- `SetParameter(param: number, value: number)`
+- `Stop()`
+
+## `ClientStaticObject` class
+
+### Static Methods
+- `Create(config: table): ClientStaticObject`
+
+### Methods
+- `Remove()`
+
+## `GUIState` enum
+
+### Values
+- `Game = 4`
+- `Loading = 3`
+- `Menu = 2`
+- `PDA = 5`
+
