@@ -2,11 +2,11 @@
 
 These network APIs allow you to send data to players and receive data from players.
 
-## `triggerClientEvent(player: Player, event: string, data: any)`
+#### `triggerClientEvent(player: Player, event: string, data: any)`
 
 Triggers a corresponding client event for a specific player in any resource with the same event name. `data` is not required. Any type of data except functions is valid, including strings, numbers, tables, metatables, etc.
 
-## `triggerClientEvent(event: string, data: any)`
+#### `triggerClientEvent(event: string, data: any)`
 
 Triggers a corresponding client event for all players.
 
@@ -28,7 +28,7 @@ end, true) -- <- make sure to set allowRemote to true
 ```
 
 
-## `addEvent(event: string, handler: function, allowRemote?: bool)`
+#### `addEvent(event: string, handler: function, allowRemote?: bool)`
 
 Adds an event handler for a specific event with a string name. To listen for events from players, set `allowRemote` to true. `allowRemote` is default false and not not a required argument.
 

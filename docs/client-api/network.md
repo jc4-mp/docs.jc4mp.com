@@ -2,7 +2,7 @@
 
 These network APIs allow you to send data to the server and receive data from the server.
 
-## `triggerServerEvent(event: string, data: any)`
+#### `triggerServerEvent(event: string, data: any)`
 
 Triggers a corresponding server event in any resource with the same event name. `data` is not required. Any type of data except functions is valid, including strings, numbers, tables, metatables, etc.
 
@@ -27,7 +27,7 @@ end, true) -- <- make sure to set allowRemote to true
 ```
 
 
-## `addEvent(event: string, handler: function, allowRemote?: bool)`
+#### `addEvent(event: string, handler: function, allowRemote?: bool)`
 
 Adds an event handler for a specific event with a string name. To listen for events from the server, set `allowRemote` to true. `allowRemote` is default false and not not a required argument.
 
