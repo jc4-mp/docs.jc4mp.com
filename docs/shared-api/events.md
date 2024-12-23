@@ -7,8 +7,8 @@ These event APIs allow you to send and receive data between different scripts or
 Adds an event handler for the specified event name. `allowRemote` is default false, meaning that it will not handle network events.
 
 For more information on the `allowRemote` argument see:
- - **[Client networking](/docs/client-api/network)**
- - **[Server networking](/docs/server-api/network)**
+ - **[Client networking](/client-api/network)**
+ - **[Server networking](/server-api/network)**
 
 ## `triggerEvent(event: string, data: any)`
 

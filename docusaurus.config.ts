@@ -32,6 +32,7 @@ const config: Config = {
       "classic",
       {
         docs: {
+          routeBasePath: "/",
           sidebarPath: "./sidebars.ts",
           editUrl:
             "https://github.com/jc4-mp/docs.jc4mp.com/edit/main/",
@@ -79,7 +80,7 @@ const config: Config = {
           items: [
             {
               label: "Tutorial",
-              to: "/docs/intro",
+              to: "/intro",
             },
           ],
         },

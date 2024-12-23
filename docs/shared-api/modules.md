@@ -25,7 +25,7 @@ Modules can only be imported in the following ways:
  - Server scripts can import any modules (including client modules)
  - Shared modules can only import other shared modules
 
-Data imported from a module is read-only, meaning that if you modify the imported data, it will not reflect in other scripts that also import this module. To share and modify data across scripts during runtime, use **[Events](/docs/shared-api/events)**.
+Data imported from a module is read-only, meaning that if you modify the imported data, it will not reflect in other scripts that also import this module. To share and modify data across scripts during runtime, use **[Events](/shared-api/events)**.
 
 To import the module from above:
 
