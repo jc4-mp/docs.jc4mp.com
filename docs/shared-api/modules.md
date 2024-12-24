@@ -32,7 +32,7 @@ To import the module from above:
 ```lua
 -- resources/other_script/client/main.lua
 
-local numbers = import("resources/test/client/numbers")
+local numbers = require("resources/test/client/numbers")
 
 print(numbers.theNumber) -- Prints 42
 print(numbers.addNumbers(5, 7)) -- Prints 12
@@ -43,5 +43,5 @@ If a module is in the same directory as the script importing it, you can import 
 ```lua
 -- resources/test/client/main.lua
 
-local numbers = import("numbers")
+local numbers = require("numbers")
 ```
