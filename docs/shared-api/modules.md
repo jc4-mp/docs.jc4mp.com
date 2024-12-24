@@ -1,6 +1,6 @@
 # Modules
 
-Modules are a great way to share data, functions, classes, and other functionality between scripts. Modules work on client, server, and shared scripts.
+Modules are a great way to share static data, functions, classes, and other functionality between scripts. Modules work on client, server, and shared scripts.
 
 ## Create a module
 
