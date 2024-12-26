@@ -1,0 +1,16 @@
+# Weather & Environment
+
+#### `strikeLightning(position: vec3, color: vec3)`
+
+Create a lightning strike at a position with the specified color (r, g, b). The color values should be in the range from 0 to 1.
+
+Example usage:
+
+```lua
+-- resources/test/client/main.lua
+
+addCommand("lightning", function()
+    strikeLightning(vec3.new(1000, 1000, 1000), vec3.new(1, 0, 0)) -- Creates red lightning
+end)
+
+```
