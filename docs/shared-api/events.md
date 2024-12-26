@@ -22,7 +22,6 @@ Example usage:
 Cmd.Add("test", function()
     Event.Trigger("testEvent", { data = 2 })
 end)
-
 ```
 
 A corresponding client script can listen for the event:
