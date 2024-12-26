@@ -10,7 +10,7 @@ Example usage:
 -- resources/test/client/main.lua
 
 addCommand("lightning", function()
-    strikeLightning(vec3.new(1000, 1000, 1000), vec3.new(1, 0, 0)) -- Creates red lightning
+    strikeLightning(vec3(1000, 1000, 1000), vec3(1, 0, 0)) -- Creates red lightning
 end)
 
 ```
