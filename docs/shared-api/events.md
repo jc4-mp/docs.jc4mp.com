@@ -1,16 +1,15 @@
 # Events
 
-These event APIs allow you to send and receive data between different scripts or resources. 
+These event APIs allow you to send and receive data between different scripts or resources. Events only work cross-resources within the same context. For example:
+ - A client script fires an event. Only other client scripts can listen for this event.
+ - A server script fires an event. Only other server scripts can listen for this event.
+ - A shared script fires an event. Client, server, or shared scripts can listen for this event.
 
-#### `Event.Add(event: string, handler: function, allowRemote?: bool)`
+#### `Event.Add(event: string, handler: function)`
 
-Adds an event handler for the specified event name. `allowRemote` is default false, meaning that it will not handle network events.
+Adds an event handler for the specified event name.
 
-For more information on the `allowRemote` argument see:
- - **[Client networking](/client-api/network)**
- - **[Server networking](/server-api/network)**
-
-#### `Event.Trigger(event: string, data: any)`
+#### `Event.Fire(event: string, data: any)`
 
 Triggers a corresponding event in any resource that has a handler `Event.Add` with the same event name.
 
@@ -20,7 +19,7 @@ Example usage:
 -- resources/test/client/main.lua
 
 Cmd.Add("test", function()
-    Event.Trigger("testEvent", { data = 2 })
+    Event.Fire("testEvent", { data = 2 })
 end)
 ```
 

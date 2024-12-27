@@ -21,23 +21,23 @@ A corresponding server script in any resource can listen for this event:
 ```lua
 -- resources/test/server/main.lua
 
-Event.Add("test", function(args)
+Net.AddEvent("test", function(args)
     print("Received: " .. tostring(args.theNumber))
-end, true) -- <- make sure to set allowRemote to true
+end)
 ```
 
 
-#### `Event.Add(event: string, handler: function, allowRemote?: bool)`
+#### `Net.AddEvent(event: string, handler: function)`
 
-Adds an event handler for a specific event with a string name. To listen for events from the server, set `allowRemote` to true. `allowRemote` is default false and not not a required argument.
+Adds an event handler for a specific network event with a string name.
 
 Example (on the client):
 ```lua
 -- resources/test/client/main.lua
 
-Event.Add("TestEventFromServer", function(args)
+Net.AddEvent("TestEventFromServer", function(args)
     print("Received: " .. tostring(args.value))
-end, true)
+end)
 ```
 
 And the server can send events to trigger the client event:
@@ -46,3 +46,8 @@ And the server can send events to trigger the client event:
 
 Net.Send("testServerEvent", { value = "hello"})
 ```
+
+
+#### `Net.RemoveEvent(event: string)`
+
+Removes a network event handler.
