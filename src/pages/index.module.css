@@ -21,3 +21,44 @@
   align-items: center;
   justify-content: center;
 }
+
+.title {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  margin: auto;
+  text-align: center;
+  gap: 12px;
+  padding: 6px;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  font-weight: bold;
+  max-width: 400px;
+  text-wrap: balance;
+  color: white;
+}
+
+.logo {
+  max-width: 500px;
+  min-width: 0;
+  width: 100%;
+}
+
+.bgImage {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 65% 50%;
+}

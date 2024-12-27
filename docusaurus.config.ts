@@ -7,7 +7,7 @@ import type * as Preset from "@docusaurus/preset-classic";
 const config: Config = {
   title: "Documentation - Just Cause 4 Multiplayer",
   tagline:
-    "Server scripting documentation for the Just Cause 4 Multiplayer mod",
+    "Server scripting documentation for the Just Cause 4 Multiplayer Mod",
   favicon: "img/favicon.png",
 
   // Set the production url of your site here
@@ -70,34 +70,6 @@ const config: Config = {
           label: "GitHub",
           position: "right",
         },
-      ],
-    },
-    footer: {
-      style: "dark",
-      links: [
-        {
-          title: "Docs",
-          items: [
-            {
-              label: "Tutorial",
-              to: "/intro",
-            },
-          ],
-        },
-        // TODO: Update links
-        // {
-        //   title: 'Community',
-        //   items: [
-        //     {
-        //       label: 'Stack Overflow',
-        //       href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-        //     },
-        //     {
-        //       label: 'Discord',
-        //       href: 'https://discordapp.com/invite/docusaurus',
-        //     },
-        //   ],
-        // },
       ],
     },
     prism: {
