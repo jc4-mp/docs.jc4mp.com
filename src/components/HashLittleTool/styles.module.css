@@ -1,0 +1,57 @@
+.hashLittleContainer {
+    max-width: 400px;
+    padding: 1.5rem;
+    background-color: var(--ifm-background-surface-color);
+    border-radius: var(--ifm-global-radius);
+    box-shadow: var(--ifm-global-shadow-lw);
+  }
+  
+  .title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+  
+  .inputContainer {
+    margin-bottom: 1rem;
+  }
+  
+  .input,
+  .output {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid var(--ifm-color-gray-300);
+    border-radius: var(--ifm-global-radius);
+    font-size: 1rem;
+  }
+  
+  .outputContainer {
+    display: flex;
+    align-items: center;
+  }
+  
+  .output {
+    flex-grow: 1;
+    margin-right: 0.5rem;
+    background-color: var(--ifm-background-color);
+  }
+  
+  .copyButton {
+    padding: 0.5rem 1rem;
+    background-color: var(--ifm-color-primary);
+    color: var(--ifm-color-white);
+    border: none;
+    border-radius: var(--ifm-global-radius);
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .copyButton:hover {
+    background-color: var(--ifm-color-primary-dark);
+  }
+  
+  .copied {
+    background-color: var(--ifm-color-success);
+  }
+  
+  

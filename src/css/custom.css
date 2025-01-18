@@ -48,3 +48,8 @@
   content: "🚀";
   margin-right: 0.5rem;
 }
+
+.category-tools > div > a::before {
+  content: "🛠️";
+  margin-right: 0.5rem;
+}
