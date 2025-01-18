@@ -4,6 +4,8 @@
  * work well for content-centric websites.
  */
 
+@import url('https://fonts.googleapis.com/css2?family=Geist+Mono&family=Geist:wght@100..900&display=swap');
+
 /* You can override the default Infima variables here. */
 :root {
   --ifm-color-primary: #0056b3; /* Darker, classic link blue */
@@ -52,4 +54,12 @@
 .category-tools > div > a::before {
   content: "🛠️";
   margin-right: 0.5rem;
+}
+
+html * {
+  font-family: 'Geist', Arial, Helvetica, sans-serif;
+}
+
+pre, pre *, code, code * {
+  font-family: 'Geist Mono', monospace;
 }

@@ -1,9 +1,5 @@
 .hashLittleContainer {
     max-width: 400px;
-    padding: 1.5rem;
-    background-color: var(--ifm-background-surface-color);
-    border-radius: var(--ifm-global-radius);
-    box-shadow: var(--ifm-global-shadow-lw);
   }
   
   .title {
@@ -34,6 +30,7 @@
     flex-grow: 1;
     margin-right: 0.5rem;
     background-color: var(--ifm-background-color);
+    font-family: monospace;
   }
   
   .copyButton {
@@ -44,6 +41,7 @@
     border-radius: var(--ifm-global-radius);
     cursor: pointer;
     transition: background-color 0.2s;
+    min-width: 5rem;
   }
   
   .copyButton:hover {
@@ -52,6 +50,17 @@
   
   .copied {
     background-color: var(--ifm-color-success);
+  }
+
+  .label {
+    min-width: 4rem;
+    background-color: var(--ifm-color-gray-300);
+    border-radius: var(--ifm-global-radius);
+    color: var(--ifm-color-black);
+    font-weight: bold;
+    font-family: monospace;
+    padding: 0.25rem 0.5rem;
+    margin-right: 0.5rem;
   }
   
   
