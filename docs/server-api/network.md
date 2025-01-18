@@ -19,15 +19,15 @@ Example usage:
 ```lua
 -- resources/test/server/main.lua
 
-Net.Send("broadcastEvent", { value = "hello all!"})
+Net.Send("BroadcastEvent", { value = "hello all!"})
 ```
 
 A corresponding client script in any resource can listen for this event:
 ```lua
 -- resources/test/client/main.lua
 
-Net.AddEvent("test", function(args)
-    print("Received: " .. tostring(args.theNumber))
+Net.AddEvent("BroadcastEvent", function(args)
+    print("Received: " .. tostring(args.value))
 end)
 ```
 

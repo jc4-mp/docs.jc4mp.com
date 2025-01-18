@@ -21,7 +21,7 @@ A corresponding server script in any resource can listen for this event:
 ```lua
 -- resources/test/server/main.lua
 
-Net.AddEvent("test", function(args)
+Net.AddEvent("testServerEvent", function(args)
     print("Received: " .. tostring(args.theNumber))
 end)
 ```

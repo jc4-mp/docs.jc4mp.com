@@ -54,7 +54,6 @@
 
   .label {
     min-width: 4rem;
-    background-color: var(--ifm-color-gray-300);
     border-radius: var(--ifm-global-radius);
     color: var(--ifm-color-black);
     font-weight: bold;
