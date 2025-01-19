@@ -55,7 +55,6 @@
   .label {
     min-width: 4rem;
     border-radius: var(--ifm-global-radius);
-    color: var(--ifm-color-black);
     font-weight: bold;
     font-family: monospace;
     padding: 0.25rem 0.5rem;
