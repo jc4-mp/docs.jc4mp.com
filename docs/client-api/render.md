@@ -138,7 +138,7 @@ end)
 
 #### `Render.DrawPolygon(points: table, thickness: number, color: vec4)`
 
-Draws a polygon on the screen. `points` is a table containing the points that define the polygon. The first and last points should be the same. Each entry in the table should be a `vec2` representing a point. `thickness` is the thickness of the polygon's line, and `color` is the color of the polygon. Values for color range between 0 and 1, with the last value being the alpha (transparency) value.
+Draws a polygon on the screen. `points` is a table containing the points that define the polygon. Each entry in the table should be a `vec2` representing a point. `thickness` is the thickness of the polygon's line, and `color` is the color of the polygon. Values for color range between 0 and 1, with the last value being the alpha (transparency) value.
 
 Example usage that draws a white polygon:
 
@@ -157,7 +157,7 @@ end)
 
 #### `Render.FillPolygon(points: table, color: vec4)`
 
-Draws a filled polygon on the screen. `points` is a table containing the points that define the polygon. The first and last points should be the same. Each entry in the table should be a `vec2` representing a point. `color` is the color of the polygon. Values for color range between 0 and 1, with the last value being the alpha (transparency) value.
+Draws a filled polygon on the screen. `points` is a table containing the points that define the polygon. Each entry in the table should be a `vec2` representing a point. `color` is the color of the polygon. Values for color range between 0 and 1, with the last value being the alpha (transparency) value.
 
 Example usage that draws a filled gray polygon:
 
