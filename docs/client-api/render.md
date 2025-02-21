@@ -84,6 +84,21 @@ Event.Add("Render", function()
 end)
 ```
 
+
+#### `Render.FillRectMultiColor(pps: vec2, size: vec2, c1: vec4, c2: vec4, c3: vec4, c4: vec4)`
+
+Draws a filled rectangle on the screen with a different color at each corner. `pos` is the top-left corner position, and `size` defines the width and height of the rectangle. `c1`, `c2`, `c3`, and `c4` are the colors for the top-left, top-right, bottom-right, and bottom-left corners, respectively. Values for color range between 0 and 1, with the last value being the alpha (transparency) value.
+
+Example usage that draws a filled rectangle with different colors at each corner:
+
+```lua
+-- resources/test/client/main.lua
+
+Event.Add("Render", function()
+    Render.FillRectMultiColor(vec2(200, 400), vec2(50, 30), vec4(1, 0, 0, 1), vec4(0, 1, 0, 1), vec4(0, 0, 1, 1), vec4(1, 1, 0, 1))
+end)
+```
+
 #### `Render.DrawCircle(center: vec2, radius: number, thickness: number, segs: number, color: vec4)`
 
 Draws a circle on the screen. `center` is the center position, `radius` is the radius of the circle, `thickness` is the thickness of the circle's line, `segs` is the number of segments used to draw the circle (higher values result in a smoother circle). Values for color range between 0 and 1, with the last value being the alpha (transparency) value.
@@ -109,6 +124,35 @@ Example usage that draws a filled orange circle:
 
 Event.Add("Render", function()
     Render.FillCircle(vec2(400, 300), 25, 24, vec4(1, 0.5, 0, 1))
+end)
+```
+
+
+#### `Render.DrawEllipse(center: vec2, radius_x: number, radius_y: number, segs: number, thickness: number, color: vec4, rot: number)`
+
+Draws an ellipse on the screen. `center` is the center position, `radius_x` and `radius_y` are the radii of the ellipse along the x and y axes, `segs` is the number of segments used to draw the ellipse (higher values result in a smoother ellipse), `thickness` is the thickness of the ellipse's line, `color` is the color of the ellipse, and `rot` is the rotation of the ellipse in radians. Values for color range between 0 and 1, with the last value being the alpha (transparency) value.
+
+Example usage that draws a rotated white ellipse every frame:
+
+```lua
+-- resources/test/client/main.lua
+
+Event.Add("Render", function()
+    Render.DrawEllipse(vec2(300, 400), 30, 20, 24, 2, vec4(1, 1, 1, 1), 0.5)
+end)
+```
+
+#### `Render.FillEllipse(center: vec2, radius_x: number, radius_y: number, segs: number, color: vec4, rot: number)`
+
+Draws a filled ellipse on the screen. `center` is the center position, `radius_x` and `radius_y` are the radii of the ellipse along the x and y axes, `segs` is the number of segments used to draw the ellipse (higher values result in a smoother ellipse), `color` is the color of the ellipse, and `rot` is the rotation of the ellipse in radians. Values for color range between 0 and 1, with the last value being the alpha (transparency) value.
+
+Example usage that draws a filled, rotated gray ellipse:
+
+```lua
+-- resources/test/client/main.lua
+
+Event.Add("Render", function()
+    Render.FillEllipse(vec2(400, 400), 30, 20, 24, vec4(0.5, 0.5, 0.5, 1), -0.5)
 end)
 ```
 
