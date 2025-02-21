@@ -21,8 +21,6 @@ Draws a line between `start` and `end` positions on the screen. Thickness should
 Example usage that draws a red diagonal line:
 
 ```lua
--- resources/test/client/main.lua
-
 Event.Add("Render", function()
     Render.DrawLine(vec2(100, 100), vec2(200, 200), 5, vec4(1, 0, 0, 1))
 end)
@@ -35,8 +33,6 @@ Draws a triangle defined by three points on the screen. Values for color range b
 Example usage that draws a green triangle:
 
 ```lua
--- resources/test/client/main.lua
-
 Event.Add("Render", function()
     Render.DrawTriangle(vec2(100, 100), vec2(200, 100), vec2(150, 150), vec4(0, 1, 0, 1))
 end)
@@ -49,8 +45,6 @@ Draws a filled triangle defined by three points on the screen. Values for color 
 Example usage that draws a filled blue triangle:
 
 ```lua
--- resources/test/client/main.lua
-
 Event.Add("Render", function()
     Render.FillTriangle(vec2(300, 100), vec2(400, 100), vec2(350, 150), vec4(0, 0, 1, 1))
 end)
@@ -63,8 +57,6 @@ Draws a rectangle on the screen. `pos` is the top-left corner position, and `siz
 Example usage that draws a yellow rectangle:
 
 ```lua
--- resources/test/client/main.lua
-
 Event.Add("Render", function()
     Render.DrawRect(vec2(100, 200), vec2(50, 30), vec4(1, 1, 0, 1))
 end)
@@ -77,8 +69,6 @@ Draws a filled rectangle on the screen. `pos` is the top-left corner position, a
 Example usage that draws a filled magenta rectangle:
 
 ```lua
--- resources/test/client/main.lua
-
 Event.Add("Render", function()
     Render.FillRect(vec2(200, 200), vec2(50, 30), vec4(1, 0, 1, 1))
 end)
@@ -92,8 +82,6 @@ Draws a filled rectangle on the screen with a different color at each corner. `p
 Example usage that draws a filled rectangle with different colors at each corner:
 
 ```lua
--- resources/test/client/main.lua
-
 Event.Add("Render", function()
     Render.FillRectMultiColor(vec2(200, 400), vec2(50, 30), vec4(1, 0, 0, 1), vec4(0, 1, 0, 1), vec4(0, 0, 1, 1), vec4(1, 1, 0, 1))
 end)
@@ -106,8 +94,6 @@ Draws a circle on the screen. `center` is the center position, `radius` is the r
 Example usage that draws a cyan circle:
 
 ```lua
--- resources/test/client/main.lua
-
 Event.Add("Render", function()
     Render.DrawCircle(vec2(300, 300), 25, 3, 24, vec4(0, 1, 1, 1))
 end)
@@ -120,8 +106,6 @@ Draws a filled circle on the screen. `center` is the center position, `radius` i
 Example usage that draws a filled orange circle:
 
 ```lua
--- resources/test/client/main.lua
-
 Event.Add("Render", function()
     Render.FillCircle(vec2(400, 300), 25, 24, vec4(1, 0.5, 0, 1))
 end)
@@ -135,8 +119,6 @@ Draws an ellipse on the screen. `center` is the center position, `radius_x` and 
 Example usage that draws a rotated white ellipse every frame:
 
 ```lua
--- resources/test/client/main.lua
-
 Event.Add("Render", function()
     Render.DrawEllipse(vec2(300, 400), 30, 20, 24, 2, vec4(1, 1, 1, 1), 0.5)
 end)
@@ -149,10 +131,46 @@ Draws a filled ellipse on the screen. `center` is the center position, `radius_x
 Example usage that draws a filled, rotated gray ellipse:
 
 ```lua
--- resources/test/client/main.lua
-
 Event.Add("Render", function()
     Render.FillEllipse(vec2(400, 400), 30, 20, 24, vec4(0.5, 0.5, 0.5, 1), -0.5)
+end)
+```
+
+#### `Render.DrawPolygon(points: table, thickness: number, color: vec4)`
+
+Draws a polygon on the screen. `points` is a table containing the points that define the polygon. The first and last points should be the same. Each entry in the table should be a `vec2` representing a point. `thickness` is the thickness of the polygon's line, and `color` is the color of the polygon. Values for color range between 0 and 1, with the last value being the alpha (transparency) value.
+
+Example usage that draws a white polygon:
+
+```lua
+local points = {
+    vec2(100, 100),
+    vec2(200, 100),
+    vec2(250, 150),
+    vec2(200, 200),
+    vec2(100, 200)
+}
+Event.Add("Render", function()
+    Render.DrawPolygon(points, 2, vec4(1, 1, 1, 1))
+end)
+```
+
+#### `Render.FillPolygon(points: table, color: vec4)`
+
+Draws a filled polygon on the screen. `points` is a table containing the points that define the polygon. The first and last points should be the same. Each entry in the table should be a `vec2` representing a point. `color` is the color of the polygon. Values for color range between 0 and 1, with the last value being the alpha (transparency) value.
+
+Example usage that draws a filled gray polygon:
+
+```lua
+local points = {
+    vec2(300, 100),
+    vec2(400, 100),
+    vec2(450, 150),
+    vec2(400, 200),
+    vec2(300, 200)
+}
+Event.Add("Render", function()
+    Render.FillPolygon(points, vec4(0.5, 0.5, 0.5, 1))
 end)
 ```
 
@@ -163,8 +181,6 @@ Draws text on the screen. `text` is the string to draw, `pos` is the position of
 Example usage that draws centered white text with a shadow:
 
 ```lua
--- resources/test/client/main.lua
-
 Event.Add("Render", function()
     Render.DrawText("Hello, World!", vec2(100, 400), 1, vec4(1, 1, 1, 1), true, 1)
 end)
