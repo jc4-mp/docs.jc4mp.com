@@ -186,6 +186,20 @@ Event.Add("Render", function()
 end)
 ```
 
+#### `Render.SetClip(enabled: boolean, start: vec2, end: vec2)`
+
+Sets the clipping area for the current rendering call to be between `start` and `end` positions on the screen - anything outside of that clipping area will not be drawn. Set enabled to `true` to enable it, and `false` to disable it.
+
+Example usage that draws a small transparent red square:
+
+```lua
+Event.Add("Render", function()
+    Render.SetClip(true, vec2(0, 0), vec2(100, 100))
+	Render.FillRect(vec2(0, 0), Render.GetSize(), vec4(1, 0, 0, 0.5))
+    Render.SetClip(false, vec2(0, 0), vec2(100, 100))
+end)
+```
+
 
 #### `Render.GetSize(): vec2`
 
