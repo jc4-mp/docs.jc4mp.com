@@ -185,3 +185,34 @@ Event.Add("Render", function()
     Render.DrawText("Hello, World!", vec2(100, 400), 1, vec4(1, 1, 1, 1), true, 1)
 end)
 ```
+
+
+#### `Render.GetSize(): vec2`
+
+Returns the size of the screen in pixels in the form of a `vec2`.
+
+Example usage that gets the screen size:
+
+```lua
+local size = Render.GetSize() -- If playing on a 1920x1080 display, it will return vec2(1920, 1080)
+```
+
+
+
+#### `Render.WorldToScreen(pos: vec3): vec2`
+
+Converts world coordinates to screen coordinates. If the world position provided is on the screen, it will return a `vec2` with the screen coordinates of that world position. If the world position is off-screen, it will return nil.
+
+Example usage that draws a circle at a specified position:
+
+```lua
+Event.Add("Render", function()
+    local pos = vec3(1000, 1000, 1000)
+    local screen_pos = Render.WorldToScreen(pos)
+    if screen_pos then
+        -- Draw a circle on the position if it is on the screen
+        Render.FillCircle(pos, 20, 24, vec4(1.0, 1.0, 1.0, 1.0))
+    end
+end)
+```
+
