@@ -10,6 +10,6 @@ Prints a string of text to the chat. The chat message only appears on this clien
 
 Sets whether or not that chat is enabled. If set to false, the chat window will disappear.
 
-#### `Chat.GetEnabled(): bool`
+#### `Chat.IsEnabled(): bool`
 
 Returns true if the chat is enabled, and false otherwise. 
