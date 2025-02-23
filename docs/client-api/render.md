@@ -230,3 +230,19 @@ Event.Add("Render", function()
 end)
 ```
 
+
+#### `Render.DrawSphere(pos: vec3, radius: number, color: vec4, wireframe: boolean)`
+
+Draws a 3D depth-tested sphere in the game world at `pos` position with specific radius and color. Set wireframe to true to draw the sphere as a wireframe, or false for a fully filled sphere.
+
+Example usage that draws a semi-transparent blue sphere on the local player's head:
+
+```lua
+Event.Add("Render", function()
+    local localPlayer = Players.Local():GetGamePlayer()
+    local char = localPlayer:GetCharacter()
+    local head_pos = char:GetBonePosition(Bone.Head)
+    Render.DrawSphere(head_pos, 0.5, vec4(0, 1, 0, 0.5), false)
+end)
+```
+
