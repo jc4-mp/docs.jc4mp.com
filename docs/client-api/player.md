@@ -37,13 +37,18 @@ Players.Local():GetGamePlayer():EnableAbility(Ability.Wingsuit)
 
 #### `Player:DisableAbility(ability: Ability)`
 
-Disables an ability for a given Player. `ability` must be one of these abilities from the global `Ability` table (shown above).
+Disables an ability for a given Player. `ability` must be one of the abilities from the global `Ability` table (shown above).
 
 Example of disabling the local player's ability to use the grappling hook:
 
 ```lua
 Players.Local():GetGamePlayer():EnableAbility(Ability.GrapplingHook)
 ```
+
+#### `Player:IsAbilityEnabled(ability: Ability)`
+
+Returns true if the given ability is enabled for the Player, false if disabled. `ability` must be one of the abilities from the global `Ability` table (shown above).
+
 
 #### `Player:GetAimPosition(): vec3`
 
