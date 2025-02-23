@@ -17,17 +17,17 @@ Enables an ability for a given Player. `ability` must be one of these abilities 
 
 | Ability                           | Description                                                                 |
 |----------------------------------|-----------------------------------------------------------------------------|
-| Ability.Tether                   | Connects two objects or players together.|
-| Ability.RetractTether            | Pulls tethered objects or players towards each other.                        |
-| Ability.Wingsuit                 | Enables gliding through the air for fast traversal.                          |
-| Ability.PlantedExplosives        | Allows placement of explosives that can be detonated remotely.               |
-| Ability.Parachute                | Deploys a parachute for controlled descents and aerial maneuvers.            |
-| Ability.ParachuteSlingshot       | Increases speed and altitude while parachuting by using the grappling hook.  |
-| Ability.GrapplingHook            | Controls whether or not the grappling hook is enabled.             |
-| Ability.Hammer                   | ???                                                  |
-| Ability.MultiplePlantedExplosives| Enables placement of multiple explosives simultaneously.                    |
-| Ability.Grenades                 | Equips Rico with throwable grenades for area damage.                        |
-| Ability.ExitVehicle              | Allows Rico to quickly exit any vehicle he is operating.                     |
+| `Ability.Tether`                   | Allows the player to connect two objects or players together with the grapplehook.|
+| `Ability.RetractTether`            | Allows the player to pull tethered objects or players towards each other.                        |
+| `Ability.Wingsuit`                 | Allows the player to use the wingsuit.                          |
+| `Ability.PlantedExplosives`        | Allows placement of explosives that can be detonated remotely.               |
+| `Ability.Parachute`                | Allows the player to use the parachute.            |
+| `Ability.ParachuteSlingshot`       | Allows the player to use the grapplehook while parachuting.  |
+| `Ability.GrapplingHook`            | Controls whether or not the grappling hook is enabled.             |
+| `Ability.Hammer`                   | Allows the player to use the grapplehook melee ability.                                                  |
+| `Ability.MultiplePlantedExplosives`| Enables placement of multiple explosives simultaneously.                    |
+| `Ability.Grenades`                 | Allows the player to use grenades.                        |
+| `Ability.ExitVehicle`              | Allows the player to quickly exit any vehicle.                     |
 
 Example of enabling the local player's ability to use the wingsuit:
 ```lua
