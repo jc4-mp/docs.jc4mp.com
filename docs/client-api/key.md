@@ -104,8 +104,6 @@ List of all keys used for inputs. For usage details, see [Input](/client-api/inp
 | `string.byte("9")`            | 9 Key               |
 | `string.byte("[")`            | [ Key               |
 | `string.byte("]")`            | ] Key               |
-| `string.byte("{")`            | { Key               |
-| `string.byte("}")`            | } Key               |
 | `string.byte(",")`            | Comma Key           |
 | `string.byte(".")`            | Period Key          |
 | `string.byte(";")`            | Semicolon Key       |
