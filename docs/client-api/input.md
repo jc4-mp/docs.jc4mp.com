@@ -55,6 +55,22 @@ Event.Add("MouseDown", function(key)
 end)
 ```
 
+#### `InputAction: (action: Action)`
+
+The `InputAction` event fires every time an input action occurs for the local player. The first argument is the numerical value of the [Action](/client-api/action). To get a list of actions (such as the jump action), see [Action](/client-api/action). Actions are not guarantees that something actually happened - for example, pressing spacebar to jump while already jumping will trigger `Action.Jump`, but it will not jump again.
+
+Example that prints a message to chat when the jump action occurs:
+
+```lua
+Event.Add("InputAction", function(action)
+    if action == Action.Jump then
+        Chat.Print("Local player jumped!")
+    end
+end)
+```
+
+## Methods
+
 #### `Input.SetEnabled(enabled: boolean)`
 
 Enables or disables player input. If disabled, all player input will be disabled - the player will not be able to move their character or camera. This is the same functionality that happens when you press T to open the chat window.
@@ -69,7 +85,7 @@ Input.SetEnabled(true)
 Input.SetEnabled(true)
 ```
 
-#### `Input.GetEnabled(): boolean`
+#### `Input.IsEnabled(): boolean`
 
 Returns true if input is enabled, false otherwise.
 
@@ -87,4 +103,9 @@ Returns true if the key is currently down, false otherwise. Refer to [Key](/clie
 #### `Input.IsKeyReleased(key: number): boolean`
 
 Returns true if the key is released, false otherwise. Refer to [Key](/client-api/key) for a list of keys to use.
+
+
+#### `Input.GetValue(action: Action): number`
+
+Returns greater than 0 if the action is currently active, 0 otherwise. Refer to [Action](/client-api/action) for a list of actions to use.
 
