@@ -19,3 +19,13 @@ Example usage:
 ```lua
 print(Game.GetFOV())
 ```
+
+#### `Game.GetState(): GameState`
+
+Gets the current state of the game. See [GameState](/client-api/gamestate) for a list of all possible game states.
+
+Example usage:
+
+```lua
+print(Game.GetState() == GameState.MainMenu) -- Prints true or false
+```
