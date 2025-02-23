@@ -1,0 +1,85 @@
+# Bone
+
+List of all bones on a character. 
+
+
+![Image showing all bone positions on a character](/img/assets/bones.png)
+
+
+The above was rendered via this code:
+```lua
+Event.Add("Render", function()
+    local localPlayer = Players.Local():GetGamePlayer()
+    local char = localPlayer:GetCharacter()
+    for bone_name, bone_val in pairs(Bone) do
+        local pos = char:GetBonePosition(bone_val)
+        local pos_2d = Render.WorldToScreen(pos)
+
+        if pos_2d then
+            Render.FillCircle(pos_2d, 7, 24, vec4(1, 0, 0, 1.0))
+            Render.DrawText(tostring(bone_name), vec2(pos_2d.x, pos_2d.y - 15), 15, vec4(1, 1, 1, 1), true, 1, 100)
+        end
+    end
+end)
+```
+
+| Bone                      |
+| ------------------------- |
+| `Bone.Reference`          |
+| `Bone.Offset`             |
+| `Bone.Hips`               |
+| `Bone.Spine1`             |
+| `Bone.Spine2`             |
+| `Bone.Spine3`             |
+| `Bone.Neck1`              |
+| `Bone.Sternum`            |
+| `Bone.Head`               |
+| `Bone.Face`               |
+| `Bone.RightToe`           |
+| `Bone.LeftToe`            |
+| `Bone.RightFoot`          |
+| `Bone.LeftFoot`           |
+| `Bone.RightLegLower`      |
+| `Bone.LeftLegLower`       |
+| `Bone.RightLegUpper`      |
+| `Bone.LeftLegUpper`       |
+| `Bone.RightShoulder`      |
+| `Bone.LeftShoulder`       |
+| `Bone.RightArmUpper`      |
+| `Bone.LeftArmUpper`       |
+| `Bone.RightArmLower`      |
+| `Bone.LeftArmLower`       |
+| `Bone.RightHand`          |
+| `Bone.LeftHand`           |
+| `Bone.RightHandAttach`    |
+| `Bone.LeftHandAttach`     |
+| `Bone.RightHandAttach2`   |
+| `Bone.LeftHandAttach2`    |
+| `Bone.RightHandIK`        |
+| `Bone.LeftHandIK`         |
+| `Bone.RightBackAttach`    |
+| `Bone.LeftBackAttach`     |
+| `Bone.RightLegAttach`     |
+| `Bone.LeftLegAttach`      |
+| `Bone.RightFootIK`        |
+| `Bone.LeftFootIK`         |
+| `Bone.AimTarget`          |
+| `Bone.TargetRef1`         |
+| `Bone.TargetRef2`         |
+| `Bone.CameraRef1`         |
+| `Bone.CameraRef2`         |
+| `Bone.GrappleAttachHook`  |
+| `Bone.GrappleAttachWire`  |
+| `Bone.GrappleAttachBelt`  |
+| `Bone.GrappleAttachWrist` |
+| `Bone.RightParaAttach`    |
+| `Bone.LeftParaAttach`     |
+| `Bone.RightParaAttach2`   |
+| `Bone.LeftParaAttach2`    |
+| `Bone.RightFrontFlap`     |
+| `Bone.LeftFrontFlap`      |
+| `Bone.RightBackFlap`      |
+| `Bone.LeftBackFlap`       |
+| `Bone.CollarLeftFlap`     |
+| `Bone.CollarRightFlap`    |
+| `Bone.CollarBackFlap`     |

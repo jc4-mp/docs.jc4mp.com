@@ -55,10 +55,7 @@ Returns the amount of health that the character has. Default max health is 800, 
 Returns the [Player](/client-api/player) associated with this Character.
 
 
+#### `Character:GetBonePosition(bone: Bone): vec3`
 
-
-
-
-
-
+Gets the world position of a specific bone on a character. Refer to [Bone](/client-api/bone) for a list of bones to use and example usage.
 
