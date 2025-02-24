@@ -55,14 +55,14 @@ Event.Add("MouseDown", function(key)
 end)
 ```
 
-#### `InputAction: (action: Action)`
+#### `LocalPlayerInput: (action: Action)`
 
-The `InputAction` event fires every time an input action occurs for the local player. The first argument is the numerical value of the [Action](/client-api/action). To get a list of actions (such as the jump action), see [Action](/client-api/action). Actions are not guarantees that something actually happened - for example, pressing spacebar to jump while already jumping will trigger `Action.Jump`, but it will not jump again.
+The `LocalPlayerInput` event fires every time an input action occurs for the local player. The first argument is the numerical value of the [Action](/client-api/action). To get a list of actions (such as the jump action), see [Action](/client-api/action). Actions are not guarantees that something actually happened - for example, pressing spacebar to jump while already jumping will trigger `Action.Jump`, but it will not jump again.
 
 Example that prints a message to chat when the jump action occurs:
 
 ```lua
-Event.Add("InputAction", function(action)
+Event.Add("LocalPlayerInput", function(action)
     if action == Action.Jump then
         Chat.Print("Local player jumped!")
     end
