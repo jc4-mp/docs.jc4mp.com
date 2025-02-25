@@ -12,7 +12,7 @@ Example that teleports the local player to their aim position when they press F:
 
 ```lua
 Event.Add("KeyDown", function(key)
-    if key == string.byte("F") then
+    if key == Key.F then
         local localPlayer = Players.Local():GetGamePlayer()
         local char = localPlayer:GetCharacter()
         local aimPos = localPlayer:GetAimPosition()
@@ -29,7 +29,7 @@ Example that teleports the local player to their aim position when they press F:
 
 ```lua
 Event.Add("KeyUp", function(key)
-    if key == string.byte("F") then
+    if key == Key.F then
         local localPlayer = Players.Local():GetGamePlayer()
         local char = localPlayer:GetCharacter()
         local aimPos = localPlayer:GetAimPosition()
