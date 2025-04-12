@@ -2,12 +2,12 @@
 
 Server-related APIs.
 
-#### `World.SpawnVehicle(name: string, vec3: position): Vehicle`
+#### `World.SpawnVehicle(name: string, vec3: position, vec3: rotation): Vehicle`
 
-Spawns a vehicle at the given position.
+Spawns a vehicle at the given position with the given rotation.
 
 Example:
 ```lua
 -- Spawn a car at the airport
-World.SpawnVehicle("v024_car_ecosuper_racing_01", vec3(9503, 517, 8463))
+World.SpawnVehicle("v024_car_ecosuper_racing_01", vec3(9503, 517, 8463), vec3(0, 0, 0))
 ```
