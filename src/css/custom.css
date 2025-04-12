@@ -56,6 +56,11 @@
   margin-right: 0.5rem;
 }
 
+.category-reference > div > a::before {
+  content: "📚";
+  margin-right: 0.5rem;
+}
+
 html * {
   font-family: 'Geist', Arial, Helvetica, sans-serif;
 }
