@@ -2,6 +2,17 @@
 
 This is a list of all vehicles available in JC4MP. You can spawn vehicles in the world using the [`World.SpawnVehicle`](/server-api/world) function.
 
+Use the `name` field to spawn a specific vehicle. If you want to spawn a random vehicle with a specific tag, use a tag. For example:
+
+```lua
+-- Spawn an ATV
+World.SpawnVehicle("v000_car_atv_civilian_01", vec3(0, 0, 0), vec3(0, 0, 0))
+
+-- Spawn a random vehicle with the "atv" tag
+World.SpawnVehicle("atv", vec3(0, 0, 0), vec3(0, 0, 0))
+```
+
+If you want to spawn a random vehicle with a specific tag, use a tag. For example:
 
 ## Base Game Vehicles
 
