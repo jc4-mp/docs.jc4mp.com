@@ -19,129 +19,143 @@ These vehicles are included in the base Just Cause 4 game and are available to a
 
 ### Land Vehicles
 
-#### Rico Vehicles
-| Name | Tags |
-| ---- | ----------- |
-| Coyle Mambo (unused) <br/>`v017_car_vintagemuscle_civilian_02` | vehicle,land,car,rico |
-
-#### Mission/Event/Encounter Vehicles
-| Name | Tags |
-| ---- | ----------- |
-| `v804_treaded_snowmobile_civilian_mission_special` | vehicle,land,mission |
-| `v027_car_hurricanetruck_transport` | vehicle,land,mission |
-| `v027_car_hurricanetruck_tesla` | vehicle,land,mission |
-| `v034_car_oldtruck_commercial_cargo_sargento_intro` | vehicle,land,mission |
-| `v034_car_oldtruck_commercial_cargo_barrel_mission_special` | vehicle,land,mission |
-| `v012_car_apc_rebel_01_mission_special` | vehicle,land,mission |
-| `v902_trailer_lowloader_mobile_radar_upright_sargento_aiproxy_enabled` | vehicle,land,mission |
-| `v902_trailer_lowloader_mobile_radar_folded_sargento_aiproxy_enabled` | vehicle,land,mission |
-
 #### Backer Vehicles
 | Name | Tags |
 | ---- | ----------- |
-| `v035_car_modernvan_garland` | vehicle,land,garland_vehicle,garland_van |
-| `v000_car_atv_javi` | vehicle,land,javi_vehicle,javi_atv |
-| `v002_car_vintagesuv_javi` | vehicle,land,javi_vehicle,javi_jeep,javi_suv |
-| `v011_car_oldtwodoorhatch_sargento` | vehicle,land,sargento_vehicle,sargento_hatch |
-| `v040_car_oldcompact_sargento` | vehicle,land,sargento_vehicle,sargento_oldcompact |
-| `v308_bike_trials_javi` | vehicle,land,javi_vehicle,javi_bike |
+| Prisa Temerario ATV (brown paint only) <br/>`v000_car_atv_javi` | vehicle,land,javi_vehicle,javi_atv |
+| Pugilista SUV (brown paint only) <br/>`v002_car_vintagesuv_javi` | vehicle,land,javi_vehicle,javi_jeep,javi_suv |
+| Cadadía '83 hatchback <br/>`v011_car_oldtwodoorhatch_sargento` | vehicle,land,sargento_vehicle,sargento_hatch |
+| Garland King studios van <br/>`v035_car_modernvan_garland` | vehicle,land,garland_vehicle,garland_van |
+| Prisa Hidalgo <br/>`v040_car_oldcompact_sargento` | vehicle,land,sargento_vehicle,sargento_oldcompact |
+| Prisa Maradona Z (brown paint only) <br/>`v308_bike_trials_javi` | vehicle,land,javi_vehicle,javi_bike |
 
 #### Civilian Vehicles
 | Name | Tags |
 | ---- | ----------- |
-| `v804_treaded_snowmobile_civilian` | vehicle,land,snowmobile,civilian |
-| `v000_car_atv_civilian_01` | vehicle,land,car,civilian,atv,worldsim,alpine,rainforest,ocean |
-| `v002_car_vintagesuv_civilian` | vehicle,land,car,civilian,worldsim,desert,rainforest |
-| `v008_car_taxitrike_civilian` | vehicle,land,car,trike,civilian,taxi,worldsim,rainforest |
-| `v011_car_oldtwodoorhatch_civilian_01` | vehicle,land,car,civilian,worldsim,desert,rainforest,ocean |
-| `v036_car_modernpickup_civilian_01` | vehicle,land,car,civilian,worldsim,alpine,grassland,ocean,modern |
-| `v040_car_oldcompact_civilian_01` | vehicle,land,car,civilian,worldsim,desert,alpine,ocean |
-| `v038_car_modernsuv_civilian_01` | vehicle,land,car,civilian,worldsim,grassland,alpine,modern |
-| `v039_car_oldcampervan_civilian_01` | vehicle,land,car,civilian,worldsim,desert,rainforest |
-| `v021_car_sportsmuscle_civilian_01` | vehicle,land,car,civilian,takedown,sport,worldsim,grassland,alpine,modern |
-| `v023_car_racingsuper_civilian_01` | vehicle,land,car,civilian,takedown,sport,worldsim,grassland,ocean,modern |
-| `v032_car_luxurysportssedan_civilian_01` | vehicle,land,car,civilian,takedown,sport,worldsim,rainforest,alpine,modern |
-| `v026_car_vintagesports_civilian_01` | vehicle,land,car,civilian,sport,worldsim,desert,modern |
-| `v017_car_vintagemuscle_civilian` | vehicle,land,car,civilian,sport,worldsim,rainforest,alpine,modern |
-| `v024_car_ecosuper_civilian_01` | vehicle,land,car,civilian,takedown,sport,worldsim,desert,grassland,alpine,modern |
-| `v019_car_modernlimo_civilian_01` | vehicle,land,car,civilian,limo,vip,modern |
-| `v020_car_moderngrandtourer_civilian_01` | vehicle,land,car,civilian,takedown,vip,worldsim,alpine,desert,modern |
-| `v025_car_vintagesuper_civilian_01` | vehicle,land,car,civilian,takedown,sport,worldsim,desert,alpine,rainforest,modern |
-| `v033_car_modernmini_civilian_01` | vehicle,land,car,civilian,worldsim,grassland,ocean,modern |
-| `v031_car_racinghothatch_civilian_01` | vehicle,land,car,civilian,worldsim,alpine,modern |
-| `v307_bike_oldmoped_civilian_01` | vehicle,land,bike,civilian,rainforest,alpine,worldsim |
-| `v305_bike_oldroad_civilian_01` | vehicle,land,bike,civilian,rainforest,alpine,worldsim |
-| `v306_bike_modernroad_civilian_01` | vehicle,land,bike,civilian,sport,grassland,desert,modern,worldsim |
-| `v304_bike_modernsport_civilian_01` | vehicle,land,bike,civilian,sport,grassland,desert,modern,worldsim |
-| `v029_car_smallmodernsedan_civilian_01` | vehicle,land,car,civilian,worldsim,grassland,desert,modern |
-| `v029_car_smallmodernsedan_civilian_02` | vehicle,land,car,civilian,worldsim,grassland,desert,modern |
-| `v030_car_oldmini_civilian_01` | vehicle,land,car,civilian,worldsim,alpine,grassland |
-| `v042_car_racingsedan_civilian` | vehicle,land,car,civilian,sport,worldsim,grassland,rainforest,modern |
-| `v046_car_racingbuggy_civilian` | vehicle,land,car,civilian,buggy,worldsim,desert,rainforest,modern |
-| `v303_bike_modernsuper_civilian_01` | vehicle,land,bike,civilian,sport,worldsim,grassland,modern |
-| `v308_bike_trials_civilian_01` | vehicle,land,bike,civilian,worldsim,desert,rainforest |
-| `v022_car_moderncircuitracer_civilian_01` | vehicle,land,car,civilian,takedown |
-| `v018_car_monstertruck_civilian_01` | vehicle,land,car,monstertruck |
-| `v027_car_hurricanetruck_civilian` | vehicle,land,car,civilian,stormchaser,hurricane |
-| `v031_car_racinghothatch_encounter_takedown` | vehicle,land,encounter_car_takedown_target |
+| Prisa Temerario ATV <br/>`v000_car_atv_civilian_01` | vehicle,land,car,civilian,atv,worldsim,alpine,rainforest,ocean |
+| Pugilista SUV <br/>`v002_car_vintagesuv_civilian` | vehicle,land,car,civilian,worldsim,desert,rainforest |
+| Ritmo rickshaw <br/>`v008_car_taxitrike_civilian` | vehicle,land,car,trike,civilian,taxi,worldsim,rainforest |
+| Cadadía '83 hatchback <br/>`v011_car_oldtwodoorhatch_civilian_01` | vehicle,land,car,civilian,worldsim,desert,rainforest,ocean |
+| Coyle Mambo <br/>`v017_car_vintagemuscle_civilian` | vehicle,land,car,civilian,sport,worldsim,rainforest,alpine,modern |
+| Chupacabra <br/>`v018_car_monstertruck_civilian_01` | vehicle,land,car,monstertruck |
+| Kerner Charmant limo <br/>`v019_car_modernlimo_civilian_01` | vehicle,land,car,civilian,limo,vip,modern |
+| Kerner '16 Vigeur <br/>`v020_car_moderngrandtourer_civilian_01` | vehicle,land,car,civilian,takedown,vip,worldsim,alpine,desert,modern |
+| Kerner Serpente S <br/>`v021_car_sportsmuscle_civilian_01` | vehicle,land,car,civilian,takedown,sport,worldsim,grassland,alpine,modern |
+| Mugello Farina trio <br/>`v022_car_moderncircuitracer_civilian_01` | vehicle,land,car,civilian,takedown |
+| 2019 Vistosa supercar <br/>`v023_car_racingsuper_civilian_01` | vehicle,land,car,civilian,takedown,sport,worldsim,grassland,ocean,modern |
+| 2019 Vistosa supercar (unused racing version) <br/>`v023_car_racingsuper_racing_01` | vehicle,land,car,racing,takedown |
+| Verdeleon Eco <br/>`v024_car_ecosuper_civilian_01` | vehicle,land,car,civilian,takedown,sport,worldsim,desert,grassland,alpine,modern |
+| Verdeleon Eco (unused racing version) <br/>`v024_car_ecosuper_racing_01` | vehicle,land,car,racing,takedown |
+| Mugello Quipozza G <br/>`v025_car_vintagesuper_civilian_01` | vehicle,land,car,civilian,takedown,sport,worldsim,desert,alpine,rainforest,modern |
+| '69 Mugello Raffinati <br/>`v026_car_vintagesports_civilian_01` | vehicle,land,car,civilian,sport,worldsim,desert,modern |
+| Verdad 1 Stormchaser <br/>`v027_car_hurricanetruck_civilian` | vehicle,land,car,civilian,stormchaser,hurricane |
+| Cúmbila sedan (clean) <br/>`v029_car_smallmodernsedan_civilian_01` | vehicle,land,car,civilian,worldsim,grassland,desert,modern |
+| Cúmbila sedan (scratched) <br/>`v029_car_smallmodernsedan_civilian_02` | vehicle,land,car,civilian,worldsim,grassland,desert,modern |
+| Prisa Fresca <br/>`v030_car_oldmini_civilian_01` | vehicle,land,car,civilian,worldsim,alpine,grassland |
+| Prisa Rayo sport <br/>`v031_car_racinghothatch_civilian_01` | vehicle,land,car,civilian,worldsim,alpine,modern |
+| Prisa Rayo sport <br/>`v031_car_racinghothatch_encounter_takedown` | vehicle,land,encounter_car_takedown_target |
+| Sol 21 sport sedan <br/>`v032_car_luxurysportssedan_civilian_01` | vehicle,land,car,civilian,takedown,sport,worldsim,rainforest,alpine,modern |
+| Prisa Fresca X <br/>`v033_car_modernmini_civilian_01` | vehicle,land,car,civilian,worldsim,grassland,ocean,modern |
+| Pasofino pickup <br/>`v036_car_modernpickup_civilian_01` | vehicle,land,car,civilian,worldsim,alpine,grassland,ocean,modern |
+| Prisa Viento SUV <br/>`v038_car_modernsuv_civilian_01` | vehicle,land,car,civilian,worldsim,grassland,alpine,modern |
+| Caravana camper <br/>`v039_car_oldcampervan_civilian_01` | vehicle,land,car,civilian,worldsim,desert,rainforest |
+| Prisa Hidalgo <br/>`v040_car_oldcompact_civilian_01` | vehicle,land,car,civilian,worldsim,desert,alpine,ocean |
+| Prisa Azor 3 <br/>`v042_car_racingsedan_civilian` | vehicle,land,car,civilian,sport,worldsim,grassland,rainforest,modern |
+| Prisa Azor 3 (unused racing version) <br/>`v042_car_racingsedan_racing_01` | vehicle,land,car,racing |
+| Vagabundo buggy <br/>`v046_car_racingbuggy_civilian` | vehicle,land,car,civilian,buggy,worldsim,desert,rainforest,modern |
+| Vagabundo buggy (unused racing version) <br/>`v046_car_racingbuggy_racing_01` | vehicle,land,car,racing,buggy |
+| Toy offroader <br/>`v050_car_toyjeep_civilian` | vehicle,land,car,toy,jeep |
+| Mugello V405 bike <br/>`v303_bike_modernsuper_civilian_01` | vehicle,land,bike,civilian,sport,worldsim,grassland,modern |
+| Furia sportbike <br/>`v304_bike_modernsport_civilian_01` | vehicle,land,bike,civilian,sport,grassland,desert,modern,worldsim |
+| Prisa X-2 bike <br/>`v305_bike_oldroad_civilian_01` | vehicle,land,bike,civilian,rainforest,alpine,worldsim |
+| Prisa Viveza bike <br/>`v306_bike_modernroad_civilian_01` | vehicle,land,bike,civilian,sport,grassland,desert,modern,worldsim |
+| Prisa Tía moped <br/>`v307_bike_oldmoped_civilian_01` | vehicle,land,bike,civilian,rainforest,alpine,worldsim |
+| Prisa Maradona Z <br/>`v308_bike_trials_civilian_01` | vehicle,land,bike,civilian,worldsim,desert,rainforest |
+| Alpinista snowmobile <br/>`v804_treaded_snowmobile_civilian` | vehicle,land,snowmobile,civilian |
 
 #### Commercial Vehicles
 | Name | Tags |
 | ---- | ----------- |
-| `v009_car_armoredtruck_commercial_01` | vehicle,land,car,van,civilian,worldsim,alpine,modern |
-| `v037_car_modernbus_commercial_01` | vehicle,land,bus,civilian,worldsim,grassland,modern |
-| `v035_car_modernvan_commercial_01` | vehicle,land,car,van,civilian,worldsim,rainforest,desert,modern |
-| `v034_car_oldtruck_commercial_01` | vehicle,land,truck,civilian,cargo,worldsim,rainforest,desert |
-| `v034_car_oldtruck_commercial_cargo_barrel` | vehicle,land,truck,civilian,cargo |
-| `v034_car_oldtruck_commercial_cargo_random` | vehicle,land,truck,civilian |
-| `v035_car_modernvan_civic_ambulance_01` | vehicle,land,van,civilian,ambulance |
+| Camión truck <br/>`v004_car_articulatedtruck_commercial_01` | vehicle,land,truck,civilian |
+| Camión truck with cargo trailer <br/>`v004_car_articulatedtruck_commercial_cargo_trailer` | vehicle,land,truck,civilian,cargo,worldsim,grassland,modern |
+| Camión truck with car trailer <br/>`v004_car_articulatedtruck_commercial_cartransport_trailer` | vehicle,land,truck,civilian,cargo |
+| Camión truck with flatbed trailer <br/>`v004_car_articulatedtruck_commercial_lowloader_trailer` | vehicle,land,truck,civilian,cargo,worldsim,rainforest,modern |
+| Camión truck with signaljammer trailer <br/>`v004_car_articulatedtruck_commercial_radarjammer_trailer` | vehicle,land,truck,civilian,cargo |
+| Camión truck with random trailer <br/>`v004_car_articulatedtruck_commercial_randomtrailer` | vehicle,land,truck,civilian |
+| Camión truck with SAM trailer <br/>`v004_car_articulatedtruck_commercial_smallmobileweapon_trailer` | vehicle,land,truck,civilian,cargo |
+| Forzudo armored VAN <br/>`v009_car_armoredtruck_commercial_01` | vehicle,land,car,van,civilian,worldsim,alpine,modern |
+| Ranchero truck <br/>`v034_car_oldtruck_commercial_01` | vehicle,land,truck,civilian,cargo,worldsim,rainforest,desert |
+| Ranchero truck with explosive barrels <br/>`v034_car_oldtruck_commercial_cargo_barrel` | vehicle,land,truck,civilian,cargo |
+| Ranchero truck <br/>`v034_car_oldtruck_commercial_cargo_random` | vehicle,land,truck,civilian |
+| Prisa Calzada van truck <br/>`v035_car_modernvan_civic_ambulance_01` | vehicle,land,van,civilian,ambulance |
+| Calzada ambulancia <br/>`v035_car_modernvan_commercial_01` | vehicle,land,car,van,civilian,worldsim,rainforest,desert,modern |
+| Prisa Viajero bus <br/>`v037_car_modernbus_commercial_01` | vehicle,land,bus,civilian,worldsim,grassland,modern |
+| Car trailer <br/>`v901_trailer_cartransport_commercial` | vehicle,land,trailer |
 
 #### Industrial Vehicles
 | Name | Tags |
 | ---- | ----------- |
-| `v010_car_oldtractor_civilian_01` | vehicle,land,tractor,civilian |
-| `v045_car_minetruck_commercial_01` | vehicle,land,minetruck,civilian,industrial |
-| `v902_trailer_lowloader_commercial` | vehicle,land,trailer,civilian |
-| `v903_trailer_cargo_commercial` | vehicle,land,trailer,cargo,civilian |
-| `v901_trailer_cartransport_commercial` | vehicle,land,trailer |
-| `v003_car_crane_industrial` | vehicle,land,crane,civilian,industrial |
-| `v006_car_conveyorcrane_industrial` | vehicle,land,conveyor,civilian,industrial |
-| `v005_car_wheelloader_industrial` | vehicle,land,wheelloader,civilian,industrial |
-| `v001_car_forklift_industrial` | vehicle,land,forklift,industrial |
+| Armadillo forklift <br/>`v001_car_forklift_industrial` | vehicle,land,forklift,industrial |
+| Armadillo crane truck <br/>`v003_car_crane_industrial` | vehicle,land,crane,civilian,industrial |
+| Wheel loader <br/>`v005_car_wheelloader_industrial` | vehicle,land,wheelloader,civilian,industrial |
+| Banda conveyor <br/>`v006_car_conveyorcrane_industrial` | vehicle,land,conveyor,civilian,industrial |
+| Modelo 4 tractor <br/>`v010_car_oldtractor_civilian_01` | vehicle,land,tractor,civilian |
+| Armadillo 9M <br/>`v045_car_minetruck_commercial_01` | vehicle,land,minetruck,civilian,industrial |
+| Flatbed trailer <br/>`v902_trailer_lowloader_commercial` | vehicle,land,trailer,civilian |
+| Flatbed trailer with radar (folded) <br/>`v902_trailer_lowloader_mobile_radar_folded` | v902_trailer_lowloader_mobile_radar_folded |
+| Flatbed trailer with radar (folded) <br/>`v902_trailer_lowloader_mobile_radar_folded_sargento_aiproxy_enabled` | vehicle,land,mission |
+| Flatbed trailer with radar (extended) <br/>`v902_trailer_lowloader_mobile_radar_upright` | v902_trailer_lowloader_mobile_radar_upright |
+| Flatbed trailer with radar (extended) <br/>`v902_trailer_lowloader_mobile_radar_upright_sargento_aiproxy_enabled` | vehicle,land,mission |
+| Cargo trailer <br/>`v903_trailer_cargo_commercial` | vehicle,land,trailer,cargo,civilian |
 
 #### Military Vehicles
 | Name | Tags |
 | ---- | ----------- |
-| `v802_treaded_aatank_military` | vehicle,land,tank,military,aa,armed,heat_worldsim,liberated,alpine,rainforest,desert |
-| `v015_car_cannontruck_military` | vehicle,land,truck,military,cannon,armed,heat_worldsim,desert,oppressed |
-| `v014_car_offroadtruck_military_01` | vehicle,land,car,military,heat_worldsim,alpine,grassland |
-| `v013_car_armoredtransport_military_01` | vehicle,land,truck,military,armed,heat_worldsim,desert,grassland,oppressed |
-| `v046_car_racingbuggy_military` | vehicle,land,car,military,heat_worldsim,desert,rainforest |
-| `v800_treaded_modernheavytank_military_01` | vehicle,land,tank,military,heat_worldsim,grassland,oppressed,armed,scanner_v800 |
-| `v801_treaded_mediumtank_military_01` | vehicle,land,tank,military,armed,heat_worldsim,desert,alpine,oppressed |
-| `v803_treaded_flexturrettank_military` | vehicle,land,tank,military,armed,heat_worldsim,rainforest,oppressed,scanner_v803 |
-| `v012_car_apc_military_01` | vehicle,land,truck,apc,military,armed,heat_worldsim,rainforest,grassland,oppressed |
-| `v301_bike_combatdirt_military_01` | vehicle,land,bike,military,heat_worldsim,rainforest,grassland,desert |
-| `v907_trailer_radarjammer_military` | vehicle,land,trailer,military,radar |
-| `v904_trailer_smallmobileweapon_military` | vehicle,land,trailer,military,sam,armed |
-| `v016_car_armoredarticulatedtruck_military` | vehicle,land,truck,military |
-| `v016_car_armoredarticulatedtruck_military_generator` | vehicle,land,military,heat_worldsim,desert,rainforest,grassland,alpine |
+| Reptile AAV <br/>`v012_car_apc_military_01` | vehicle,land,truck,apc,military,armed,heat_worldsim,rainforest,grassland,oppressed |
+| Cavalry armored truck <br/>`v013_car_armoredtransport_military_01` | vehicle,land,truck,military,armed,heat_worldsim,desert,grassland,oppressed |
+| Warrior offroader <br/>`v014_car_offroadtruck_military_01` | vehicle,land,car,military,heat_worldsim,alpine,grassland |
+| Longbow cannon truck <br/>`v015_car_cannontruck_military` | vehicle,land,truck,military,cannon,armed,heat_worldsim,desert,oppressed |
+| Prospero hauler <br/>`v016_car_armoredarticulatedtruck_military` | vehicle,land,truck,military |
+| Prospero hauler with generator <br/>`v016_car_armoredarticulatedtruck_military_generator` | vehicle,land,military,heat_worldsim,desert,rainforest,grassland,alpine |
+| Vagabundo buggy <br/>`v046_car_racingbuggy_military` | vehicle,land,car,military,heat_worldsim,desert,rainforest |
+| Prospero Hunter bike <br/>`v301_bike_combatdirt_military_01` | vehicle,land,bike,military,heat_worldsim,rainforest,grassland,desert |
+| Warchief assault tank <br/>`v800_treaded_modernheavytank_military_01` | vehicle,land,tank,military,heat_worldsim,grassland,oppressed,armed,scanner_v800 |
+| Prizefighter tank <br/>`v801_treaded_mediumtank_military_01` | vehicle,land,tank,military,armed,heat_worldsim,desert,alpine,oppressed |
+| Falconer AA tank <br/>`v802_treaded_aatank_military` | vehicle,land,tank,military,aa,armed,heat_worldsim,liberated,alpine,rainforest,desert |
+| Pointman scout tank <br/>`v803_treaded_flexturrettank_military` | vehicle,land,tank,military,armed,heat_worldsim,rainforest,oppressed,scanner_v803 |
+| Huntsman SAM launcher <br/>`v904_trailer_smallmobileweapon_military` | vehicle,land,trailer,military,sam,armed |
+| Prospero signal jammer <br/>`v907_trailer_radarjammer_military` | vehicle,land,trailer,military,radar |
+
+#### Mission vehicles
+| Name | Tags |
+| ---- | ----------- |
+| Ion coil Stormchaser <br/>`v027_car_hurricanetruck_tesla` | vehicle,land,mission |
+| Tied down Ion coil Stormchaser (not usable) <br/>`v027_car_hurricanetruck_transport` | vehicle,land,mission |
+| Ranchero truck with weapon shipment box <br/>`v034_car_oldtruck_commercial_cargo_sargento_intro` | vehicle,land,mission |
+| Ranchero truck with explosive barrels <br/>`v034_car_oldtruck_commercial_cargo_barrel_mission_special` | vehicle,land,mission |
+| Alpinista snowmobile <br/>`v804_treaded_snowmobile_civilian_mission_special` | vehicle,land,mission |
 
 #### Rebel Vehicles
 | Name | Tags |
 | ---- | ----------- |
-| `v802_treaded_aatank_rebel` | vehicle,land,tank,rebel,aa,armed |
-| `v803_treaded_flexturrettank_rebel` | vehicle,land,tank,rebel,armed,scanner_v803 |
-| `v015_car_cannontruck_rebel` | vehicle,land,truck,rebel,cannon,armed |
-| `v014_car_offroadtruck_rebel_01` | vehicle,land,car,rebel,heat_worldsim,desert,grassland,rainforest,alpine |
-| `v013_car_armoredtransport_rebel_01` | vehicle,land,truck,rebel,armed,heat_worldsim,desert,rainforest,liberated |
-| `v016_car_armoredarticulatedtruck_rebel` | vehicle,land,truck,rebel,heat_worldsim,desert,rainforest,liberated |
-| `v800_treaded_modernheavytank_rebel_01` | vehicle,land,tank,rebel,armed,scanner_v800,heat_worldsim,grassland,liberated |
-| `v801_treaded_mediumtank_rebel_01` | vehicle,land,tank,rebel,armed,heat_worldsim,rainforest,desert,liberated |
-| `v012_car_apc_rebel_01` | vehicle,land,truck,apc,rebel,armed,heat_worldsim,rainforest,grassland |
-| `v301_bike_combatdirt_rebel_01` | vehicle,land,bike,rebel,heat_worldsim,rainforest,desert |
-| `v904_trailer_smallmobileweapon_rebel` | vehicle,land,trailer,sam,rebel,armed |
-| `v002_car_vintagesuv_rebel` | vehicle,land,car,rebel,heat_worldsim,grassland,alpine,rainforest |
+| Pugilista SUV <br/>`v002_car_vintagesuv_rebel` | vehicle,land,car,rebel,heat_worldsim,grassland,alpine,rainforest |
+| Reptile AAV <br/>`v012_car_apc_rebel_01` | vehicle,land,truck,apc,rebel,armed,heat_worldsim,rainforest,grassland |
+| Reptile AAV <br/>`v012_car_apc_rebel_01_mission_special` | vehicle,land,mission |
+| Cavalry armored truck <br/>`v013_car_armoredtransport_rebel_01` | vehicle,land,truck,rebel,armed,heat_worldsim,desert,rainforest,liberated |
+| Warrior offroader <br/>`v014_car_offroadtruck_rebel_01` | vehicle,land,car,rebel,heat_worldsim,desert,grassland,rainforest,alpine |
+| Longbow cannon truck <br/>`v015_car_cannontruck_rebel` | vehicle,land,truck,rebel,cannon,armed |
+| Prospero hauler <br/>`v016_car_armoredarticulatedtruck_rebel` | vehicle,land,truck,rebel,heat_worldsim,desert,rainforest,liberated |
+| Prospero Hunter bike <br/>`v301_bike_combatdirt_rebel_01` | vehicle,land,bike,rebel,heat_worldsim,rainforest,desert |
+| Warchief assault tank <br/>`v800_treaded_modernheavytank_rebel_01` | vehicle,land,tank,rebel,armed,scanner_v800,heat_worldsim,grassland,liberated |
+| Prizefighter tank <br/>`v801_treaded_mediumtank_rebel_01` | vehicle,land,tank,rebel,armed,heat_worldsim,rainforest,desert,liberated |
+| Falconer AA tank <br/>`v802_treaded_aatank_rebel` | vehicle,land,tank,rebel,aa,armed |
+| Pointman scout tank <br/>`v803_treaded_flexturrettank_rebel` | vehicle,land,tank,rebel,armed,scanner_v803 |
+| Huntsman SAM launcher <br/>`v904_trailer_smallmobileweapon_rebel` | vehicle,land,trailer,sam,rebel,armed |
+
+#### Rico Vehicles
+| Name | Tags |
+| ---- | ----------- |
+| Coyle Mambo (unused, black paint only) <br/>`v017_car_vintagemuscle_civilian_02` | vehicle,land,car,rico |
 
 ### Sea Vehicles
 
