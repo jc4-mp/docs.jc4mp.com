@@ -22,7 +22,7 @@ These vehicles are included in the base Just Cause 4 game and are available to a
 #### Rico Vehicles
 | Name | Tags |
 | ---- | ----------- |
-| `v017_car_vintagemuscle_civilian_02` | vehicle,land,car,rico |
+| Coyle Mambo (unused) <br/>`v017_car_vintagemuscle_civilian_02` | vehicle,land,car,rico |
 
 #### Mission/Event/Encounter Vehicles
 | Name | Tags |
