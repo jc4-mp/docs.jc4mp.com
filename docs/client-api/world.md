@@ -2,6 +2,8 @@
 
 APIs related to the Just Cause 4 game world.
 
+## Global Methods
+
 #### `World.SetTime(value: number)`
 
 Sets the current world time. 12 is noon, and 0 is midnight.

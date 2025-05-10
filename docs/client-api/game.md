@@ -1,5 +1,7 @@
 # Game
 
+## Global Methods
+
 #### `Game.SetFOV(value: number)`
 
 Sets the FOV of the game. The default value is 1.

@@ -21,6 +21,8 @@ end)
 
 In the above example, only the first `Render` event will work properly and draw a line to the screen. The second render event will not work - a line will not be drawn to the screen because an event with the name `Render` has already been added.
 
+## Global Methods
+
 #### `Event.Add(event: string, handler: function)`
 
 Adds an event handler for the specified event name.

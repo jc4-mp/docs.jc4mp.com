@@ -2,6 +2,8 @@
 
 These network APIs allow you to send data to the server and receive data from the server.
 
+## Global Methods
+
 #### `Net.Send(event: string, data: any)`
 
 Triggers a corresponding server event in any resource with the same event name. `data` is not required. Any type of data except functions is valid, including strings, numbers, tables, metatables, etc.

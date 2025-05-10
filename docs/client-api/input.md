@@ -69,7 +69,7 @@ Event.Add("LocalPlayerInput", function(action)
 end)
 ```
 
-## Methods
+## Global Methods
 
 #### `Input.SetEnabled(enabled: boolean)`
 

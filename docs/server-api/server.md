@@ -2,6 +2,8 @@
 
 Server-related APIs.
 
+## Global Methods and Properties
+
 #### `Server.Version`
 
 Returns the current JC4MP server version (eg. 1.0.0) as a string.

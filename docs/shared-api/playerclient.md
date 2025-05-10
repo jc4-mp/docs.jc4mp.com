@@ -1,0 +1,12 @@
+# PlayerClient
+
+A player's client instance. You can use this class to get information about the player, such as their NetPlayer.
+
+For more information, see the [PlayerClient on the client](/client-api/player-client) or [PlayerClient on the server](/server-api/player-client).
+
+
+## Class Instance Methods
+
+#### `PlayerClient:GetNetPlayer(): NetPlayer`
+
+Returns the [NetPlayer](/client-api/netplayer) associated with this PlayerClient.

@@ -7,27 +7,35 @@ local playerClient = Players.Local()
 local localPlayer = playerClient:GetGamePlayer()
 ```
 
+## Player Class Hierarchy
+
+The diagram shows the inheritance hierarchy of player-related classes. To navigate between classes:
+- Get a `PlayerClient` using `Players.Local()`
+- Get the `NetPlayer` from a `PlayerClient` using `:GetNetPlayer()`
+- Get the `Player` from a `NetPlayer` using `:GetGamePlayer()`
+- Get the `Character` from a `Player` using `:GetCharacter()`
+
+
+```mermaid
+flowchart LR
+  PlayerClient --> NetPlayer
+  NetPlayer --> Player
+  Player --> Character
+  click PlayerClient href "/client-api/player-client" "PlayerClient"
+  click NetPlayer href "/client-api/net-player" "NetPlayer"
+  click Player href "/client-api/player" "Player"
+  click Character href "/client-api/character" "Character"
+```
+
+### Class Instance Methods
+
 #### `Player:GetCharacter(): Character`
 
 Returns the Player's [Character](/client-api/character).
 
 #### `Player:EnableAbility(ability: Ability)`
 
-Enables an ability for a given Player. `ability` must be one of these abilities from the global `Ability` table:
-
-| Ability                           | Description                                                                 |
-|----------------------------------|-----------------------------------------------------------------------------|
-| `Ability.Tether`                   | Allows the player to connect two objects or players together with the grapplehook.|
-| `Ability.RetractTether`            | Allows the player to pull tethered objects or players towards each other.                        |
-| `Ability.Wingsuit`                 | Allows the player to use the wingsuit.                          |
-| `Ability.PlantedExplosives`        | Allows placement of explosives that can be detonated remotely.               |
-| `Ability.Parachute`                | Allows the player to use the parachute.            |
-| `Ability.ParachuteSlingshot`       | Allows the player to use the grapplehook while parachuting.  |
-| `Ability.GrapplingHook`            | Controls whether or not the grappling hook is enabled.             |
-| `Ability.Hammer`                   | Allows the player to use the grapplehook melee ability.                                                  |
-| `Ability.MultiplePlantedExplosives`| Enables placement of multiple explosives simultaneously.                    |
-| `Ability.Grenades`                 | Allows the player to use grenades.                        |
-| `Ability.ExitVehicle`              | Allows the player to quickly exit any vehicle.                     |
+Enables an ability for a given Player. `ability` must be one of these abilities from the global [`Ability` table](/client-api/ability).
 
 Example of enabling the local player's ability to use the wingsuit:
 ```lua

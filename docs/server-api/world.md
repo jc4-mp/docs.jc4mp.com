@@ -2,6 +2,8 @@
 
 World-related APIs.
 
+## Global Methods
+
 #### `World.SpawnVehicle(name: string, vec3: position, vec3: rotation): Vehicle`
 
 Spawns a vehicle at the given position with the given rotation. For a complete list of vehicle names, see [Vehicle List](/reference/vehicle-list).

@@ -7,6 +7,29 @@ local character = Players.Local()
 local localChar = playerClient:GetCharacter()
 ```
 
+
+## Player Class Hierarchy
+
+The diagram shows the inheritance hierarchy of player-related classes. To navigate between classes:
+- Get a `PlayerClient` using `Players.Local()`
+- Get the `NetPlayer` from a `PlayerClient` using `:GetNetPlayer()`
+- Get the `Player` from a `NetPlayer` using `:GetGamePlayer()`
+- Get the `Character` from a `Player` using `:GetCharacter()`
+
+
+```mermaid
+flowchart LR
+  PlayerClient --> NetPlayer
+  NetPlayer --> Player
+  Player --> Character
+  click PlayerClient href "/client-api/player-client" "PlayerClient"
+  click NetPlayer href "/client-api/net-player" "NetPlayer"
+  click Player href "/client-api/player" "Player"
+  click Character href "/client-api/character" "Character"
+```
+
+## Class Instance Methods
+
 #### `Character:GetPosition(): vec3`
 
 Returns the Character's position in the world.

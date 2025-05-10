@@ -2,6 +2,8 @@
 
 Client-related APIs.
 
+## Global Methods and Properties
+
 #### `Client.Version`
 
 Returns the current JC4MP client version (eg. 1.0.0) as a string.

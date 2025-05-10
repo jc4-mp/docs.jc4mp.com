@@ -2,6 +2,8 @@
 
 Chat-related APIs.
 
+## Global Methods
+
 #### `Chat.Print(text: string)`
 
 Prints a string of text to the chat. The chat message only appears on this client's chat.

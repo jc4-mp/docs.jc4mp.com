@@ -2,6 +2,8 @@
 
 These network APIs allow you to send data to players and receive data from players.
 
+## Global Methods
+
 #### `Net.Send(player: Player, event: string, data: any)`
 
 Triggers a corresponding client event for a specific player in any resource with the same event name. `data` is not required. Any type of data except functions is valid, including strings, numbers, tables, metatables, etc.

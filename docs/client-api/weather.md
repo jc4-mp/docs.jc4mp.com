@@ -1,5 +1,7 @@
 # Weather
 
+## Global Methods
+
 #### `Weather.StrikeLightning(position: vec3, color: vec3)`
 
 Create a lightning strike at a position with the specified color (r, g, b). The color values should be in the range from 0 to 1.

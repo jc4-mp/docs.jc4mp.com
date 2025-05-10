@@ -1,0 +1,17 @@
+# PlayerClient
+
+A player's client instance. Inherits from the shared [PlayerClient](/shared-api/playerclient) class.
+
+## Player Class Hierarchy
+
+The diagram shows the inheritance hierarchy of player-related classes. To navigate between classes:
+- Get a `PlayerClient`
+- Get the `NetPlayer` from a `PlayerClient` using `:GetNetPlayer()`
+
+
+```mermaid
+flowchart LR
+  PlayerClient --> NetPlayer
+  click PlayerClient href "/server-api/player-client" "PlayerClient"
+  click NetPlayer href "/server-api/net-player" "NetPlayer"
+```
