@@ -22,8 +22,8 @@ flowchart LR
   PlayerClient --> NetPlayer
   NetPlayer --> Player
   Player --> Character
-  click PlayerClient href "/client-api/player-client" "PlayerClient"
-  click NetPlayer href "/client-api/net-player" "NetPlayer"
+  click PlayerClient href "/client-api/playerclient" "PlayerClient"
+  click NetPlayer href "/client-api/netplayer" "NetPlayer"
   click Player href "/client-api/player" "Player"
   click Character href "/client-api/character" "Character"
 ```

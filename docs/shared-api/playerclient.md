@@ -2,7 +2,7 @@
 
 A player's client instance. You can use this class to get information about the player, such as their NetPlayer.
 
-For more information, see the [PlayerClient on the client](/client-api/player-client) or [PlayerClient on the server](/server-api/player-client).
+For more information, see the [PlayerClient on the client](/client-api/playerclient) or [PlayerClient on the server](/server-api/playerclient).
 
 
 ## Class Instance Methods
