@@ -17,7 +17,7 @@ World.SpawnVehicle("atv", vec3(0, 0, 0), vec3(0, 0, 0))
 These vehicles are included in the base Just Cause 4 game and are available to all players.
 
 
-### Land Vehicles
+### Land vehicles
 
 #### Backer Vehicles
 | Name | Tags |
@@ -29,7 +29,22 @@ These vehicles are included in the base Just Cause 4 game and are available to a
 | Prisa Hidalgo <br/>`v040_car_oldcompact_sargento` | vehicle,land,sargento_vehicle,sargento_oldcompact |
 | Prisa Maradona Z (brown paint only) <br/>`v308_bike_trials_javi` | vehicle,land,javi_vehicle,javi_bike |
 
-#### Civilian Vehicles
+#### Rigged vehicles
+| Name | Tags |
+| ---- | ----------- |
+| Rigged Coyle Mambo <br/>`v017_car_vintagemuscle_bomb_special` | vehicle,land,car,bomb_special |
+| Rigged Chupacabra <br/>`v018_car_monstertruck_bomb_special` | vehicle,land,car,bomb_special |
+| Rigged Charmant Limo <br/>`v019_car_modernlimo_bomb_special` | vehicle,land,car,bomb_special |
+| Rigged Serpente S <br/>`v021_car_sportsmuscle_bomb_special` | vehicle,land,car,bomb_special |
+| Rigged Mugello Farina Trio <br/>`v022_car_moderncircuitracer_bomb_special` | vehicle,land,car,bomb_special |
+| Rigged Mugello Vistosa <br/>`v023_car_racingsuper_bomb_special` | vehicle,land,car,bomb_special |
+| Rigged Verdeleon Eco <br/>`v024_car_ecosuper_bomb_special` | vehicle,land,car,bomb_special |
+| Rigged Quipozza G <br/>`v025_car_vintagesuper_bomb_special` | vehicle,land,car,bomb_special |
+| Rigged Raffinati <br/>`v026_car_vintagesports_bomb_special` | vehicle,land,car,bomb_special |
+| Rigged Mugello V405 <br/>`v303_bike_modernsuper_bomb_special` | vehicle,land,bike,bomb_special |
+| Rigged Furia Bike <br/>`v304_bike_modernsport_bomb_special` | vehicle,land,bike,bomb_special |
+
+#### Civilian vehicles
 | Name | Tags |
 | ---- | ----------- |
 | Prisa Temerario ATV <br/>`v000_car_atv_civilian_01` | vehicle,land,car,civilian,atv,worldsim,alpine,rainforest,ocean |
@@ -73,7 +88,7 @@ These vehicles are included in the base Just Cause 4 game and are available to a
 | Prisa Maradona Z <br/>`v308_bike_trials_civilian_01` | vehicle,land,bike,civilian,worldsim,desert,rainforest |
 | Alpinista snowmobile <br/>`v804_treaded_snowmobile_civilian` | vehicle,land,snowmobile,civilian |
 
-#### Commercial Vehicles
+#### Commercial vehicles
 | Name | Tags |
 | ---- | ----------- |
 | Camión truck <br/>`v004_car_articulatedtruck_commercial_01` | vehicle,land,truck,civilian |
@@ -92,7 +107,7 @@ These vehicles are included in the base Just Cause 4 game and are available to a
 | Prisa Viajero bus <br/>`v037_car_modernbus_commercial_01` | vehicle,land,bus,civilian,worldsim,grassland,modern |
 | Car trailer <br/>`v901_trailer_cartransport_commercial` | vehicle,land,trailer |
 
-#### Industrial Vehicles
+#### Industrial vehicles
 | Name | Tags |
 | ---- | ----------- |
 | Armadillo forklift <br/>`v001_car_forklift_industrial` | vehicle,land,forklift,industrial |
@@ -108,7 +123,7 @@ These vehicles are included in the base Just Cause 4 game and are available to a
 | Flatbed trailer with radar (extended) <br/>`v902_trailer_lowloader_mobile_radar_upright_sargento_aiproxy_enabled` | vehicle,land,mission |
 | Cargo trailer <br/>`v903_trailer_cargo_commercial` | vehicle,land,trailer,cargo,civilian |
 
-#### Military Vehicles
+#### Military vehicles
 | Name | Tags |
 | ---- | ----------- |
 | Reptile AAV <br/>`v012_car_apc_military_01` | vehicle,land,truck,apc,military,armed,heat_worldsim,rainforest,grassland,oppressed |
@@ -135,7 +150,7 @@ These vehicles are included in the base Just Cause 4 game and are available to a
 | Ranchero truck with explosive barrels <br/>`v034_car_oldtruck_commercial_cargo_barrel_mission_special` | vehicle,land,mission |
 | Alpinista snowmobile <br/>`v804_treaded_snowmobile_civilian_mission_special` | vehicle,land,mission |
 
-#### Rebel Vehicles
+#### Rebel vehicles
 | Name | Tags |
 | ---- | ----------- |
 | Pugilista SUV <br/>`v002_car_vintagesuv_rebel` | vehicle,land,car,rebel,heat_worldsim,grassland,alpine,rainforest |
@@ -152,118 +167,137 @@ These vehicles are included in the base Just Cause 4 game and are available to a
 | Pointman scout tank <br/>`v803_treaded_flexturrettank_rebel` | vehicle,land,tank,rebel,armed,scanner_v803 |
 | Huntsman SAM launcher <br/>`v904_trailer_smallmobileweapon_rebel` | vehicle,land,trailer,sam,rebel,armed |
 
-#### Rico Vehicles
+#### Rico vehicles
 | Name | Tags |
 | ---- | ----------- |
 | Coyle Mambo (unused, black paint only) <br/>`v017_car_vintagemuscle_civilian_02` | vehicle,land,car,rico |
 
 ### Sea Vehicles
 
-#### Mission/Event/Encounter Vehicles
+#### Rigged vehicles
 | Name | Tags |
 | ---- | ----------- |
-| `v104_boat_landingtransport_commercial_signal_jammer` | vehicle,sea,mission |
-| `v104_boat_landingtransport_commercial_lightningrod_escort` | vehicle,sea,mission |
-| `v102_boat_heavypatrol_lightning` | vehicle,sea,mission |
-| `v108_boat_largeoldfishing_civilian_01_garland_intro` | vehicle,sea,mission |
-| `v109_boat_ferry_commercial_garlandintro` | vehicle,sea,mission |
+| Rigged Dame de la mer <br/>`v106_boat_motoryacht_bomb_special` | vehicle,sea,boat,bomb_special |
+| Rigged Pescespada SX <br/>`v107_boat_racingboat_bomb_special` | vehicle,sea,boat,bomb_special |
 
-#### Civilian Vehicles
+#### Civilian vehicles
 | Name | Tags |
 | ---- | ----------- |
-| `v106_boat_motoryacht_civilian_01` | vehicle,sea,boat,civilian,worldsim,grassland,rainforest,ocean,modern |
-| `v108_boat_largeoldfishing_civilian_01` | vehicle,sea,boat,civilian,fishing,worldsim,desert,rainforest,ocean |
-| `v107_boat_racingboat_civilian_01` | vehicle,sea,boat,civilian,worldsim,grassland,ocean,modern |
-| `v110_boat_jetski_civilian_01` | vehicle,sea,jetski,civilian,worldsim,grassland,rainforest,modern |
-| `v105_boat_sailboat_civilian_01` | vehicle,sea,boat,civilian,worldsim,modern |
-| `v100_boat_fanboat_civilian` | vehicle,sea,boat,civilian,worldsim,rainforest |
-| `v109_boat_ferry_commercial` | vehicle,sea,ferry,civilian |
+| Dondequiera fanboat <br/>`v100_boat_fanboat_civilian` | vehicle,sea,boat,civilian,worldsim,rainforest |
+| Kerner Brise 42 <br/>`v105_boat_sailboat_civilian_01` | vehicle,sea,boat,civilian,worldsim,modern |
+| Dame de la mer yacht <br/>`v106_boat_motoryacht_civilian_01` | vehicle,sea,boat,civilian,worldsim,grassland,rainforest,ocean,modern |
+| Mugello Pescespada SX <br/>`v107_boat_racingboat_civilian_01` | vehicle,sea,boat,civilian,worldsim,grassland,ocean,modern |
+| Fishing boat <br/>`v108_boat_largeoldfishing_civilian_01` | vehicle,sea,boat,civilian,fishing,worldsim,desert,rainforest,ocean |
+| Prisa Chapoteo <br/>`v110_boat_jetski_civilian_01` | vehicle,sea,jetski,civilian,worldsim,grassland,rainforest,modern |
+
+#### Commercial vehicles
+| Name | Tags |
+| ---- | ----------- |
+| Barco Roro ferry <br/>`v109_boat_ferry_cmmercial` | vehicle,sea,boat,bomb_special |
+
+#### Military vehicles
+| Name | Tags |
+| ---- | ----------- |
+| Daggershark jetboat <br/>`v101_boat_smalljet_military` | vehicle,sea,boat,military,armed,heat_worldsim,rainforest,scanner_v101 |
+| Stromwater patrol boat <br/>`v102_boat_heavypatrol_military_01` | vehicle,sea,boat,military,armed,heat_worldsim,rainforest,ocean,oppressed,scanner_v102 |
+| Conquistador warship <br/>`v103_boat_corvette_military_01` | vehicle,sea,boat,ship,military,armed,heat_worldsim,ocean |
+| Spearhead transport <br/>`v104_boat_landingtransport_commercial` | vehicle,sea,ship,transport,military |
+
+#### Mission vehicles
+| Name | Tags |
+| ---- | ----------- |
+| Thunderbarge <br/>`v102_boat_heavypatrol_lightning` | vehicle,sea,mission |
+| Spearhead transport <br/>`v104_boat_landingtransport_commercial_lightningrod_escort` | vehicle,sea,mission |
+| Spearhead transport with signal jammer <br/>`v104_boat_landingtransport_commercial_signal_jammer` | vehicle,sea,mission |
+| Fishing boat <br/>`v108_boat_largeoldfishing_civilian_01_garland_intro` | vehicle,sea,mission |
+| Barco Roro ferry with explosive barrels <br/>`v109_boat_ferry_commercial_garlandintro` | vehicle,sea,mission |
+
+#### Rebel vehicles
+| Name | Tags |
+| ---- | ----------- |
+| Daggershark jetboat <br/>`v101_boat_smalljet_rebel` | vehicle,sea,boat,rebel,armed,heat_worldsim,rainforest,ocean,scanner_v101 |
+| Stromwater patrol boat <br/>`v102_boat_heavypatrol_rebel_01` | vehicle,sea,boat,rebel,armed,heat_worldsim,rainforest,ocean,liberated,scanner_v102 |
+| Conquistador warship <br/>`v103_boat_corvette_rebel_01` | vehicle,sea,ship,rebel,armed,heat_worldsim,ocean,liberated |
+| Spearhead transport (NEEDS TO BE MADE SPAWNABLE!!!) <br/>`v104_boat_landingtransport_rebel` | none yet |
+
+### Air vehicles
+
+#### Cinematics vehicles
+| Name | Tags |
+| ---- | ----------- |
+| Dropzone chopper (Black Hand) <br/>`v202_helicopter_heavytroop_gabriela` | vehicle,air,mission |
+| Dropzone chopper (Rebel) <br/>`v202_helicopter_heavytroop_mira` | vehicle,air,mission |
+
+#### Civilian vehicles
+| Name | Tags |
+| ---- | ----------- |
+| Emvasion utility heli <br/>`v205_helicopter_utility_civilian_01` | vehicle,air,helicopter,civilian,vip,worldsim,grassland,desert,ocean |
+| Emvasion news heli <br/>`v205_helicopter_utility_commercial_news` | vehicle,air,helicopter,civilian,news,worldsim,alpine,rainforest |
+| Emvasion float heli <br/>`v206_helicopter_bubblescout_civilian_01` | vehicle,air,helicopter,civilian,worldsim,ocean,rainforest |
+| EM-909 private jet <br/>`v404_plane_privatejet_civilian` | vehicle,air,plane,jet,civilian,worldsim,modern,grassland,desert |
+| EM-979 airliner <br/>`v405_plane_commercialcargo_commercial` | vehicle,air,plane,civilian,jet,worldsim,ocean,modern |
+| Emvasion floatplane <br/>`v406_plane_smallprop_civilian_01` | vehicle,air,plane,civilian,propeller,worldsim,rainforest |
+| Emvasion cropduster <br/>`v407_plane_mediumprop_civilian_01` | vehicle,air,plane,civilian,propeller,worldsim,grassland,desert,ocean |
+| Ultralight <br/>`v408_plane_ultralight_civilian` | vehicle,air,plane,civilian,propeller,worldsim,rainforest,desert |
+| Emvasion airship <br/>`v700_balloon_dirigible_civilian` | vehicle,air,civilian,dirigible,worldsim,grassland,rainforest,modern |
+
+#### Collectible vehicles
+| Name | Tags |
+| ---- | ----------- |
+| Emvasion airship (Black Hand) <br/>`v700_balloon_dirigible_collectible` | vehicle,air,civilian,dirigible,unarmed,unarmored,large,collectible |
 
 #### Military Vehicles
 | Name | Tags |
 | ---- | ----------- |
-| `v101_boat_smalljet_military` | vehicle,sea,boat,military,armed,heat_worldsim,rainforest,scanner_v101 |
-| `v102_boat_heavypatrol_military_01` | vehicle,sea,boat,military,armed,heat_worldsim,rainforest,ocean,oppressed,scanner_v102 |
-| `v103_boat_corvette_military_01` | vehicle,sea,boat,ship,military,armed,heat_worldsim,ocean |
-| `v104_boat_landingtransport_commercial` | vehicle,sea,ship,transport,military |
+| Prospero sky crane <br/>`v200_helicopter_heavylift_military` | vehicle,air,helicopter,military,winch |
+| Prospero sky crane with sphere tank <br/>`v200_helicopter_heavylift_military_chaos_sphere_tank` | vehicle,air,military,heat_worldsim,desert,rainforest,grassland |
+| Spectre attack heli <br/>`v201_helicopter_mediumattack_military_01` | vehicle,air,helicopter,military,armed,heat_worldsim,oppressed,alpine,desert |
+| Dropzone chopper <br/>`v202_helicopter_heavytroop_military_01` | vehicle,air,helicopter,transport,military,heat_worldsim,rainforest,desert,oppressed |
+| Firebrand scout chopper <br/>`v203_helicopter_lightattack_military_01` | vehicle,air,helicopter,military,armed,heat_worldsim,rainforest,grassland |
+| Bloodhound siege heli <br/>`v204_helicopter_heavyassault_military_01` | vehicle,air,helicopter,military,armed,heat_worldsim,desert,oppressed |
+| PR83 attack drone <br/>`v250_helicopter_mediumattackdrone_military` | vehicle,air,drone,military,armed |
+| PR17 rocket drone <br/>`v251_helicopter_rocketdrone_military` | vehicle,air,drone,military,armed |
+| Suicide drone <br/>`v252_helicopter_suicidedrone_military` | vehicle,air,drone,military |
+| Guard drone <br/>`v254_helicopter_guarddrone_military` | vehicle,air,drone,military,titan_drone,armed |
+| Fellhawk jet fighter <br/>`v400_plane_fighterjet_military_01` | vehicle,air,plane,military,armed,heat_worldsim,ocean,desert,rainforest,grassland |
+| Skycastle cargo jet <br/>`v401_plane_cargotransport_military_01` | vehicle,air,plane,military,cargo,transport |
+| Skycastle cargo jet <br/>`v401_plane_cargotransport_military_01_paratrooper` | vehicle,air,plane,military,paratrooper |
+| Thunderhead bomber jet <br/>`v402_plane_fighterbomber_military_01` | vehicle,air,plane,military,armed,heat_worldsim,desert,rainforest,grassland,oppressed |
+| PA microfighter <br/>`v403_plane_microjet_military` | vehicle,air,plane,military,armed,heat_worldsim,desert,ocean,oppressed |
+| Emvasion airship <br/>`v700_balloon_dirigible_military_01` | vehicle,air,dirigible,military |
+
+#### Mission vehicles
+| Name | Tags |
+| ---- | ----------- |
+| Prospero sky crane with container <br/>`v200_helicopter_heavylift_rebel_mission_special` | vehicle,air,mission |
+| Garland Kind Studios chopper <br/>`v205_helicopter_utility_garland` | vehicle,air,mission |
+| Emvasion float heli (grey paint only) <br/>`v206_helicopter_bubblescout_javi` | vehicle,air,mission |
+| PR83 attack drone <br/>`v250_helicopter_mediumattackdrone_tornado` | vehicle,air,mission |
+| Skycastle cargo jet (Black Hand) <br/>`v401_plane_cargotransport_signal_jammer` | vehicle,air,mission |
+| Emvasion airship (science cargo) <br/>`v700_balloon_dirigible_node_science_01` | vehicle,air,civilian,dirigible |
 
 #### Rebel Vehicles
 | Name | Tags |
 | ---- | ----------- |
-| `v101_boat_smalljet_rebel` | vehicle,sea,boat,rebel,armed,heat_worldsim,rainforest,ocean,scanner_v101 |
-| `v102_boat_heavypatrol_rebel_01` | vehicle,sea,boat,rebel,armed,heat_worldsim,rainforest,ocean,liberated,scanner_v102 |
-| `v103_boat_corvette_rebel_01` | vehicle,sea,ship,rebel,armed,heat_worldsim,ocean,liberated |
+| Prospero sky crane <br/>`v200_helicopter_heavylift_rebel_01` | vehicle,air,helicopter,rebel,winch |
+| Spectre attack heli <br/>`v201_helicopter_mediumattack_rebel_01` | vehicle,air,helicopter,rebel,armed,heat_worldsim,rainforest,liberated |
+| Dropzone chopper <br/>`v202_helicopter_heavytroop_rebel_01` | vehicle,air,helicopter,rebel,transport,heat_worldsim,desert,rainforest,liberated |
+| Firebrand scout chopper <br/>`v203_helicopter_lightattack_rebel_01` | vehicle,air,helicopter,rebel,armed,heat_worldsim,grassland,rainforest |
+| Bloodhound siege heli <br/>`v204_helicopter_heavyassault_rebel_01` | vehicle,air,helicopter,rebel,armed |
+| PR83 attack drone <br/>`v250_helicopter_mediumattackdrone_rebel` | vehicle,air,drone,rebel,armed |
+| PR17 rocket drone <br/>`v251_helicopter_rocketdrone_rebel` | vehicle,air,drone,rebel,armed |
+| Suicide drone <br/>`v252_helicopter_suicidedrone_rebel` | vehicle,air,drone,rebel |
+| Decoy drone <br/>`v253_helicopter_decoydrone_rebel` | vehicle,air,drone,rebel,weapon_drone,armed |
+| Guard drone <br/>`v254_helicopter_guarddrone_rebel` | vehicle,air,drone,rebel,weapon_drone,armed |
+| Fellhawk jet fighter <br/>`v400_plane_fighterjet_rebel_01` | vehicle,air,plane,rebel,armed,heat_worldsim,ocean,rainforest,grassland,desert |
+| Skycastle cargo jet <br/>`v401_plane_cargotransport_rebel_01` | vehicle,air,plane,rebel,cargo,transport |
+| Thunderhead bomber jet <br/>`v402_plane_fighterbomber_rebel_01` | vehicle,air,plane,rebel,armed,heat_worldsim,grassland,rainforest,liberated |
+| PA microfighter <br/>`v403_plane_microjet_rebel` | vehicle,air,plane,rebel,armed,heat_worldsim,rainforest,liberated |
 
-### Air Vehicles
-
-#### Mission/Event/Encounter Vehicles
+#### Preorder vehicles
 | Name | Tags |
 | ---- | ----------- |
-| `v250_helicopter_mediumattackdrone_tornado` | vehicle,air,mission |
-| `v200_helicopter_heavylift_rebel_mission_special` | vehicle,air,mission |
-| `v401_plane_cargotransport_signal_jammer` | vehicle,air,mission |
-| `v205_helicopter_utility_garland` | vehicle,air,mission |
-| `v206_helicopter_bubblescout_javi` | vehicle,air,mission |
-| `v202_helicopter_heavytroop_mira` | vehicle,air,mission |
-| `v202_helicopter_heavytroop_gabriela` | vehicle,air,mission |
-| `v700_balloon_dirigible_node_science_01` | vehicle,air,civilian,dirigible |
-
-#### Civilian Vehicles
-| Name | Tags |
-| ---- | ----------- |
-| `v205_helicopter_utility_civilian_01` | vehicle,air,helicopter,civilian,vip,worldsim,grassland,desert,ocean |
-| `v205_helicopter_utility_commercial_news` | vehicle,air,helicopter,civilian,news,worldsim,alpine,rainforest |
-| `v407_plane_mediumprop_civilian_01` | vehicle,air,plane,civilian,propeller,worldsim,grassland,desert,ocean |
-| `v406_plane_smallprop_civilian_01` | vehicle,air,plane,civilian,propeller,worldsim,rainforest |
-| `v408_plane_ultralight_civilian` | vehicle,air,plane,civilian,propeller,worldsim,rainforest,desert |
-| `v404_plane_privatejet_civilian` | vehicle,air,plane,jet,civilian,worldsim,modern,grassland,desert |
-| `v405_plane_commercialcargo_commercial` | vehicle,air,plane,civilian,jet,worldsim,ocean,modern |
-| `v700_balloon_dirigible_civilian` | vehicle,air,civilian,dirigible,worldsim,grassland,rainforest,modern |
-| `v700_balloon_dirigible_collectible` | vehicle,air,civilian,dirigible,unarmed,unarmored,large,collectible |
-| `v206_helicopter_bubblescout_civilian_01` | vehicle,air,helicopter,civilian,worldsim,ocean,rainforest |
-
-#### Military Vehicles
-| Name | Tags |
-| ---- | ----------- |
-| `v200_helicopter_heavylift_military` | vehicle,air,helicopter,military,winch |
-| `v200_helicopter_heavylift_military_chaos_sphere_tank` | vehicle,air,military,heat_worldsim,desert,rainforest,grassland |
-| `v201_helicopter_mediumattack_military_01` | vehicle,air,helicopter,military,armed,heat_worldsim,oppressed,alpine,desert |
-| `v203_helicopter_lightattack_military_01` | vehicle,air,helicopter,military,armed,heat_worldsim,rainforest,grassland |
-| `v202_helicopter_heavytroop_military_01` | vehicle,air,helicopter,transport,military,heat_worldsim,rainforest,desert,oppressed |
-| `v204_helicopter_heavyassault_military_01` | vehicle,air,helicopter,military,armed,heat_worldsim,desert,oppressed |
-| `v250_helicopter_mediumattackdrone_military` | vehicle,air,drone,military,armed |
-| `v251_helicopter_rocketdrone_military` | vehicle,air,drone,military,armed |
-| `v252_helicopter_suicidedrone_military` | vehicle,air,drone,military |
-| `v254_helicopter_guarddrone_military` | vehicle,air,drone,military,titan_drone,armed |
-| `v401_plane_cargotransport_military_01` | vehicle,air,plane,military,cargo,transport |
-| `v401_plane_cargotransport_military_01_paratrooper` | vehicle,air,plane,military,paratrooper |
-| `v400_plane_fighterjet_military_01` | vehicle,air,plane,military,armed,heat_worldsim,ocean,desert,rainforest,grassland |
-| `v402_plane_fighterbomber_military_01` | vehicle,air,plane,military,armed,heat_worldsim,desert,rainforest,grassland,oppressed |
-| `v403_plane_microjet_military` | vehicle,air,plane,military,armed,heat_worldsim,desert,ocean,oppressed |
-| `v700_balloon_dirigible_military_01` | vehicle,air,dirigible,military |
-
-#### Rebel Vehicles
-| Name | Tags |
-| ---- | ----------- |
-| `v200_helicopter_heavylift_rebel_01` | vehicle,air,helicopter,rebel,winch |
-| `v201_helicopter_mediumattack_rebel_01` | vehicle,air,helicopter,rebel,armed,heat_worldsim,rainforest,liberated |
-| `v203_helicopter_lightattack_rebel_01` | vehicle,air,helicopter,rebel,armed,heat_worldsim,grassland,rainforest |
-| `v202_helicopter_heavytroop_rebel_01` | vehicle,air,helicopter,rebel,transport,heat_worldsim,desert,rainforest,liberated |
-| `v204_helicopter_heavyassault_rebel_01` | vehicle,air,helicopter,rebel,armed |
-| `v251_helicopter_rocketdrone_rebel` | vehicle,air,drone,rebel,armed |
-| `v252_helicopter_suicidedrone_rebel` | vehicle,air,drone,rebel |
-| `v250_helicopter_mediumattackdrone_rebel` | vehicle,air,drone,rebel,armed |
-| `v253_helicopter_decoydrone_rebel` | vehicle,air,drone,rebel,weapon_drone,armed |
-| `v254_helicopter_guarddrone_rebel` | vehicle,air,drone,rebel,weapon_drone,armed |
-| `v401_plane_cargotransport_rebel_01` | vehicle,air,plane,rebel,cargo,transport |
-| `v400_plane_fighterjet_rebel_01` | vehicle,air,plane,rebel,armed,heat_worldsim,ocean,rainforest,grassland,desert |
-| `v402_plane_fighterbomber_rebel_01` | vehicle,air,plane,rebel,armed,heat_worldsim,grassland,rainforest,liberated |
-| `v403_plane_microjet_rebel` | vehicle,air,plane,rebel,armed,heat_worldsim,rainforest,liberated |
-
-#### Preorder Vehicles
-| Name | Tags |
-| ---- | ----------- |
-| `v253_helicopter_decoydrone_preorder` | vehicle,air,drone,preorder,weapon_drone,armed |
+| Decoy drone (Agency)<br/>`v253_helicopter_decoydrone_preorder` | vehicle,air,drone,preorder,weapon_drone,armed |
 
 
 ## DLC Vehicles
