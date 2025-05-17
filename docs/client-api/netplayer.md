@@ -24,6 +24,6 @@ flowchart LR
 
 ## Class Instance Methods
 
-#### `NetPlayer::GetGamePlayer(): Player`
+#### `NetPlayer:GetGamePlayer(): Player`
 
 Returns the [Player](/client-api/player) associated with this NetPlayer.

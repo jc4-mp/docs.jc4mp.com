@@ -19,11 +19,11 @@ flowchart LR
 
 ## Class Instance Methods
 
-#### `NetPlayer::GiveWeapon(string name, int ammo, bool equip, WeaponSlot slot)`
+#### `NetPlayer:GiveWeapon(string name, int ammo, bool equip, WeaponSlot slot)`
 
-Gives a weapon to the player with specified ammo count and optional equipping.
+Gives a weapon to the player with specified ammo count and optional equipping. View the full list of [weapons here](/reference/weapons-list).
 
-#### `NetPlayer::RemoveWeapon(WeaponSlot slot)`
+#### `NetPlayer:RemoveWeapon(WeaponSlot slot)`
 
 Removes a weapon from the specified [weapon slot](/shared-api/weaponslot).
 
