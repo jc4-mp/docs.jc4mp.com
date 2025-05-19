@@ -44,3 +44,7 @@ else
     print("Chat is currently hidden")
 end
 ```
+
+#### `Chat.IsTyping(): bool`
+
+Returns true if the user is currently typing in the chat, and false otherwise. (eg. the user pressed T and started typing)
