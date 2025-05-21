@@ -10,3 +10,12 @@ For more information, see the [PlayerClient on the client](/client-api/playercli
 #### `PlayerClient:GetNetPlayer(): NetPlayer`
 
 Returns the [NetPlayer](/client-api/netplayer) associated with this PlayerClient.
+
+#### `PlayerClient:GetNick(): string`
+
+Returns the player's nickname as a string.
+
+#### `PlayerClient:GetNetId(): number`
+
+Returns the player's network ID as a number.
+
