@@ -37,8 +37,7 @@ Returns the Character's position in the world.
 
 #### `Character:SetPosition(pos: vec3)`
 
-Sets the Character's position in the world.
-
+Sets the Character's position in the world. Do not use this to teleport the local character; use [`Local.Teleport(pos)`](/client-api/local#localteleportpos-vec3) instead.
 
 #### `Character:SetLinearVelocity(velocity: vec3)`
 
