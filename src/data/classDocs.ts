@@ -1,7 +1,7 @@
 // Class documentation metadata for inheritance system
 // Each class has a name, optional parent, and its own methods/fields
 
-export type ClassName = 'NetObjectBase' | 'NetObject' | 'NetPlayer';
+export type ClassName = 'NetObjectBase' | 'NetObject' | 'NetPlayer' | 'PlayerClient' | 'PlayerClient_Client' | 'PlayerClient_Server';
 
 export interface ClassMethod {
   name: string;
@@ -40,5 +40,27 @@ export const classDocs: Record<ClassName, ClassDoc> = {
     parent: 'NetObject',
     methods: [], // Add NetPlayer-specific methods here
     docLink: '/shared-api/netplayer',
+  },
+  PlayerClient: {
+    name: 'PlayerClient',
+    methods: [
+      { name: 'GetNetPlayer', description: 'Returns the NetPlayer associated with this PlayerClient.', returnType: 'NetPlayer' },
+      { name: 'GetNick', description: "Returns the player's nickname as a string.", returnType: 'string' },
+      { name: 'GetNetId', description: "Returns the player's network ID as a number.", returnType: 'number' },
+      { name: 'GetPing', description: "Returns the player's ping as a number.", returnType: 'number' },
+    ],
+    docLink: '/shared-api/playerclient',
+  },
+  PlayerClient_Client: {
+    name: 'PlayerClient_Client',
+    parent: 'PlayerClient',
+    methods: [],
+    docLink: '/client-api/playerclient',
+  },
+  PlayerClient_Server: {
+    name: 'PlayerClient_Server',
+    parent: 'PlayerClient',
+    methods: [],
+    docLink: '/server-api/playerclient',
   },
 }; 
