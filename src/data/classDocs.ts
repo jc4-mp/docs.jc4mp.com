@@ -46,6 +46,7 @@ export const classDocs: Record<ClassName, ClassDoc> = {
     methods: [
       { name: 'GetNetPlayer', description: 'Returns the NetPlayer associated with this PlayerClient.', returnType: 'NetPlayer' },
       { name: 'GetNick', description: "Returns the player's nickname as a string.", returnType: 'string' },
+      { name: 'GetSteamId', description: "Returns the player's Steam ID as a string.", returnType: 'string' },
       { name: 'GetNetId', description: "Returns the player's network ID as a number.", returnType: 'number' },
       { name: 'GetPing', description: "Returns the player's ping as a number.", returnType: 'number' },
     ],
