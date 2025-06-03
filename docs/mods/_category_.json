@@ -1,0 +1,8 @@
+{
+  "label": "Mods",
+  "position": 6,
+  "className": "category-mods",
+  "link": {
+    "type": "generated-index"
+  }
+}

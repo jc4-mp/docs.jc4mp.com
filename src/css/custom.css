@@ -42,7 +42,7 @@
 }
 
 .category-shared-api > div > a::before {
-  content: "🧩";
+  content: "🔗";
   margin-right: 0.5rem;
 }
 
@@ -58,6 +58,11 @@
 
 .category-reference > div > a::before {
   content: "📚";
+  margin-right: 0.5rem;
+}
+
+.category-mods > div > a::before {
+  content: "🧩";
   margin-right: 0.5rem;
 }
 
