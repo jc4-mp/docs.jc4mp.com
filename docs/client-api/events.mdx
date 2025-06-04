@@ -2,12 +2,12 @@
 
 List of all events that can be used to listen for events. For usage details, see [Events](/shared-api/events).
 
-#### `ClientJoin`
+#### `ResourceStart`
 
-Called when the local client joins the server. If you want to enable abilities for the local player, you should do it here.
+Called when resource starts when a client joins the server. If you want to enable abilities for the local player, you should do it here.
 
 ```lua
-Event.Add("ClientJoin", function()
+Event.Add("ResourceStart", function()
 	local localPlayer = Players.Local():GetGamePlayer()
 	localPlayer:EnableAbility(Ability.GrapplingHook)
 	localPlayer:EnableAbility(Ability.Parachute)
@@ -15,6 +15,14 @@ Event.Add("ClientJoin", function()
 	localPlayer:EnableAbility(Ability.ExitVehicle)
 end)
 ```
+
+#### `ResourceStop`
+
+Called when resource stops.
+
+#### `ClientJoin`
+
+Called when the local client joins the server.
 
 #### `Render`
 
