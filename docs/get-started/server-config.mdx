@@ -39,7 +39,7 @@ This is the description of your server that will appear in the server list.
 
 #### `port` (number)
 
-This is the port that your server will use to allow players to connect to it. This value should be between 1 and 1024.
+This is the port that your server will use to allow players to connect to it. This value should be between 1 and 65535, and is 7777 by default. The server also hosts a HTTP server on the port specified in this field + 1. The HTTP server is used to serve information about the server and mods to players.
 
 #### `max_players` (number)
 
@@ -88,10 +88,6 @@ This field is used to specify the endpoint to load mods from. If this field is e
 #### `mods_fallback_to_server` (boolean)
 
 This field is used to specify whether the server should fallback to the server's own mods if the mods endpoint is not available. If this field is true, the server will fallback to the server's own mods if the mods endpoint is not available. If this field is false, the server will not fallback to the server's own mods if the mods endpoint is not available.
-
-#### `mods_http_port` (number)
-
-This field is used to specify the port that the server will use to host the mods HTTP server. If this field is not specified, the server will use the port specified in the `port` field + 1.
 
 #### `update_url` (string)
 
