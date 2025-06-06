@@ -4,4 +4,52 @@ sidebar_position: 1
 
 # Overview
 
-TODO: Add overview of how to use mods on a server.
+All singleplayer mods are compatible with Just Cause 4 Multiplayer. However, certain mods can cause the server to behave in unexpected ways, so keep in mind that some mods may not work as expected and might degrade the multiplayer experience.
+
+# How to use mods on a server
+
+To add mods to your server, set the `mods` field in your server config to true:
+
+
+```json
+{
+    "name": "Just Cause 4 Multiplayer Server",
+    "description": "A default server for Just Cause 4 Multiplayer",
+    "port": 7777,
+    "max_players": 100,
+    "password": "",
+    "announce": true,
+    "key": "",
+    "steam_web_api_key": "",
+    "icon_url": "",
+    "banner_url": "",
+    "update_url": "https://servers.jc4mp.com/api/v1/servers",
+    "mods": true,
+    "startup_resources": [
+        "resource1",
+        "resource2",
+        "resource3"
+    ]
+}
+```
+
+Then, create a new folder called `mods` in the root of your server. This folder will contain the mods you want to use on your server. Think if it like your server's dropzone - whatever you would normally put in your dropzone, you can put in your mods folder.
+
+Mods will automatically sync to players when they join the server.
+
+## Using a CDN
+
+Hosting a lot of mods can put a lot of strain on your server. To avoid this, you can use a CDN to host your mods.
+
+To do this, you can use a service like [Cloudflare R2](https://www.cloudflare.com/r2/) or [Amazon S3](https://aws.amazon.com/s3/).
+
+Cloudflare R2 has a free tier that allows you to store up to 10GB of data.
+
+Once you have a CDN, you can set the `mods_endpoint` field in your server config to the URL of your CDN. If you use a CDN, your mods structure on the CDN must exactly match the structure of the `mods` folder on your server.
+
+## Limitations
+
+You are not allowed to change the intro video or the main menu. Specifically, these files will be overwritten by the server when the server starts:
+ - `videos/sb_splash_loop_placeholder.bikc`
+ - `videos/sb_splash_intro_placeholder.bikc`
+ - `ui/front_end_pause_menu_i4.ddsc`
