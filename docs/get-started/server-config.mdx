@@ -77,6 +77,22 @@ URL to an image to use as your server's icon image when shown in the server brow
 
 URL to an image to use as your server's banner image when shown in the server details page. Maximum size is 1280x720, and recommended size is 766x192. Aspect ratio should be landscape. Supported image formats include png, jpg, and webp. Example image URL: `https://jc4mp.com/tornado.webp`. Maximum file size is 2MB. Supported image hosting domains include: Imgur, Steam, Gravatar, ImageKit, and Cloudinary. Using inappropriate or offensive images will result in your server being blocked from the server list.
 
+#### `mods` (boolean)
+
+This field is used to enable or disable mods on your server. If this field is true, the server will load mods from the "mods" folder in the server's root directory. If this field is false, the server will not load any mods. Think of the "mods" folder like the "dropzone" folder you're use to - just put all the mods you want everyone to have in there, and the server will automatically sync them to all players. If you add new mods, you will need to restart the server for them to take effect.
+
+#### `mods_endpoint` (string)
+
+This field is used to specify the endpoint to load mods from. If this field is empty, the server will serve mods from the "mods" folder in the server's root directory. This can cause additional load on the server, so it is recommended to host mods on a separate server and use this field to point to it. Even if you use a different endpoint, you must have the exact same mods in the "mods" folder that you have on the server you're pointing to.
+
+#### `mods_fallback_to_server` (boolean)
+
+This field is used to specify whether the server should fallback to the server's own mods if the mods endpoint is not available. If this field is true, the server will fallback to the server's own mods if the mods endpoint is not available. If this field is false, the server will not fallback to the server's own mods if the mods endpoint is not available.
+
+#### `mods_http_port` (number)
+
+This field is used to specify the port that the server will use to host the mods HTTP server. If this field is not specified, the server will use the port specified in the `port` field + 1.
+
 #### `update_url` (string)
 
 This field describes the update URL to be used to announce the server to the [JC4MP server list](https://servers.jc4mp.com/). The default value is `https://servers.jc4mp.com/api/v1/servers` and usually should not be changed.
