@@ -77,9 +77,18 @@ URL to an image to use as your server's icon image when shown in the server brow
 
 URL to an image to use as your server's banner image when shown in the server details page. Maximum size is 1280x720, and recommended size is 766x192. Aspect ratio should be landscape. Supported image formats include png, jpg, and webp. Example image URL: `https://jc4mp.com/tornado.webp`. Maximum file size is 2MB. Supported image hosting domains include: Imgur, Steam, Gravatar, ImageKit, and Cloudinary. Using inappropriate or offensive images will result in your server being blocked from the server list.
 
+
+---
+
+## Advanced Configuration
+
+The following fields are advanced configuration options that can break your server if used incorrectly.
+
 #### `mods` (boolean)
 
 This field is used to enable or disable mods on your server. If this field is true, the server will load mods from the "mods" folder in the server's root directory. If this field is false, the server will not load any mods. Think of the "mods" folder like the "dropzone" folder you're use to - just put all the mods you want everyone to have in there, and the server will automatically sync them to all players. If you add new mods, you will need to restart the server for them to take effect.
+
+Refer to the [Mods Guide](/mods/overview) for more information on how to use mods on your server.
 
 #### `mods_endpoint` (string)
 
