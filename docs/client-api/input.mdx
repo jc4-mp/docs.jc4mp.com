@@ -14,9 +14,8 @@ Example that teleports the local player to their aim position when they press F:
 Event.Add("KeyDown", function(key)
     if key == Key.F then
         local localPlayer = Players.Local():GetGamePlayer()
-        local char = localPlayer:GetCharacter()
         local aimPos = localPlayer:GetAimPosition()
-        char:SetPosition(aimPos)
+        Local.Teleport(aimPos)
     end
 end)
 ```
@@ -31,9 +30,8 @@ Example that teleports the local player to their aim position when they press F:
 Event.Add("KeyUp", function(key)
     if key == Key.F then
         local localPlayer = Players.Local():GetGamePlayer()
-        local char = localPlayer:GetCharacter()
         local aimPos = localPlayer:GetAimPosition()
-        char:SetPosition(aimPos)
+        Local.Teleport(aimPos)
     end
 end)
 ```
@@ -48,9 +46,8 @@ Example that teleports the local player to their aim position when they left cli
 Event.Add("MouseDown", function(key)
     if key == Key.MouseLeft then
         local localPlayer = Players.Local():GetGamePlayer()
-        local char = localPlayer:GetCharacter()
         local aimPos = localPlayer:GetAimPosition()
-        char:SetPosition(aimPos)
+        Local.Teleport(aimPos)
     end
 end)
 ```
