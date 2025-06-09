@@ -1,24 +1,26 @@
 # Events
 
-List of all events that can be used to listen for events. For usage details, see [Events](/shared-api/events).
+List of all events that can be used to listen for events. For usage details and more events, see [Events](/shared-api/events).
 
-#### `ResourceStart`
+#### `ResourceStart: (resource: string)`
 
-Called when resource starts when a client joins the server. If you want to enable abilities for the local player, you should do it here.
+Called when resource starts when a client joins the server. The first argument is the name of the resource that started. If you want to enable abilities for the local player, you should do it here.
 
 ```lua
-Event.Add("ResourceStart", function()
-	local localPlayer = Players.Local():GetGamePlayer()
-	localPlayer:EnableAbility(Ability.GrapplingHook)
-	localPlayer:EnableAbility(Ability.Parachute)
-	localPlayer:EnableAbility(Ability.Wingsuit)
-	localPlayer:EnableAbility(Ability.ExitVehicle)
+Event.Add("ResourceStart", function(resource)
+	if resource == Resource.Name then
+		local localPlayer = Players.Local():GetGamePlayer()
+		localPlayer:EnableAbility(Ability.GrapplingHook)
+		localPlayer:EnableAbility(Ability.Parachute)
+		localPlayer:EnableAbility(Ability.Wingsuit)
+		localPlayer:EnableAbility(Ability.ExitVehicle)
+	end
 end)
 ```
 
-#### `ResourceStop`
+#### `ResourceStop: (resource: string)`
 
-Called when resource stops.
+Called when resource stops. The first argument is the name of the resource that stopped.
 
 #### `ClientJoin`
 

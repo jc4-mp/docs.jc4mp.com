@@ -53,3 +53,26 @@ end)
 #### `Event.Remove(event: string)`
 
 Removes an event handler for the specified event name in a script.
+
+## Events
+List of all events on both the client and server.
+
+#### `ResourceStart: (resource: string)`
+
+Called when resource starts when a client joins the server. The first argument is the name of the resource that started. If you want to enable abilities for the local player, you should do it here.
+
+```lua
+Event.Add("ResourceStart", function(resource)
+	if resource == Resource.Name then
+		local localPlayer = Players.Local():GetGamePlayer()
+		localPlayer:EnableAbility(Ability.GrapplingHook)
+		localPlayer:EnableAbility(Ability.Parachute)
+		localPlayer:EnableAbility(Ability.Wingsuit)
+		localPlayer:EnableAbility(Ability.ExitVehicle)
+	end
+end)
+```
+
+#### `ResourceStop: (resource: string)`
+
+Called when resource stops. The first argument is the name of the resource that stopped.

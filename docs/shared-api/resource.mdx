@@ -1,0 +1,17 @@
+# Resource
+
+#### `Resource.Name (string)`
+
+Gets the name of the current resource.
+
+Example usage:
+
+```lua
+Event.Add("ResourceStart", function(resource)
+    if resource == Resource.Name then
+        print("Current resource started: " .. resource)
+    else
+        print("Other resource started: " .. resource)
+    end
+end)
+```
