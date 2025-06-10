@@ -19,8 +19,7 @@
 Example of enabling the local player's ability to use the wingsuit:
 ```lua
 Event.Add("ResourceStart", function(name)
-	local localPlayer = Players.Local():GetGamePlayer()
-	localPlayer:EnableAbility(Ability.Wingsuit)
+	Local.UnlockAbility(Ability.Wingsuit)
 end)
 ```
 

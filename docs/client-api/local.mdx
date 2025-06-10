@@ -11,3 +11,27 @@ Sets the skin of the local player.
 #### `Local.Teleport(pos: vec3)`
 
 Teleports the local player to a specific position.
+
+#### `Local.UnlockAbility(ability: Ability)`
+
+Enables an ability for the local player. `ability` must be one of these abilities from the global [`Ability` table](/client-api/ability).
+
+Example of enabling the local player's ability to use the wingsuit:
+```lua
+Local.UnlockAbility(Ability.Wingsuit)
+```
+
+#### `Local.LockAbility(ability: Ability)`
+
+Disables an ability for the local player. `ability` must be one of the abilities from the global [`Ability` table](/client-api/ability).
+
+Example of disabling the local player's ability to use the grappling hook:
+
+```lua
+Local.LockAbility(Ability.GrapplingHook)
+```
+
+#### `Local.IsAbilityUnlocked(ability: Ability)`
+
+Returns true if the given ability is enabled for the local player, false if disabled. `ability` must be one of the abilities from the global `Ability` table (shown above).
+
