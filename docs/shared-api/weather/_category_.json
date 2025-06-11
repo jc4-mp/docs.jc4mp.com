@@ -1,0 +1,7 @@
+{
+  "label": "Weather",
+  "className": "category-weather",
+  "link": {
+    "type": "generated-index"
+  }
+}

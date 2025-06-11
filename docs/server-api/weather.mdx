@@ -1,0 +1,23 @@
+# Weather
+
+Maniupulate weather events and properties. The "sync" functions are used to sync weather events and properties to all clients.
+
+#### `Weather.SyncAct(type: WeatherAct, ...args)`
+
+Syncs a weather event to all clients with the given type and arguments.
+
+Example of spawning a tornado:
+
+```lua
+Weather.SyncAct(WeatherAct.SpawnTornado, vec3(0, 0, 0), 5.0)
+```
+
+#### `Weather.SyncProperty(type: WeatherProperty, ...args)`
+
+Syncs a weather property to all clients.
+
+Example of setting the tornado state:
+
+```lua
+Weather.SyncProperty(WeatherProperty.TornadoState, TornadoState.Moving)
+```
