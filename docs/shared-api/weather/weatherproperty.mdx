@@ -2,6 +2,9 @@
 
 WeatherProperty allows you to modify weather properties.
 
+
+## Tornado
+
 #### `WeatherProperty.TornadoPosition (position: vec3)`
 
 Modify the position of the tornado.
@@ -14,9 +17,88 @@ Example of setting the tornado position:
 Weather.SyncProperty(WeatherProperty.TornadoPosition, vec3(0, 0, 0))
 ```
 
-
 #### `WeatherProperty.TornadoState`
 
 Modify the state of the tornado. See [TornadoState](./tornado/tornadostate) for more information.
+
+## Clouds
+
+#### `WeatherProperty.CloudsAmbientSaturation (value: number)`
+
+Modify the saturation of ambient cloud lighting.
+Args:
+ - `value: number` - The saturation value to set.
+
+#### `WeatherProperty.CloudsAmbientIntensity (value: number)`
+
+Modify the intensity of ambient cloud lighting.
+Args:
+ - `value: number` - The intensity value to set.
+
+#### `WeatherProperty.CloudsSunIntensity (value: number)`
+
+Modify the intensity of sunlight on clouds.
+Args:
+ - `value: number` - The intensity value to set.
+
+#### `WeatherProperty.CloudsScatteringCoeff (value: number)`
+
+Modify the scattering coefficient of clouds.
+Args:
+ - `value: number` - The scattering coefficient value to set.
+
+#### `WeatherProperty.CloudsExtinctionCoeff (value: number)`
+
+Modify the extinction coefficient of clouds.
+Args:
+ - `value: number` - The extinction coefficient value to set.
+
+#### `WeatherProperty.CloudsForwardAnisoScattering (value: number)`
+
+Modify the forward anisotropic scattering of clouds.
+Args:
+ - `value: number` - The forward scattering value to set.
+
+#### `WeatherProperty.CloudsBackwardAnisoScattering (value: number)`
+
+Modify the backward anisotropic scattering of clouds.
+Args:
+ - `value: number` - The backward scattering value to set.
+
+#### `WeatherProperty.CloudsMaxLightConeDistance (value: number)`
+
+Modify the maximum light cone distance for clouds.
+Args:
+ - `value: number` - The maximum distance value to set.
+
+#### `WeatherProperty.CloudsMaxPrecipitationDarkeningFactor (value: number)`
+
+Modify the maximum precipitation darkening factor for clouds.
+Args:
+ - `value: number` - The darkening factor value to set.
+
+#### `WeatherProperty.CloudsAmbientSkylightColor (color: vec3)`
+
+Modify the ambient skylight color for clouds.
+Args:
+ - `color: vec3` - The color value to set.
+
+#### `WeatherProperty.CloudsDirectSunlightColor (color: vec3)`
+
+Modify the direct sunlight color for clouds.
+Args:
+ - `color: vec3` - The color value to set.
+
+#### `WeatherProperty.CloudsLayerHeightLow (value: number)`
+
+Modify the height of the low cloud layer.
+Args:
+ - `value: number` - The height value to set.
+
+#### `WeatherProperty.CloudsLayerHeightHigh (value: number)`
+
+Modify the height of the high cloud layer.
+Args:
+ - `value: number` - The height value to set.
 
 See [Weather](/server-api/weather) for usage examples.
