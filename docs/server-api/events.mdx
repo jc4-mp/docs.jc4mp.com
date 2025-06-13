@@ -1,5 +1,24 @@
 # Events
 
+#### `PlayerJoin`
+
+This fires when a [player client](./playerclient.mdx) joins the server.
+
+```lua
+Event.Add("PlayerJoin", function(player)
+    print("Player " .. player:GetNick() .. " joined the server!")
+end)
+```
+
+#### `PlayerQuit`
+
+This fires when a [player client](./playerclient.mdx) leaves the server.
+
+```lua
+Event.Add("PlayerQuit", function(player)
+    print("Player " .. player:GetNick() .. " left the server!")
+end)
+```
 
 #### `PreTick`
 
