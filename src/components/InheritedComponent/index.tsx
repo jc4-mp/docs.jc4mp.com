@@ -1,6 +1,8 @@
 import React from 'react';
 import Heading from '@theme/Heading';
-import { classDocs, ClassName } from '../../data/classDocs';
+import { classDocs, ClassName, eventDocs, EventContextName } from '../../data/classDocs';
+import CodeBlock from '@theme/CodeBlock';
+import Markdown from 'react-markdown';
 
 /**
  * Displays all inherited methods for a given class, grouped by ancestor class.
@@ -77,6 +79,118 @@ export const InheritedComponent: React.FC<{ className: ClassName }> = ({ classNa
           })}
         </div>
       ))}
+    </div>
+  );
+};
+
+/**
+ * Displays all inherited events for a given event context, grouped by ancestor context.
+ * Usage: <InheritedEventsComponent contextName="ClientEvents" />
+ */
+export const InheritedEventsComponent: React.FC<{ contextName: EventContextName }> = ({ contextName }) => {
+  // Recursively collect inherited events
+  function getEventInheritanceChain(name: EventContextName): { name: EventContextName; events: typeof eventDocs[EventContextName]['events']; docLink: string }[] {
+    const chain: { name: EventContextName; events: typeof eventDocs[EventContextName]['events']; docLink: string }[] = [];
+    let current: EventContextName | undefined = name;
+    while (current) {
+      const doc = eventDocs[current];
+      if (doc) {
+        chain.unshift({ name: doc.name, events: doc.events, docLink: doc.docLink });
+        current = doc.parent;
+      } else {
+        break;
+      }
+    }
+    return chain;
+  }
+
+  // Utility to create kebab-case anchor ids
+  function toKebabCase(str: string) {
+    return str.replace(/([a-z])([A-Z])/g, '$1-$2').replace(/[^a-zA-Z0-9]+/g, '-').toLowerCase();
+  }
+
+  const chain = getEventInheritanceChain(contextName);
+  // Remove the last item (the context itself), only show inherited, and only those with events
+  const inherited = chain.slice(0, -1).filter((ancestor) => ancestor.events.length > 0);
+  const base = chain[chain.length - 1];
+
+  // If there are no inherited events and this is the base context, just show the base context events as normal
+  if (inherited.length === 0 && base && base.name === contextName && base.events.length > 0) {
+    return (
+      <div>
+        {base.events.map((event) => {
+          const anchorId = toKebabCase(event.name);
+          return (
+            <div key={event.name}>
+              <Heading as="h4" id={anchorId}>
+                <code>{event.name}: {event.signature}</code>
+              </Heading>
+              <Markdown>{event.description}</Markdown>
+              {event.example && (
+                <CodeBlock language="lua">
+                  {event.example}
+                </CodeBlock>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    );
+  }
+
+  if (inherited.length === 0) return null;
+
+  return (
+    <div>
+      <Heading as="h2">Inherited Events</Heading>
+      {inherited.map((ancestor) => (
+        <div key={ancestor.name}>
+          <Heading as="h3">
+            From <a href={ancestor.docLink}><code>{ancestor.name}</code></a>:
+          </Heading>
+          {ancestor.events.map((event) => {
+            const anchorId = `${toKebabCase(ancestor.name)}-${toKebabCase(event.name)}`;
+            return (
+              <div key={event.name}>
+                <Heading as="h4" id={anchorId}>
+                  <code>{event.name}: {event.signature}</code>
+                </Heading>
+                <Markdown>{event.description}</Markdown>
+                {event.example && (
+                  <CodeBlock language="lua">
+                    {event.example}
+                  </CodeBlock>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      ))}
+      
+      {/* Show current context events */}
+      {base && base.events.length > 0 && (
+        <div>
+          <Heading as="h3">
+            <code>{base.name}</code> Events:
+          </Heading>
+          {base.events.map((event) => {
+            const anchorId = toKebabCase(event.name);
+            return (
+              <div key={event.name}>
+                <Heading as="h4" id={anchorId}>
+                  <code>{event.name}: {event.signature}</code>
+                </Heading>
+                <Markdown>{event.description}</Markdown>
+                {event.example && (
+                  <CodeBlock language="lua">
+                    {event.example}
+                  </CodeBlock>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 };

@@ -1,5 +1,7 @@
 # Events
 
+import { InheritedEventsComponent } from '../../src/components/InheritedComponent';
+
 These event APIs allow you to send and receive data between different scripts or resources. Events only work cross-resources within the same context. For example:
  - A client script fires an event. Only other client scripts can listen for this event.
  - A server script fires an event. Only other server scripts can listen for this event.
@@ -57,21 +59,4 @@ Removes an event handler for the specified event name in a script.
 ## Events
 List of all events on both the client and server.
 
-#### `ResourceStart: (resource: string)`
-
-Called when resource starts when a client joins the server. The first argument is the name of the resource that started. If you want to enable abilities for the local player, you should do it here.
-
-```lua
-Event.Add("ResourceStart", function(resource)
-	if resource == Resource.Name then
-		Local.UnlockAbility(Ability.GrapplingHook)
-		Local.UnlockAbility(Ability.Parachute)
-		Local.UnlockAbility(Ability.Wingsuit)
-		Local.UnlockAbility(Ability.ExitVehicle)
-	end
-end)
-```
-
-#### `ResourceStop: (resource: string)`
-
-Called when resource stops. The first argument is the name of the resource that stopped.
+<InheritedEventsComponent contextName="SharedEvents" />

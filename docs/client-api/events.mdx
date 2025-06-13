@@ -1,34 +1,7 @@
 # Events
 
+import { InheritedEventsComponent } from '../../src/components/InheritedComponent';
+
 List of all events that can be used to listen for events. For usage details and more events, see [Events](/shared-api/events).
 
-#### `ResourceStart: (resource: string)`
-
-Called when resource starts when a client joins the server. The first argument is the name of the resource that started. If you want to enable abilities for the local player, you should do it here.
-
-```lua
-Event.Add("ResourceStart", function(resource)
-	if resource == Resource.Name then
-		Local.UnlockAbility(Ability.GrapplingHook)
-		Local.UnlockAbility(Ability.Parachute)
-		Local.UnlockAbility(Ability.Wingsuit)
-		Local.UnlockAbility(Ability.ExitVehicle)
-	end
-end)
-```
-
-#### `ResourceStop: (resource: string)`
-
-Called when resource stops. The first argument is the name of the resource that stopped.
-
-#### `ClientJoin`
-
-Called when the local client joins the server.
-
-#### `Render`
-
-Called every frame. Use the `Render` event to draw elements to the screen underneath the JC4MP UI, such as the chat window. Learn more [here](/client-api/render).
-
-#### `PostRender`
-
-Called every frame. Use the `PostRender` event to draw elements to the screen on top of the JC4MP UI, such as the chat window. This is good for full-screen overlays, such as fading to black for transitions. Learn more [here](/client-api/render).
+<InheritedEventsComponent contextName="ClientEvents" />

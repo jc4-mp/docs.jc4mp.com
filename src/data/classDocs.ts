@@ -3,6 +3,23 @@
 
 export type ClassName = 'NetObjectBase' | 'NetObject' | 'NetPlayer' | 'PlayerClient' | 'PlayerClient_Client' | 'PlayerClient_Server';
 
+// Events inheritance system
+export type EventContextName = 'SharedEvents' | 'ClientEvents' | 'ServerEvents';
+
+export interface EventDoc {
+  name: string;
+  signature: string;
+  description: string;
+  example?: string;
+}
+
+export interface EventContext {
+  name: EventContextName;
+  parent?: EventContextName;
+  events: EventDoc[];
+  docLink: string;
+}
+
 export interface ClassMethod {
   name: string;
   description: string;
@@ -15,6 +32,94 @@ export interface ClassDoc {
   methods: ClassMethod[];
   docLink: string;
 }
+
+export const eventDocs: Record<EventContextName, EventContext> = {
+  SharedEvents: {
+    name: 'SharedEvents',
+    events: [
+      {
+        name: 'ResourceStart',
+        signature: '(resource: string)',
+        description: 'Called when resource starts when a client joins the server. The first argument is the name of the resource that started. If you want to enable abilities for the local player, you should do it here (only on the client).',
+        example: `Event.Add("ResourceStart", function(resource)
+	if resource == Resource.Name then
+		Local.UnlockAbility(Ability.GrapplingHook)
+		Local.UnlockAbility(Ability.Parachute)
+		Local.UnlockAbility(Ability.Wingsuit)
+		Local.UnlockAbility(Ability.ExitVehicle)
+	end
+end)`
+      },
+      {
+        name: 'ResourceStop',
+        signature: '(resource: string)',
+        description: 'Called when resource stops. The first argument is the name of the resource that stopped.'
+      }
+    ],
+    docLink: '/shared-api/events',
+  },
+  ClientEvents: {
+    name: 'ClientEvents',
+    parent: 'SharedEvents',
+    events: [
+      {
+        name: 'ClientJoin',
+        signature: '()',
+        description: 'Called when the local client joins the server.'
+      },
+      {
+        name: 'Render',
+        signature: '()',
+        description: 'Called every frame. Use the `Render` event to draw elements to the screen underneath the JC4MP UI, such as the chat window. Learn more [here](/client-api/render).'
+      },
+      {
+        name: 'PostRender',
+        signature: '()',
+        description: 'Called every frame. Use the `PostRender` event to draw elements to the screen on top of the JC4MP UI, such as the chat window. This is good for full-screen overlays, such as fading to black for transitions. Learn more [here](/client-api/render).'
+      }
+    ],
+    docLink: '/client-api/events',
+  },
+  ServerEvents: {
+    name: 'ServerEvents',
+    parent: 'SharedEvents',
+    events: [
+      {
+        name: 'PlayerJoin',
+        signature: '(player: PlayerClient)',
+        description: 'This fires when a [player client](./playerclient) joins the server. This does not guarantee that the player has loaded their scripts yet, so do not try to send them data yet.',
+        example: `Event.Add("PlayerJoin", function(player)
+    print("Player " .. player:GetNick() .. " joined the server!")
+end)`
+      },
+      {
+        name: 'PlayerQuit',
+        signature: '(player: PlayerClient)',
+        description: 'This fires when a [player client](./playerclient) leaves the server.',
+        example: `Event.Add("PlayerQuit", function(player)
+    print("Player " .. player:GetNick() .. " left the server!")
+end)`
+      },
+      {
+        name: 'PreTick',
+        signature: '()',
+        description: 'This fires every tick on the server _before_ any server logic is run.',
+        example: `Event.Add("PreTick", function()
+    print("PreTick! Elapsed seconds: " .. tostring(Server.GetElapsedSeconds()))
+end)`
+      },
+      {
+        name: 'PostTick',
+        signature: '()',
+        description: 'This fires every tick on the server _after_ all server logic is run.',
+        example: `Event.Add("PostTick", function()
+    print("PostTick! Elapsed seconds: " .. tostring(Server.GetElapsedSeconds()))
+end)`
+      }
+    ],
+    docLink: '/server-api/events',
+  },
+};
 
 export const classDocs: Record<ClassName, ClassDoc> = {
   NetObjectBase: {
