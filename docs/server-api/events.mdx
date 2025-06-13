@@ -2,7 +2,7 @@
 
 #### `PlayerJoin`
 
-This fires when a [player client](./playerclient.mdx) joins the server.
+This fires when a [player client](./playerclient.mdx) joins the server. This does not guarantee that the player has loaded their scripts yet, so do not try to send them data yet.
 
 ```lua
 Event.Add("PlayerJoin", function(player)
