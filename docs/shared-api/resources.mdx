@@ -1,0 +1,18 @@
+# Resources
+
+These APIs allow you to manage and control resources on the server. Resources are individual packages or modules that contain game logic, scripts, and assets.
+
+## Global Methods
+
+#### `Resources.GetAll(): Resource[]`
+
+Returns an array of all resources currently loaded.
+
+Example usage:
+
+```lua
+local allResources = Resources.GetAll()
+for i, resource in ipairs(allResources) do
+    print("Resource: " .. resource:GetName())
+end
+```

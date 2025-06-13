@@ -1,0 +1,50 @@
+# Resources
+
+These APIs allow you to manage and control resources on the server. Resources are individual packages or modules that contain game logic, scripts, and assets.
+
+## Global Methods
+
+#### `Resources.Start(resourceName: string): string | nil`
+
+Starts the specified resource by name. Returns `nil` if the resource was successfully started, or a string error message if it failed.
+
+Example usage:
+
+```lua
+local error = Resources.Start("my_gamemode")
+if error then
+    print("Failed to start resource: " .. error)
+else
+    print("Resource started successfully")
+end
+```
+
+#### `Resources.Stop(resourceName: string): string | nil`
+
+Stops the specified resource by name. Returns `nil` if the resource was successfully stopped, or a string error message if it failed.
+
+Example usage:
+
+```lua
+local error = Resources.Stop("my_gamemode")
+if error then
+    print("Failed to stop resource: " .. error)
+else
+    print("Resource stopped successfully")
+end
+```
+
+#### `Resources.Restart(resourceName: string): string | nil`
+
+Restarts the specified resource by name. This is equivalent to stopping and then starting the resource. Returns `nil` if the resource was successfully restarted, or a string error message if it failed.
+
+Example usage:
+
+```lua
+local error = Resources.Restart("my_gamemode")
+if error then
+    print("Failed to restart resource: " .. error)
+else
+    print("Resource restarted successfully")
+end
+```
