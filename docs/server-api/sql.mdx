@@ -1,0 +1,176 @@
+# SQL
+
+Persist information and state in a database using SQLite. The server automatically creates and manages a `database.db` file in the server directory.
+
+To browse the information in the database, you can use [SQLite Browser](https://sqlitebrowser.org/) or any other SQLite client.
+
+## Parameter Binding
+
+All SQL methods support parameter binding to prevent SQL injection attacks. Use `?` placeholders in your SQL statements and pass the values as additional arguments. Parameters are bound in order and support the following Lua types:
+
+- `string` → SQLite TEXT
+- `number` → SQLite INTEGER or REAL (automatically detected)
+- `boolean` → SQLite INTEGER (0 or 1)
+- `nil` → SQLite NULL
+
+## Methods
+
+#### `SQL.Execute(statement: string, ...params): table`
+
+Executes SQL statements that don't return data (INSERT, UPDATE, DELETE, CREATE, etc.). Returns a table with execution details.
+
+**Parameters:**
+- `statement` - SQL statement with optional `?` parameter placeholders
+- `...params` - Values to bind to the `?` placeholders in order
+
+**Returns a table with:**
+- `success` (boolean) - `true` if successful, `false` if failed
+- `error` (string|nil) - Error message if failed, `nil` if successful
+- `changes` (number) - Number of rows affected by the operation
+- `last_insert_id` (number|nil) - Row ID of last inserted row (INSERT only)
+
+```lua
+-- Create a table
+local result = SQL.Execute([[
+    CREATE TABLE IF NOT EXISTS players (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        steam_id TEXT UNIQUE NOT NULL,
+        name TEXT NOT NULL,
+        level INTEGER DEFAULT 1,
+        last_seen DATETIME DEFAULT CURRENT_TIMESTAMP
+    )
+]])
+
+if result.success then
+    print("Table created successfully")
+else
+    print("Error:", result.error)
+end
+
+-- Insert a new player
+local result = SQL.Execute(
+    "INSERT INTO players (steam_id, name, level) VALUES (?, ?, ?)",
+    "76561198000000000", "PlayerName", 5
+)
+
+if result.success then
+    print("Player inserted with ID:", result.last_insert_id)
+    print("Rows affected:", result.changes)
+else
+    print("Insert failed:", result.error)
+end
+
+-- Update player level
+local result = SQL.Execute(
+    "UPDATE players SET level = ?, last_seen = CURRENT_TIMESTAMP WHERE steam_id = ?",
+    10, "76561198000000000"
+)
+
+if result.success then
+    print("Updated", result.changes, "player(s)")
+else
+    print("Update failed:", result.error)
+end
+```
+
+#### `SQL.Query(query: string, ...params): table`
+
+Executes SELECT queries and returns the results as a table array.
+
+**Parameters:**
+- `query` - SELECT SQL statement with optional `?` parameter placeholders
+- `...params` - Values to bind to the `?` placeholders in order
+
+**Returns:** Array table where each element is a row table with column names as keys. Returns empty table `{}` if no results or on error.
+
+**Row data types:**
+- SQLite INTEGER → Lua number
+- SQLite REAL → Lua number
+- SQLite TEXT → Lua string
+- SQLite BLOB → Lua string (binary data)
+- SQLite NULL → Lua nil
+
+```lua
+-- Query all players
+local players = SQL.Query("SELECT * FROM players ORDER BY level DESC")
+
+for i, player in ipairs(players) do
+    print(string.format("Player %d: %s (Level %d, ID: %d)", 
+        i, player.name, player.level, player.id))
+end
+
+-- Query specific player by Steam ID
+local players = SQL.Query(
+    "SELECT name, level, last_seen FROM players WHERE steam_id = ?",
+    "76561198000000000"
+)
+
+if #players > 0 then
+    local player = players[1]
+    print("Found player:", player.name)
+    print("Level:", player.level)
+    print("Last seen:", player.last_seen)
+else
+    print("Player not found")
+end
+
+-- Query with multiple conditions
+local highLevelPlayers = SQL.Query(
+    "SELECT name, level FROM players WHERE level >= ? AND last_seen > ? ORDER BY level DESC LIMIT ?",
+    10, "2024-01-01", 5
+)
+
+print("Top high-level players:")
+for _, player in ipairs(highLevelPlayers) do
+    print("-", player.name, "(Level " .. player.level .. ")")
+end
+
+-- Aggregate queries
+local stats = SQL.Query("SELECT COUNT(*) as total_players, AVG(level) as avg_level, MAX(level) as max_level FROM players")
+if #stats > 0 then
+    local stat = stats[1]
+    print("Total players:", stat.total_players)
+    print("Average level:", stat.avg_level)
+    print("Max level:", stat.max_level)
+end
+```
+
+## Common Patterns
+
+### Error Handling
+```lua
+local result = SQL.Execute("INSERT INTO players (steam_id, name) VALUES (?, ?)", steamId, playerName)
+if not result.success then
+    print("Database error:", result.error)
+    return
+end
+```
+
+### Checking if Records Exist
+```lua
+local existing = SQL.Query("SELECT id FROM players WHERE steam_id = ?", steamId)
+if #existing > 0 then
+    print("Player already exists with ID:", existing[1].id)
+else
+    print("New player")
+end
+```
+
+### Transactions (Manual)
+```lua
+-- Begin transaction
+SQL.Execute("BEGIN TRANSACTION")
+
+-- Multiple operations
+local result1 = SQL.Execute("INSERT INTO players (steam_id, name) VALUES (?, ?)", steamId, name)
+local result2 = SQL.Execute("INSERT INTO player_stats (player_id, kills) VALUES (?, ?)", result1.last_insert_id, 0)
+
+-- Commit or rollback
+if result1.success and result2.success then
+    SQL.Execute("COMMIT")
+    print("Transaction completed successfully")
+else
+    SQL.Execute("ROLLBACK")
+    print("Transaction failed, rolled back")
+end
+```
