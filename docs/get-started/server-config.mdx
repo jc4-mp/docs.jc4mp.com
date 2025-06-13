@@ -19,6 +19,7 @@ Default config (located at `cfg/config.json`):
     "steam_web_api_key": "",
     "icon_url": "",
     "banner_url": "",
+    "acl": {},
     "update_url": "https://servers.jc4mp.com/api/v1/servers",
     "startup_resources": [
         "resource1",
@@ -60,6 +61,50 @@ Keep in mind that you also need to have a valid `key` and `update_url` for your 
 #### `startup_resources` (string array)
 
 This field is a list of resources to load when the server starts up. 
+
+
+#### `acl` (object)
+
+This field is used to specify the access control list roles for players on your server. The default value is an empty object, which means that all players will have the default role.
+
+Valid roles are:
+
+- `owner`
+- `admin`
+- `moderator`
+- `normal`
+
+The default role is `normal`.
+
+Example of roles for players via Steam ID:
+
+```json
+
+{
+    "name": "Just Cause 4 Multiplayer Server",
+    "description": "A default server for Just Cause 4 Multiplayer",
+    "port": 7777,
+    "max_players": 100,
+    "password": "",
+    "announce": true,
+    "key": "",
+    "steam_web_api_key": "",
+    "icon_url": "",
+    "banner_url": "",
+    "acl": {
+        "76561198000000000": "owner",
+        "76561198000000001": "admin",
+        "76561198000000002": "moderator"
+    },
+    "update_url": "https://servers.jc4mp.com/api/v1/servers",
+    "startup_resources": [
+        "resource1",
+        "resource2",
+        "resource3"
+    ]
+}
+```
+
 
 #### `key` (string)
 
