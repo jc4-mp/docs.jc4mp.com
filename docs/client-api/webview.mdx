@@ -1,0 +1,654 @@
+# WebView
+
+The WebView system allows server owners to create interactive web-based user interfaces within the game client. It supports both local resource files and remote URLs, providing a powerful way to create rich, modern UIs using HTML, CSS, and JavaScript.
+
+## Features
+
+- **Multiple WebView Support**: Create and manage multiple webview instances simultaneously
+- **Local Resource Loading**: Load HTML files from resource packages using `resource://` URLs
+- **Remote Content**: Load external websites and web applications
+- **Input Management**: Full mouse and keyboard input support with focus management
+- **Z-Order Control**: Layer multiple webviews with customizable depth ordering
+- **JavaScript Execution**: Execute JavaScript code from Lua scripts
+- **Security**: Restricted file system access, only resource directories are accessible. All storage APIs are disabled. Microphone and camera access is disabled. WebViews are completely reset when joining a server.
+
+## Debugging
+
+To open devtools for your webview, follow these steps:
+1. Open Google Chrome or another Chromium-based browser
+2. Go to `chrome://inspect`
+3. Click on "Configure" next to "Discover network targets"
+4. Add `localhost:9222` to the list
+5. You should see your webview in the "Remote Targets" section
+6. You can now inspect and debug your webview
+
+
+## Configuration Object
+
+WebView configuration is passed as a table with the following properties:
+
+```lua
+local config = {
+    url = "resource://myresource/client/index.html",  -- URL to load
+    position = vec2(100, 100),                        -- Screen position
+    size = vec2(800, 600),                           -- WebView dimensions
+    visible = true,                                  -- Initial visibility
+    input_enabled = true,                            -- Enable input handling
+    z_order = 1                                      -- Layer depth (higher = front)
+}
+```
+
+#### `WebView.Create(id: string, config: table): string`
+
+Creates a new WebView instance with the specified configuration.
+
+**Parameters:**
+- `id` (string): Unique identifier for the WebView instance
+- `config` (table): Configuration object with WebView settings
+
+**Returns:**
+- `string`: The WebView ID if successful, empty string if failed
+
+**Example:**
+```lua
+local webview_id = WebView.Create("my_ui", {
+    url = "resource://myresource/client/dashboard.html",
+    position = vec2(200, 150),
+    size = vec2(1000, 700),
+    visible = true,
+    input_enabled = true,
+    z_order = 5
+})
+
+if webview_id ~= "" then
+    print("WebView created successfully!")
+else
+    print("Failed to create WebView")
+end
+```
+
+#### `WebView.Destroy(id: string): boolean`
+
+Destroys an existing WebView instance and frees its resources.
+
+**Parameters:**
+- `id` (string): The WebView ID to destroy
+
+**Returns:**
+- `boolean`: `true` if successfully destroyed, `false` if WebView not found
+
+**Example:**
+```lua
+if WebView.Destroy("my_ui") then
+    print("WebView destroyed")
+else
+    print("WebView not found or failed to destroy")
+end
+```
+
+#### `WebView.LoadUrl(id: string, url: string): boolean`
+
+Navigates the WebView to a new URL. Supports both local resources and remote URLs.
+
+**Parameters:**
+- `id` (string): The WebView ID
+- `url` (string): URL to navigate to
+
+**Returns:**
+- `boolean`: `true` if navigation started successfully, `false` otherwise
+
+**URL Formats:**
+- Local resources: `resource://resource_name/client/path/to/file.html`
+- Remote URLs: `https://example.com/page.html`
+
+**Example:**
+```lua
+-- Load local resource
+WebView.LoadUrl("my_ui", "resource://myresource/client/settings.html")
+
+-- Load remote content
+WebView.LoadUrl("my_ui", "https://www.google.com")
+
+-- Load with query parameters
+WebView.LoadUrl("my_ui", "resource://myresource/client/player.html?id=123&mode=edit")
+```
+
+#### `WebView.SetPosition(id: string, position: table): boolean`
+
+Moves the WebView to a new screen position.
+
+**Parameters:**
+- `id` (string): The WebView ID
+- `position` (vec2): New position with `x` and `y` coordinates
+
+**Returns:**
+- `boolean`: `true` if position updated successfully, `false` otherwise
+
+**Example:**
+```lua
+-- Move to top-left corner
+WebView.SetPosition("my_ui", vec2(0, 0))
+
+-- Center on screen (assuming 1920x1080)
+WebView.SetPosition("my_ui", vec2(460, 240))
+
+-- Animate position over time
+local start_x, start_y = 100, 100
+local target_x, target_y = 500, 300
+local steps = 30
+
+for i = 1, steps do
+    local progress = i / steps
+    local current_x = start_x + (target_x - start_x) * progress
+    local current_y = start_y + (target_y - start_y) * progress
+    
+    WebView.SetPosition("my_ui", vec2(current_x, current_y))
+    -- Add delay between frames in real implementation
+end
+```
+
+#### `WebView.SetSize(id: string, size: table): boolean`
+
+Resizes the WebView to new dimensions.
+
+**Parameters:**
+- `id` (string): The WebView ID
+- `size` (vec2): New size with `x` (width) and `y` (height)
+
+**Returns:**
+- `boolean`: `true` if size updated successfully, `false` otherwise
+
+**Example:**
+```lua
+-- Set to standard size
+WebView.SetSize("my_ui", vec2(800, 600))
+
+-- Make fullscreen (assuming 1920x1080)
+WebView.SetSize("my_ui", vec2(1920, 1080))
+
+-- Responsive sizing based on content
+local function resizeForContent(content_type)
+    if content_type == "chat" then
+        WebView.SetSize("my_ui", vec2(400, 300))
+    elseif content_type == "map" then
+        WebView.SetSize("my_ui", vec2(800, 800))
+    elseif content_type == "inventory" then
+        WebView.SetSize("my_ui", vec2(600, 500))
+    end
+end
+```
+
+#### `WebView.SetVisible(id: string, visible: boolean): boolean`
+
+Shows or hides the WebView.
+
+**Parameters:**
+- `id` (string): The WebView ID
+- `visible` (boolean): `true` to show, `false` to hide
+
+**Returns:**
+- `boolean`: `true` if visibility updated successfully, `false` otherwise
+
+**Example:**
+```lua
+-- Show WebView
+WebView.SetVisible("my_ui", true)
+
+-- Hide WebView
+WebView.SetVisible("my_ui", false)
+
+-- Toggle visibility
+local function toggleWebView(id)
+    local info = WebView.GetInfo(id)
+    if info then
+        WebView.SetVisible(id, not info.visible)
+    end
+end
+
+-- Fade in effect (requires CSS transitions)
+WebView.SetVisible("my_ui", true)
+WebView.ExecuteScript("my_ui", "document.body.style.opacity = '0'; document.body.style.transition = 'opacity 0.5s'; setTimeout(() => document.body.style.opacity = '1', 10);")
+```
+
+#### `WebView.Focus(id: string): boolean`
+
+Gives keyboard focus to the specified WebView, allowing it to receive input events.
+
+**Parameters:**
+- `id` (string): The WebView ID to focus
+
+**Returns:**
+- `boolean`: `true` if focused successfully, `false` otherwise
+
+**Example:**
+```lua
+-- Focus a WebView for text input
+WebView.Focus("chat_window")
+
+-- Focus the topmost WebView
+local function focusTopWebView()
+    local webviews = {"ui_main", "chat", "map", "inventory"}
+    local highest_z = -1
+    local top_webview = nil
+    
+    for _, id in ipairs(webviews) do
+        local info = WebView.GetInfo(id)
+        if info and info.visible and info.z_order > highest_z then
+            highest_z = info.z_order
+            top_webview = id
+        end
+    end
+    
+    if top_webview then
+        WebView.Focus(top_webview)
+    end
+end
+```
+
+#### `WebView.BlurAll(): boolean`
+
+Removes focus from all WebViews, preventing them from receiving keyboard input.
+
+**Returns:**
+- `boolean`: `true` if all WebViews were blurred successfully
+
+**Example:**
+```lua
+-- Remove focus from all WebViews when game needs input
+WebView.BlurAll()
+
+-- Blur all when opening game menu
+local function openGameMenu()
+    WebView.BlurAll()
+    -- Show game menu
+end
+
+-- Blur all except specific WebView
+local function focusOnly(target_id)
+    WebView.BlurAll()
+    WebView.Focus(target_id)
+end
+```
+
+#### `WebView.BringToFront(id: string): boolean`
+
+Brings the WebView to the front by adjusting its z-order.
+
+**Parameters:**
+- `id` (string): The WebView ID to bring to front
+
+**Returns:**
+- `boolean`: `true` if z-order updated successfully, `false` otherwise
+
+**Example:**
+```lua
+-- Bring WebView to front when clicked
+WebView.BringToFront("notification_panel")
+
+-- Implement window management
+local function bringToFrontOnClick(webview_id)
+    -- This would typically be called from a mouse click handler
+    WebView.BringToFront(webview_id)
+    WebView.Focus(webview_id)
+end
+```
+
+#### `WebView.SendToBack(id: string): boolean`
+
+Sends the WebView to the back by adjusting its z-order.
+
+**Parameters:**
+- `id` (string): The WebView ID to send to back
+
+**Returns:**
+- `boolean`: `true` if z-order updated successfully, `false` otherwise
+
+**Example:**
+```lua
+-- Send background WebView to back
+WebView.SendToBack("background_map")
+
+-- Minimize window effect
+local function minimizeWebView(id)
+    WebView.SendToBack(id)
+    WebView.SetSize(id, vec2(200, 150))
+    WebView.SetPosition(id, vec2(10, 10))
+end
+```
+
+#### `WebView.SetInputEnabled(id: string, enabled: boolean): boolean`
+
+Enables or disables input handling for the WebView.
+
+**Parameters:**
+- `id` (string): The WebView ID
+- `enabled` (boolean): `true` to enable input, `false` to disable
+
+**Returns:**
+- `boolean`: `true` if input state updated successfully, `false` otherwise
+
+**Example:**
+```lua
+-- Disable input for background WebViews
+WebView.SetInputEnabled("background_video", false)
+
+-- Enable input for interactive elements
+WebView.SetInputEnabled("control_panel", true)
+
+-- Toggle input based on game state
+local function updateWebViewInput(game_paused)
+    local interactive_webviews = {"chat", "inventory", "map"}
+    
+    for _, id in ipairs(interactive_webviews) do
+        WebView.SetInputEnabled(id, game_paused)
+    end
+end
+```
+
+#### `WebView.GetInfo(id: string): table`
+
+Retrieves information about a WebView instance.
+
+**Parameters:**
+- `id` (string): The WebView ID
+
+**Returns:**
+- `table`: WebView information object, or empty table if not found
+
+**Information Object Properties:**
+- `url` (string): Current URL
+- `position` (vec2): Current position with `x` and `y`
+- `size` (vec2): Current size with `x` and `y`
+- `visible` (boolean): Current visibility state
+- `input_enabled` (boolean): Current input state
+- `z_order` (number): Current z-order value
+
+**Example:**
+```lua
+local info = WebView.GetInfo("my_ui")
+if info and info.url then
+    print("WebView Info:")
+    print("  URL: " .. info.url)
+    print("  Position: " .. info.position.x .. ", " .. info.position.y)
+    print("  Size: " .. info.size.x .. "x" .. info.size.y)
+    print("  Visible: " .. tostring(info.visible))
+    print("  Input Enabled: " .. tostring(info.input_enabled))
+    print("  Z-Order: " .. info.z_order)
+else
+    print("WebView not found")
+end
+
+-- Save and restore WebView state
+local function saveWebViewState(id)
+    local info = WebView.GetInfo(id)
+    if info then
+        -- Save to file or variable
+        saved_states[id] = info
+    end
+end
+
+local function restoreWebViewState(id)
+    local state = saved_states[id]
+    if state then
+        WebView.SetPosition(id, state.position)
+        WebView.SetSize(id, state.size)
+        WebView.SetVisible(id, state.visible)
+        WebView.SetInputEnabled(id, state.input_enabled)
+        if state.url ~= "" then
+            WebView.LoadUrl(id, state.url)
+        end
+    end
+end
+```
+
+## Complete Examples
+
+### Basic WebView Setup
+
+```lua
+-- Create a simple information panel
+local info_panel = WebView.Create("info_panel", {
+    url = "resource://mymod/client/info.html",
+    position = vec2(50, 50),
+    size = vec2(300, 200),
+    visible = true,
+    input_enabled = false,  -- Read-only panel
+    z_order = 1
+})
+
+-- Update the panel with player information
+local function updateInfoPanel(player)
+    local js_code = string.format([[
+        document.getElementById('player-name').textContent = '%s';
+        document.getElementById('player-health').textContent = '%d';
+        document.getElementById('player-score').textContent = '%d';
+    ]], player.name, player.health, player.score)
+    
+    WebView.ExecuteScript("info_panel", js_code)
+end
+```
+
+### Interactive Chat System
+
+```lua
+-- Create chat WebView
+local chat_webview = WebView.Create("chat", {
+    url = "resource://chatmod/client/chat.html",
+    position = vec2(10, 400),
+    size = vec2(400, 300),
+    visible = true,
+    input_enabled = true,
+    z_order = 10
+})
+
+-- Add message to chat
+local function addChatMessage(player_name, message, timestamp)
+    local js_code = string.format([[
+        addMessage('%s', '%s', %d);
+    ]], player_name:gsub("'", "\\'"), message:gsub("'", "\\'"), timestamp)
+    
+    WebView.ExecuteScript("chat", js_code)
+end
+
+-- Toggle chat visibility
+Cmd.Add("togglechat", function()
+    local info = WebView.GetInfo("chat")
+    if info then
+        WebView.SetVisible("chat", not info.visible)
+        if not info.visible then
+            WebView.Focus("chat")
+        end
+    end
+end)
+```
+
+### Multi-Window Interface
+
+```lua
+-- Create multiple WebViews for different purposes
+local webviews = {
+    {
+        id = "hud",
+        url = "resource://gameui/client/hud.html",
+        position = vec2(0, 0),
+        size = vec2(1920, 1080),
+        input_enabled = false,
+        z_order = 1
+    },
+    {
+        id = "minimap",
+        url = "resource://gameui/client/minimap.html",
+        position = vec2(1620, 20),
+        size = vec2(280, 280),
+        input_enabled = true,
+        z_order = 5
+    },
+    {
+        id = "inventory",
+        url = "resource://gameui/client/inventory.html",
+        position = vec2(300, 200),
+        size = vec2(600, 500),
+        input_enabled = true,
+        z_order = 15,
+        visible = false  -- Hidden by default
+    }
+}
+
+-- Initialize all WebViews
+for _, config in ipairs(webviews) do
+    local id = WebView.Create(config.id, config)
+    if id == "" then
+        print("Failed to create WebView: " .. config.id)
+    end
+end
+
+-- Toggle inventory
+Cmd.Add("inventory", function()
+    local info = WebView.GetInfo("inventory")
+    if info then
+        local new_visibility = not info.visible
+        WebView.SetVisible("inventory", new_visibility)
+        
+        if new_visibility then
+            WebView.BringToFront("inventory")
+            WebView.Focus("inventory")
+        else
+            WebView.BlurAll()
+        end
+    end
+end)
+```
+
+### Dynamic Content Loading
+
+```lua
+-- Create a dynamic content viewer
+local content_viewer = WebView.Create("content", {
+    url = "resource://content/client/viewer.html",
+    position = vec2(200, 100),
+    size = vec2(800, 600),
+    visible = true,
+    input_enabled = true,
+    z_order = 5
+})
+
+-- Load different content types
+local function loadContent(content_type, data)
+    if content_type == "player_stats" then
+        WebView.LoadUrl("content", "resource://content/client/stats.html?player=" .. data.player_id)
+    elseif content_type == "server_info" then
+        WebView.LoadUrl("content", "resource://content/client/server.html")
+    elseif content_type == "external" then
+        WebView.LoadUrl("content", data.url)
+    end
+    
+    -- Bring to front when loading new content
+    WebView.BringToFront("content")
+    WebView.Focus("content")
+end
+
+-- Commands for different content
+Cmd.Add("stats", function() 
+    loadContent("player_stats", {player_id = GetLocalPlayer().id}) 
+end)
+
+Cmd.Add("serverinfo", function() 
+    loadContent("server_info", {}) 
+end)
+
+Cmd.Add("browse", function(url) 
+    if url and url:match("^https?://") then
+        loadContent("external", {url = url}) 
+    else
+        print("Please provide a valid HTTP/HTTPS URL")
+    end
+end)
+```
+
+## Best Practices
+
+### Performance Optimization
+
+```lua
+-- Batch WebView operations
+local function batchUpdateWebViews(updates)
+    for webview_id, operations in pairs(updates) do
+        for _, operation in ipairs(operations) do
+            if operation.type == "position" then
+                WebView.SetPosition(webview_id, operation.value)
+            elseif operation.type == "size" then
+                WebView.SetSize(webview_id, operation.value)
+            elseif operation.type == "script" then
+                WebView.ExecuteScript(webview_id, operation.value)
+            end
+        end
+    end
+end
+
+-- Hide inactive WebViews to save resources
+local function optimizeWebViews()
+    local active_webviews = {"hud", "chat"}
+    local all_webviews = {"hud", "chat", "inventory", "map", "settings"}
+    
+    for _, id in ipairs(all_webviews) do
+        local should_be_visible = false
+        for _, active_id in ipairs(active_webviews) do
+            if id == active_id then
+                should_be_visible = true
+                break
+            end
+        end
+        
+        WebView.SetVisible(id, should_be_visible)
+    end
+end
+```
+
+### Error Handling
+
+```lua
+-- Safe WebView operations with error handling
+local function safeWebViewOperation(operation, ...)
+    local success, result = pcall(operation, ...)
+    if not success then
+        print("WebView operation failed: " .. tostring(result))
+        return false
+    end
+    return result
+end
+
+-- Example usage
+local function safeCreateWebView(id, config)
+    return safeWebViewOperation(WebView.Create, id, config)
+end
+
+local function safeExecuteScript(id, script)
+    return safeWebViewOperation(WebView.ExecuteScript, id, script)
+end
+```
+
+### Resource Management
+
+```lua
+-- Clean up WebViews when resource stops
+local created_webviews = {}
+
+local function createManagedWebView(id, config)
+    local result = WebView.Create(id, config)
+    if result ~= "" then
+        table.insert(created_webviews, id)
+    end
+    return result
+end
+
+-- Cleanup function (call when resource stops)
+local function cleanupWebViews()
+    for _, id in ipairs(created_webviews) do
+        WebView.Destroy(id)
+    end
+    created_webviews = {}
+end
+
+-- Register cleanup
+AddEventHandler("onResourceStop", cleanupWebViews)
+```
