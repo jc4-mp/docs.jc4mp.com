@@ -1,6 +1,16 @@
 # Resource
 
+See [Resources.GetAll()](/shared-api/resources#resourcesgetallresource) to get a list of all resources.
+
+## Global Properties
+
 #### `Resource.Name (string)`
+
+The name of the current resource.
+
+## Methods
+
+#### `Resource:GetName(): string`
 
 Gets the name of the current resource.
 
@@ -8,10 +18,22 @@ Example usage:
 
 ```lua
 Event.Add("ResourceStart", function(resource)
-    if resource == Resource.Name then
+    if resource:GetName() == Resource.Name then
         print("Current resource started: " .. resource)
     else
         print("Other resource started: " .. resource)
     end
 end)
+```
+
+#### `Resource:GetStatus(): ResourceStatus`
+
+Gets the status of the current resource.
+
+See [ResourceStatus](/shared-api/resourcestatus) for more information.
+
+Example usage:
+
+```lua
+print("Resource status: " .. Resource:GetStatus())
 ```
