@@ -1,7 +1,7 @@
 // Class documentation metadata for inheritance system
 // Each class has a name, optional parent, and its own methods/fields
 
-export type ClassName = 'NetObjectBase' | 'NetObject' | 'NetPlayer' | 'PlayerClient' | 'PlayerClient_Client' | 'PlayerClient_Server';
+export type ClassName = 'NetObjectBase' | 'NetObjectBase_Server' | 'NetObject' | 'NetObject_Server' | 'NetPlayer' | 'NetPlayer_Server' | 'PlayerClient' | 'PlayerClient_Client' | 'PlayerClient_Server';
 
 // Events inheritance system
 export type EventContextName = 'SharedEvents' | 'ClientEvents' | 'ServerEvents';
@@ -22,6 +22,7 @@ export interface EventContext {
 
 export interface ClassMethod {
   name: string;
+  args?: string; // Optional arguments string like "(key: string, value: any)"
   description: string;
   returnType?: string;
 }
@@ -139,8 +140,18 @@ export const classDocs: Record<ClassName, ClassDoc> = {
       { name: 'GetMaxHealth', description: 'Returns the maximum health of the object.', returnType: 'number' },
       { name: 'GetVelocity', description: 'Returns the velocity of the object.', returnType: 'vec3' },
       { name: 'GetNetId', description: 'Returns the network ID of the object.', returnType: 'number' },
+      { name: 'SetData', args: '(key: string, value: any)', description: 'Sets generic data on the object. Value must be a number, string, bool, vec2, vec3, vec4, or quat.', returnType: 'any' },
+      { name: 'GetData', args: '(key: string)', description: 'Gets generic data from the object.', returnType: 'any' },
     ],
     docLink: '/shared-api/netobjectbase',
+  },
+  NetObjectBase_Server: {
+    name: 'NetObjectBase_Server',
+    parent: 'NetObjectBase',
+    methods: [
+      { name: 'SetData', args: '(key: string, value: any, broadcast: bool)', description: 'Sets generic data on the object. Value must be a number, string, bool, vec2, vec3, vec4, or quat. If broadcast is true, the data will be synchronized to all clients.', returnType: 'any' },
+    ],
+    docLink: '/server-api/netobjectbase',
   },
   NetObject: {
     name: 'NetObject',
@@ -148,11 +159,23 @@ export const classDocs: Record<ClassName, ClassDoc> = {
     methods: [], // Add NetObject-specific methods here
     docLink: '/shared-api/netobject',
   },
+  NetObject_Server: {
+    name: 'NetObject_Server',
+    parent: 'NetObjectBase_Server',
+    methods: [], // Add NetObject_Server-specific methods here
+    docLink: '/server-api/netobject',
+  },
   NetPlayer: {
     name: 'NetPlayer',
     parent: 'NetObject',
     methods: [], // Add NetPlayer-specific methods here
     docLink: '/shared-api/netplayer',
+  },
+  NetPlayer_Server: {
+    name: 'NetPlayer_Server',
+    parent: 'NetObject_Server',
+    methods: [], // Add NetPlayer_Server-specific methods here
+    docLink: '/server-api/netplayer',
   },
   PlayerClient: {
     name: 'PlayerClient',
