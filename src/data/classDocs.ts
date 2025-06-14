@@ -115,6 +115,14 @@ end)`
         example: `Event.Add("PostTick", function()
     print("PostTick! Elapsed seconds: " .. tostring(Server.GetElapsedSeconds()))
 end)`
+      },
+      {
+        name: 'PlayerResourceAction',
+        signature: '(player: PlayerClient, resource: string, action: ResourceAction)',
+        description: 'This fires when a player\'s resource is started, stopped, or restarted. See [ResourceAction](/shared-api/resourceaction) for more information on types of actions. If you want to send data to a player when they connect, you should do it here since there resource is fully loaded (on ResourceAction.Start).',
+        example: `Event.Add("PlayerResourceAction", function(player, resource, action)
+    print("Player " .. player:GetNick() .. " " .. action .. " resource " .. resource)
+end)`
       }
     ],
     docLink: '/server-api/events',
