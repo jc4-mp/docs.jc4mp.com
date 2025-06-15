@@ -1,0 +1,21 @@
+# Terrain
+
+#### `Terrain.GetInfo (position: vec3): table`
+
+Gets information about the terrain at a given position.
+
+Args:
+ - `position` (vec3) - The position to get the terrain information for.
+
+Returns (in table):
+ - `hitPos` (vec3) - The position of the hit.
+ - `normal` (vec3) - The normal of the terrain at the hit position.
+ - `height` (number) - The height of the terrain at the hit position.
+ - `hasHit` (boolean) - Whether terrain was hit at the given position.
+
+Example of getting the terrain information at the player's aim position:
+
+```lua
+local info = Terrain.GetInfo(Players.Local():GetGamePlayer():GetAimPosition())
+print(info.hasHit, info.hitPos.x, info.hitPos.y, info.hitPos.z, info.height, info.normal.x, info.normal.y, info.normal.z)
+```
