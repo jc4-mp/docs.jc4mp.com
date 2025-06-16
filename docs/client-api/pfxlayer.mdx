@@ -1,0 +1,46 @@
+# PfxLayer
+
+Layers for raycast collisions. For usage, see [Physics.Raycast](/client-api/physics).
+
+To create a collide layer with multiple layers, use the bitwise OR operator (`|`). For example, to create a collide layer that collides with terrain and static objects, you can use:
+```lua
+-- Only collide with terrain and static objects
+local collideLayer = PfxLayer.Terrain | PfxLayer.Static
+```
+
+| Layer | Description |
+|-------|-------------|
+| `PfxLayer.FullCollision` | Collides with everything. Ideally nothing should be in this layer. |
+| `PfxLayer.NoCollision` | Collides with nothing except fullcollision. |
+| `PfxLayer.Static` | Standard static objects |
+| `PfxLayer.Terrain` | Terrain / heightfield |
+| `PfxLayer.Dynamic` | Standard dynamic objects |
+| `PfxLayer.Destruction` | Havok destruction |
+| `PfxLayer.CharacterCollision` | Default character capsule rigidbody layer |
+| `PfxLayer.CharacterGhostMode` | Character capsule rigidbody layer while in ghostmode |
+| `PfxLayer.CharacterRagdoll` | All ragdoll rigid bodies that aren't keyframed |
+| `PfxLayer.CharacterRagdollKeyframed` | All ragdoll rigid bodies that are keyframed |
+| `PfxLayer.CharacterAttachedDynamicRb` | Used for rigid objects characters are attached to |
+| `PfxLayer.CharacterRagdollProxies` | The ragdoll proxy phantoms used for aiming/shooting |
+| `PfxLayer.Particle` | Physical particles |
+| `PfxLayer.Explosive` | Physical explosives, like grenades |
+| `PfxLayer.Projectile` | Physical projectiles, like missiles |
+| `PfxLayer.Weapons` | Physical dynamic weapons laying about in the world |
+| `PfxLayer.VehicleCollisionWheel` | Vehicle wheels collision |
+| `PfxLayer.VehicleCollisionDynamicOnly` | Vehicle collision with other dynamic bodies |
+| `PfxLayer.VehicleCollision` | Vehicle collision with other bodies |
+| `PfxLayer.VehicleRaycast` | Vehicle ray cast shape |
+| `PfxLayer.RaycastDefault` | Regular raycasts |
+| `PfxLayer.RaycastEverythingPhysical` | Hits everything physical |
+| `PfxLayer.RaycastWheels` | Hits everything physical for wheels |
+| `PfxLayer.ShapeQueryDefault` | Default filter layer for volume checks |
+| `PfxLayer.ShapeQueryTrigger` | Filter layer for volume triggers |
+| `PfxLayer.ShapeQueryExplosion` | Filter layer for explosion volumes |
+| `PfxLayer.ShapeQueryVehicles` | Filter layer for vehicle volumes |
+| `PfxLayer.StaticAndDestruction` | Colliding with static physics, terrain and destruction |
+| `PfxLayer.AllDynamicObjects` | Collide with all dynamic objects |
+| `PfxLayer.ListenerEffects` | Low quality vehicles, terrain and rigid objects |
+| `PfxLayer.ShapeQueryClimbing` | For hitting things player can climb on |
+| `PfxLayer.UnusedLayer31` | Reserved for future use |
+| `PfxLayer.Count` | System layer count |
+| `PfxLayer.MaxCount` | Maximum number of layers (32) |

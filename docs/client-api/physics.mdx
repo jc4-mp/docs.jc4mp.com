@@ -1,0 +1,15 @@
+# Physics
+
+
+#### `Physics.Raycast(from: vec3, to: vec3, collide_layer: number): table`
+
+Raycasts from `from` to `to` with the given [collide layer](/client-api/pfxlayer). By default, `collide_layer` is `PfxLayer.PfxLayer_RaycastDefault`.
+
+
+Returns a table with the following fields:
+
+- `hasHit` (boolean) - Whether a hit was found. If nothing was hit, this will be `false`, and all other fields will be `nil`.
+- `hitPos` (vec3) - The position of the hit.
+- `normal` (vec3) - The normal of the hit.
+- `hitDistance` (number) - The distance from `from` to the hit position.
+- `gameObject` (GameObject) - The [game object](/client-api/gameobject) that was hit, if any.

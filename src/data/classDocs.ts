@@ -1,7 +1,7 @@
 // Class documentation metadata for inheritance system
 // Each class has a name, optional parent, and its own methods/fields
 
-export type ClassName = 'NetObjectBase' | 'NetObjectBase_Server' | 'NetObject' | 'NetObject_Server' | 'NetPlayer' | 'NetPlayer_Server' | 'PlayerClient' | 'PlayerClient_Client' | 'PlayerClient_Server';
+export type ClassName = 'NetObjectBase' | 'NetObjectBase_Server' | 'NetObject' | 'NetObject_Server' | 'NetPlayer' | 'NetPlayer_Server' | 'PlayerClient' | 'PlayerClient_Client' | 'PlayerClient_Server' | 'GameObject' | 'Damageable' | 'Character';
 
 // Events inheritance system
 export type EventContextName = 'SharedEvents' | 'ClientEvents' | 'ServerEvents';
@@ -199,5 +199,38 @@ export const classDocs: Record<ClassName, ClassDoc> = {
     parent: 'PlayerClient',
     methods: [],
     docLink: '/server-api/playerclient',
+  },
+  GameObject: {
+    name: 'GameObject',
+    methods: [
+      { name: 'GetPosition', description: 'Returns the position of the game object.', returnType: 'vec3' },
+      { name: 'GetRotation', description: 'Returns the rotation of the game object.', returnType: 'quat' },
+      { name: 'GetEulerRotation', description: 'Returns the euler rotation of the game object.', returnType: 'vec3' },
+    ],
+    docLink: '/client-api/gameobject',
+  },
+  Damageable: {
+    name: 'Damageable',
+    parent: 'GameObject',
+    methods: [
+      { name: 'GetHP', description: 'Returns the health of the damageable.', returnType: 'number' },
+    ],
+    docLink: '/client-api/damageable',
+  },
+  Character: {
+    name: 'Character',
+    parent: 'Damageable',
+    methods: [
+      { name: 'SetPosition', args: '(pos: vec3)', description: 'Sets the Character\'s position in the world. Do not use this to teleport the local character; use Local.Teleport(pos) instead.' },
+      { name: 'SetLinearVelocity', args: '(velocity: vec3)', description: 'Sets the Character\'s linear velocity.' },
+      { name: 'GoRagdoll', description: 'Forces the Character into the ragdoll state.' },
+      { name: 'IsRagdolling', description: 'Returns true if the Character is currently ragdolling, false otherwise.', returnType: 'boolean' },
+      { name: 'IsGettingUpFromRagdoll', description: 'Returns true if the Character is currently getting up from ragdoll, false otherwise.', returnType: 'boolean' },
+      { name: 'UsingParachute', description: 'Returns true if the Character is using a parachute, false otherwise.', returnType: 'boolean' },
+      { name: 'UsingWingsuit', description: 'Returns true if the Character is using a wingsuit, false otherwise.', returnType: 'boolean' },
+      { name: 'GetPlayer', description: 'Returns the Player associated with this Character.', returnType: 'Player' },
+      { name: 'GetBonePosition', args: '(bone: Bone)', description: 'Gets the world position of a specific bone on a character.', returnType: 'vec3' },
+    ],
+    docLink: '/client-api/character',
   },
 }; 
