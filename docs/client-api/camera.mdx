@@ -1,0 +1,52 @@
+# Camera
+
+## Global Methods
+
+
+#### `Camera.GetPosition()`
+
+Gets the current position of the camera.
+
+Example usage:
+
+```lua
+print(Camera.GetPosition())
+```
+
+#### `Camera.WorldToScreen(pos: vec3): vec2`
+
+Converts world coordinates to screen coordinates. If the world position provided is on the screen, it will return a `vec2` with the screen coordinates of that world position. If the world position is off-screen, it will return nil.
+
+Example usage that draws a circle at a specified position:
+
+```lua
+Event.Add("Render", function()
+    local pos = vec3(1000, 1000, 1000)
+    local screen_pos = Camera.WorldToScreen(pos)
+    if screen_pos then
+        -- Draw a circle on the position if it is on the screen
+        Render.FillCircle(pos, 20, 24, vec4(1.0, 1.0, 1.0, 1.0))
+    end
+end)
+```
+
+
+#### `Camera.SetFOV(value: number)`
+
+Sets the FOV of the camera. The default value is 1.
+
+Example usage:
+
+```lua
+Camera.SetFOV(1.5)
+```
+
+#### `Camera.GetFOV(): number`
+
+Gets the current FOV of the camera.
+
+Example usage:
+
+```lua
+print(Camera.GetFOV())
+```

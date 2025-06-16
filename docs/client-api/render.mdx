@@ -213,24 +213,6 @@ local size = Render.GetSize() -- If playing on a 1920x1080 display, it will retu
 
 
 
-#### `Render.WorldToScreen(pos: vec3): vec2`
-
-Converts world coordinates to screen coordinates. If the world position provided is on the screen, it will return a `vec2` with the screen coordinates of that world position. If the world position is off-screen, it will return nil.
-
-Example usage that draws a circle at a specified position:
-
-```lua
-Event.Add("Render", function()
-    local pos = vec3(1000, 1000, 1000)
-    local screen_pos = Render.WorldToScreen(pos)
-    if screen_pos then
-        -- Draw a circle on the position if it is on the screen
-        Render.FillCircle(pos, 20, 24, vec4(1.0, 1.0, 1.0, 1.0))
-    end
-end)
-```
-
-
 #### `Render.DrawSphere(pos: vec3, radius: number, color: vec4, wireframe: boolean)`
 
 Draws a 3D depth-tested sphere in the game world at `pos` position with specific radius and color. Set wireframe to true to draw the sphere as a wireframe, or false for a fully filled sphere.

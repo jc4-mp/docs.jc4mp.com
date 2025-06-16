@@ -13,7 +13,7 @@ Event.Add("Render", function()
     local char = localPlayer:GetCharacter()
     for bone_name, bone_val in pairs(Bone) do
         local pos = char:GetBonePosition(bone_val)
-        local pos_2d = Render.WorldToScreen(pos)
+        local pos_2d = Camera.WorldToScreen(pos)
 
         if pos_2d then
             Render.FillCircle(pos_2d, 7, 24, vec4(1, 0, 0, 1.0))
