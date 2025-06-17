@@ -140,7 +140,7 @@ export const classDocs: Record<ClassName, ClassDoc> = {
       { name: 'GetMaxHealth', description: 'Returns the maximum health of the object.', returnType: 'number' },
       { name: 'GetVelocity', description: 'Returns the velocity of the object.', returnType: 'vec3' },
       { name: 'GetNetId', description: 'Returns the network ID of the object.', returnType: 'number' },
-      { name: 'SetData', args: '(key: string, value: any)', description: 'Sets generic data on the object. Value must be a number, string, bool, vec2, vec3, vec4, or quat.', returnType: 'any' },
+      { name: 'SetData', args: '(key: string, value: any)', description: 'Sets generic data on the object. Value must be a number, string, bool, vec2, vec3, vec4, or quat. Returns true if the data was set successfully, false otherwise (for unsupported types).', returnType: 'boolean' },
       { name: 'GetData', args: '(key: string)', description: 'Gets generic data from the object.', returnType: 'any' },
     ],
     docLink: '/shared-api/netobjectbase',
@@ -149,7 +149,7 @@ export const classDocs: Record<ClassName, ClassDoc> = {
     name: 'NetObjectBase_Server',
     parent: 'NetObjectBase',
     methods: [
-      { name: 'SetData', args: '(key: string, value: any, broadcast: bool)', description: 'Sets generic data on the object. Value must be a number, string, bool, vec2, vec3, vec4, or quat. If broadcast is true, the data will be synchronized to all clients.', returnType: 'any' },
+      { name: 'SetData', args: '(key: string, value: any, broadcast: bool)', description: 'Sets generic data on the object. Value must be a number, string, bool, vec2, vec3, vec4, or quat. If broadcast is true, the data will be synchronized to all clients. Returns true if the data was set successfully, false otherwise (for unsupported types).', returnType: 'boolean' },
     ],
     docLink: '/server-api/netobjectbase',
   },
