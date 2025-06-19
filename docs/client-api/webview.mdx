@@ -351,6 +351,72 @@ local function updateWebViewInput(game_paused)
 end
 ```
 
+#### `WebView.ExecuteScript(id: string, script: string): boolean`
+
+Executes JavaScript code within the specified WebView's context. This allows you to dynamically manipulate the DOM, update content, call JavaScript functions, and interact with the web page from Lua. Keep in mind that this isn't usually necessary to use if you leverage the messaging system to communicate with your webview, but it can be useful for simple tasks.
+
+**Parameters:**
+- `id` (string): The WebView ID
+- `script` (string): JavaScript code to execute
+
+**Returns:**
+- `boolean`: `true` if script executed successfully, `false` otherwise
+
+**Example:**
+```lua
+-- Change text content of an element
+WebView.ExecuteScript("my_ui", "document.getElementById('player-name').textContent = 'Rico';")
+
+-- Update multiple elements
+local player_data = {
+    name = "PlayerName",
+    health = 100,
+    score = 1500
+}
+
+local script = string.format([[
+    document.getElementById('player-name').textContent = '%s';
+    document.getElementById('health-bar').style.width = '%d%%';
+    document.getElementById('score-display').textContent = '%d';
+]], player_data.name, player_data.health, player_data.score)
+
+WebView.ExecuteScript("hud", script)
+
+-- Call JavaScript functions defined in your HTML
+WebView.ExecuteScript("my_ui", "updatePlayerStats(" .. player_data.health .. ", " .. player_data.score .. ");")
+
+-- Show/hide elements dynamically
+WebView.ExecuteScript("my_ui", "document.getElementById('loading-screen').style.display = 'none';")
+WebView.ExecuteScript("my_ui", "document.getElementById('game-ui').style.display = 'block';")
+
+-- Add CSS classes for styling
+WebView.ExecuteScript("my_ui", "document.body.classList.add('in-game');")
+
+-- Update form values
+WebView.ExecuteScript("settings_panel", [[
+    document.getElementById('volume-slider').value = 75;
+    document.getElementById('graphics-quality').selectedIndex = 2;
+]])
+
+-- Inject complex JavaScript functionality
+local complex_script = [[
+    function updateNotification(message, type) {
+        const notification = document.createElement('div');
+        notification.className = 'notification ' + type;
+        notification.textContent = message;
+        document.getElementById('notifications').appendChild(notification);
+        
+        setTimeout(() => {
+            notification.remove();
+        }, 3000);
+    }
+    
+    updateNotification('Player joined the server', 'info');
+]]
+
+WebView.ExecuteScript("game_ui", complex_script)
+```
+
 #### `WebView.GetInfo(id: string): table`
 
 Retrieves information about a WebView instance.
