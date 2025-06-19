@@ -86,6 +86,11 @@ end)`
     parent: 'SharedEvents',
     events: [
       {
+        name: 'ResourceStart',
+        signature: '(resource: string)',
+        description: 'Called when a resource is started on the server.'
+      },
+      {
         name: 'PlayerJoin',
         signature: '(player: PlayerClient)',
         description: 'This fires when a [player client](./playerclient) joins the server. This does not guarantee that the player has loaded their scripts yet, so do not try to send them data yet.',
