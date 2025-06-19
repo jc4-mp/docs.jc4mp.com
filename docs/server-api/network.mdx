@@ -54,24 +54,40 @@ And the client can send events to trigger the client event:
 Net.Send("TestEventFromClient", { value = "hello"})
 ```
 
-**Another example**: To get the player who sent the event, you can send the local player in the arguments:
+**Another example**: To get the player who sent the event, you can use `Net.Sender()`:
 
 ```lua
 -- resources/test/client/main.lua
-
--- Send the local PlayerClient to the server
-Net.Send("PrintMySkin", Players.Local())
+Net.Send("PrintMySkin")
 ```
 
 ```lua
 -- resources/test/server/main.lua
 
--- Receive the PlayerClient, get NetPlayer from it, and print their skin
-Net.AddEvent("PrintMySkin", function(playerClient)
-    local player = playerClient:GetNetPlayer()
+-- Get the PlayerClient that sent the event, get NetPlayer from it, and print their skin
+Net.AddEvent("PrintMySkin", function()
+    local player = Net.Sender():GetNetPlayer()
     print("Player skin: " .. tostring(player:GetSkin()))
 end)
 ```
+
+
+#### `Net.Sender(): PlayerClient`
+
+Returns the [PlayerClient](./playerclient.mdx) that sent the event. This is only valid within the event handler.
+
+Example:
+
+```lua
+-- resources/test/server/main.lua
+
+Net.AddEvent("PrintMyNick", function()
+    local player = Net.Sender()
+    print("Player: " .. tostring(player:GetNick()) .. " sent the event")
+end)
+```
+
+
 
 #### `Net.RemoveEvent(event: string)`
 
