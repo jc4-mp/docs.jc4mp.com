@@ -25,25 +25,34 @@ export const InheritedComponent: React.FC<{ className: ClassName }> = ({ classNa
     return chain;
   }
 
-  // Get all method names that are overridden by child classes
-  function getOverriddenMethods(chain: { name: ClassName; methods: typeof classDocs[ClassName]['methods']; docLink: string }[]): Set<string> {
-    const overridden = new Set<string>();
-    const allMethodNames = new Set<string>();
+  // Build a method resolution table that tracks which class provides each method
+  function buildMethodResolution(chain: { name: ClassName; methods: typeof classDocs[ClassName]['methods']; docLink: string }[]): Map<string, { method: typeof classDocs[ClassName]['methods'][0]; fromClass: ClassName; docLink: string }> {
+    const methodResolution = new Map<string, { method: typeof classDocs[ClassName]['methods'][0]; fromClass: ClassName; docLink: string }>();
     
-    // Go through chain from most derived to least derived
-    for (let i = chain.length - 1; i >= 0; i--) {
-      const currentClass = chain[i];
-      for (const method of currentClass.methods) {
-        if (allMethodNames.has(method.name)) {
-          // This method name already exists in a more derived class, so it's overridden
-          overridden.add(method.name);
-        } else {
-          allMethodNames.add(method.name);
-        }
+    // Go through chain from least derived to most derived (so later overrides win)
+    for (const classInfo of chain) {
+      for (const method of classInfo.methods) {
+        methodResolution.set(method.name, {
+          method,
+          fromClass: classInfo.name,
+          docLink: classInfo.docLink
+        });
       }
     }
     
-    return overridden;
+    return methodResolution;
+  }
+
+  // Get methods that should be shown for each ancestor class
+  function getMethodsForAncestor(
+    ancestorClass: { name: ClassName; methods: typeof classDocs[ClassName]['methods']; docLink: string },
+    methodResolution: Map<string, { method: typeof classDocs[ClassName]['methods'][0]; fromClass: ClassName; docLink: string }>
+  ): typeof classDocs[ClassName]['methods'] {
+    // Only show methods that are actually defined by this ancestor and not overridden by a more derived class
+    return ancestorClass.methods.filter(method => {
+      const resolvedMethod = methodResolution.get(method.name);
+      return resolvedMethod && resolvedMethod.fromClass === ancestorClass.name;
+    });
   }
 
   // Utility to create kebab-case anchor ids
@@ -52,25 +61,26 @@ export const InheritedComponent: React.FC<{ className: ClassName }> = ({ classNa
   }
 
   const chain = getInheritanceChain(className);
-  const overriddenMethods = getOverriddenMethods(chain);
+  const methodResolution = buildMethodResolution(chain);
   
   // Remove the last item (the class itself), only show inherited, and only those with methods
   const inherited = chain.slice(0, -1).filter((ancestor) => ancestor.methods.length > 0);
   const base = chain[chain.length - 1];
 
-  // Check if there are any non-overridden inherited methods
-  const hasNonOverriddenInheritedMethods = inherited.some(ancestor => 
-    ancestor.methods.some(method => !overriddenMethods.has(method.name))
+  // Check if there are any inherited methods that should be shown
+  const hasInheritedMethods = inherited.some(ancestor => 
+    getMethodsForAncestor(ancestor, methodResolution).length > 0
   );
 
-  // If there are no non-overridden inherited methods, just show the current class methods
-  if (!hasNonOverriddenInheritedMethods && base && base.methods.length > 0) {
+  // If there are no inherited methods, just show the current class methods
+  if (!hasInheritedMethods && base && base.methods.length > 0) {
     return (
       <div>
+        <Heading as="h2">Class Methods</Heading>
         {base.methods.map((method) => {
           const anchorId = `${toKebabCase(base.name)}-${toKebabCase(method.name)}`;
-          // Use the original class name (remove _Server suffix) for the signature
-          const displayClassName = base.name.replace('_Server', '').replace('_Client', '');
+          // Use the original class name (remove suffixes) for the signature
+          const displayClassName = base.name.replace('_Server', '').replace('_Client', '').replace('_Shared', '');
           const signature = `${displayClassName}:${method.name}${method.args || '()'}${method.returnType ? `: ${method.returnType}` : ''}`;
           return (
             <div key={method.name}>
@@ -85,25 +95,26 @@ export const InheritedComponent: React.FC<{ className: ClassName }> = ({ classNa
     );
   }
 
-  if (!hasNonOverriddenInheritedMethods && (!base || base.methods.length === 0)) return null;
+  if (!hasInheritedMethods && (!base || base.methods.length === 0)) return null;
 
   return (
     <div>
       <Heading as="h2">Inherited Methods</Heading>
       {inherited.map((ancestor) => {
-        // Filter out methods that are overridden by child classes
-        const nonOverriddenMethods = ancestor.methods.filter(method => !overriddenMethods.has(method.name));
+        // Get methods that should be shown for this ancestor
+        const methodsToShow = getMethodsForAncestor(ancestor, methodResolution);
         
-        if (nonOverriddenMethods.length === 0) return null;
+        if (methodsToShow.length === 0) return null;
         
         return (
           <div key={ancestor.name}>
             <Heading as="h3">
-              From <a href={ancestor.docLink}><code>{ancestor.name}</code></a>:
+              From <a href={ancestor.docLink}>{ancestor.name.replace('_Server', '').replace('_Client', '').replace('_Shared', '')}</a>:
             </Heading>
-            {nonOverriddenMethods.map((method) => {
+            {methodsToShow.map((method) => {
               const anchorId = `${toKebabCase(ancestor.name)}-${toKebabCase(method.name)}`;
-              const signature = `${ancestor.name}:${method.name}${method.args || '()'}${method.returnType ? `: ${method.returnType}` : ''}`;
+              const displayClassName = ancestor.name.replace('_Server', '').replace('_Client', '').replace('_Shared', '');
+              const signature = `${displayClassName}:${method.name}${method.args || '()'}${method.returnType ? `: ${method.returnType}` : ''}`;
               return (
                 <div key={method.name}>
                   <Heading as="h4" id={anchorId}>
@@ -120,10 +131,13 @@ export const InheritedComponent: React.FC<{ className: ClassName }> = ({ classNa
       {/* Show current class methods */}
       {base && base.methods.length > 0 && (
         <div>
-          {base.methods.map((method) => {
-            const anchorId = `${toKebabCase(base.name)}-${toKebabCase(method.name)}`;
-            // Use the original class name (remove _Server suffix) for the signature
-            const displayClassName = base.name.replace('_Server', '').replace('_Client', '');
+          <Heading as="h2">
+            Class Methods
+          </Heading>
+                  {base.methods.map((method) => {
+          const anchorId = `${toKebabCase(base.name)}-${toKebabCase(method.name)}`;
+          // Use the original class name (remove suffixes) for the signature
+          const displayClassName = base.name.replace('_Server', '').replace('_Client', '').replace('_Shared', '');
             const signature = `${displayClassName}:${method.name}${method.args || '()'}${method.returnType ? `: ${method.returnType}` : ''}`;
             return (
               <div key={method.name}>
