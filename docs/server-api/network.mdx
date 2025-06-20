@@ -92,3 +92,110 @@ end)
 #### `Net.RemoveEvent(event: string)`
 
 Removes a network event handler.
+
+
+#### `Net.Fetch(url: string, args?: table): table`
+
+Performs HTTP requests similar to JavaScript's fetch API. This is a synchronous operation that returns a table with the response data.
+
+**Parameters:**
+- `url` (string): The URL to make the request to
+- `args` (table, optional): Options table for configuring the request
+
+**Args Table Properties:**
+- `method` (string): HTTP method (defaults to "GET" if no args provided, "POST" if args provided)
+- `body` (string): Request body content
+- `content_type` or `contentType` (string): Content-Type header
+- `authorization` (string): Authorization header
+- `accept` (string): Accept header
+- `headers` (table): Table of custom headers as key-value pairs
+- `timeout` (number): The maximum amount of time in seconds to wait for a response. Defaults to 10 seconds.
+
+**Return Table Properties:**
+- `response` (string): The response body as a string
+- `status` (number): HTTP status code (e.g., 200, 404, 500)
+- `success` (boolean): Whether the request was successful
+
+**Examples:**
+
+Simple GET request:
+```lua
+-- resources/test/server/main.lua
+
+local result = Net.Fetch("https://api.example.com/data")
+if result.success then
+    print("Status:", result.status)
+    print("Response:", result.response)
+else
+    print("Request failed with status:", result.status)
+end
+```
+
+POST request with JSON data:
+```lua
+-- resources/test/server/main.lua
+
+local result = Net.Fetch("https://api.example.com/submit", {
+    method = "POST",
+    body = '{"username": "player123", "score": 1500}',
+    contentType = "application/json"
+})
+
+if result.success and result.status == 200 then
+    print("Data submitted successfully:", result.response)
+else
+    print("Failed to submit data. Status:", result.status)
+end
+```
+
+Request with custom headers:
+```lua
+-- resources/test/server/main.lua
+
+local result = Net.Fetch("https://api.example.com/protected", {
+    method = "GET",
+    headers = {
+        ["X-API-Key"] = "your-api-key-here",
+        ["User-Agent"] = "JC4MP-Server/1.0"
+    }
+})
+
+if result.success then
+    print("Protected data retrieved:", result.response)
+end
+```
+
+Form data submission:
+```lua
+-- resources/test/server/main.lua
+
+local result = Net.Fetch("https://api.example.com/form", {
+    method = "POST",
+    body = "name=John&email=john@example.com",
+    contentType = "application/x-www-form-urlencoded"
+})
+
+if result.success then
+    print("Form submitted:", result.response)
+end
+```
+
+Handling different response types:
+```lua
+-- resources/test/server/main.lua
+
+local result = Net.Fetch("https://api.example.com/status")
+
+if result.success then
+    if result.status == 200 then
+        print("Success:", result.response)
+    elseif result.status == 404 then
+        print("Resource not found")
+    elseif result.status >= 500 then
+        print("Server error:", result.status)
+    end
+else
+    print("Network error or request failed")
+end
+```
+
