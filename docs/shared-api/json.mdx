@@ -1,0 +1,17 @@
+# JSON
+
+#### `JSON.Stringify(data: table): string`
+
+Converts a lua table into a JSON string.
+
+```lua
+local json_str = JSON.Stringify({key = "value", number = 123})
+```
+
+#### `JSON.Parse(data: string): table`
+
+Converts a JSON string into a lua table.
+
+```lua
+local table = JSON.Parse('{"key": "value", "number": 123}')
+```
