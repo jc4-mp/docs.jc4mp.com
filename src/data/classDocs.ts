@@ -55,6 +55,16 @@ end)`
         name: 'ResourceStop',
         signature: '(resource: string)',
         description: 'Called when resource stops. The first argument is the name of the resource that stopped.'
+      },
+      {
+        name: 'PlayerDamage',
+        signature: '(player: NetPlayer, damager: NetObject, loss: number, hitbone: number, weaponHash: number, hitposition: vec3)',
+        description: 'This event fires when a player is damaged.'
+      },
+      {
+        name: 'PlayerKilled',
+        signature: '(player: NetPlayer)',
+        description: 'This event fires when a player is killed.'
       }
     ],
     docLink: '/shared-api/events',
@@ -77,6 +87,11 @@ end)`
         name: 'PostRender',
         signature: '()',
         description: 'Called every frame. Use the `PostRender` event to draw elements to the screen on top of the JC4MP UI, such as the chat window. This is good for full-screen overlays, such as fading to black for transitions. Learn more [here](/client-api/render).'
+      },
+      {
+        name: 'VehicleCollision',
+        signature: '(vehicle: Vehicle)',
+        description: 'This event fires when a vehicle collides with something.'
       }
     ],
     docLink: '/client-api/events',
@@ -237,6 +252,7 @@ export const classDocs: Record<ClassName, ClassDoc> = {
       { name: 'GetBonePosition', args: '(bone: Bone)', description: 'Gets the world position of a specific bone on a character.', returnType: 'vec3' },
       { name: 'SetGhostMode', args: '(enabled: bool)', description: 'Enables or disables ghost mode. When ghost mode is enabled, all collisions will be disabled for the character, allowing them to pass through entities, objects, and terrain.' },
       { name: 'SetCloaked', args: '(enabled: bool)', description: 'Enables or disables cloaked mode. When cloaked mode is enabled, the character will become mostly invisible with a shine on them.' },
+      { name: 'SetOpacity', args: '(opacity: number)', description: 'Sets the opacity of the character. Takes a value from 0-1 where 0 means invisible and 1 means fully opaque.' },
     ],
     docLink: '/client-api/character',
   },

@@ -1,0 +1,17 @@
+# GameUI
+
+Global methods for interacting with the base game UI.
+
+## Global Methods
+
+#### `GameUI.SetRegion(name: string)`
+
+Sets the region name displayed in the top-left corner of the screen.
+
+**Parameters:**
+- `name` (string): The region name to display
+  - If `"NONE"` (without quotes): Nothing will show up where the region name is displayed
+  - If empty string: The game will automatically display the region name based on the player's current location
+  - If any other string: The specified name will be displayed
+
+![GameUI.SetRegion](/img/assets/gameui.png)
