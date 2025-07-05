@@ -1,0 +1,48 @@
+# Timer
+
+The Timer module provides global methods for creating and managing timers that can execute functions after a specified delay.
+
+## Methods
+
+### Timer.Set
+
+Creates a timer that executes a function after a specified interval.
+
+**Parameters:**
+- `function` - The callback function to execute when the timer completes
+- `interval` (int) - The interval in milliseconds
+- `times` (int) - Number of times to execute the function (use -1 for infinite)
+- `args...` (optional) - Additional arguments to pass to the callback function
+
+**Returns:** Timer instance
+
+**Example:**
+```lua
+-- Create a timer that prints "Hello World" after 5 seconds
+local timer = Timer.Set(function()
+    print("Hello World")
+end, 5000, 1)
+
+-- Create a timer that prints a message with arguments
+local timer = Timer.Set(function(message, count)
+    print(message .. " - Count: " .. count)
+end, 2000, 1, "Timer completed", 42)
+```
+
+### Timer.Kill
+
+Kills a timer instance early, preventing it from executing further.
+
+**Parameters:**
+- `timer` - The timer instance to kill
+
+**Example:**
+```lua
+-- Create a timer
+local timer = Timer.Set(function()
+    print("This will never print")
+end, 10000, 1)
+
+-- Kill the timer immediately
+Timer.Kill(timer)
+```
