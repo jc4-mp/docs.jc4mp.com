@@ -59,7 +59,7 @@ end)`
       {
         name: 'PlayerDamage',
         signature: '(player: NetPlayer, damager: NetObject, loss: number, hitbone: number, weaponHash: number, hitposition: vec3)',
-        description: 'This event fires when a player is damaged.'
+        description: 'This event fires when a player is damaged. Use Event.Cancel() (only on the client) to prevent the player from taking damage.'
       },
       {
         name: 'PlayerKilled',
