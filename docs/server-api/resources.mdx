@@ -2,49 +2,72 @@
 
 These APIs allow you to manage and control resources on the server. Resources are individual packages or modules that contain game logic, scripts, and assets.
 
+**Note:** A resource cannot use these methods on itself - it's forbidden.
+
 ## Global Methods
 
 #### `Resources.Start(resourceName: string): string | nil`
 
 Starts the specified resource by name. Returns `nil` if the resource was successfully started, or a string error message if it failed.
 
+**Important:** A resource cannot start itself. This will result in an error.
+
 Example usage:
 
 ```lua
+-- This works - starting another resource
 local error = Resources.Start("my_gamemode")
 if error then
     print("Failed to start resource: " .. error)
 else
     print("Resource started successfully")
 end
+
+-- This will fail - a resource cannot start itself
+local currentResource = Resource.Name
+local error = Resources.Start(currentResource) -- This will return an error
 ```
 
 #### `Resources.Stop(resourceName: string): string | nil`
 
 Stops the specified resource by name. Returns `nil` if the resource was successfully stopped, or a string error message if it failed.
 
+**Important:** A resource cannot stop itself. This will result in an error.
+
 Example usage:
 
 ```lua
+-- This works - stopping another resource
 local error = Resources.Stop("my_gamemode")
 if error then
     print("Failed to stop resource: " .. error)
 else
     print("Resource stopped successfully")
 end
+
+-- This will fail - a resource cannot stop itself
+local currentResource = Resource.Name
+local error = Resources.Stop(currentResource) -- This will return an error
 ```
 
 #### `Resources.Restart(resourceName: string): string | nil`
 
 Restarts the specified resource by name. This is equivalent to stopping and then starting the resource. Returns `nil` if the resource was successfully restarted, or a string error message if it failed.
 
+**Important:** A resource cannot restart itself. This will result in an error.
+
 Example usage:
 
 ```lua
+-- This works - restarting another resource
 local error = Resources.Restart("my_gamemode")
 if error then
     print("Failed to restart resource: " .. error)
 else
     print("Resource restarted successfully")
 end
+
+-- This will fail - a resource cannot restart itself
+local currentResource = Resource.Name
+local error = Resources.Restart(currentResource) -- This will return an error
 ```

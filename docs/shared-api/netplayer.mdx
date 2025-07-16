@@ -10,11 +10,20 @@ This class reprecents a player on the server.
 
 ### Class Methods
 
+#### `NetPlayer:Respawn()`
+
+Respawns the player.
+
+**Example:**
+```lua
+-- Respawn a specific player
+local player = someNetPlayer -- Assume this is a NetPlayer instance
+player:Respawn()
+```
+
 #### `NetPlayer:GetSkin(): string`
 
 Returns the skin name of the player.
-
-Gives a weapon to the player with specified ammo count and optional equipping.
 
 #### `NetPlayer:GetWeaponName(WeaponSlot slot): string`
 

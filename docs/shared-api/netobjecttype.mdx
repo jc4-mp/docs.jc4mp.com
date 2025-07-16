@@ -1,0 +1,35 @@
+# NetObjectType
+
+The `NetObjectType` enum represents different types of network objects in the game. This is used with the [`NetObjectBase:GetType()`](/shared-api/netobjectbase) method to determine the type of a network object.
+
+## Values
+
+| Value | Description |
+|-------|-------------|
+| `NetObjectType.Player` | Represents a player network object |
+| `NetObjectType.Vehicle` | Represents a vehicle network object |
+
+## Usage Example
+
+```lua
+-- Get a network object and check its type
+local netObject = someNetObject -- Assume this is a NetObjectBase instance
+
+local objectType = netObject:GetType()
+
+if objectType == NetObjectType.Player then
+    -- It's a player, we can safely cast to NetPlayer
+    local player = netObject:AsPlayer()
+    print("Player nick: " .. player:GetNick())
+elseif objectType == NetObjectType.Vehicle then
+    -- It's a vehicle, we can safely cast to NetVehicle
+    local vehicle = netObject:AsVehicle()
+    print("Vehicle position: " .. tostring(vehicle:GetPosition()))
+end
+```
+
+## Related Methods
+
+- [`NetObjectBase:GetType()`](/shared-api/netobjectbase) - Returns the type of the network object
+- [`NetObjectBase:AsPlayer()`](/shared-api/netobjectbase) - Casts to NetPlayer if the object is a player
+- [`NetObjectBase:AsVehicle()`](/shared-api/netobjectbase) - Casts to NetVehicle if the object is a vehicle 

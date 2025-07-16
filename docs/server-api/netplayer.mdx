@@ -24,6 +24,20 @@ flowchart LR
 
 ### Class Methods
 
+#### `NetPlayer:Respawn(position: vec3, health: number, max_health: number)`
+
+Respawns the player at the given position with the given health and max health.
+
+**Parameters:**
+- `position` (vec3): The position to respawn the player at
+- `health` (number): The health to set for the respawned player
+- `max_health` (number): The maximum health to set for the respawned player
+
+**Example:**
+```lua
+player:Respawn(vec3(0, 0, 0), 100, 100)
+```
+
 #### `NetPlayer:GiveWeapon(string name, int ammo, bool equip, WeaponSlot slot)`
 
 Gives a weapon to the player with specified ammo count and optional equipping. View the full list of [weapons here](/reference/weapons-list).

@@ -1,10 +1,21 @@
 // Class documentation metadata for inheritance system
 // Each class has a name, optional parent, and its own methods/fields
 
-export type ClassName = 'NetObjectBase' | 'NetObjectBase_Server' | 'NetObject' | 'NetObject_Server' | 'NetPlayer' | 'NetPlayer_Server' | 'PlayerClient' | 'PlayerClient_Client' | 'PlayerClient_Server' | 'GameObject' | 'Damageable' | 'Character';
+export type ClassName = 'NetObjectBase' | 'NetObjectBase_Server' | 'NetObject' | 'NetObject_Server' | 'NetPlayer' | 'NetPlayer_Server' | 'NetPlayerBase' | 'NetVehicle' | 'PlayerClient' | 'PlayerClient_Client' | 'PlayerClient_Server' | 'GameObject' | 'Damageable' | 'Character';
 
 // Events inheritance system
 export type EventContextName = 'SharedEvents' | 'ClientEvents' | 'ServerEvents';
+
+// New enum types
+export interface EnumDoc {
+  name: string;
+  values: Array<{
+    name: string;
+    description: string;
+  }>;
+  description: string;
+  docLink: string;
+}
 
 export interface EventDoc {
   name: string;
@@ -15,7 +26,6 @@ export interface EventDoc {
 
 export interface EventContext {
   name: EventContextName;
-  parent?: EventContextName;
   events: EventDoc[];
   docLink: string;
 }
@@ -33,6 +43,18 @@ export interface ClassDoc {
   methods: ClassMethod[];
   docLink: string;
 }
+
+export const enumDocs: Record<string, EnumDoc> = {
+  NetObjectType: {
+    name: 'NetObjectType',
+    values: [
+      { name: 'Player', description: 'Represents a player network object' },
+      { name: 'Vehicle', description: 'Represents a vehicle network object' }
+    ],
+    description: 'Enum representing different types of network objects in the game',
+    docLink: '/shared-api/netobjecttype'
+  }
+};
 
 export const eventDocs: Record<EventContextName, EventContext> = {
   SharedEvents: {
@@ -63,15 +85,24 @@ end)`
       },
       {
         name: 'PlayerKilled',
-        signature: '(player: NetPlayer)',
-        description: 'This event fires when a player is killed.'
+        signature: '(player: NetPlayer, damager: NetObject, loss: number, hitbone: number, weaponHash: number, hitposition: vec3)',
+        description: 'This event fires when a player is killed. Parameters match PlayerDamage event for consistency.'
+      },
+      {
+        name: 'OnVehicleDestroy',
+        signature: '(vehicle: NetVehicle, damager: NetObject, loss: number, hitbone: number, weaponHash: number, hitposition: vec3)',
+        description: 'This event fires when a vehicle is destroyed.'
+      },
+      {
+        name: 'OnVehicleDamage',
+        signature: '(vehicle: NetVehicle, damager: NetObject, loss: number, hitbone: number, weaponHash: number, hitposition: vec3)',
+        description: 'This event fires when a vehicle is damaged.'
       }
     ],
     docLink: '/shared-api/events',
   },
   ClientEvents: {
     name: 'ClientEvents',
-    parent: 'SharedEvents',
     events: [
       {
         name: 'ClientJoin',
@@ -92,13 +123,17 @@ end)`
         name: 'VehicleCollision',
         signature: '(vehicle: Vehicle)',
         description: 'This event fires when a vehicle collides with something.'
+      },
+      {
+        name: 'OnVehicleExplode',
+        signature: '(vehicle: NetVehicle)',
+        description: 'This event fires when a vehicle explodes. Only available on the client side.'
       }
     ],
     docLink: '/client-api/events',
   },
   ServerEvents: {
     name: 'ServerEvents',
-    parent: 'SharedEvents',
     events: [
       {
         name: 'ResourceStart',
@@ -162,6 +197,9 @@ export const classDocs: Record<ClassName, ClassDoc> = {
       { name: 'GetNetId', description: 'Returns the network ID of the object.', returnType: 'number' },
       { name: 'SetData', args: '(key: string, value: any)', description: 'Sets generic data on the object. Value must be a number, string, bool, vec2, vec3, vec4, or quat. Returns true if the data was set successfully, false otherwise (for unsupported types).', returnType: 'boolean' },
       { name: 'GetData', args: '(key: string)', description: 'Gets generic data from the object.', returnType: 'any' },
+      { name: 'AsPlayer', description: 'Returns NetPlayer instance if the object is a player, nil otherwise.', returnType: 'NetPlayer | nil' },
+      { name: 'AsVehicle', description: 'Returns NetVehicle instance if the object is a vehicle, nil otherwise.', returnType: 'NetVehicle | nil' },
+      { name: 'GetType', description: 'Returns the network object type. Use NetObjectType enum to compare types.', returnType: 'NetObjectType' },
     ],
     docLink: '/shared-api/netobjectbase',
   },
@@ -188,7 +226,9 @@ export const classDocs: Record<ClassName, ClassDoc> = {
   NetPlayer: {
     name: 'NetPlayer',
     parent: 'NetObject',
-    methods: [], // Add NetPlayer-specific methods here
+    methods: [
+      { name: 'Respawn', description: 'Respawns the player.', returnType: 'void' },
+    ], // Add NetPlayer-specific methods here
     docLink: '/shared-api/netplayer',
   },
   NetPlayer_Server: {
@@ -196,6 +236,20 @@ export const classDocs: Record<ClassName, ClassDoc> = {
     parent: 'NetObject_Server',
     methods: [], // Add NetPlayer_Server-specific methods here
     docLink: '/server-api/netplayer',
+  },
+  NetPlayerBase: {
+    name: 'NetPlayerBase',
+    methods: [
+      { name: 'GetNick', description: "Returns the player's nickname directly from the NetPlayerBase without needing to access the client.", returnType: 'string' },
+      { name: 'GetClient', description: 'Returns the PlayerClient instance corresponding to this NetPlayerBase.', returnType: 'PlayerClient' },
+    ],
+    docLink: '/shared-api/netplayerbase',
+  },
+  NetVehicle: {
+    name: 'NetVehicle',
+    parent: 'NetObject',
+    methods: [], // Add NetVehicle-specific methods here
+    docLink: '/shared-api/netvehicle',
   },
   PlayerClient: {
     name: 'PlayerClient',

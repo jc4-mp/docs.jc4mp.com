@@ -7,3 +7,66 @@ Base class for all networked entities.
 ## Class Instance Methods
 
 <InheritedComponent className="NetObjectBase" />
+
+### Type Checking and Casting Methods
+
+#### `NetObjectBase:AsPlayer(): NetPlayer | nil`
+
+Returns a NetPlayer instance if the object is a player, otherwise returns nil. This is a safe way to cast a NetObjectBase to a NetPlayer.
+
+**Returns:** NetPlayer instance if the object is a player, nil otherwise
+
+**Example:**
+```lua
+-- Safe casting to NetPlayer
+local netObject = someNetObject -- Assume this is a NetObjectBase instance
+local player = netObject:AsPlayer()
+
+if player then
+    print("This is a player: " .. player:GetNick())
+else
+    print("This is not a player")
+end
+```
+
+#### `NetObjectBase:AsVehicle(): NetVehicle | nil`
+
+Returns a NetVehicle instance if the object is a vehicle, otherwise returns nil. This is a safe way to cast a NetObjectBase to a NetVehicle.
+
+**Returns:** NetVehicle instance if the object is a vehicle, nil otherwise
+
+**Example:**
+```lua
+-- Safe casting to NetVehicle
+local netObject = someNetObject -- Assume this is a NetObjectBase instance
+local vehicle = netObject:AsVehicle()
+
+if vehicle then
+    print("This is a vehicle at position: " .. tostring(vehicle:GetPosition()))
+else
+    print("This is not a vehicle")
+end
+```
+
+#### `NetObjectBase:GetType(): NetObjectType`
+
+Returns the network object type. Use the [`NetObjectType`](/shared-api/netobjecttype) enum to compare types.
+
+**Returns:** The type of the network object as a NetObjectType enum value
+
+**Example:**
+```lua
+-- Check object type
+local netObject = someNetObject -- Assume this is a NetObjectBase instance
+local objectType = netObject:GetType()
+
+if objectType == NetObjectType.Player then
+    print("This is a player object")
+elseif objectType == NetObjectType.Vehicle then
+    print("This is a vehicle object")
+end
+```
+
+## Related Enums
+
+- [`NetObjectType`](/shared-api/netobjecttype) - Enum for different network object types
