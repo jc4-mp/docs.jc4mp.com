@@ -9,7 +9,7 @@ This is the client-side class for [NetPlayer](/shared-api/netplayer). It has all
 The diagram shows the inheritance hierarchy of player-related classes. To navigate between classes:
 - Get a `PlayerClient` using `Players.Local()`
 - Get the `NetPlayer` from a `PlayerClient` using `:GetNetPlayer()`
-- Get the `Player` from a `NetPlayer` using `:GetGamePlayer()`
+- Get the `Player` from a `NetPlayer` using `:GI()`
 - Get the `Character` from a `Player` using `:GetCharacter()`
 
 
@@ -30,6 +30,6 @@ flowchart LR
 
 ### Class Methods
 
-#### `NetPlayer:GetGamePlayer(): Player`
+#### `NetPlayer:GI(): Player`
 
 Returns the [Player](/client-api/player) associated with this NetPlayer.

@@ -1,0 +1,15 @@
+import { InheritedComponent } from '../../src/components/InheritedComponent';
+
+# Vehicle
+
+Vehicle game instance APIs. To use these, you must first have a reference to a Vehicle, which you can get from a [NetVehicle](/client-api/netvehicle) using the `:GI()` method.
+
+```lua
+-- Get a NetVehicle first, then get its game instance
+local netVehicle = -- obtained from world or player
+local vehicle = netVehicle:GI()
+```
+
+## Class Instance Methods
+
+<InheritedComponent className="Vehicle" />

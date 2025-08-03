@@ -4,7 +4,7 @@ Player-related APIs. To use these, you must first have a reference to a player, 
 
 ```lua
 local playerClient = Players.Local()
-local localPlayer = playerClient:GetGamePlayer()
+local localPlayer = playerClient:GI()
 ```
 
 ## Player Class Hierarchy
@@ -12,7 +12,7 @@ local localPlayer = playerClient:GetGamePlayer()
 The diagram shows the inheritance hierarchy of player-related classes. To navigate between classes:
 - Get a `PlayerClient` using `Players.Local()`
 - Get the `NetPlayer` from a `PlayerClient` using `:GetNetPlayer()`
-- Get the `Player` from a `NetPlayer` using `:GetGamePlayer()`
+- Get the `Player` from a `NetPlayer` using `:GI()`
 - Get the `Character` from a `Player` using `:GetCharacter()`
 
 

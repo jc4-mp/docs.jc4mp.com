@@ -15,7 +15,7 @@ local localChar = playerClient:GetCharacter()
 The diagram shows the inheritance hierarchy of player-related classes. To navigate between classes:
 - Get a `PlayerClient` using `Players.Local()`
 - Get the `NetPlayer` from a `PlayerClient` using `:GetNetPlayer()`
-- Get the `Player` from a `NetPlayer` using `:GetGamePlayer()`
+- Get the `Player` from a `NetPlayer` using `:GI()`
 - Get the `Character` from a `Player` using `:GetCharacter()`
 
 
@@ -37,4 +37,5 @@ flowchart LR
 ## Class Instance Methods
 
 <InheritedComponent className="Character" />
+
 

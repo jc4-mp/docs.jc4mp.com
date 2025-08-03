@@ -10,7 +10,7 @@ A player's client instance. Inherits from the [PlayerClient](/shared-api/playerc
 The diagram shows the inheritance hierarchy of player-related classes. To navigate between classes:
 - Get a `PlayerClient` using `Players.Local()`
 - Get the `NetPlayer` from a `PlayerClient` using `:GetNetPlayer()`
-- Get the `Player` from a `NetPlayer` using `:GetGamePlayer()`
+- Get the `Player` from a `NetPlayer` using `:GI()`
 - Get the `Character` from a `Player` using `:GetCharacter()`
 
 
@@ -47,6 +47,6 @@ Returns the [Character](/client-api/character) associated with this PlayerClient
 
 Returns the [NetPlayer](/client-api/netplayer) associated with this PlayerClient.
 
-#### `PlayerClient:GetGamePlayer(): Player`
+#### `PlayerClient:GI(): Player`
 
 Returns the [Player](/client-api/player) associated with this PlayerClient.

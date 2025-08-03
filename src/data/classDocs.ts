@@ -1,7 +1,7 @@
 // Class documentation metadata for inheritance system
 // Each class has a name, optional parent, and its own methods/fields
 
-export type ClassName = 'NetObjectBase' | 'NetObjectBase_Server' | 'NetObject' | 'NetObject_Server' | 'NetPlayer' | 'NetPlayer_Server' | 'NetPlayerBase' | 'NetVehicle' | 'PlayerClient' | 'PlayerClient_Client' | 'PlayerClient_Server' | 'GameObject' | 'Damageable' | 'Character';
+export type ClassName = 'NetObjectBase' | 'NetObjectBase_Server' | 'NetObject' | 'NetObject_Server' | 'NetPlayer' | 'NetPlayer_Server' | 'NetPlayerBase' | 'NetVehicle' | 'NetVehicle_Client' | 'Vehicle' | 'PlayerClient' | 'PlayerClient_Client' | 'PlayerClient_Server' | 'GameObject' | 'Damageable' | 'Character';
 
 // Events inheritance system
 export type EventContextName = 'SharedEvents' | 'ClientEvents' | 'ServerEvents';
@@ -248,8 +248,28 @@ export const classDocs: Record<ClassName, ClassDoc> = {
   NetVehicle: {
     name: 'NetVehicle',
     parent: 'NetObject',
-    methods: [], // Add NetVehicle-specific methods here
+    methods: [
+      { name: 'GetId', description: 'Returns the ID of the vehicle.', returnType: 'number' },
+    ],
     docLink: '/shared-api/netvehicle',
+  },
+  NetVehicle_Client: {
+    name: 'NetVehicle_Client',
+    parent: 'NetVehicle',
+    methods: [
+      { name: 'GI', description: 'Returns the game instance (GI) of the NetVehicle, which is a Vehicle.', returnType: 'Vehicle' },
+    ],
+    docLink: '/client-api/netvehicle',
+  },
+  Vehicle: {
+    name: 'Vehicle',
+    parent: 'Damageable',
+    methods: [
+      { name: 'GO', description: 'Returns the GameObject (GO) of the vehicle, used to modify transform.', returnType: 'GameObject' },
+      { name: 'GetVelocity', description: 'Gets the vector3 velocity of the vehicle.', returnType: 'vec3' },
+      { name: 'GetNumberOfWheelsOnGround', description: 'Returns the number of wheels of the vehicle that are currently touching the ground.', returnType: 'number' },
+    ],
+    docLink: '/client-api/vehicle',
   },
   PlayerClient: {
     name: 'PlayerClient',
@@ -304,6 +324,7 @@ export const classDocs: Record<ClassName, ClassDoc> = {
       { name: 'UsingWingsuit', description: 'Returns true if the Character is using a wingsuit, false otherwise.', returnType: 'boolean' },
       { name: 'GetPlayer', description: 'Returns the Player associated with this Character.', returnType: 'Player' },
       { name: 'GetBonePosition', args: '(bone: Bone)', description: 'Gets the world position of a specific bone on a character.', returnType: 'vec3' },
+      { name: 'GetVehicle', description: 'Returns the Vehicle instance that the character is currently in. Returns nil if the character is not in a vehicle.', returnType: 'Vehicle | nil' },
       { name: 'SetGhostMode', args: '(enabled: bool)', description: 'Enables or disables ghost mode. When ghost mode is enabled, all collisions will be disabled for the character, allowing them to pass through entities, objects, and terrain.' },
       { name: 'SetCloaked', args: '(enabled: bool)', description: 'Enables or disables cloaked mode. When cloaked mode is enabled, the character will become mostly invisible with a shine on them.' },
       { name: 'SetOpacity', args: '(opacity: number)', description: 'Sets the opacity of the character. Takes a value from 0-1 where 0 means invisible and 1 means fully opaque.' },
