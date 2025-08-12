@@ -15,34 +15,40 @@ import { ArrowRight, Loader, LoaderCircle, Copy, Check } from "lucide-react";
  * Renders a syntax-highlighted code block using Prism.
  * Accepts content and a className like `language-lua`.
  */
-function CodeBlock({ children, className }: { children: string; className?: string }) {
+function CodeBlock({
+  children,
+  className,
+}: {
+  children: string;
+  className?: string;
+}) {
   const { colorMode } = useColorMode();
-  const language = className?.replace(/language-/, '') || 'text';
+  const language = className?.replace(/language-/, "") || "text";
   const [copied, setCopied] = useState(false);
-  
+
   // Map common language aliases to Prism language names
   const languageMap: { [key: string]: string } = {
-    'lua': 'lua',
+    lua: "lua",
   };
 
-  const prismLanguage = languageMap[language.toLowerCase()] || 'text';
-  
+  const prismLanguage = languageMap[language.toLowerCase()] || "text";
+
   const handleCopy = async () => {
     try {
       await navigator.clipboard.writeText(children.trim());
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch (err) {
-      console.error('Failed to copy text: ', err);
+      console.error("Failed to copy text: ", err);
     }
   };
-  
+
   return (
     <div className={styles.codeBlockContainer}>
       <Highlight
         code={children.trim()}
         language={prismLanguage}
-        theme={colorMode === 'dark' ? themes.vsDark : themes.vsLight}
+        theme={colorMode === "dark" ? themes.vsDark : themes.vsLight}
       >
         {({ className, style, tokens, getLineProps, getTokenProps }) => (
           <pre className={className} style={style}>
@@ -59,7 +65,7 @@ function CodeBlock({ children, className }: { children: string; className?: stri
       <button
         className={styles.copyButton}
         onClick={handleCopy}
-        title={copied ? 'Copied!' : 'Copy code'}
+        title={copied ? "Copied!" : "Copy code"}
       >
         {copied ? <Check size={16} /> : <Copy size={16} />}
       </button>
@@ -70,15 +76,21 @@ function CodeBlock({ children, className }: { children: string; className?: stri
 /**
  * A styled anchor element that opens https links in a new tab.
  */
-function CustomLink({ href, children }: { href?: string; children: React.ReactNode }) {
-  const isHttps = href?.startsWith('https');
-  const sanitizedHref = href ? href.replace(/\.+$/, '') : href;
-  
+function CustomLink({
+  href,
+  children,
+}: {
+  href?: string;
+  children: React.ReactNode;
+}) {
+  const isHttps = href?.startsWith("https");
+  const sanitizedHref = href ? href.replace(/\.+$/, "") : href;
+
   return (
     <a
       href={sanitizedHref}
-      target={isHttps ? '_blank' : undefined}
-      rel={isHttps ? 'noopener noreferrer' : undefined}
+      target={isHttps ? "_blank" : undefined}
+      rel={isHttps ? "noopener noreferrer" : undefined}
       className={styles.markdownLink}
     >
       {children}
@@ -112,44 +124,60 @@ function convertUrlsToMarkdown(text: string): string {
   mask(/<https?:\/\/[^>\s]+>/g); // existing autolinks
 
   // 2) Convert bracketed URLs: [https://example.com] -> [https://example.com](https://example.com)
-  text = text.replace(/\[(https?:\/\/[^\]\s]+)\]([.,!?;:])?/g, (_m, url: string, punct?: string) => {
-    return `[${url}](${url})${punct || ''}`;
-  });
+  text = text.replace(
+    /\[(https?:\/\/[^\]\s]+)\]([.,!?;:])?/g,
+    (_m, url: string, punct?: string) => {
+      return `[${url}](${url})${punct || ""}`;
+    }
+  );
 
   // 3) Convert angle-bracketed URLs: <https://example.com>
-  text = text.replace(/<\s*(https?:\/\/[^>\s]+)\s*>([.,!?;:])?/g, (_m, url: string, punct?: string) => {
-    return `[${url}](${url})${punct || ''}`;
-  });
+  text = text.replace(
+    /<\s*(https?:\/\/[^>\s]+)\s*>([.,!?;:])?/g,
+    (_m, url: string, punct?: string) => {
+      return `[${url}](${url})${punct || ""}`;
+    }
+  );
 
   // 3.5) Mask any markdown links created by steps 2-3 to prevent double-wrapping in step 4
   mask(/!?\[[^\]]*\]\([^\)]+\)/g);
 
   // 4) Convert bare URLs not already masked. Preserve trailing punctuation like .,!?;:
-  text = text.replace(/(^|[^\w\]])(https?:\/\/[^\s<>)\]\}]+)([.,!?;:])?/g, (_m, prefix: string, url: string, punct?: string) => {
-    return `${prefix}[${url}](${url})${punct || ''}`;
-  });
+  text = text.replace(
+    /(^|[^\w\]])(https?:\/\/[^\s<>)\]\}]+)([.,!?;:])?/g,
+    (_m, prefix: string, url: string, punct?: string) => {
+      return `${prefix}[${url}](${url})${punct || ""}`;
+    }
+  );
 
   // 5) Restore masks
-  text = text.replace(/__MASK_(\d+)__/g, (_m, idx: string) => masks[Number(idx)]);
+  text = text.replace(
+    /__MASK_(\d+)__/g,
+    (_m, idx: string) => masks[Number(idx)]
+  );
 
   // 6) Ensure no markdown link URL ends with a period. If present, move the period(s) outside the link
-  text = text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (full, label: string, url: string) => {
-    const trailingDotsMatch = url.match(/\.+$/);
-    if (!trailingDotsMatch) return full;
-    const trimmedUrl = url.replace(/\.+$/, '');
-    const trailingDots = trailingDotsMatch[0];
-    return `[${label}](${trimmedUrl})`;
-  });
+  text = text.replace(
+    /\[([^\]]+)\]\(([^)]+)\)/g,
+    (full, label: string, url: string) => {
+      const trailingDotsMatch = url.match(/\.+$/);
+      if (!trailingDotsMatch) return full;
+      const trimmedUrl = url.replace(/\.+$/, "");
+      const trailingDots = trailingDotsMatch[0];
+      return `[${label}](${trimmedUrl})`;
+    }
+  );
 
   return text;
 }
 
 export default function Chat() {
   const { siteConfig } = useDocusaurusContext();
-  const { messages, input, handleInputChange, handleSubmit, isLoading } = useChat({
-    api: "https://jc4mp.com/api/v1/chat",
-  });
-  
+  const { messages, input, handleInputChange, handleSubmit, isLoading } =
+    useChat({
+      api: "https://jc4mp.com/api/v1/chat",
+    });
+
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
@@ -161,7 +189,10 @@ export default function Chat() {
   }, [messages]);
 
   return (
-    <Layout title={`Chat with Rico`} description="Chat with Rico to learn about JC4MP server scripting - get help setting up servers, creating scripts and gamemodes, adding mods, and more">
+    <Layout
+      title={`Chat with Rico`}
+      description="Chat with Rico to learn about JC4MP server scripting - get help setting up servers, creating scripts and gamemodes, adding mods, and more"
+    >
       <div className={styles.chatContainer}>
         <div className={styles.messagesContainer}>
           {messages.length === 0 && (
@@ -169,18 +200,24 @@ export default function Chat() {
               <div className={styles.messageRole}>Rico</div>
               <div className={styles.messageContent}>
                 <div className={styles.markdownContent}>
-                  <p>👋 Hello! I'm here to help you with JC4MP development questions. Ask me anything about the API, scripting, or gamemode development!</p>
+                  <p>
+                    👋 Hello! I'm here to help you with JC4MP development
+                    questions. Ask me anything about the API, scripting, or
+                    gamemode development!
+                  </p>
                 </div>
               </div>
             </div>
           )}
-          
+
           {messages.map((message) => (
-            <div 
-              key={message.id} 
+            <div
+              key={message.id}
               className={clsx(
-                styles.message, 
-                message.role === "user" ? styles.userMessage : styles.assistantMessage
+                styles.message,
+                message.role === "user"
+                  ? styles.userMessage
+                  : styles.assistantMessage
               )}
             >
               <div className={styles.messageRole}>
@@ -191,17 +228,27 @@ export default function Chat() {
                   switch (part.type) {
                     case "text":
                       return (
-                        <div key={`${message.id}-${i}`} className={styles.markdownContent}>
+                        <div
+                          key={`${message.id}-${i}`}
+                          className={styles.markdownContent}
+                        >
                           {message.role === "user" ? (
                             <p>{part.text}</p>
                           ) : (
                             <ReactMarkdown
                               components={{
-                                code: ({ node, className, children, ...props }) => {
-                                  const match = /language-(\w+)/.exec(className || '');
+                                code: ({
+                                  node,
+                                  className,
+                                  children,
+                                  ...props
+                                }) => {
+                                  const match = /language-(\w+)/.exec(
+                                    className || ""
+                                  );
                                   return match ? (
                                     <CodeBlock className={className}>
-                                      {String(children).replace(/\n$/, '')}
+                                      {String(children).replace(/\n$/, "")}
                                     </CodeBlock>
                                   ) : (
                                     <code className={className} {...props}>
@@ -210,7 +257,7 @@ export default function Chat() {
                                   );
                                 },
                                 a: ({ href, children }) => (
-                                  <CustomLink href={href || '#'}>
+                                  <CustomLink href={href || "#"}>
                                     {children}
                                   </CustomLink>
                                 ),
@@ -228,40 +275,47 @@ export default function Chat() {
               </div>
             </div>
           ))}
-          
-          {isLoading && messages.length > 0 && messages[messages.length - 1].role === 'user' && (
-            <div className={clsx(styles.message, styles.assistantMessage)}>
-              <div className={styles.messageRole}>Rico</div>
-              <div className={styles.messageContent}>
-                <div className={styles.markdownContent}>
-                  <div className={styles.loadingDots}>
-                    <div className={styles.loadingDot}></div>
-                    <div className={styles.loadingDot}></div>
-                    <div className={styles.loadingDot}></div>
+
+          {isLoading &&
+            messages.length > 0 &&
+            messages[messages.length - 1].role === "user" && (
+              <div className={clsx(styles.message, styles.assistantMessage)}>
+                <div className={styles.messageRole}>Rico</div>
+                <div className={styles.messageContent}>
+                  <div className={styles.markdownContent}>
+                    <div className={styles.loadingDots}>
+                      <div className={styles.loadingDot}></div>
+                      <div className={styles.loadingDot}></div>
+                      <div className={styles.loadingDot}></div>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          )}
-          
+            )}
+
           <div ref={messagesEndRef} />
         </div>
 
         <div className={styles.inputContainer}>
           <form onSubmit={handleSubmit} className={styles.inputForm}>
             <input
+              autoFocus
               className={styles.input}
               value={input}
               placeholder="Ask me about JC4MP development..."
               onChange={handleInputChange}
               disabled={isLoading}
             />
-            <button 
-              type="submit" 
+            <button
+              type="submit"
               className={styles.sendButton}
               disabled={isLoading || !input.trim()}
             >
-              {isLoading ? <LoaderCircle className={styles.spinner} /> : <ArrowRight />}
+              {isLoading ? (
+                <LoaderCircle className={styles.spinner} />
+              ) : (
+                <ArrowRight />
+              )}
             </button>
           </form>
         </div>
