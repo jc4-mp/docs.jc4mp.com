@@ -8,13 +8,17 @@ import { useColorMode } from "@docusaurus/theme-common";
 import styles from "./index.module.css";
 
 import { useChat } from "@ai-sdk/react";
-import { useEffect, useRef } from "react";
-import { ArrowRight, Loader, LoaderCircle } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { ArrowRight, Loader, LoaderCircle, Copy, Check } from "lucide-react";
 
-// Custom code component for syntax highlighting
+/**
+ * Renders a syntax-highlighted code block using Prism.
+ * Accepts content and a className like `language-lua`.
+ */
 function CodeBlock({ children, className }: { children: string; className?: string }) {
   const { colorMode } = useColorMode();
   const language = className?.replace(/language-/, '') || 'text';
+  const [copied, setCopied] = useState(false);
   
   // Map common language aliases to Prism language names
   const languageMap: { [key: string]: string } = {
@@ -23,50 +27,121 @@ function CodeBlock({ children, className }: { children: string; className?: stri
 
   const prismLanguage = languageMap[language.toLowerCase()] || 'text';
   
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(children.trim());
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      console.error('Failed to copy text: ', err);
+    }
+  };
+  
   return (
-    <Highlight
-      code={children.trim()}
-      language={prismLanguage}
-      theme={colorMode === 'dark' ? themes.vsDark : themes.vsLight}
-    >
-      {({ className, style, tokens, getLineProps, getTokenProps }) => (
-        <pre className={className} style={style}>
-          {tokens.map((line, i) => (
-            <div key={i} {...getLineProps({ line })}>
-              {line.map((token, key) => (
-                <span key={key} {...getTokenProps({ token })} />
-              ))}
-            </div>
-          ))}
-        </pre>
-      )}
-    </Highlight>
+    <div className={styles.codeBlockContainer}>
+      <Highlight
+        code={children.trim()}
+        language={prismLanguage}
+        theme={colorMode === 'dark' ? themes.vsDark : themes.vsLight}
+      >
+        {({ className, style, tokens, getLineProps, getTokenProps }) => (
+          <pre className={className} style={style}>
+            {tokens.map((line, i) => (
+              <div key={i} {...getLineProps({ line })}>
+                {line.map((token, key) => (
+                  <span key={key} {...getTokenProps({ token })} />
+                ))}
+              </div>
+            ))}
+          </pre>
+        )}
+      </Highlight>
+      <button
+        className={styles.copyButton}
+        onClick={handleCopy}
+        title={copied ? 'Copied!' : 'Copy code'}
+      >
+        {copied ? <Check size={16} /> : <Copy size={16} />}
+      </button>
+    </div>
   );
 }
 
-// Custom link component for better styling
-function CustomLink({ href, children }: { href: string; children: React.ReactNode }) {
+/**
+ * A styled anchor element that opens https links in a new tab.
+ */
+function CustomLink({ href, children }: { href?: string; children: React.ReactNode }) {
   const isHttps = href?.startsWith('https');
+  const sanitizedHref = href ? href.replace(/\.+$/, '') : href;
   
   return (
     <a
-      href={href}
+      href={sanitizedHref}
       target={isHttps ? '_blank' : undefined}
       rel={isHttps ? 'noopener noreferrer' : undefined}
       className={styles.markdownLink}
     >
       {children}
-      {isHttps}
     </a>
   );
 }
 
-// Function to convert plain URLs to markdown links
+/**
+ * Converts plain URLs in text to markdown links, while preserving existing markdown links.
+ * Handles:
+ * - Proper markdown links/images (preserved)
+ * - Bracketed URLs like `[https://example.com]`
+ * - Angle-bracket URLs like `<https://example.com>`
+ * - Bare URLs like `https://example.com`
+ * Skips conversion inside code spans/blocks.
+ */
 function convertUrlsToMarkdown(text: string): string {
-  // Only convert URLs that are not already part of markdown links
-  // This regex looks for URLs that are NOT preceded by ]( and NOT followed by )
-  const urlRegex = /(?<!\]\()(https?:\/\/[^\s\)]+)(?!\))/g;
-  return text.replace(urlRegex, '[$1]($1)');
+  // Masks to protect existing constructs from being altered
+  const masks: string[] = [];
+  const mask = (regex: RegExp) => {
+    text = text.replace(regex, (match) => {
+      const id = masks.push(match) - 1;
+      return `__MASK_${id}__`;
+    });
+  };
+
+  // 1) Mask code blocks, code spans, existing markdown links/images, and existing autolinks
+  mask(/```[\s\S]*?```/g); // fenced code blocks
+  mask(/`[^`]*`/g); // inline code
+  mask(/!?\[[^\]]*\]\([^\)]+\)/g); // markdown links/images
+  mask(/<https?:\/\/[^>\s]+>/g); // existing autolinks
+
+  // 2) Convert bracketed URLs: [https://example.com] -> [https://example.com](https://example.com)
+  text = text.replace(/\[(https?:\/\/[^\]\s]+)\]([.,!?;:])?/g, (_m, url: string, punct?: string) => {
+    return `[${url}](${url})${punct || ''}`;
+  });
+
+  // 3) Convert angle-bracketed URLs: <https://example.com>
+  text = text.replace(/<\s*(https?:\/\/[^>\s]+)\s*>([.,!?;:])?/g, (_m, url: string, punct?: string) => {
+    return `[${url}](${url})${punct || ''}`;
+  });
+
+  // 3.5) Mask any markdown links created by steps 2-3 to prevent double-wrapping in step 4
+  mask(/!?\[[^\]]*\]\([^\)]+\)/g);
+
+  // 4) Convert bare URLs not already masked. Preserve trailing punctuation like .,!?;:
+  text = text.replace(/(^|[^\w\]])(https?:\/\/[^\s<>)\]\}]+)([.,!?;:])?/g, (_m, prefix: string, url: string, punct?: string) => {
+    return `${prefix}[${url}](${url})${punct || ''}`;
+  });
+
+  // 5) Restore masks
+  text = text.replace(/__MASK_(\d+)__/g, (_m, idx: string) => masks[Number(idx)]);
+
+  // 6) Ensure no markdown link URL ends with a period. If present, move the period(s) outside the link
+  text = text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (full, label: string, url: string) => {
+    const trailingDotsMatch = url.match(/\.+$/);
+    if (!trailingDotsMatch) return full;
+    const trimmedUrl = url.replace(/\.+$/, '');
+    const trailingDots = trailingDotsMatch[0];
+    return `[${label}](${trimmedUrl})`;
+  });
+
+  return text;
 }
 
 export default function Chat() {
