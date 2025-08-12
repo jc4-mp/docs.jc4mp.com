@@ -161,7 +161,7 @@ export default function Chat() {
   }, [messages]);
 
   return (
-    <Layout title={`Chat - ${siteConfig.title}`} description="Chat with Rico to learn about JC4MP server scripting - get help setting up servers, creating scripts and gamemodes, adding mods, and more">
+    <Layout title={`Chat with Rico`} description="Chat with Rico to learn about JC4MP server scripting - get help setting up servers, creating scripts and gamemodes, adding mods, and more">
       <div className={styles.chatContainer}>
         <div className={styles.messagesContainer}>
           {messages.length === 0 && (
