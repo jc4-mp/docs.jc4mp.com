@@ -99,6 +99,15 @@ function CustomLink({
 }
 
 /**
+ * Fixes common text issues in assistant responses.
+ * Currently handles:
+ * - Replace "Just Cause4 Multiplayer" with "Just Cause 4 Multiplayer" (adds missing space)
+ */
+function fixAssistantText(text: string): string {
+  return text.replace(/Just Cause4 Multiplayer/g, "Just Cause 4 Multiplayer");
+}
+
+/**
  * Converts plain URLs in text to markdown links, while preserving existing markdown links.
  * Handles:
  * - Proper markdown links/images (preserved)
@@ -263,7 +272,7 @@ export default function Chat() {
                                 ),
                               }}
                             >
-                              {convertUrlsToMarkdown(part.text)}
+                              {convertUrlsToMarkdown(fixAssistantText(part.text))}
                             </ReactMarkdown>
                           )}
                         </div>
