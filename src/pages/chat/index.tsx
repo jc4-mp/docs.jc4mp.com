@@ -104,7 +104,7 @@ function CustomLink({
  * - Replace "Just Cause4 Multiplayer" with "Just Cause 4 Multiplayer" (adds missing space)
  */
 function fixAssistantText(text: string): string {
-  return text.replace(/Just Cause4 Multiplayer/g, "Just Cause 4 Multiplayer");
+  return text.replace(/Just Cause4/g, "Just Cause 4");
 }
 
 /**
