@@ -3,7 +3,7 @@
   flex-direction: column;
   height: calc(100vh - var(--ifm-navbar-height));
   width: 100%;
-  max-width: 800px;
+  max-width: 1000px;
   margin: 0 auto;
   background: var(--ifm-background-color);
 }
@@ -16,6 +16,9 @@
   flex-direction: column;
   gap: 1rem;
   scroll-behavior: smooth;
+  /* Performance optimizations */
+  will-change: scroll-position;
+  contain: layout style paint;
 }
 
 .message {
@@ -127,6 +130,9 @@
 
 .markdownContent {
   line-height: 1.6;
+  /* Performance optimizations for markdown rendering */
+  contain: layout style;
+  transform: translateZ(0); /* Force hardware acceleration */
 }
 
 .markdownContent p {
@@ -339,7 +345,7 @@ pre {
 
 /* Tool call container and inline details */
 .toolCallContainer {
-  margin: 0.5rem 0;
+  margin: 0.25rem 0;
 }
 
 .toolDetails {
@@ -404,6 +410,27 @@ pre {
   to {
     background-position: -200% 0;
   }
+}
+
+/* Chunked content styles for optimized streaming */
+.chunkedContent {
+  line-height: 1.6;
+  /* Performance optimizations */
+  contain: layout style;
+  transform: translateZ(0); /* Force hardware acceleration */
+}
+
+.markdownChunk {
+  /* Individual chunks that are cached and don't re-render */
+  contain: layout style paint;
+}
+
+.pendingChunk {
+  /* Style for the currently streaming incomplete chunk */
+  font-family: var(--ifm-font-family-base);
+  line-height: 1.6;
+  color: var(--ifm-color-content);
+  opacity: 0.9;
 }
 
  

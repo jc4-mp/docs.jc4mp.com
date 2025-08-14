@@ -9,8 +9,56 @@ import { useColorMode } from "@docusaurus/theme-common";
 import styles from "./index.module.css";
 
 import { useChat } from "@ai-sdk/react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useMemo, useCallback, memo } from "react";
 import { ArrowRight, Loader, LoaderCircle, Copy, Check } from "lucide-react";
+
+/**
+ * Splits text into logical chunks for incremental rendering
+ */
+function splitIntoChunks(text: string): string[] {
+  if (!text) return [];
+  
+  // Split by double newlines (paragraphs) and code blocks
+  const chunks = [];
+  let currentChunk = '';
+  let inCodeBlock = false;
+  
+  const lines = text.split('\n');
+  
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    
+    // Detect code block boundaries
+    if (line.trim().startsWith('```')) {
+      inCodeBlock = !inCodeBlock;
+      currentChunk += line + '\n';
+      
+      // If we're ending a code block, complete this chunk
+      if (!inCodeBlock) {
+        chunks.push(currentChunk.trim());
+        currentChunk = '';
+      }
+      continue;
+    }
+    
+    currentChunk += line + '\n';
+    
+    // If not in code block and we hit an empty line or end, complete chunk
+    if (!inCodeBlock && (line.trim() === '' || i === lines.length - 1)) {
+      if (currentChunk.trim()) {
+        chunks.push(currentChunk.trim());
+        currentChunk = '';
+      }
+    }
+  }
+  
+  // Add any remaining content
+  if (currentChunk.trim()) {
+    chunks.push(currentChunk.trim());
+  }
+  
+  return chunks;
+}
 
 /**
  * Renders a syntax-highlighted code block using Prism.
@@ -77,7 +125,7 @@ function CodeBlock({
 /**
  * A styled anchor element that opens https links in a new tab.
  */
-function CustomLink({
+const CustomLink = memo(function CustomLink({
   href,
   children,
 }: {
@@ -96,7 +144,114 @@ function CustomLink({
       {children}
     </a>
   );
-}
+});
+
+/**
+ * Individual chunk renderer that memoizes its content to prevent unnecessary re-renders
+ */
+const ChunkRenderer = memo(function ChunkRenderer({
+  chunk,
+  index,
+}: {
+  chunk: string;
+  index: number;
+}) {
+  const markdownComponents = useMemo(() => ({
+    code: ({
+      node,
+      className,
+      children,
+      ...props
+    }: any) => {
+      const match = /language-(\w+)/.exec(className || "");
+      return match ? (
+        <CodeBlock className={className}>
+          {String(children).replace(/\n$/, "")}
+        </CodeBlock>
+      ) : (
+        <code className={className} {...props}>
+          {children}
+        </code>
+      );
+    },
+    a: ({ href, children }: any) => (
+      <CustomLink href={href || "#"}>
+        {children}
+      </CustomLink>
+    ),
+  }), []);
+
+  return (
+    <div key={`chunk-${index}`} className={styles.markdownChunk}>
+      <ReactMarkdown
+        remarkPlugins={[remarkGfm]}
+        components={markdownComponents}
+      >
+        {fixAssistantText(chunk)}
+      </ReactMarkdown>
+    </div>
+  );
+});
+
+/**
+ * Optimized markdown renderer that renders content in chunks to avoid re-processing completed content
+ */
+const ChunkedMarkdown = memo(function ChunkedMarkdown({
+  content,
+  isStreaming,
+}: {
+  content: string;
+  isStreaming: boolean;
+}) {
+  const [processedChunks, setProcessedChunks] = useState<string[]>([]);
+  const [pendingContent, setPendingContent] = useState<string>('');
+  
+  useEffect(() => {
+    if (!content) {
+      setProcessedChunks([]);
+      setPendingContent('');
+      return;
+    }
+
+    const chunks = splitIntoChunks(content);
+    
+    if (!isStreaming) {
+      // When not streaming, process all chunks immediately
+      setProcessedChunks(chunks);
+      setPendingContent('');
+    } else {
+      // When streaming, only process complete chunks
+      const completeChunks = chunks.slice(0, -1);
+      const lastChunk = chunks[chunks.length - 1] || '';
+      
+      // Check if we have new complete chunks
+      if (completeChunks.length > processedChunks.length) {
+        setProcessedChunks(completeChunks);
+      }
+      
+      // Set pending content (the incomplete last chunk)
+      setPendingContent(lastChunk);
+    }
+  }, [content, isStreaming, processedChunks.length]);
+
+  return (
+    <div className={styles.chunkedContent}>
+      {/* Render completed chunks (these never re-render) */}
+      {processedChunks.map((chunk, index) => (
+        <ChunkRenderer key={index} chunk={chunk} index={index} />
+      ))}
+      
+      {/* Render pending content during streaming */}
+      {isStreaming && pendingContent && (
+        <div className={styles.pendingChunk}>
+          <span style={{ whiteSpace: 'pre-wrap' }}>
+            {fixAssistantText(pendingContent)}
+          </span>
+        </div>
+      )}
+    </div>
+  );
+});
 
 /**
  * Fixes common text issues in assistant responses.
@@ -142,21 +297,25 @@ function CombinedSearchIndicator({
   totalDocs,
   hasCompleted,
   isExpanded,
-  onToggle
+  onToggle,
+  isCurrentlyLoading
 }: {
   searchTools: any[];
   totalDocs: number;
   hasCompleted: boolean;
   isExpanded: boolean;
   onToggle: () => void;
+  isCurrentlyLoading?: boolean;
 }) {
   const hasRunningSearches = searchTools.some(tool => !tool.result);
   
-  // If any searches are still running, show loading state
-  if (hasRunningSearches) {
+  // If any searches are still running AND we're currently loading, show loading state
+  if (hasRunningSearches && isCurrentlyLoading) {
     return (
-      <div className={clsx(styles.toolCall, styles.toolCallShimmer)}>
-        Searching docs...
+      <div className={styles.toolCallContainer}>
+        <div className={clsx(styles.toolCall, styles.toolCallShimmer)}>
+          Reading docs...
+        </div>
       </div>
     );
   }
@@ -176,7 +335,7 @@ function CombinedSearchIndicator({
             }
           }}
         >
-          Searched {totalDocs} docs {isExpanded ? '▼' : '▶'}
+          Read {totalDocs} docs {isExpanded ? '▼' : '▶'}
         </div>
         {isExpanded && (
           <div className={styles.toolDetails}>
@@ -209,11 +368,13 @@ function CombinedSearchIndicator({
 function ToolCallIndicator({ 
   toolCall, 
   isExpanded, 
-  onToggle 
+  onToggle,
+  isCurrentlyLoading
 }: { 
   toolCall: any; 
   isExpanded: boolean;
   onToggle: () => void;
+  isCurrentlyLoading?: boolean;
 }) {
   // For other tool calls, show a generic indicator
   if (toolCall.result) {
@@ -248,11 +409,17 @@ function ToolCallIndicator({
     );
   }
 
-  return (
-    <div className={clsx(styles.toolCall, styles.toolCallShimmer)}>
-      Running {toolCall.toolName}...
-    </div>
-  );
+  // Only show "Running..." indicator if we're currently loading
+  if (isCurrentlyLoading) {
+    return (
+      <div className={clsx(styles.toolCall, styles.toolCallShimmer)}>
+        Running {toolCall.toolName}...
+      </div>
+    );
+  }
+
+  // If not loading and no result, don't show anything
+  return null;
 }
 
 
@@ -266,13 +433,17 @@ export default function Chat() {
     });
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const messagesContainerRef = useRef<HTMLDivElement>(null);
   const [expandedToolCalls, setExpandedToolCalls] = useState<Set<string>>(new Set());
+  const [shouldAutoScroll, setShouldAutoScroll] = useState(true);
 
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
+  const scrollToBottom = useCallback(() => {
+    if (shouldAutoScroll && messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [shouldAutoScroll]);
 
-  const toggleToolCall = (toolCallId: string) => {
+  const toggleToolCall = useCallback((toolCallId: string) => {
     setExpandedToolCalls(prev => {
       const newSet = new Set(prev);
       if (newSet.has(toolCallId)) {
@@ -282,11 +453,20 @@ export default function Chat() {
       }
       return newSet;
     });
-  };
+  }, []);
+
+  // Check if user has scrolled up from the bottom
+  const handleScroll = useCallback(() => {
+    if (messagesContainerRef.current) {
+      const { scrollTop, scrollHeight, clientHeight } = messagesContainerRef.current;
+      const isAtBottom = scrollTop + clientHeight >= scrollHeight - 100; // 100px threshold
+      setShouldAutoScroll(isAtBottom);
+    }
+  }, []);
 
   useEffect(() => {
     scrollToBottom();
-  }, [messages]);
+  }, [messages, scrollToBottom]);
 
   return (
     <Layout
@@ -294,7 +474,11 @@ export default function Chat() {
       description="Chat with Rico to learn about JC4MP server scripting - get help setting up servers, creating scripts and gamemodes, adding mods, and more"
     >
       <div className={styles.chatContainer}>
-        <div className={styles.messagesContainer}>
+        <div 
+          className={styles.messagesContainer}
+          ref={messagesContainerRef}
+          onScroll={handleScroll}
+        >
           {messages.length === 0 && (
             <div className={clsx(styles.message, styles.assistantMessage)}>
               <div className={styles.messageRole}>Rico</div>
@@ -328,6 +512,8 @@ export default function Chat() {
                 {message.toolInvocations && (() => {
                   const { searchDocs, otherTools, totalSearchedDocs, hasCompletedSearches } = groupToolCalls(message.toolInvocations);
                   const searchId = `${message.id}-search`;
+                  const isLastMessage = message.id === messages[messages.length - 1]?.id;
+                  const isCurrentlyLoading = isLastMessage && isLoading;
                   
                   return (
                     <>
@@ -339,6 +525,7 @@ export default function Chat() {
                           hasCompleted={hasCompletedSearches}
                           isExpanded={expandedToolCalls.has(searchId)}
                           onToggle={() => toggleToolCall(searchId)}
+                          isCurrentlyLoading={isCurrentlyLoading}
                         />
                       )}
                       
@@ -351,6 +538,7 @@ export default function Chat() {
                             toolCall={toolInvocation}
                             isExpanded={expandedToolCalls.has(toolCallId)}
                             onToggle={() => toggleToolCall(toolCallId)}
+                            isCurrentlyLoading={isCurrentlyLoading}
                           />
                         );
                       })}
@@ -362,6 +550,9 @@ export default function Chat() {
                 {message.parts?.map((part, i) => {
                   switch (part.type) {
                     case "text":
+                      const isLastMessage = message.id === messages[messages.length - 1]?.id;
+                      const isStreamingMessage = isLastMessage && isLoading;
+                      
                       return (
                         <div
                           key={`${message.id}-${i}`}
@@ -370,37 +561,10 @@ export default function Chat() {
                           {message.role === "user" ? (
                             <p>{part.text}</p>
                           ) : (
-                            <ReactMarkdown
-                              remarkPlugins={[remarkGfm]}
-                              components={{
-                                code: ({
-                                  node,
-                                  className,
-                                  children,
-                                  ...props
-                                }) => {
-                                  const match = /language-(\w+)/.exec(
-                                    className || ""
-                                  );
-                                  return match ? (
-                                    <CodeBlock className={className}>
-                                      {String(children).replace(/\n$/, "")}
-                                    </CodeBlock>
-                                  ) : (
-                                    <code className={className} {...props}>
-                                      {children}
-                                    </code>
-                                  );
-                                },
-                                a: ({ href, children }) => (
-                                  <CustomLink href={href || "#"}>
-                                    {children}
-                                  </CustomLink>
-                                ),
-                              }}
-                            >
-                              {fixAssistantText(part.text)}
-                            </ReactMarkdown>
+                            <ChunkedMarkdown 
+                              content={part.text}
+                              isStreaming={isStreamingMessage}
+                            />
                           )}
                         </div>
                       );
