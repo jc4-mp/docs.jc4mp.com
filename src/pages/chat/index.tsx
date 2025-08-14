@@ -356,7 +356,7 @@ function CombinedSearchIndicator({
             }
           }}
         >
-          Read {totalDocs} docs {isExpanded ? '▼' : '▶'}
+          Read {totalDocs} docs
         </div>
         {isExpanded && (
           <div className={styles.toolDetails}>
