@@ -471,6 +471,9 @@ export default function Chat() {
     useChat({
       api: "https://jc4mp.com/api/v1/chat",
       // api: "http://localhost:5173/api/v1/chat",
+      onError: (error) => {
+        console.error(error);
+      },
     });
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
