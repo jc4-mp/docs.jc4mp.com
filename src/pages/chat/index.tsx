@@ -271,6 +271,27 @@ function countFilesInResponse(response: string): number {
 }
 
 /**
+ * Extracts file names from a tool response and converts them to documentation URLs
+ */
+function extractFileNamesFromResponse(response: string): string[] {
+  if (!response) return [];
+  
+  const fileNameRegex = /<file name="([^"]+)"/g;
+  const fileNames: string[] = [];
+  let match;
+  
+  while ((match = fileNameRegex.exec(response)) !== null) {
+    const fileName = match[1];
+    // The file name should already be in the format https://docs.jc4mp.com/...
+    if (fileName.startsWith('https://docs.jc4mp.com/')) {
+      fileNames.push(fileName);
+    }
+  }
+  
+  return fileNames;
+}
+
+/**
  * Groups tool calls by type and calculates total file counts
  */
 function groupToolCalls(toolInvocations: any[]) {
@@ -339,20 +360,40 @@ function CombinedSearchIndicator({
         </div>
         {isExpanded && (
           <div className={styles.toolDetails}>
-            {searchTools.map((tool, index) => (
-              <div key={index} className={styles.toolDetailSection}>
-                <div className={styles.toolDetailItem}>
-                  <span className={styles.toolDetailLabel}>Query {index + 1}:</span>
-                  <span className={styles.toolDetailValue}>"{tool.args?.query || 'N/A'}"</span>
+            {searchTools.map((tool, index) => {
+              const toolPages = tool.result ? extractFileNamesFromResponse(tool.result) : [];
+              return (
+                <div key={index} className={styles.toolDetailSection}>
+                  <div className={styles.toolDetailItem}>
+                    <span className={styles.toolDetailLabel}>Search:</span>
+                    <span className={styles.toolDetailValue}>"{tool.args?.query || 'N/A'}"</span>
+                  </div>
+                  {toolPages.length > 0 && (
+                    <div className={styles.toolDetailItem}>
+                      <span className={styles.toolDetailLabel}>Pages:</span>
+                      <div className={styles.toolDetailValue}>
+                        {toolPages.map((pageUrl, pageIndex) => {
+                          // Extract the page name from the URL for display
+                          const pageName = pageUrl.replace('https://docs.jc4mp.com/', '').replace(/\/$/, '');
+                          return (
+                            <div key={pageIndex} className={styles.foundPageItem}>
+                              <a 
+                                href={pageUrl} 
+                                target="_blank" 
+                                rel="noopener noreferrer"
+                                className={styles.foundPageLink}
+                              >
+                                {pageName}
+                              </a>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  )}
                 </div>
-                <div className={styles.toolDetailItem}>
-                  <span className={styles.toolDetailLabel}>Results:</span>
-                  <span className={styles.toolDetailValue}>
-                    {tool.result ? countFilesInResponse(tool.result) : 0} documents found
-                  </span>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         )}
       </div>

@@ -392,6 +392,29 @@ pre {
   border-bottom: none;
 }
 
+.foundPageItem {
+  margin-bottom: 0.25rem;
+}
+
+.foundPageItem:last-child {
+  margin-bottom: 0;
+}
+
+.foundPageLink {
+  color: var(--ifm-color-primary);
+  text-decoration: none;
+  font-size: 0.8rem;
+  border-radius: 0.25rem;
+  padding: 0.125rem 0.25rem;
+  transition: background-color 0.2s ease;
+}
+
+.foundPageLink:hover {
+  background-color: var(--ifm-color-emphasis-200);
+  text-decoration: none;
+  color: var(--ifm-color-primary-dark);
+}
+
 @keyframes slideDown {
   from {
     opacity: 0;
