@@ -18,9 +18,9 @@
 
 Example of enabling the local player's ability to use the wingsuit:
 ```lua
-Event.Add("ResourceStart", function(name)
+Event.Add("OnResourceStart", function(name)
 	Local.UnlockAbility(Ability.Wingsuit)
 end)
 ```
 
-Make sure to enable abilities once the resource has loaded. In this example, it's using the `ResourceStart` event to ensure that the resource has fully loaded before enabling the ability. If the ability were enabled outside of this event, it might not trigger properly right when a player joins the server.
+Make sure to enable abilities once the resource has loaded. In this example, it's using the `OnResourceStart` event to ensure that the resource has fully loaded before enabling the ability. If the ability were enabled outside of this event, it might not trigger properly right when a player joins the server.

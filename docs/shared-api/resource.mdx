@@ -17,7 +17,7 @@ Gets the name of the current resource.
 Example usage:
 
 ```lua
-Event.Add("ResourceStart", function(resource)
+Event.Add("OnResourceStart", function(resource)
     if resource:GetName() == Resource.Name then
         print("Current resource started: " .. resource)
     else

@@ -61,10 +61,10 @@ export const eventDocs: Record<EventContextName, EventContext> = {
     name: 'SharedEvents',
     events: [
       {
-        name: 'ResourceStart',
+        name: 'OnResourceStart',
         signature: '(resource: string)',
         description: 'Called when resource starts when a client joins the server. The first argument is the name of the resource that started. If you want to enable abilities for the local player, you should do it here (only on the client).',
-        example: `Event.Add("ResourceStart", function(resource)
+        example: `Event.Add("OnResourceStart", function(resource)
 	if resource == Resource.Name then
 		Local.UnlockAbility(Ability.GrapplingHook)
 		Local.UnlockAbility(Ability.Parachute)
@@ -74,19 +74,19 @@ export const eventDocs: Record<EventContextName, EventContext> = {
 end)`
       },
       {
-        name: 'ResourceStop',
+        name: 'OnResourceStop',
         signature: '(resource: string)',
         description: 'Called when resource stops. The first argument is the name of the resource that stopped.'
       },
       {
-        name: 'PlayerDamage',
+        name: 'OnPlayerDamage',
         signature: '(player: NetPlayer, damager: NetObject, loss: number, hitbone: number, weaponHash: number, hitposition: vec3)',
-        description: 'This event fires when a player is damaged. Use Event.Cancel() (only on the client) to prevent the player from taking damage.'
+        description: 'This event fires when a player is damaged. Use Event.Cancel() (only on the server) to prevent the player from taking damage.'
       },
       {
-        name: 'PlayerKilled',
+        name: 'OnPlayerKilled',
         signature: '(player: NetPlayer, damager: NetObject, loss: number, hitbone: number, weaponHash: number, hitposition: vec3)',
-        description: 'This event fires when a player is killed. Parameters match PlayerDamage event for consistency.'
+        description: 'This event fires when a player is killed. Parameters match OnPlayerDamage event for consistency.'
       },
       {
         name: 'OnVehicleDestroy',
@@ -141,7 +141,7 @@ end)`
     name: 'ServerEvents',
     events: [
       {
-        name: 'ResourceStart',
+        name: 'OnResourceStart',
         signature: '(resource: string)',
         description: 'Called when a resource is started on the server.'
       },
