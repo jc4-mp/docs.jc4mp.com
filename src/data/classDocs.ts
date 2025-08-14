@@ -97,6 +97,11 @@ end)`
         name: 'OnVehicleDamage',
         signature: '(vehicle: NetVehicle, damager: NetObject, loss: number, hitbone: number, weaponHash: number, hitposition: vec3)',
         description: 'This event fires when a vehicle is damaged.'
+      },
+      {
+        name: 'OnPlayerTeleport',
+        signature: '(player: NetPlayer)',
+        description: 'This event fires when a player teleports (via [NetPlayer:Teleport](/server-api/netplayer)).'
       }
     ],
     docLink: '/shared-api/events',
@@ -315,7 +320,7 @@ export const classDocs: Record<ClassName, ClassDoc> = {
     name: 'Character',
     parent: 'Damageable',
     methods: [
-      { name: 'SetPosition', args: '(pos: vec3)', description: 'Sets the Character\'s position in the world. Do not use this to teleport the local character; use Local.Teleport(pos) instead.' },
+      { name: 'SetPosition', args: '(pos: vec3)', description: 'Sets the Character\'s position in the world. Do not use this to teleport the local character; use NetPlayer:Teleport(pos) on the server instead.' },
       { name: 'SetLinearVelocity', args: '(velocity: vec3)', description: 'Sets the Character\'s linear velocity.' },
       { name: 'GoRagdoll', description: 'Forces the Character into the ragdoll state.' },
       { name: 'IsRagdolling', description: 'Returns true if the Character is currently ragdolling, false otherwise.', returnType: 'boolean' },
