@@ -2,6 +2,7 @@ import clsx from "clsx";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import Layout from "@theme/Layout";
 import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import { Highlight, themes } from "prism-react-renderer";
 import { useColorMode } from "@docusaurus/theme-common";
 
@@ -84,11 +85,10 @@ function CustomLink({
   children: React.ReactNode;
 }) {
   const isHttps = href?.startsWith("https");
-  const sanitizedHref = href ? href.replace(/\.+$/, "") : href;
 
   return (
     <a
-      href={sanitizedHref}
+      href={href}
       target={isHttps ? "_blank" : undefined}
       rel={isHttps ? "noopener noreferrer" : undefined}
       className={styles.markdownLink}
@@ -108,89 +108,180 @@ function fixAssistantText(text: string): string {
 }
 
 /**
- * Converts plain URLs in text to markdown links, while preserving existing markdown links.
- * Handles:
- * - Proper markdown links/images (preserved)
- * - Bracketed URLs like `[https://example.com]`
- * - Angle-bracket URLs like `<https://example.com>`
- * - Bare URLs like `https://example.com`
- * Skips conversion inside code spans/blocks.
+ * Counts the number of file references in a tool response
  */
-function convertUrlsToMarkdown(text: string): string {
-  // Masks to protect existing constructs from being altered
-  const masks: string[] = [];
-  const mask = (regex: RegExp) => {
-    text = text.replace(regex, (match) => {
-      const id = masks.push(match) - 1;
-      return `__MASK_${id}__`;
-    });
-  };
-
-  // 1) Mask code blocks, code spans, existing markdown links/images, and existing autolinks
-  mask(/```[\s\S]*?```/g); // fenced code blocks
-  mask(/`[^`]*`/g); // inline code
-  mask(/!?\[[^\]]*\]\([^\)]+\)/g); // markdown links/images
-  mask(/<https?:\/\/[^>\s]+>/g); // existing autolinks
-
-  // 2) Convert bracketed URLs: [https://example.com] -> [https://example.com](https://example.com)
-  text = text.replace(
-    /\[(https?:\/\/[^\]\s]+)\]([.,!?;:])?/g,
-    (_m, url: string, punct?: string) => {
-      return `[${url}](${url})${punct || ""}`;
-    }
-  );
-
-  // 3) Convert angle-bracketed URLs: <https://example.com>
-  text = text.replace(
-    /<\s*(https?:\/\/[^>\s]+)\s*>([.,!?;:])?/g,
-    (_m, url: string, punct?: string) => {
-      return `[${url}](${url})${punct || ""}`;
-    }
-  );
-
-  // 3.5) Mask any markdown links created by steps 2-3 to prevent double-wrapping in step 4
-  mask(/!?\[[^\]]*\]\([^\)]+\)/g);
-
-  // 4) Convert bare URLs not already masked. Preserve trailing punctuation like .,!?;:
-  text = text.replace(
-    /(^|[^\w\]])(https?:\/\/[^\s<>)\]\}]+)([.,!?;:])?/g,
-    (_m, prefix: string, url: string, punct?: string) => {
-      return `${prefix}[${url}](${url})${punct || ""}`;
-    }
-  );
-
-  // 5) Restore masks
-  text = text.replace(
-    /__MASK_(\d+)__/g,
-    (_m, idx: string) => masks[Number(idx)]
-  );
-
-  // 6) Ensure no markdown link URL ends with a period. If present, move the period(s) outside the link
-  text = text.replace(
-    /\[([^\]]+)\]\(([^)]+)\)/g,
-    (full, label: string, url: string) => {
-      const trailingDotsMatch = url.match(/\.+$/);
-      if (!trailingDotsMatch) return full;
-      const trimmedUrl = url.replace(/\.+$/, "");
-      const trailingDots = trailingDotsMatch[0];
-      return `[${label}](${trimmedUrl})`;
-    }
-  );
-
-  return text;
+function countFilesInResponse(response: string): number {
+  const matches = response.match(/<file/g);
+  return matches ? matches.length : 0;
 }
+
+/**
+ * Groups tool calls by type and calculates total file counts
+ */
+function groupToolCalls(toolInvocations: any[]) {
+  const searchDocs = toolInvocations.filter(tool => tool.toolName === "search_docs");
+  const otherTools = toolInvocations.filter(tool => tool.toolName !== "search_docs");
+  
+  const totalSearchedDocs = searchDocs.reduce((total, tool) => {
+    return total + (tool.result ? countFilesInResponse(tool.result) : 0);
+  }, 0);
+  
+  return {
+    searchDocs,
+    otherTools,
+    totalSearchedDocs,
+    hasCompletedSearches: searchDocs.some(tool => tool.result)
+  };
+}
+
+/**
+ * Component for displaying combined search results
+ */
+function CombinedSearchIndicator({
+  searchTools,
+  totalDocs,
+  hasCompleted,
+  isExpanded,
+  onToggle
+}: {
+  searchTools: any[];
+  totalDocs: number;
+  hasCompleted: boolean;
+  isExpanded: boolean;
+  onToggle: () => void;
+}) {
+  const hasRunningSearches = searchTools.some(tool => !tool.result);
+  
+  // If any searches are still running, show loading state
+  if (hasRunningSearches) {
+    return (
+      <div className={clsx(styles.toolCall, styles.toolCallShimmer)}>
+        Searching docs...
+      </div>
+    );
+  }
+
+  // If all searches are completed
+  if (hasCompleted) {
+    return (
+      <div className={styles.toolCallContainer}>
+        <div 
+          className={clsx(styles.toolCall, styles.toolCallCompleted)}
+          onClick={onToggle}
+          role="button"
+          tabIndex={0}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              onToggle();
+            }
+          }}
+        >
+          Searched {totalDocs} docs {isExpanded ? '▼' : '▶'}
+        </div>
+        {isExpanded && (
+          <div className={styles.toolDetails}>
+            {searchTools.map((tool, index) => (
+              <div key={index} className={styles.toolDetailSection}>
+                <div className={styles.toolDetailItem}>
+                  <span className={styles.toolDetailLabel}>Query {index + 1}:</span>
+                  <span className={styles.toolDetailValue}>"{tool.args?.query || 'N/A'}"</span>
+                </div>
+                <div className={styles.toolDetailItem}>
+                  <span className={styles.toolDetailLabel}>Results:</span>
+                  <span className={styles.toolDetailValue}>
+                    {tool.result ? countFilesInResponse(tool.result) : 0} documents found
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  return null;
+}
+
+/**
+ * Renders a tool call indicator for non-search tools
+ */
+function ToolCallIndicator({ 
+  toolCall, 
+  isExpanded, 
+  onToggle 
+}: { 
+  toolCall: any; 
+  isExpanded: boolean;
+  onToggle: () => void;
+}) {
+  // For other tool calls, show a generic indicator
+  if (toolCall.result) {
+    return (
+      <div className={styles.toolCallContainer}>
+        <div 
+          className={clsx(styles.toolCall, styles.toolCallCompleted)}
+          onClick={onToggle}
+          role="button"
+          tabIndex={0}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              onToggle();
+            }
+          }}
+        >
+          Completed {toolCall.toolName} {isExpanded ? '▼' : '▶'}
+        </div>
+        {isExpanded && (
+          <div className={styles.toolDetails}>
+            <div className={styles.toolDetailItem}>
+              <span className={styles.toolDetailLabel}>Tool:</span>
+              <span className={styles.toolDetailValue}>{toolCall.toolName}</span>
+            </div>
+            <div className={styles.toolDetailItem}>
+              <span className={styles.toolDetailLabel}>Status:</span>
+              <span className={styles.toolDetailValue}>Completed</span>
+            </div>
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  return (
+    <div className={clsx(styles.toolCall, styles.toolCallShimmer)}>
+      Running {toolCall.toolName}...
+    </div>
+  );
+}
+
+
 
 export default function Chat() {
   const { siteConfig } = useDocusaurusContext();
   const { messages, input, handleInputChange, handleSubmit, isLoading } =
     useChat({
-      api: "https://jc4mp.com/api/v1/chat",
+      // api: "https://jc4mp.com/api/v1/chat",
+      api: "http://localhost:5173/api/v1/chat",
     });
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const [expandedToolCalls, setExpandedToolCalls] = useState<Set<string>>(new Set());
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const toggleToolCall = (toolCallId: string) => {
+    setExpandedToolCalls(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(toolCallId)) {
+        newSet.delete(toolCallId);
+      } else {
+        newSet.add(toolCallId);
+      }
+      return newSet;
+    });
   };
 
   useEffect(() => {
@@ -233,7 +324,42 @@ export default function Chat() {
                 {message.role === "user" ? "You" : "Rico"}
               </div>
               <div className={styles.messageContent}>
-                {message.parts.map((part, i) => {
+                {/* Render tool invocations first */}
+                {message.toolInvocations && (() => {
+                  const { searchDocs, otherTools, totalSearchedDocs, hasCompletedSearches } = groupToolCalls(message.toolInvocations);
+                  const searchId = `${message.id}-search`;
+                  
+                  return (
+                    <>
+                      {/* Combined search docs indicator */}
+                      {searchDocs.length > 0 && (
+                        <CombinedSearchIndicator
+                          searchTools={searchDocs}
+                          totalDocs={totalSearchedDocs}
+                          hasCompleted={hasCompletedSearches}
+                          isExpanded={expandedToolCalls.has(searchId)}
+                          onToggle={() => toggleToolCall(searchId)}
+                        />
+                      )}
+                      
+                      {/* Other tool calls */}
+                      {otherTools.map((toolInvocation, i) => {
+                        const toolCallId = `${message.id}-other-${i}`;
+                        return (
+                          <ToolCallIndicator
+                            key={`tool-${toolCallId}`}
+                            toolCall={toolInvocation}
+                            isExpanded={expandedToolCalls.has(toolCallId)}
+                            onToggle={() => toggleToolCall(toolCallId)}
+                          />
+                        );
+                      })}
+                    </>
+                  );
+                })()}
+
+                {/* Render message parts */}
+                {message.parts?.map((part, i) => {
                   switch (part.type) {
                     case "text":
                       return (
@@ -245,6 +371,7 @@ export default function Chat() {
                             <p>{part.text}</p>
                           ) : (
                             <ReactMarkdown
+                              remarkPlugins={[remarkGfm]}
                               components={{
                                 code: ({
                                   node,
@@ -272,7 +399,7 @@ export default function Chat() {
                                 ),
                               }}
                             >
-                              {convertUrlsToMarkdown(fixAssistantText(part.text))}
+                              {fixAssistantText(part.text)}
                             </ReactMarkdown>
                           )}
                         </div>

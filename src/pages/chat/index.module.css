@@ -299,4 +299,111 @@ pre {
 
 .copyButton:active {
   transform: scale(0.95);
-} 
+}
+
+/* Tool call indicator styles */
+.toolCall {
+  color: var(--ifm-color-content-secondary);
+  font-size: 0.875rem;
+  font-style: italic;
+  position: relative;
+  overflow: hidden;
+}
+.toolCallShimmer {
+  /* Apply shimmer only to text using background-clip and text-fill-color */
+  background: linear-gradient(
+    90deg,
+    var(--ifm-color-emphasis-900) 25%,
+    var(--ifm-color-emphasis-700) 50%,
+    var(--ifm-color-emphasis-900) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite linear;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+.toolCallCompleted {
+  color: var(--ifm-color-primary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: underline;
+  text-decoration-style: dotted;
+}
+
+.toolCallCompleted:hover {
+  color: var(--ifm-color-primary-dark);
+}
+
+/* Tool call container and inline details */
+.toolCallContainer {
+  margin: 0.5rem 0;
+}
+
+.toolDetails {
+  margin-top: 0.25rem;
+  padding: 0.5rem;
+  background: var(--ifm-color-emphasis-100);
+  border-bottom-right-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+  border-left: 3px solid var(--ifm-color-primary);
+}
+
+.toolDetailItem {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 0.25rem;
+}
+
+.toolDetailItem:last-child {
+  margin-bottom: 0;
+}
+
+.toolDetailLabel {
+  font-weight: 600;
+  color: var(--ifm-color-content);
+  min-width: 80px;
+  font-size: 0.8rem;
+}
+
+.toolDetailValue {
+  color: var(--ifm-color-content-secondary);
+  font-size: 0.8rem;
+  flex: 1;
+}
+
+.toolDetailSection {
+  padding-bottom: 0.5rem;
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+}
+
+.toolDetailSection:last-child {
+  padding-bottom: 0;
+  margin-bottom: 0;
+  border-bottom: none;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shimmer {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
+}
+
+ 
