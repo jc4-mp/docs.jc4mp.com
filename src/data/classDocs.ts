@@ -1,7 +1,7 @@
 // Class documentation metadata for inheritance system
 // Each class has a name, optional parent, and its own methods/fields
 
-export type ClassName = 'NetObjectBase' | 'NetObjectBase_Server' | 'NetObject' | 'NetObject_Server' | 'NetPlayer' | 'NetPlayer_Server' | 'NetPlayerBase' | 'NetVehicle' | 'NetVehicle_Client' | 'Vehicle' | 'PlayerClient' | 'PlayerClient_Client' | 'PlayerClient_Server' | 'GameObject' | 'Damageable' | 'Character';
+export type ClassName = 'NetObjectBase' | 'NetObjectBase_Server' | 'NetObject' | 'NetObject_Server' | 'NetPlayer' | 'NetPlayer_Server' | 'NetPlayerBase' | 'NetVehicle' | 'NetVehicle_Client' | 'NetVehicle_Server' | 'Vehicle' | 'PlayerClient' | 'PlayerClient_Client' | 'PlayerClient_Server' | 'GameObject' | 'Damageable' | 'Character';
 
 // Events inheritance system
 export type EventContextName = 'SharedEvents' | 'ClientEvents' | 'ServerEvents';
@@ -265,6 +265,20 @@ export const classDocs: Record<ClassName, ClassDoc> = {
       { name: 'GI', description: 'Returns the game instance (GI) of the NetVehicle, which is a Vehicle.', returnType: 'Vehicle' },
     ],
     docLink: '/client-api/netvehicle',
+  },
+  NetVehicle_Server: {
+    name: 'NetVehicle_Server',
+    parent: 'NetVehicle',
+    methods: [
+      { name: 'SetPrimaryColor', args: '(r: number, g: number, b: number)', description: 'Sets the primary color of the vehicle. RGB values should be floats between 0 and 1.', returnType: 'void' },
+      { name: 'SetSecondaryColor', args: '(r: number, g: number, b: number)', description: 'Sets the secondary color of the vehicle. RGB values should be floats between 0 and 1.', returnType: 'void' },
+      { name: 'SetTertiaryColor', args: '(r: number, g: number, b: number)', description: 'Sets the tertiary color of the vehicle. RGB values should be floats between 0 and 1.', returnType: 'void' },
+      { name: 'SetSpecularGloss', args: '(value: number)', description: 'Sets the specular gloss of the vehicle. Value should be a float between 0 and 1.', returnType: 'void' },
+      { name: 'SetClearCoat', args: '(value: number)', description: 'Sets the clear coat value of the vehicle. Value should be a float between 0 and 1.', returnType: 'void' },
+      { name: 'SetMetallic', args: '(value: number)', description: 'Sets the metallic value of the vehicle. Value should be a float between 0 and 1.', returnType: 'void' },
+      { name: 'SetDirt', args: '(value: number)', description: 'Sets the dirt level of the vehicle. Value should be a float between 0 and 1, although higher values can make the vehicle extremely dirty.', returnType: 'void' },
+    ],
+    docLink: '/server-api/netvehicle',
   },
   Vehicle: {
     name: 'Vehicle',
