@@ -261,8 +261,8 @@ export default function Chat() {
   const { siteConfig } = useDocusaurusContext();
   const { messages, input, handleInputChange, handleSubmit, isLoading } =
     useChat({
-      // api: "https://jc4mp.com/api/v1/chat",
-      api: "http://localhost:5173/api/v1/chat",
+      api: "https://jc4mp.com/api/v1/chat",
+      // api: "http://localhost:5173/api/v1/chat",
     });
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
