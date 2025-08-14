@@ -76,6 +76,11 @@ const config: Config = {
           label: "Chat with Rico",
         },
         {
+          href: "https://jc4mp.com/discord",
+          label: "Discord",
+          position: "right",
+        },
+        {
           href: "https://github.com/jc4-mp/docs.jc4mp.com",
           label: "GitHub",
           position: "right",
