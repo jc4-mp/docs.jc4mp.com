@@ -467,7 +467,7 @@ function ToolCallIndicator({
 
 export default function Chat() {
   const { siteConfig } = useDocusaurusContext();
-  const { messages, input, handleInputChange, handleSubmit, isLoading } =
+  const { messages, input, handleInputChange, handleSubmit, isLoading, stop } =
     useChat({
       api: "https://jc4mp.com/api/v1/chat",
       // api: "http://localhost:5173/api/v1/chat",
@@ -498,6 +498,14 @@ export default function Chat() {
       return newSet;
     });
   }, []);
+
+  const handleButtonClick = useCallback((e: React.MouseEvent) => {
+    if (isLoading) {
+      e.preventDefault();
+      stop();
+    }
+    // If not loading, the form's onSubmit will handle the submission
+  }, [isLoading, stop]);
 
   // Check if user has scrolled up from the bottom
   const handleScroll = useCallback(() => {
@@ -652,11 +660,15 @@ export default function Chat() {
             />
             <button
               type="submit"
-              className={styles.sendButton}
-              disabled={isLoading || !input.trim()}
+              className={clsx(styles.sendButton, isLoading && styles.loadingButton)}
+              disabled={!isLoading && !input.trim()}
+              onClick={handleButtonClick}
             >
               {isLoading ? (
-                <LoaderCircle className={styles.spinner} />
+                <div className={styles.loadingIndicator}>
+                  <LoaderCircle className={styles.spinner} />
+                  <div className={styles.stopSquare} />
+                </div>
               ) : (
                 <ArrowRight />
               )}

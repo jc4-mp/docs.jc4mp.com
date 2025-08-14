@@ -263,6 +263,36 @@
   }
 }
 
+/* Loading indicator with stop square */
+.loadingIndicator {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stopSquare {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: white;
+  border-radius: 1px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+}
+
+.loadingButton {
+  cursor: pointer !important;
+  opacity: 1 !important;
+}
+
+.loadingButton:hover {
+  background: var(--ifm-color-primary-darker) !important;
+  transform: translateY(-1px) !important;
+}
+
 pre {
   margin: 0 !important;
   padding: 0 !important;
