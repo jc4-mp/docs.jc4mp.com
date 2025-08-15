@@ -17,46 +17,46 @@ import { ArrowRight, Loader, LoaderCircle, Copy, Check } from "lucide-react";
  */
 function splitIntoChunks(text: string): string[] {
   if (!text) return [];
-  
+
   // Split by double newlines (paragraphs) and code blocks
   const chunks = [];
-  let currentChunk = '';
+  let currentChunk = "";
   let inCodeBlock = false;
-  
-  const lines = text.split('\n');
-  
+
+  const lines = text.split("\n");
+
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
-    
+
     // Detect code block boundaries
-    if (line.trim().startsWith('```')) {
+    if (line.trim().startsWith("```")) {
       inCodeBlock = !inCodeBlock;
-      currentChunk += line + '\n';
-      
+      currentChunk += line + "\n";
+
       // If we're ending a code block, complete this chunk
       if (!inCodeBlock) {
         chunks.push(currentChunk.trim());
-        currentChunk = '';
+        currentChunk = "";
       }
       continue;
     }
-    
-    currentChunk += line + '\n';
-    
+
+    currentChunk += line + "\n";
+
     // If not in code block and we hit an empty line or end, complete chunk
-    if (!inCodeBlock && (line.trim() === '' || i === lines.length - 1)) {
+    if (!inCodeBlock && (line.trim() === "" || i === lines.length - 1)) {
       if (currentChunk.trim()) {
         chunks.push(currentChunk.trim());
-        currentChunk = '';
+        currentChunk = "";
       }
     }
   }
-  
+
   // Add any remaining content
   if (currentChunk.trim()) {
     chunks.push(currentChunk.trim());
   }
-  
+
   return chunks;
 }
 
@@ -78,6 +78,14 @@ function CodeBlock({
   // Map common language aliases to Prism language names
   const languageMap: { [key: string]: string } = {
     lua: "lua",
+    js: "javascript",
+    ts: "typescript",
+    html: "html",
+    css: "css",
+    json: "json",
+    yaml: "yaml",
+    markdown: "markdown",
+    txt: "text",
   };
 
   const prismLanguage = languageMap[language.toLowerCase()] || "text";
@@ -156,30 +164,26 @@ const ChunkRenderer = memo(function ChunkRenderer({
   chunk: string;
   index: number;
 }) {
-  const markdownComponents = useMemo(() => ({
-    code: ({
-      node,
-      className,
-      children,
-      ...props
-    }: any) => {
-      const match = /language-(\w+)/.exec(className || "");
-      return match ? (
-        <CodeBlock className={className}>
-          {String(children).replace(/\n$/, "")}
-        </CodeBlock>
-      ) : (
-        <code className={className} {...props}>
-          {children}
-        </code>
-      );
-    },
-    a: ({ href, children }: any) => (
-      <CustomLink href={href || "#"}>
-        {children}
-      </CustomLink>
-    ),
-  }), []);
+  const markdownComponents = useMemo(
+    () => ({
+      code: ({ node, className, children, ...props }: any) => {
+        const match = /language-(\w+)/.exec(className || "");
+        return match ? (
+          <CodeBlock className={className}>
+            {String(children).replace(/\n$/, "")}
+          </CodeBlock>
+        ) : (
+          <code className={className} {...props}>
+            {children}
+          </code>
+        );
+      },
+      a: ({ href, children }: any) => (
+        <CustomLink href={href || "#"}>{children}</CustomLink>
+      ),
+    }),
+    []
+  );
 
   return (
     <div key={`chunk-${index}`} className={styles.markdownChunk}>
@@ -204,31 +208,31 @@ const ChunkedMarkdown = memo(function ChunkedMarkdown({
   isStreaming: boolean;
 }) {
   const [processedChunks, setProcessedChunks] = useState<string[]>([]);
-  const [pendingContent, setPendingContent] = useState<string>('');
-  
+  const [pendingContent, setPendingContent] = useState<string>("");
+
   useEffect(() => {
     if (!content) {
       setProcessedChunks([]);
-      setPendingContent('');
+      setPendingContent("");
       return;
     }
 
     const chunks = splitIntoChunks(content);
-    
+
     if (!isStreaming) {
       // When not streaming, process all chunks immediately
       setProcessedChunks(chunks);
-      setPendingContent('');
+      setPendingContent("");
     } else {
       // When streaming, only process complete chunks
       const completeChunks = chunks.slice(0, -1);
-      const lastChunk = chunks[chunks.length - 1] || '';
-      
+      const lastChunk = chunks[chunks.length - 1] || "";
+
       // Check if we have new complete chunks
       if (completeChunks.length > processedChunks.length) {
         setProcessedChunks(completeChunks);
       }
-      
+
       // Set pending content (the incomplete last chunk)
       setPendingContent(lastChunk);
     }
@@ -240,11 +244,11 @@ const ChunkedMarkdown = memo(function ChunkedMarkdown({
       {processedChunks.map((chunk, index) => (
         <ChunkRenderer key={index} chunk={chunk} index={index} />
       ))}
-      
+
       {/* Render pending content during streaming */}
       {isStreaming && pendingContent && (
         <div className={styles.pendingChunk}>
-          <span style={{ whiteSpace: 'pre-wrap' }}>
+          <span style={{ whiteSpace: "pre-wrap" }}>
             {fixAssistantText(pendingContent)}
           </span>
         </div>
@@ -275,19 +279,19 @@ function countFilesInResponse(response: string): number {
  */
 function extractFileNamesFromResponse(response: string): string[] {
   if (!response) return [];
-  
+
   const fileNameRegex = /<file name="([^"]+)"/g;
   const fileNames: string[] = [];
   let match;
-  
+
   while ((match = fileNameRegex.exec(response)) !== null) {
     const fileName = match[1];
     // The file name should already be in the format https://docs.jc4mp.com/...
-    if (fileName.startsWith('https://docs.jc4mp.com/')) {
+    if (fileName.startsWith("https://docs.jc4mp.com/")) {
       fileNames.push(fileName);
     }
   }
-  
+
   return fileNames;
 }
 
@@ -295,18 +299,22 @@ function extractFileNamesFromResponse(response: string): string[] {
  * Groups tool calls by type and calculates total file counts
  */
 function groupToolCalls(toolInvocations: any[]) {
-  const searchDocs = toolInvocations.filter(tool => tool.toolName === "search_docs");
-  const otherTools = toolInvocations.filter(tool => tool.toolName !== "search_docs");
-  
+  const searchDocs = toolInvocations.filter(
+    (tool) => tool.toolName === "search_docs"
+  );
+  const otherTools = toolInvocations.filter(
+    (tool) => tool.toolName !== "search_docs"
+  );
+
   const totalSearchedDocs = searchDocs.reduce((total, tool) => {
     return total + (tool.result ? countFilesInResponse(tool.result) : 0);
   }, 0);
-  
+
   return {
     searchDocs,
     otherTools,
     totalSearchedDocs,
-    hasCompletedSearches: searchDocs.some(tool => tool.result)
+    hasCompletedSearches: searchDocs.some((tool) => tool.result),
   };
 }
 
@@ -319,7 +327,7 @@ function CombinedSearchIndicator({
   hasCompleted,
   isExpanded,
   onToggle,
-  isCurrentlyLoading
+  isCurrentlyLoading,
 }: {
   searchTools: any[];
   totalDocs: number;
@@ -328,8 +336,8 @@ function CombinedSearchIndicator({
   onToggle: () => void;
   isCurrentlyLoading?: boolean;
 }) {
-  const hasRunningSearches = searchTools.some(tool => !tool.result);
-  
+  const hasRunningSearches = searchTools.some((tool) => !tool.result);
+
   // If any searches are still running AND we're currently loading, show loading state
   if (hasRunningSearches && isCurrentlyLoading) {
     return (
@@ -345,13 +353,13 @@ function CombinedSearchIndicator({
   if (hasCompleted) {
     return (
       <div className={styles.toolCallContainer}>
-        <div 
+        <div
           className={clsx(styles.toolCall, styles.toolCallCompleted)}
           onClick={onToggle}
           role="button"
           tabIndex={0}
           onKeyDown={(e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
+            if (e.key === "Enter" || e.key === " ") {
               onToggle();
             }
           }}
@@ -361,12 +369,16 @@ function CombinedSearchIndicator({
         {isExpanded && (
           <div className={styles.toolDetails}>
             {searchTools.map((tool, index) => {
-              const toolPages = tool.result ? extractFileNamesFromResponse(tool.result) : [];
+              const toolPages = tool.result
+                ? extractFileNamesFromResponse(tool.result)
+                : [];
               return (
                 <div key={index} className={styles.toolDetailSection}>
                   <div className={styles.toolDetailItem}>
                     <span className={styles.toolDetailLabel}>Search:</span>
-                    <span className={styles.toolDetailValue}>"{tool.args?.query || 'N/A'}"</span>
+                    <span className={styles.toolDetailValue}>
+                      "{tool.args?.query || "N/A"}"
+                    </span>
                   </div>
                   {toolPages.length > 0 && (
                     <div className={styles.toolDetailItem}>
@@ -374,12 +386,17 @@ function CombinedSearchIndicator({
                       <div className={styles.toolDetailValue}>
                         {toolPages.map((pageUrl, pageIndex) => {
                           // Extract the page name from the URL for display
-                          const pageName = pageUrl.replace('https://docs.jc4mp.com/', '').replace(/\/$/, '');
+                          const pageName = pageUrl
+                            .replace("https://docs.jc4mp.com/", "")
+                            .replace(/\/$/, "");
                           return (
-                            <div key={pageIndex} className={styles.foundPageItem}>
-                              <a 
-                                href={pageUrl} 
-                                target="_blank" 
+                            <div
+                              key={pageIndex}
+                              className={styles.foundPageItem}
+                            >
+                              <a
+                                href={pageUrl}
+                                target="_blank"
                                 rel="noopener noreferrer"
                                 className={styles.foundPageLink}
                               >
@@ -406,13 +423,13 @@ function CombinedSearchIndicator({
 /**
  * Renders a tool call indicator for non-search tools
  */
-function ToolCallIndicator({ 
-  toolCall, 
-  isExpanded, 
+function ToolCallIndicator({
+  toolCall,
+  isExpanded,
   onToggle,
-  isCurrentlyLoading
-}: { 
-  toolCall: any; 
+  isCurrentlyLoading,
+}: {
+  toolCall: any;
   isExpanded: boolean;
   onToggle: () => void;
   isCurrentlyLoading?: boolean;
@@ -421,24 +438,26 @@ function ToolCallIndicator({
   if (toolCall.result) {
     return (
       <div className={styles.toolCallContainer}>
-        <div 
+        <div
           className={clsx(styles.toolCall, styles.toolCallCompleted)}
           onClick={onToggle}
           role="button"
           tabIndex={0}
           onKeyDown={(e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
+            if (e.key === "Enter" || e.key === " ") {
               onToggle();
             }
           }}
         >
-          Completed {toolCall.toolName} {isExpanded ? '▼' : '▶'}
+          Completed {toolCall.toolName} {isExpanded ? "▼" : "▶"}
         </div>
         {isExpanded && (
           <div className={styles.toolDetails}>
             <div className={styles.toolDetailItem}>
               <span className={styles.toolDetailLabel}>Tool:</span>
-              <span className={styles.toolDetailValue}>{toolCall.toolName}</span>
+              <span className={styles.toolDetailValue}>
+                {toolCall.toolName}
+              </span>
             </div>
             <div className={styles.toolDetailItem}>
               <span className={styles.toolDetailLabel}>Status:</span>
@@ -463,14 +482,12 @@ function ToolCallIndicator({
   return null;
 }
 
-
-
 export default function Chat() {
   const { siteConfig } = useDocusaurusContext();
   const { messages, input, handleInputChange, handleSubmit, isLoading, stop } =
     useChat({
-      api: "https://jc4mp.com/api/v1/chat",
-      // api: "http://localhost:5173/api/v1/chat",
+        api: "https://jc4mp.com/api/v1/chat",
+    //   api: "http://localhost:5173/api/v1/chat",
       onError: (error) => {
         console.error(error);
       },
@@ -478,7 +495,9 @@ export default function Chat() {
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const messagesContainerRef = useRef<HTMLDivElement>(null);
-  const [expandedToolCalls, setExpandedToolCalls] = useState<Set<string>>(new Set());
+  const [expandedToolCalls, setExpandedToolCalls] = useState<Set<string>>(
+    new Set()
+  );
   const [shouldAutoScroll, setShouldAutoScroll] = useState(true);
 
   const scrollToBottom = useCallback(() => {
@@ -488,7 +507,7 @@ export default function Chat() {
   }, [shouldAutoScroll]);
 
   const toggleToolCall = useCallback((toolCallId: string) => {
-    setExpandedToolCalls(prev => {
+    setExpandedToolCalls((prev) => {
       const newSet = new Set(prev);
       if (newSet.has(toolCallId)) {
         newSet.delete(toolCallId);
@@ -499,18 +518,22 @@ export default function Chat() {
     });
   }, []);
 
-  const handleButtonClick = useCallback((e: React.MouseEvent) => {
-    if (isLoading) {
-      e.preventDefault();
-      stop();
-    }
-    // If not loading, the form's onSubmit will handle the submission
-  }, [isLoading, stop]);
+  const handleButtonClick = useCallback(
+    (e: React.MouseEvent) => {
+      if (isLoading) {
+        e.preventDefault();
+        stop();
+      }
+      // If not loading, the form's onSubmit will handle the submission
+    },
+    [isLoading, stop]
+  );
 
   // Check if user has scrolled up from the bottom
   const handleScroll = useCallback(() => {
     if (messagesContainerRef.current) {
-      const { scrollTop, scrollHeight, clientHeight } = messagesContainerRef.current;
+      const { scrollTop, scrollHeight, clientHeight } =
+        messagesContainerRef.current;
       const isAtBottom = scrollTop + clientHeight >= scrollHeight - 100; // 100px threshold
       setShouldAutoScroll(isAtBottom);
     }
@@ -526,7 +549,7 @@ export default function Chat() {
       description="Chat with Rico to learn about JC4MP server scripting - get help setting up servers, creating scripts and gamemodes, adding mods, and more"
     >
       <div className={styles.chatContainer}>
-        <div 
+        <div
           className={styles.messagesContainer}
           ref={messagesContainerRef}
           onScroll={handleScroll}
@@ -561,50 +584,58 @@ export default function Chat() {
               </div>
               <div className={styles.messageContent}>
                 {/* Render tool invocations first */}
-                {message.toolInvocations && (() => {
-                  const { searchDocs, otherTools, totalSearchedDocs, hasCompletedSearches } = groupToolCalls(message.toolInvocations);
-                  const searchId = `${message.id}-search`;
-                  const isLastMessage = message.id === messages[messages.length - 1]?.id;
-                  const isCurrentlyLoading = isLastMessage && isLoading;
-                  
-                  return (
-                    <>
-                      {/* Combined search docs indicator */}
-                      {searchDocs.length > 0 && (
-                        <CombinedSearchIndicator
-                          searchTools={searchDocs}
-                          totalDocs={totalSearchedDocs}
-                          hasCompleted={hasCompletedSearches}
-                          isExpanded={expandedToolCalls.has(searchId)}
-                          onToggle={() => toggleToolCall(searchId)}
-                          isCurrentlyLoading={isCurrentlyLoading}
-                        />
-                      )}
-                      
-                      {/* Other tool calls */}
-                      {otherTools.map((toolInvocation, i) => {
-                        const toolCallId = `${message.id}-other-${i}`;
-                        return (
-                          <ToolCallIndicator
-                            key={`tool-${toolCallId}`}
-                            toolCall={toolInvocation}
-                            isExpanded={expandedToolCalls.has(toolCallId)}
-                            onToggle={() => toggleToolCall(toolCallId)}
+                {message.toolInvocations &&
+                  (() => {
+                    const {
+                      searchDocs,
+                      otherTools,
+                      totalSearchedDocs,
+                      hasCompletedSearches,
+                    } = groupToolCalls(message.toolInvocations);
+                    const searchId = `${message.id}-search`;
+                    const isLastMessage =
+                      message.id === messages[messages.length - 1]?.id;
+                    const isCurrentlyLoading = isLastMessage && isLoading;
+
+                    return (
+                      <>
+                        {/* Combined search docs indicator */}
+                        {searchDocs.length > 0 && (
+                          <CombinedSearchIndicator
+                            searchTools={searchDocs}
+                            totalDocs={totalSearchedDocs}
+                            hasCompleted={hasCompletedSearches}
+                            isExpanded={expandedToolCalls.has(searchId)}
+                            onToggle={() => toggleToolCall(searchId)}
                             isCurrentlyLoading={isCurrentlyLoading}
                           />
-                        );
-                      })}
-                    </>
-                  );
-                })()}
+                        )}
+
+                        {/* Other tool calls */}
+                        {otherTools.map((toolInvocation, i) => {
+                          const toolCallId = `${message.id}-other-${i}`;
+                          return (
+                            <ToolCallIndicator
+                              key={`tool-${toolCallId}`}
+                              toolCall={toolInvocation}
+                              isExpanded={expandedToolCalls.has(toolCallId)}
+                              onToggle={() => toggleToolCall(toolCallId)}
+                              isCurrentlyLoading={isCurrentlyLoading}
+                            />
+                          );
+                        })}
+                      </>
+                    );
+                  })()}
 
                 {/* Render message parts */}
                 {message.parts?.map((part, i) => {
                   switch (part.type) {
                     case "text":
-                      const isLastMessage = message.id === messages[messages.length - 1]?.id;
+                      const isLastMessage =
+                        message.id === messages[messages.length - 1]?.id;
                       const isStreamingMessage = isLastMessage && isLoading;
-                      
+
                       return (
                         <div
                           key={`${message.id}-${i}`}
@@ -613,7 +644,7 @@ export default function Chat() {
                           {message.role === "user" ? (
                             <p>{part.text}</p>
                           ) : (
-                            <ChunkedMarkdown 
+                            <ChunkedMarkdown
                               content={part.text}
                               isStreaming={isStreamingMessage}
                             />
@@ -660,7 +691,10 @@ export default function Chat() {
             />
             <button
               type="submit"
-              className={clsx(styles.sendButton, isLoading && styles.loadingButton)}
+              className={clsx(
+                styles.sendButton,
+                isLoading && styles.loadingButton
+              )}
               disabled={!isLoading && !input.trim()}
               onClick={handleButtonClick}
             >
