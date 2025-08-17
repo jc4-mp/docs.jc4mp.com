@@ -40,9 +40,9 @@ This is the description of your server that will appear in the server list.
 
 #### `port` (number)
 
-This is the port that your server will use to allow players to connect to it. This value should be between 1 and 65535, and is 7777 by default. The server also hosts a HTTP server on the port specified in this field + 1. The HTTP server is used to serve information about the server and mods to players.
+This is the port that your server will use to allow players to connect to it. This value should be between 1 and 65535, and is 7777 by default. The server also hosts a HTTP server on the port specified in this field + 1. The HTTP server is used to serve information about the server and mods to players. Specifically, it exposes a public API at `http://<server_ip>:<port+1>/info` that can be used to get information about the server, such as the server's name, description, player count, and more.
 
-**Make sure that you allow both ports through your firewall, otherwise players will not be able to connect to your server.**
+**Make sure that you allow both ports (port and port+1) through your firewall, otherwise players will not be able to connect to your server.**
 
 #### `max_players` (number)
 
@@ -60,7 +60,7 @@ Keep in mind that you also need to have a valid `key` and `update_url` for your 
 
 #### `startup_resources` (string array)
 
-This field is a list of resources to load when the server starts up. 
+This field is a list of resources to load when the server starts up. To learn more about adding resources, see the [Adding Scripts](/get-started/adding-scripts) guide.
 
 
 #### `acl` (object)
@@ -111,6 +111,8 @@ Example of roles for players via Steam ID:
 This is your personal server key obtained from the **[JC4MP Server Dashboard](https://servers.jc4mp.com/dashboard)**. It should be in this format: `JC4MP_pBJVVEZXi3V1e3FDTC039hnc2QYAXloP`, where it begins with `JC4MP_` and has a random sequence of letters and numbers after it. This server key is used to announce your server to the [JC4MP server list](https://servers.jc4mp.com/). Only one key may be used by a single server at the same time. If you have multiple servers running at the same time that you want on the server list, you should use different server keys.
 
 If this field is empty or the key is not valid, the server will not appear on the server list.
+
+**Do not share your server key with anyone.**
 
 #### `steam_web_api_key` (string)
 
