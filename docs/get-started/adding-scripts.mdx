@@ -4,4 +4,150 @@ sidebar_position: 3
 
 # Adding Scripts
 
-This page is in progress.
+Adding scripts to your server is the primary way to customize and extend gameplay. This guide will walk you through everything you need to know as a beginner.
+
+## How Scripts Work
+
+Scripts in JC4MP are organized into **resources** - collections of related scripts that work together. Each resource is a folder containing scripts and assets that provide specific functionality to your server.
+
+## Basic File Structure
+
+Scripts are placed in your server's `resources` folder. Here's the basic structure:
+
+```
+your-server/
+└── resources/
+    ├── my-first-script/
+    ├── vehicle-spawner/
+    └── chat-system/
+```
+
+Each resource folder can contain three special directories:
+
+- **`client/`** - Scripts that run on players' computers
+- **`server/`** - Scripts that run on your server (players can't see these)
+- **`shared/`** - Scripts that run on both client and server
+
+## File Types
+
+Resources can contain various file types:
+
+- **`.lua`** - Main script files (most common)
+- **`.html`, `.css`, `.js`** - For creating [webviews](/client-api/webview) (UI elements)
+- **`.json`, `.txt`** - Configuration and data files
+- **Images, sounds, models** - Other assets
+
+## Download Behavior
+
+When players connect to your server:
+
+- They download everything from `client/` and `shared/` folders
+- They **cannot** access anything in `server/` folders
+- Server scripts remain private on your server
+
+## Script Execution
+
+- **Client scripts** run on each player's computer
+- **Server scripts** run only on your server
+- **Shared scripts** run on both client and server
+- Client and server scripts can both import and use shared scripts via the [modules system](/shared-api/modules)
+
+## Example Directory Structure
+
+Here's a realistic example with multiple resources:
+
+```
+resources/
+├── vehicle-spawner/
+│   ├── client/
+│   │   ├── spawner_ui.lua
+│   │   └── webview/
+│   │       ├── index.html
+│   │       ├── style.css
+│   │       └── script.js
+│   ├── server/
+│   │   ├── vehicle_manager.lua
+│   │   └── permissions.lua
+│   └── shared/
+│       ├── vehicle_data.lua
+│       └── config.lua
+├── chat-system/
+│   ├── client/
+│   │   └── chat_client.lua
+│   ├── server/
+│   │   ├── chat_server.lua
+│   │   └── moderation.lua
+│   └── shared/
+│       └── chat_utils.lua
+└── my-gamemode/
+    ├── client/
+    │   ├── hud.lua
+    │   └── player_input.lua
+    ├── server/
+    │   ├── gamemode.lua
+    │   ├── player_data.lua
+    │   └── database/
+    │       └── connection.lua
+    └── shared/
+        ├── constants.lua
+        └── math_utils.lua
+```
+
+## Nested Resources
+
+You can organize scripts with subfolders. The system searches for `client`, `server`, and `shared` folders at any depth:
+
+```
+resources/
+└── my-script-pack/
+    ├── racing/
+    │   ├── client/
+    │   │   └── race_ui.lua
+    │   ├── server/
+    │   │   └── race_logic.lua
+    │   └── shared/
+    │       └── race_data.lua
+    ├── weapons/
+    │   ├── client/
+    │   │   └── weapon_effects.lua
+    │   └── server/
+    │       └── weapon_spawner.lua
+    └── utilities/
+        └── shared/
+            └── common_functions.lua
+```
+
+## Hidden Folders
+
+To hide folders from the resource system, prefix them with two underscores (`__`):
+
+```
+resources/
+└── my-webview-script/
+    ├── client/
+    │   └── webview_client.lua
+    ├── __node_modules/          # Hidden from resource system
+    │   └── some-framework/
+    │       └── client/          # This won't be treated as a script folder
+    └── __build-tools/           # Also hidden
+        └── webpack.config.js
+```
+
+This is especially useful when working with web frameworks for webviews that might have their own `client` folders in dependencies.
+
+## Sharing Code Between Scripts
+
+### Static Data and Methods
+Use the [modules system](/shared-api/modules) to share static data and functions between different scripts.
+
+### Dynamic Runtime Data
+Use [events](/shared-api/events) to communicate and share dynamic data between scripts while your server is running.
+
+## Getting Started
+
+1. Create a new folder in your `resources` directory
+2. Add `client`, `server`, or `shared` folders as needed
+3. Place your `.lua` scripts in the appropriate folders
+4. Restart your server to load the new resource
+
+Your scripts will automatically be loaded and executed when players connect to your server!
