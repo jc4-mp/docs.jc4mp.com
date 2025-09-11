@@ -133,6 +133,11 @@ end)`
         name: 'OnVehicleExplode',
         signature: '(vehicle: NetVehicle)',
         description: 'This event fires when a vehicle explodes. Only available on the client side.'
+      },
+      {
+        name: 'OnVehiclePartChangedState',
+        signature: '(vehicle: NetVehicle, part: VehiclePart, state: VehiclePartState)',
+        description: 'This event is called when a part of a vehicle changes state, such as the door opening on the carrier plane.'
       }
     ],
     docLink: '/client-api/events',
@@ -263,6 +268,7 @@ export const classDocs: Record<ClassName, ClassDoc> = {
     parent: 'NetVehicle',
     methods: [
       { name: 'GI', description: 'Returns the game instance (GI) of the NetVehicle, which is a Vehicle.', returnType: 'Vehicle' },
+      { name: 'SetPartState', args: '(part: VehiclePart, state: VehiclePartState)', description: 'Transitions a [vehicle part](/shared-api/vehiclepart) to the specified state with animation. Only [VehiclePartState.Open](/shared-api/vehiclepartstate) and [VehiclePartState.Closed](/shared-api/vehiclepartstate) states are supported. Use [VehiclePartState.Open](/shared-api/vehiclepartstate) to animate the part opening, and [VehiclePartState.Closed](/shared-api/vehiclepartstate) to animate the part closing. The state change is not instant - the part will transition smoothly over time.', returnType: 'void' },
     ],
     docLink: '/client-api/netvehicle',
   },
