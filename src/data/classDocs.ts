@@ -110,22 +110,22 @@ end)`
     name: 'ClientEvents',
     events: [
       {
-        name: 'ClientJoin',
+        name: 'OnClientJoin',
         signature: '()',
         description: 'Called when the local client joins the server.'
       },
       {
-        name: 'Render',
+        name: 'OnRender',
         signature: '()',
         description: 'Called every frame. Use the `Render` event to draw elements to the screen underneath the JC4MP UI, such as the chat window. Learn more [here](/client-api/render).'
       },
       {
-        name: 'PostRender',
+        name: 'OnPostRender',
         signature: '()',
         description: 'Called every frame. Use the `PostRender` event to draw elements to the screen on top of the JC4MP UI, such as the chat window. This is good for full-screen overlays, such as fading to black for transitions. Learn more [here](/client-api/render).'
       },
       {
-        name: 'VehicleCollision',
+        name: 'OnVehicleCollision',
         signature: '(vehicle: Vehicle)',
         description: 'This event fires when a vehicle collides with something.'
       },
@@ -151,7 +151,7 @@ end)`
         description: 'Called when a resource is started on the server.'
       },
       {
-        name: 'PlayerJoin',
+        name: 'OnPlayerJoin',
         signature: '(player: PlayerClient)',
         description: 'This fires when a [player client](./playerclient) joins the server. This does not guarantee that the player has loaded their scripts yet, so do not try to send them data yet.',
         example: `Event.Add("PlayerJoin", function(player)
@@ -159,7 +159,7 @@ end)`
 end)`
       },
       {
-        name: 'PlayerQuit',
+        name: 'OnPlayerQuit',
         signature: '(player: PlayerClient)',
         description: 'This fires when a [player client](./playerclient) leaves the server.',
         example: `Event.Add("PlayerQuit", function(player)
@@ -167,7 +167,7 @@ end)`
 end)`
       },
       {
-        name: 'PreTick',
+        name: 'OnPreTick',
         signature: '()',
         description: 'This fires every tick on the server _before_ any server logic is run.',
         example: `Event.Add("PreTick", function()
@@ -175,7 +175,7 @@ end)`
 end)`
       },
       {
-        name: 'PostTick',
+        name: 'OnPostTick',
         signature: '()',
         description: 'This fires every tick on the server _after_ all server logic is run.',
         example: `Event.Add("PostTick", function()
@@ -183,7 +183,7 @@ end)`
 end)`
       },
       {
-        name: 'PlayerResourceAction',
+        name: 'OnPlayerResourceAction',
         signature: '(player: PlayerClient, resource: string, action: ResourceAction)',
         description: 'This fires when a player\'s resource is started, stopped, or restarted. See [ResourceAction](/shared-api/resourceaction) for more information on types of actions. If you want to send data to a player when they connect, you should do it here since there resource is fully loaded (on ResourceAction.Start).',
         example: `Event.Add("PlayerResourceAction", function(player, resource, action)
