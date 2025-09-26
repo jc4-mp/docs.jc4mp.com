@@ -12,11 +12,11 @@ These event APIs allow you to send and receive data between different scripts or
 You may only subscribe **once** per event per file. If you subscribe multiple times, only the first subscription will work properly. For example:
 
 ```lua
-Event.Add("Render", function() -- Works!
+Event.Add("OnRender", function() -- Works!
 	Render.DrawLine(vec2(200, 200), vec2(200, 1000), 100, vec4(0.0, 1, 0.0, 1.0))  
 end)
 
-Event.Add("Render", function() -- Does not work
+Event.Add("OnRender", function() -- Does not work
 	Render.DrawLine(vec2(200, 200), vec2(200, 1000), 1000, vec4(1, 1, 0.0, 1.0))  
 end)
 ```

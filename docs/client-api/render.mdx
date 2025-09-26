@@ -21,7 +21,7 @@ Draws a line between `start` and `end` positions on the screen. Thickness should
 Example usage that draws a red diagonal line:
 
 ```lua
-Event.Add("Render", function()
+Event.Add("OnRender", function()
     Render.DrawLine(vec2(100, 100), vec2(200, 200), 5, vec4(1, 0, 0, 1))
 end)
 ```
@@ -33,7 +33,7 @@ Draws a triangle defined by three points on the screen. Values for color range b
 Example usage that draws a green triangle:
 
 ```lua
-Event.Add("Render", function()
+Event.Add("OnRender", function()
     Render.DrawTriangle(vec2(100, 100), vec2(200, 100), vec2(150, 150), vec4(0, 1, 0, 1))
 end)
 ```
@@ -45,7 +45,7 @@ Draws a filled triangle defined by three points on the screen. Values for color 
 Example usage that draws a filled blue triangle:
 
 ```lua
-Event.Add("Render", function()
+Event.Add("OnRender", function()
     Render.FillTriangle(vec2(300, 100), vec2(400, 100), vec2(350, 150), vec4(0, 0, 1, 1))
 end)
 ```
@@ -57,7 +57,7 @@ Draws a rectangle on the screen. `pos` is the top-left corner position, and `siz
 Example usage that draws a yellow rectangle:
 
 ```lua
-Event.Add("Render", function()
+Event.Add("OnRender", function()
     Render.DrawRect(vec2(100, 200), vec2(50, 30), vec4(1, 1, 0, 1))
 end)
 ```
@@ -69,7 +69,7 @@ Draws a filled rectangle on the screen. `pos` is the top-left corner position, a
 Example usage that draws a filled magenta rectangle:
 
 ```lua
-Event.Add("Render", function()
+Event.Add("OnRender", function()
     Render.FillRect(vec2(200, 200), vec2(50, 30), vec4(1, 0, 1, 1))
 end)
 ```
@@ -82,7 +82,7 @@ Draws a filled rectangle on the screen with a different color at each corner. `p
 Example usage that draws a filled rectangle with different colors at each corner:
 
 ```lua
-Event.Add("Render", function()
+Event.Add("OnRender", function()
     Render.FillRectMultiColor(vec2(200, 400), vec2(50, 30), vec4(1, 0, 0, 1), vec4(0, 1, 0, 1), vec4(0, 0, 1, 1), vec4(1, 1, 0, 1))
 end)
 ```
@@ -94,7 +94,7 @@ Draws a circle on the screen. `center` is the center position, `radius` is the r
 Example usage that draws a cyan circle:
 
 ```lua
-Event.Add("Render", function()
+Event.Add("OnRender", function()
     Render.DrawCircle(vec2(300, 300), 25, 3, 24, vec4(0, 1, 1, 1))
 end)
 ```
@@ -106,7 +106,7 @@ Draws a filled circle on the screen. `center` is the center position, `radius` i
 Example usage that draws a filled orange circle:
 
 ```lua
-Event.Add("Render", function()
+Event.Add("OnRender", function()
     Render.FillCircle(vec2(400, 300), 25, 24, vec4(1, 0.5, 0, 1))
 end)
 ```
@@ -119,7 +119,7 @@ Draws an ellipse on the screen. `center` is the center position, `radius_x` and 
 Example usage that draws a rotated white ellipse every frame:
 
 ```lua
-Event.Add("Render", function()
+Event.Add("OnRender", function()
     Render.DrawEllipse(vec2(300, 400), 30, 20, 24, 2, vec4(1, 1, 1, 1), 0.5)
 end)
 ```
@@ -131,7 +131,7 @@ Draws a filled ellipse on the screen. `center` is the center position, `radius_x
 Example usage that draws a filled, rotated gray ellipse:
 
 ```lua
-Event.Add("Render", function()
+Event.Add("OnRender", function()
     Render.FillEllipse(vec2(400, 400), 30, 20, 24, vec4(0.5, 0.5, 0.5, 1), -0.5)
 end)
 ```
@@ -150,7 +150,7 @@ local points = {
     vec2(200, 200),
     vec2(100, 200)
 }
-Event.Add("Render", function()
+Event.Add("OnRender", function()
     Render.DrawPolygon(points, 2, vec4(1, 1, 1, 1))
 end)
 ```
@@ -169,7 +169,7 @@ local points = {
     vec2(400, 200),
     vec2(300, 200)
 }
-Event.Add("Render", function()
+Event.Add("OnRender", function()
     Render.FillPolygon(points, vec4(0.5, 0.5, 0.5, 1))
 end)
 ```
@@ -181,7 +181,7 @@ Draws text on the screen. `text` is the string to draw, `pos` is the position of
 Example usage that draws centered white text with a shadow:
 
 ```lua
-Event.Add("Render", function()
+Event.Add("OnRender", function()
     Render.DrawText("Hello, World!", vec2(100, 400), 1, vec4(1, 1, 1, 1), true, 1)
 end)
 ```
@@ -193,7 +193,7 @@ Sets the clipping area for the current rendering call to be between `start` and 
 Example usage that draws a small transparent red square:
 
 ```lua
-Event.Add("Render", function()
+Event.Add("OnRender", function()
     Render.SetClip(true, vec2(0, 0), vec2(100, 100))
 	Render.FillRect(vec2(0, 0), Render.GetSize(), vec4(1, 0, 0, 0.5))
     Render.SetClip(false, vec2(0, 0), vec2(100, 100))
@@ -220,7 +220,7 @@ Draws a 3D depth-tested sphere in the game world at `pos` position with specific
 Example usage that draws a semi-transparent blue sphere on the local player's head:
 
 ```lua
-Event.Add("Render", function()
+Event.Add("OnRender", function()
     local localPlayer = Players.Local():GI()
     local char = localPlayer:GetCharacter()
     local head_pos = char:GetBonePosition(Bone.Head)

@@ -8,7 +8,7 @@ List of all bones on a character.
 
 The above was rendered via this code:
 ```lua
-Event.Add("Render", function()
+Event.Add("OnRender", function()
     local localPlayer = Players.Local():GI()
     local char = localPlayer:GetCharacter()
     for bone_name, bone_val in pairs(Bone) do

@@ -11,7 +11,7 @@ The `KeyDown` event fires every time a key on the keyboard is pressed. The first
 Example that teleports the local player to their aim position when they press F:
 
 ```lua
-Event.Add("KeyDown", function(key)
+Event.Add("OnKeyDown", function(key)
     if key == Key.F then
         local localPlayer = Players.Local():GI()
         local aimPos = localPlayer:GetAimPosition()
@@ -27,7 +27,7 @@ The `KeyUp` event fires every time a key on the keyboard is pressed. The first a
 Example that teleports the local player to their aim position when they press F:
 
 ```lua
-Event.Add("KeyUp", function(key)
+Event.Add("OnKeyUp", function(key)
     if key == Key.F then
         local localPlayer = Players.Local():GI()
         local aimPos = localPlayer:GetAimPosition()
@@ -43,7 +43,7 @@ The `MouseDown` event fires every time a button on the mouse is pressed down. Us
 Example that teleports the local player to their aim position when they left clicking:
 
 ```lua
-Event.Add("MouseDown", function(key)
+Event.Add("OnMouseDown", function(key)
     if key == Key.MouseLeft then
         local localPlayer = Players.Local():GI()
         local aimPos = localPlayer:GetAimPosition()
@@ -59,7 +59,7 @@ The `LocalPlayerInput` event fires every time an input action occurs for the loc
 Example that prints a message to chat when the jump action occurs:
 
 ```lua
-Event.Add("LocalPlayerInput", function(action)
+Event.Add("OnLocalPlayerInput", function(action)
     if action == Action.Jump then
         Chat.Print("Local player jumped!")
     end

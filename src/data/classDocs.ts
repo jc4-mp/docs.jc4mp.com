@@ -179,7 +179,7 @@ end)`
         name: 'OnPlayerJoin',
         signature: '(player: PlayerClient)',
         description: 'This fires when a [player client](./playerclient) joins the server. This does not guarantee that the player has loaded their scripts yet, so do not try to send them data yet.',
-        example: `Event.Add("PlayerJoin", function(player)
+        example: `Event.Add("OnPlayerJoin", function(player)
     print("Player " .. player:GetNick() .. " joined the server!")
 end)`
       },
@@ -187,7 +187,7 @@ end)`
         name: 'OnPlayerQuit',
         signature: '(player: PlayerClient)',
         description: 'This fires when a [player client](./playerclient) leaves the server.',
-        example: `Event.Add("PlayerQuit", function(player)
+        example: `Event.Add("OnPlayerQuit", function(player)
     print("Player " .. player:GetNick() .. " left the server!")
 end)`
       },
@@ -195,7 +195,7 @@ end)`
         name: 'OnPreTick',
         signature: '()',
         description: 'This fires every tick on the server _before_ any server logic is run.',
-        example: `Event.Add("PreTick", function()
+        example: `Event.Add("OnPreTick", function()
     print("PreTick! Elapsed seconds: " .. tostring(Server.GetElapsedSeconds()))
 end)`
       },
@@ -203,7 +203,7 @@ end)`
         name: 'OnPostTick',
         signature: '()',
         description: 'This fires every tick on the server _after_ all server logic is run.',
-        example: `Event.Add("PostTick", function()
+        example: `Event.Add("OnPostTick", function()
     print("PostTick! Elapsed seconds: " .. tostring(Server.GetElapsedSeconds()))
 end)`
       },
@@ -211,7 +211,7 @@ end)`
         name: 'OnPlayerResourceAction',
         signature: '(player: PlayerClient, resource: string, action: ResourceAction)',
         description: 'This fires when a player\'s resource is started, stopped, or restarted. See [ResourceAction](/shared-api/resourceaction) for more information on types of actions. If you want to send data to a player when they connect, you should do it here since there resource is fully loaded (on ResourceAction.Start).',
-        example: `Event.Add("PlayerResourceAction", function(player, resource, action)
+        example: `Event.Add("OnPlayerResourceAction", function(player, resource, action)
     print("Player " .. player:GetNick() .. " " .. action .. " resource " .. resource)
 end)`
       },
