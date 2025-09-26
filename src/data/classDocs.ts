@@ -1,7 +1,7 @@
 // Class documentation metadata for inheritance system
 // Each class has a name, optional parent, and its own methods/fields
 
-export type ClassName = 'NetObjectBase' | 'NetObjectBase_Server' | 'NetObject' | 'NetObject_Server' | 'NetPlayer' | 'NetPlayer_Server' | 'NetPlayerBase' | 'NetVehicle' | 'NetVehicle_Client' | 'NetVehicle_Server' | 'Vehicle' | 'PlayerClient' | 'PlayerClient_Client' | 'PlayerClient_Server' | 'GameObject' | 'Damageable' | 'Character';
+export type ClassName = 'NetObjectBase' | 'NetObjectBase_Server' | 'NetObject' | 'NetObject_Server' | 'NetPlayer' | 'NetPlayer_Server' | 'NetPlayerBase' | 'NetVehicle' | 'NetVehicle_Client' | 'NetVehicle_Server' | 'Vehicle' | 'PlayerClient' | 'PlayerClient_Client' | 'PlayerClient_Server' | 'GameObject' | 'Damageable' | 'Character' | 'NetPlayer2';
 
 // Events inheritance system
 export type EventContextName = 'SharedEvents' | 'ClientEvents' | 'ServerEvents';
@@ -102,6 +102,11 @@ end)`
         name: 'OnPlayerTeleport',
         signature: '(player: NetPlayer)',
         description: 'This event fires when a player teleports (via [NetPlayer:Teleport](/server-api/netplayer)).'
+      },
+      {
+        name: 'OnChat',
+        signature: '(NetPlayer sender, string msg)',
+        description: 'This event fires when a player sends a chat message. On the server, use `Event.Cancel()` to block the message.'
       }
     ],
     docLink: '/shared-api/events',
@@ -125,11 +130,6 @@ end)`
         description: 'Called every frame. Use the `PostRender` event to draw elements to the screen on top of the JC4MP UI, such as the chat window. This is good for full-screen overlays, such as fading to black for transitions. Learn more [here](/client-api/render).'
       },
       {
-        name: 'OnVehicleCollision',
-        signature: '(vehicle: Vehicle)',
-        description: 'This event fires when a vehicle collides with something.'
-      },
-      {
         name: 'OnVehicleExplode',
         signature: '(vehicle: NetVehicle)',
         description: 'This event fires when a vehicle explodes. Only available on the client side.'
@@ -138,6 +138,31 @@ end)`
         name: 'OnVehiclePartChangedState',
         signature: '(vehicle: NetVehicle, part: VehiclePart, state: VehiclePartState)',
         description: 'This event is called when a part of a vehicle changes state, such as the door opening on the carrier plane.'
+      },
+      {
+        name: 'OnPlayerRagdollStart',
+        signature: '(player: NetPlayer)',
+        description: 'This event fires when a player starts ragdolling (enters ragdoll state).'
+      },
+      {
+        name: 'OnPlayerRagdollEnd',
+        signature: '(player: NetPlayer)',
+        description: 'This event fires when a player stops ragdolling (exits ragdoll state).'
+      },
+      {
+        name: 'OnVehicleNitrousUse',
+        signature: '(vehicle: NetVehicle)',
+        description: 'This event fires when a vehicle uses nitrous boost.'
+      },
+      {
+        name: 'OnVehicleTurboJump',
+        signature: '(vehicle: NetVehicle)',
+        description: 'This event fires when a vehicle performs a turbo jump.'
+      },
+      {
+        name: 'OnVehicleCollision',
+        signature: '(vehicle: NetVehicle, position: vec3, normal: vec3, impulse: float)',
+        description: 'This event fires when a vehicle collides with something, providing collision details including position, surface normal, and impact impulse.'
       }
     ],
     docLink: '/client-api/events',
@@ -189,6 +214,16 @@ end)`
         example: `Event.Add("PlayerResourceAction", function(player, resource, action)
     print("Player " .. player:GetNick() .. " " .. action .. " resource " .. resource)
 end)`
+      },
+      {
+        name: 'OnPlayerVehicleEnter',
+        signature: '(player: NetPlayer, vehicle: NetVehicle, seat: VehicleSeat, occupant: NetPlayer)',
+        description: 'This event fires when a player enters a vehicle. Provides information about the player, vehicle, seat, and any previous occupant.'
+      },
+      {
+        name: 'OnPlayerVehicleExit',
+        signature: '(player: NetPlayer, vehicle: NetVehicle, seat: VehicleSeat)',
+        description: 'This event fires when a player exits a vehicle. Provides information about the player, vehicle, and seat they exited from.'
       }
     ],
     docLink: '/server-api/events',
@@ -241,6 +276,26 @@ export const classDocs: Record<ClassName, ClassDoc> = {
     ], // Add NetPlayer-specific methods here
     docLink: '/shared-api/netplayer',
   },
+  NetPlayer2: {
+    name: 'NetPlayer',
+    parent: 'NetPlayerBase',
+    methods: [
+      { name: 'GetAimPosition', args: '()', returnType: 'vec3', description: 'Returns the player\'s current aim position, based on the weapon they have equipped. For example, if the player does not have a weapon, this position will only reach out as far as the grappling hook goes (about 80m).' },
+      { name: 'GoRagdoll', description: 'Forces the Character into the ragdoll state.' },
+      { name: 'IsRagdolling', description: 'Returns true if the Character is currently ragdolling, false otherwise.', returnType: 'boolean' },
+      { name: 'IsGettingUpFromRagdoll', description: 'Returns true if the Character is currently getting up from ragdoll, false otherwise.', returnType: 'boolean' },
+      { name: 'UsingParachute', description: 'Returns true if the Character is using a parachute, false otherwise.', returnType: 'boolean' },
+      { name: 'UsingWingsuit', description: 'Returns true if the Character is using a wingsuit, false otherwise.', returnType: 'boolean' },
+      { name: 'GetPlayer', description: 'Returns the Player associated with this Character.', returnType: 'Player' },
+      { name: 'GetBonePosition', args: '(bone: Bone)', description: 'Gets the world position of a specific bone on a character.', returnType: 'vec3' },
+      { name: 'GetVehicle', description: 'Returns the Vehicle instance that the character is currently in. Returns nil if the character is not in a vehicle.', returnType: 'Vehicle | nil' },
+      { name: 'SetGhostMode', args: '(enabled: bool)', description: 'Enables or disables ghost mode. When ghost mode is enabled, all collisions will be disabled for the character, allowing them to pass through entities, objects, and terrain.' },
+      { name: 'SetCloaked', args: '(enabled: bool)', description: 'Enables or disables cloaked mode. When cloaked mode is enabled, the character will become mostly invisible with a shine on them.' },
+      { name: 'SetOpacity', args: '(opacity: number)', description: 'Sets the opacity of the character. Takes a value from 0-1 where 0 means invisible and 1 means fully opaque.' },
+      { name: 'GetGrappleTargetObject', args: '()', description: 'Returns the object that the player is targeting with their grappling hook, or nil if there is none.', returnType: 'NetObject | nil' },
+    ], // Add NetPlayer-specific methods here
+    docLink: '/client-api/netplayer',
+  },
   NetPlayer_Server: {
     name: 'NetPlayer_Server',
     parent: 'NetObject_Server',
@@ -252,6 +307,7 @@ export const classDocs: Record<ClassName, ClassDoc> = {
     methods: [
       { name: 'GetNick', description: "Returns the player's nickname directly from the NetPlayerBase without needing to access the client.", returnType: 'string' },
       { name: 'GetClient', description: 'Returns the PlayerClient instance corresponding to this NetPlayerBase.', returnType: 'PlayerClient' },
+      { name: 'GetVehicle', description: 'Returns the Vehicle that the player is currently in. Returns nil if the player is not in a vehicle.', returnType: 'Vehicle | nil' },
     ],
     docLink: '/shared-api/netplayerbase',
   },
@@ -260,6 +316,10 @@ export const classDocs: Record<ClassName, ClassDoc> = {
     parent: 'NetObject',
     methods: [
       { name: 'GetId', description: 'Returns the ID of the vehicle.', returnType: 'number' },
+      { name: 'GetVelocity', description: 'Gets the vector3 velocity of the vehicle.', returnType: 'vec3' },
+      { name: 'IsWheelDrifting', description: 'Returns true if the specified wheel is currently drifting, false otherwise. Wheel is the index of the wheel to check, and threshold is the threshold where it returns true. Threshold should be a value between 0 and 1 where a low value will detect drifting more easily.', args: '(wheel: number, threshold: number)', returnType: 'boolean' },
+      { name: 'GetNumberOfWheelsOnGround', description: 'Returns the number of wheels of the vehicle that are currently touching the ground.', returnType: 'number' },
+      { name: 'SetCloak', description: 'Enables or disables cloaked mode. When cloaked mode is enabled, the vehicle will become mostly invisible with a shine on them.', args: '(enabled: bool)', returnType: 'void' },
     ],
     docLink: '/shared-api/netvehicle',
   },
@@ -267,7 +327,6 @@ export const classDocs: Record<ClassName, ClassDoc> = {
     name: 'NetVehicle_Client',
     parent: 'NetVehicle',
     methods: [
-      { name: 'GI', description: 'Returns the game instance (GI) of the NetVehicle, which is a Vehicle.', returnType: 'Vehicle' },
       { name: 'SetPartState', args: '(part: VehiclePart, state: VehiclePartState)', description: 'Transitions a [vehicle part](/shared-api/vehiclepart) to the specified state with animation. Only [VehiclePartState.Open](/shared-api/vehiclepartstate) and [VehiclePartState.Closed](/shared-api/vehiclepartstate) states are supported. Use [VehiclePartState.Open](/shared-api/vehiclepartstate) to animate the part opening, and [VehiclePartState.Closed](/shared-api/vehiclepartstate) to animate the part closing. The state change is not instant - the part will transition smoothly over time.', returnType: 'void' },
     ],
     docLink: '/client-api/netvehicle',
@@ -291,8 +350,6 @@ export const classDocs: Record<ClassName, ClassDoc> = {
     parent: 'Damageable',
     methods: [
       { name: 'GO', description: 'Returns the GameObject (GO) of the vehicle, used to modify transform.', returnType: 'GameObject' },
-      { name: 'GetVelocity', description: 'Gets the vector3 velocity of the vehicle.', returnType: 'vec3' },
-      { name: 'GetNumberOfWheelsOnGround', description: 'Returns the number of wheels of the vehicle that are currently touching the ground.', returnType: 'number' },
     ],
     docLink: '/client-api/vehicle',
   },
@@ -340,19 +397,7 @@ export const classDocs: Record<ClassName, ClassDoc> = {
     name: 'Character',
     parent: 'Damageable',
     methods: [
-      { name: 'SetPosition', args: '(pos: vec3)', description: 'Sets the Character\'s position in the world. Do not use this to teleport the local character; use NetPlayer:Teleport(pos) on the server instead.' },
-      { name: 'SetLinearVelocity', args: '(velocity: vec3)', description: 'Sets the Character\'s linear velocity.' },
-      { name: 'GoRagdoll', description: 'Forces the Character into the ragdoll state.' },
-      { name: 'IsRagdolling', description: 'Returns true if the Character is currently ragdolling, false otherwise.', returnType: 'boolean' },
-      { name: 'IsGettingUpFromRagdoll', description: 'Returns true if the Character is currently getting up from ragdoll, false otherwise.', returnType: 'boolean' },
-      { name: 'UsingParachute', description: 'Returns true if the Character is using a parachute, false otherwise.', returnType: 'boolean' },
-      { name: 'UsingWingsuit', description: 'Returns true if the Character is using a wingsuit, false otherwise.', returnType: 'boolean' },
-      { name: 'GetPlayer', description: 'Returns the Player associated with this Character.', returnType: 'Player' },
-      { name: 'GetBonePosition', args: '(bone: Bone)', description: 'Gets the world position of a specific bone on a character.', returnType: 'vec3' },
-      { name: 'GetVehicle', description: 'Returns the Vehicle instance that the character is currently in. Returns nil if the character is not in a vehicle.', returnType: 'Vehicle | nil' },
-      { name: 'SetGhostMode', args: '(enabled: bool)', description: 'Enables or disables ghost mode. When ghost mode is enabled, all collisions will be disabled for the character, allowing them to pass through entities, objects, and terrain.' },
-      { name: 'SetCloaked', args: '(enabled: bool)', description: 'Enables or disables cloaked mode. When cloaked mode is enabled, the character will become mostly invisible with a shine on them.' },
-      { name: 'SetOpacity', args: '(opacity: number)', description: 'Sets the opacity of the character. Takes a value from 0-1 where 0 means invisible and 1 means fully opaque.' },
+      { name: 'GO', args: '()', description: 'Returns the GameObject instance of the character.' },
     ],
     docLink: '/client-api/character',
   },

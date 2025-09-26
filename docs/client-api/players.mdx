@@ -4,9 +4,13 @@ These APIs allow you to interface with Players in the game. This inherits from t
 
 ## Global Methods
 
-#### `Players.Local(): PlayerClient`
+#### `Players.LocalClient(): PlayerClient`
 
-Returns the local [player](/client-api/playerclient). (this is the user's local player)
+Returns the local [player client](/client-api/playerclient).
+
+#### `Players.LocalPlayer(): NetPlayer`
+
+Returns the local [player](/client-api/netplayer).
 
 
 #### `Players.SetTagsEnabled(enabled: boolean)`
