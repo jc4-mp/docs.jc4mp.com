@@ -40,3 +40,34 @@ local gameObject = vehicle:GO()
 local position = gameObject:GetPosition()
 print("Vehicle position: " .. tostring(position))
 ```
+
+#### `NetVehicle:UseLight(lightIndex: number, use: boolean): void`
+
+Controls whether a specific vehicle light is enabled or disabled. This function MUST be used inside the [OnVehicleLightsUpdate](/client-api/events#onvehiclelightsupdate) event.
+
+**Parameters:**
+- `lightIndex: number` - The index of the light to control
+- `use: boolean` - Whether to enable (true) or disable (false) the light
+
+**Example:**
+```lua
+Event.Add("OnVehicleLightsUpdate", function(vehicle)
+    -- Enable the first light
+    vehicle:UseLight(0, true)
+
+    -- Disable the second light
+    vehicle:UseLight(1, false)
+end)
+```
+
+#### `NetVehicle:GetAABB(): AABB`
+
+Returns the AABB (bounding box) of the vehicle.
+
+**Returns:** [AABB](/shared-api/aabb) - The AABB of the vehicle. This is a table containing two fields: `min` and `max`, both of which are vec3.
+
+**Example:**
+```lua
+local aabb = vehicle:GetAABB()
+print("Vehicle AABB: " .. tostring(aabb.min) .. " " .. tostring(aabb.max))
+```

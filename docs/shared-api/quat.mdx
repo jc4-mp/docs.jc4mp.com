@@ -43,3 +43,31 @@ local myQuat = quat(1, 2, 3, 4)
 local normalizedQuat = myQuat:normalize()
 print("Normalized: " .. tostring(normalizedQuat))
 ```
+
+## Multiplication Operations
+
+`quat` supports multiplication operations with other quaternions and vectors:
+
+### Quaternion Multiplication
+
+```lua
+local quat1 = quat(1, 0, 0, 1)
+local quat2 = quat(0, 1, 0, 1)
+local result = quat1 * quat2 -- Combines the rotations
+```
+
+### Multiplication by vec3
+
+```lua
+local myQuat = quat(0, 0, 0, 1) -- Identity quaternion
+local myVec = vec3(1, 0, 0)
+local rotatedVec = myQuat * myVec -- Applies rotation to vector
+```
+
+### Multiplication by vec4
+
+```lua
+local myQuat = quat(0, 0, 0, 1) -- Identity quaternion
+local myVec4 = vec4(1, 0, 0, 1)
+local rotatedVec4 = myQuat * myVec4 -- Applies rotation to vec4
+```

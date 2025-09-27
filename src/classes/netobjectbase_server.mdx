@@ -67,4 +67,20 @@ Sets the velocity of the network object. This change is synchronized to all play
 object:SetVelocity(vec3(100, 0, 0))
 ```
 
+#### `NetObject:SetAngularVelocity(velocity: vec3)`
+
+Sets the angular velocity (rotation speed around each axis) of the network object. This change is synchronized to all players. **Note: This method works only for anything but NetPlayer.**
+
+**Parameters:**
+- `velocity: vec3` - The new angular velocity for the object (in radians per second)
+
+**Example:**
+```lua
+-- Make object spin around Y axis
+object:SetAngularVelocity(vec3(0, 5, 0))
+
+-- Stop rotation
+object:SetAngularVelocity(vec3(0, 0, 0))
+```
+
 

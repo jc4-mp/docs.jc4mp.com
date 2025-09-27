@@ -116,6 +116,20 @@ Event.Add("OnVehicleCollision", function(vehicle, position, normal, impulse)
 end)
 ```
 
+#### `OnVehicleLightsUpdate(vehicle: NetVehicle)`
+
+This function is called when the game updates/renders all vehicle lights, one call per vehicle.
+
+**Parameters:**
+- `vehicle: NetVehicle` - The vehicle whose lights are being updated
+
+**Example:**
+```lua
+Event.Add("OnVehicleLightsUpdate", function(vehicle)
+    print("Updating lights for vehicle " .. vehicle:GetId())
+end)
+```
+
 ### Player Events
 
 #### `OnPlayerRagdollStart(player: NetPlayer)`
@@ -152,10 +166,13 @@ end)
 
 This event fires when a waypoint is placed. This event is cancellable with Event.Cancel().
 
+**Parameters:**
+- `position: vec3` - The position of the waypoint
+
 **Example:**
 ```lua
-Event.Add("OnWaypointPlace", function()
-    print("Waypoint placed!")
+Event.Add("OnWaypointPlace", function(position)
+    print("Waypoint placed at " .. tostring(position))
     -- Cancel waypoint placement
     Event.Cancel()
 end)
@@ -180,3 +197,12 @@ Event.Add("OnWaypointRemove", function(reached)
     Event.Cancel()
 end)
 ```
+
+#### `OnScanStart()`
+
+This event fires when a scan starts (default tab key). This event is cancellable with Event.Cancel().
+
+#### `OnScanEnd()`
+
+This event fires when a scan ends (default tab key). This event is cancellable with Event.Cancel().
+

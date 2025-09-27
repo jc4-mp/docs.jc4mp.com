@@ -50,3 +50,16 @@ Clears the waypoint.
 #### `World.SpawnRigidObject(position: vec3, mode: string, collision: string, rotation?: vec3, health?: number): RigidObject`
 
 Spawns a rigid object at the given position with the given rotation. This is synced to all players. See the [objects list](/reference/objects-list) for a complete list of objects to spawn.
+
+#### `World.GetWaypoint(): POI`
+
+Returns the current waypoint as a [POI](/client-api/poi) instance. Note that this POI instance is not usable for now and doesn't have any methods available.
+
+**Returns:** POI - The current waypoint POI instance
+
+#### `World.GetWaypointPosition(): vec3`
+
+Returns the position of the current waypoint.
+
+**Returns:** vec3 - The position of the current waypoint
+

@@ -71,3 +71,60 @@ vehicle:SetCloak(true)
 -- Disable cloaked mode
 vehicle:SetCloak(false)
 ```
+
+#### `NetVehicle:IsCloaked(): boolean`
+
+Returns true if the vehicle is currently cloaked, false otherwise.
+
+**Returns:** boolean - true if the vehicle is cloaked, false otherwise
+
+#### `NetVehicle:GetDirt(): float`
+
+Returns the current dirt level of the vehicle as a float value.
+
+**Returns:** float - The dirt level of the vehicle
+
+#### `NetVehicle:GetPrimaryColor(): vec3`
+
+Returns the primary color of the vehicle as a vec3 RGB value.
+
+**Returns:** vec3 - The primary RGB color of the vehicle
+
+#### `NetVehicle:GetSecondaryColor(): vec3`
+
+Returns the secondary color of the vehicle as a vec3 RGB value.
+
+**Returns:** vec3 - The secondary RGB color of the vehicle
+
+#### `NetVehicle:GetTertiaryColor(): vec3`
+
+Returns the tertiary color of the vehicle as a vec3 RGB value.
+
+**Returns:** vec3 - The tertiary RGB color of the vehicle
+
+#### `NetVehicle:GetSpecularGloss(): float`
+
+Returns the specular gloss value of the vehicle's material.
+
+**Returns:** float - The specular gloss value of the vehicle
+
+#### `NetVehicle:GetClearCoat(): float`
+
+Returns the clear coat value of the vehicle's material.
+
+**Returns:** float - The clear coat value of the vehicle
+
+#### `NetVehicle:GetMetallic(): float`
+
+Returns the metallic value of the vehicle's material.
+
+**Returns:** float - The metallic value of the vehicle
+
+#### `NetVehicle:GetPartState(part: VehiclePart): VehiclePartState`
+
+Returns the current state of the specified vehicle part.
+
+**Parameters:**
+- `part: VehiclePart` - The [part](/shared-api/vehiclepart) to get the state of
+
+**Returns:** [VehiclePartState](/shared-api/vehiclepartstate) - The state of the vehicle part

@@ -106,3 +106,28 @@ Returns true if the key is released, false otherwise. Refer to [Key](/client-api
 
 Returns greater than 0 if the action is currently active, 0 otherwise. Refer to [Action](/client-api/action) for a list of actions to use.
 
+#### `Input.GetClipboard(): string`
+
+Returns the current contents of the system clipboard as a string.
+
+**Returns:** string - The current clipboard contents
+
+**Example:**
+```lua
+local clipboardText = Input.GetClipboard()
+print("Clipboard contains: " .. clipboardText)
+```
+
+#### `Input.SetClipboard(text: string)`
+
+Sets the system clipboard to the specified text.
+
+**Parameters:**
+- `text: string` - The text to set in the clipboard
+
+**Example:**
+```lua
+Input.SetClipboard("Hello, world!")
+print("Set clipboard to: " .. Input.GetClipboard())
+```
+
