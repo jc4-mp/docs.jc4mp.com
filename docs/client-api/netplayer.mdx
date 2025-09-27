@@ -1,27 +1,12 @@
+import NetPlayerShared from "../../src/classes/netplayer_shared.mdx"
+
 # NetPlayer
 
-This is the client-side class for [NetPlayer](/shared-api/netplayer). Inherits from [NetPlayerBase](/shared-api/netplayerbase). It has all the same methods and properties as the shared class, plus the following on this page.
-
-## Player Class Hierarchy
-
-The diagram shows the inheritance hierarchy of player-related classes. To navigate between classes:
-- Get a `PlayerClient` using `Players.Local()`
-- Get the `NetPlayer` from a `PlayerClient` using `:GetNetPlayer()`
-- Get the `Character` from a `NetPlayer` using `:GetCharacter()`
-
-
-```mermaid
-flowchart LR
-  PlayerClient --> NetPlayer
-  NetPlayer --> Character
-  click PlayerClient href "/client-api/playerclient" "PlayerClient"
-  click NetPlayer href "/client-api/netplayer" "NetPlayer"
-  click Character href "/client-api/character" "Character"
-```
+This is the client-side class for NetPlayer.
 
 ## Class Instance Methods
 
-### Player State Methods
+<NetPlayerShared />
 
 #### `NetPlayer:GetAimPosition(): vec3`
 
@@ -97,8 +82,6 @@ if player:UsingWingsuit() then
 end
 ```
 
-### Player Information Methods
-
 #### `NetPlayer:GetPlayer(): Player`
 
 Returns the Player associated with this Character.
@@ -153,8 +136,6 @@ Returns the character's inventory as a table containing weapon information.
 local inventory = player:GetInventory()
 print("Player has " .. #inventory .. " items in inventory")
 ```
-
-### Visual Effect Methods
 
 #### `NetPlayer:SetGhostMode(enabled: bool): void`
 
@@ -221,8 +202,6 @@ player:SetOpacity(1.0)
 -- Make player invisible
 player:SetOpacity(0.0)
 ```
-
-### Targeting Methods
 
 #### `NetPlayer:GetGrappleTargetObject(): NetObject | nil`
 

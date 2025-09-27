@@ -1,12 +1,16 @@
+import NetVehicleShared from "../../src/classes/netvehicle_shared.mdx"
+
+<NetVehicleShared />
+
 # NetVehicle
 
-This is the client-side class for [NetVehicle](/shared-api/netvehicle). Inherits from [NetVehicle](/shared-api/netvehicle). It has all the same methods and properties as the shared class, plus the following on this page.
+This is the client-side class for NetVehicle.
 
 ## Class Instance Methods
 
-### Vehicle Part Control Methods
+<NetVehicleShared />
 
-#### `NetVehicle_Client:SetPartState(part: VehiclePart, state: VehiclePartState): void`
+#### `NetVehicle:SetPartState(part: VehiclePart, state: VehiclePartState): void`
 
 Transitions a [vehicle part](/shared-api/vehiclepart) to the specified state with animation. Only [VehiclePartState.Open](/shared-api/vehiclepartstate) and [VehiclePartState.Closed](/shared-api/vehiclepartstate) states are supported. Use [VehiclePartState.Open](/shared-api/vehiclepartstate) to animate the part opening, and [VehiclePartState.Closed](/shared-api/vehiclepartstate) to animate the part closing. The state change is not instant - the part will transition smoothly over time.
 
@@ -21,4 +25,18 @@ vehicle:SetPartState(VehiclePart.DoorFrontLeft, VehiclePartState.Open)
 
 -- Close a vehicle door
 vehicle:SetPartState(VehiclePart.DoorFrontLeft, VehiclePartState.Closed)
+```
+
+#### `Vehicle:GO(): GameObject`
+
+Returns the GameObject (GO) of the vehicle, used to modify transform.
+
+**Returns:** GameObject - The GameObject instance of the vehicle
+
+**Example:**
+```lua
+-- Get the vehicle's GameObject for transform manipulation
+local gameObject = vehicle:GO()
+local position = gameObject:GetPosition()
+print("Vehicle position: " .. tostring(position))
 ```

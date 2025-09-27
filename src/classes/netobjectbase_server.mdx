@@ -1,0 +1,70 @@
+import NetObjectBase from "./netobjectbase_shared.mdx"
+
+<NetObjectBase />
+
+#### `NetObject:SetData(key: string, value: any, broadcast: bool): boolean`
+
+Sets generic data on the object. Value must be a number, string, bool, vec2, vec3, vec4, or quat. If broadcast is true, the data will be synchronized to all clients. Returns true if the data was set successfully, false otherwise (for unsupported types).
+
+**Parameters:**
+- `key: string` - The key to store the data under
+- `value: any` - The value to store (must be a supported type)
+- `broadcast: bool` - Whether to synchronize the data to all clients
+
+**Returns:** boolean - true if the data was set successfully, false otherwise
+
+**Example:**
+```lua
+-- Set data and broadcast to all clients
+local success = object:SetData("serverValue", 100, true)
+if success then
+    print("Data set and broadcast successfully")
+else
+    print("Failed to set data")
+end
+
+-- Set data only on server
+local success = object:SetData("localValue", 50, false)
+```
+
+
+#### `NetObject:SetPosition(position: vec3): void`
+
+Sets the position of the network object. This change is synchronized to all players.
+
+**Parameters:**
+- `position: vec3` - The new position for the object
+
+**Example:**
+```lua
+-- Teleport object to a new position
+object:SetPosition(vec3(100, 50, 200))
+```
+
+#### `NetObject:SetRotation(rotation: quat): void`
+
+Sets the rotation of the network object. This change is synchronized to all players.
+
+**Parameters:**
+- `rotation: quat` - The new rotation for the object
+
+**Example:**
+```lua
+-- Rotate object to face north
+object:SetRotation(quat(0, 0, 1, 0))
+```
+
+#### `NetObject:SetVelocity(velocity: vec3): void`
+
+Sets the velocity of the network object. This change is synchronized to all players.
+
+**Parameters:**
+- `velocity: vec3` - The new velocity for the object
+
+**Example:**
+```lua
+-- Launch object forward at high speed
+object:SetVelocity(vec3(100, 0, 0))
+```
+
+

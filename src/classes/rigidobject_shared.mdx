@@ -1,12 +1,8 @@
-# RigidObject
+import NetObjectBase from "./netobjectbase_shared.mdx"
 
-Inherits from [NetObject](/shared-api/netobject).
+<NetObjectBase />
 
-## Instance Methods
-
-### Model and Collision Methods
-
-#### `RigidObject:SetModel(model: string): void`
+#### `NetRigidObject:SetModel(model: string): void`
 
 Sets the model of the rigid object.
 
@@ -19,7 +15,7 @@ Sets the model of the rigid object.
 rigidObject:SetModel("some_model_name")
 ```
 
-#### `RigidObject:SetPfx(collision: string): void`
+#### `NetRigidObject:SetPfx(collision: string): void`
 
 Sets the collision (pfx) of the rigid object.
 
@@ -32,7 +28,7 @@ Sets the collision (pfx) of the rigid object.
 rigidObject:SetPfx("some_collision_name")
 ```
 
-#### `RigidObject:GetModel(): string`
+#### `NetRigidObject:GetModel(): string`
 
 Gets the model of the rigid object.
 
@@ -44,7 +40,7 @@ local model = rigidObject:GetModel()
 print("Rigid object model: " .. model)
 ```
 
-#### `RigidObject:GetPfx(): string`
+#### `NetRigidObject:GetPfx(): string`
 
 Gets the collision (pfx) of the rigid object.
 

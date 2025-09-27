@@ -1,0 +1,66 @@
+#### `NetPlayer:GetNick(): string`
+
+Returns the player's nickname.
+
+**Returns:** string - The player's nickname
+
+**Example:**
+```lua
+local nickname = player:GetNick()
+print("Player nickname: " .. nickname)
+```
+
+#### `NetPlayer:GetClient(): PlayerClient`
+
+Returns the PlayerClient instance.
+
+**Returns:** PlayerClient - The PlayerClient instance for this player
+
+**Example:**
+```lua
+local client = player:GetClient()
+print("Player client: " .. client:GetNick())
+```
+
+#### `NetPlayer:GetVehicle(): Vehicle | nil`
+
+Returns the Vehicle that the player is currently in. Returns nil if the player is not in a vehicle.
+
+**Returns:** Vehicle | nil - The vehicle the player is currently in, or nil if not in a vehicle
+
+**Example:**
+```lua
+local vehicle = player:GetVehicle()
+if vehicle then
+    print("Player is in vehicle ID: " .. vehicle:GetId())
+else
+    print("Player is not in a vehicle")
+end
+```
+
+#### `NetPlayer:GetSkin(): string`
+
+Returns the skin name of the player.
+
+**Returns:** string - The skin name of the player
+
+**Example:**
+```lua
+local skinName = player:GetSkin()
+print("Player skin: " .. skinName)
+```
+
+#### `NetPlayer:GetWeaponName(slot: WeaponSlot): string`
+
+Returns the name of the weapon in the specified [weapon slot](/shared-api/weaponslot).
+
+**Parameters:**
+- `slot: WeaponSlot` - The weapon slot to check
+
+**Returns:** string - The name of the weapon in the specified slot
+
+**Example:**
+```lua
+local weaponName = player:GetWeaponName(WeaponSlot.Primary)
+print("Primary weapon: " .. weaponName)
+```

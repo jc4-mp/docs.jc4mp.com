@@ -1,39 +1,17 @@
+import Damageable from "../../src/classes/damageable_client.mdx"
+
 # Character
 
-Character-related APIs. Inherits from [Damageable](/client-api/damageable). To use these, you must first have a reference to a character, such as the local player's character. Example:
+Character-related APIs.
 
 ```lua
 local character = Players.Local()
 local localChar = playerClient:GetCharacter()
 ```
 
-## Player Class Hierarchy
-
-The diagram shows the inheritance hierarchy of player-related classes. To navigate between classes:
-- Get a `PlayerClient` using `Players.Local()`
-- Get the `NetPlayer` from a `PlayerClient` using `:GetNetPlayer()`
-- Get the `Player` from a `NetPlayer` using `:GI()`
-- Get the `Character` from a `Player` using `:GetCharacter()`
-
-
-```mermaid
-flowchart LR
-  PlayerClient --> NetPlayer
-  NetPlayer --> Player
-  Player --> Character
-  Character --> Damageable
-  Damageable --> GameObject
-  click PlayerClient href "/client-api/playerclient" "PlayerClient"
-  click NetPlayer href "/client-api/netplayer" "NetPlayer"
-  click Player href "/client-api/player" "Player"
-  click Character href "/client-api/character" "Character"
-  click Damageable href "/client-api/damageable" "Damageable"
-  click GameObject href "/client-api/gameobject" "GameObject"
-```
-
 ## Class Instance Methods
 
-### Game Object Methods
+<Damageable />
 
 #### `Character:GO(): GameObject`
 

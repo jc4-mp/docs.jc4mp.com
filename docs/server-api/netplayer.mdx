@@ -1,24 +1,15 @@
+import NetPlayerShared from "../../src/classes/netplayer_shared.mdx"
+import NetObjectBaseServer from "../../src/classes/netobjectbase_server.mdx"
+
 # NetPlayer
 
-This is the server-side class for [NetPlayer](/shared-api/netplayer). Inherits from [NetObject_Server](/server-api/netobject). It has all the same methods and properties as the shared class, plus the following on this page.
-
-## Player Class Hierarchy
-
-The diagram shows the inheritance hierarchy of player-related classes. To navigate between classes:
-- Get a `PlayerClient`
-- Get the `NetPlayer` from a `PlayerClient` using `:GetNetPlayer()`
-
-
-```mermaid
-flowchart LR
-  PlayerClient --> NetPlayer
-  click PlayerClient href "/server-api/playerclient" "PlayerClient"
-  click NetPlayer href "/server-api/netplayer" "NetPlayer"
-```
+This is the server-side class for NetPlayer.
 
 ## Class Instance Methods
 
-### Player Management Methods
+<NetPlayerShared />
+
+<NetObjectBaseServer />
 
 #### `NetPlayer:Respawn(position: vec3, health: number, maxHealth: number): void`
 
@@ -74,7 +65,7 @@ player:Teleport(vec3(100, 50, 200))
 
 #### `NetPlayer:WarpIntoVehicle(vehicle: NetVehicle, seat: VehicleSeat): void`
 
-Warps the player into a [vehicle](/shared-api/netvehicle) at a specific [seat](/shared-api/vehicleseat).
+Warps the player into a [vehicle](/server-api/netvehicle) at a specific [seat](/shared-api/vehicleseat).
 
 **Parameters:**
 - `vehicle: NetVehicle` - The vehicle to warp the player into

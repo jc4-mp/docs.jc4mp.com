@@ -1,12 +1,4 @@
-# NetObjectBase
-
-Base class for all networked entities.
-
-## Class Instance Methods
-
-### Position and Transform Methods
-
-#### `NetObjectBase:GetPosition(): vec3`
+#### `NetObject:GetPosition(): vec3`
 
 Returns the position of the object.
 
@@ -18,7 +10,7 @@ local position = object:GetPosition()
 print("Object position: " .. tostring(position))
 ```
 
-#### `NetObjectBase:GetRotation(): quat`
+#### `NetObject:GetRotation(): quat`
 
 Returns the rotation of the object.
 
@@ -30,7 +22,7 @@ local rotation = object:GetRotation()
 print("Object rotation: " .. tostring(rotation))
 ```
 
-#### `NetObjectBase:GetEulerRotation(): vec3`
+#### `NetObject:GetEulerRotation(): vec3`
 
 Returns the euler rotation of the object.
 
@@ -42,9 +34,7 @@ local eulerRotation = object:GetEulerRotation()
 print("Object euler rotation: " .. tostring(eulerRotation))
 ```
 
-### Health and Status Methods
-
-#### `NetObjectBase:GetHealth(): number`
+#### `NetObject:GetHealth(): number`
 
 Returns the current health of the object.
 
@@ -56,7 +46,7 @@ local health = object:GetHealth()
 print("Object health: " .. health)
 ```
 
-#### `NetObjectBase:GetMaxHealth(): number`
+#### `NetObject:GetMaxHealth(): number`
 
 Returns the maximum health of the object.
 
@@ -68,9 +58,7 @@ local maxHealth = object:GetMaxHealth()
 print("Object max health: " .. maxHealth)
 ```
 
-### Movement and Physics Methods
-
-#### `NetObjectBase:GetVelocity(): vec3`
+#### `NetObject:GetVelocity(): vec3`
 
 Returns the velocity of the object.
 
@@ -82,7 +70,13 @@ local velocity = object:GetVelocity()
 print("Object velocity: " .. tostring(velocity))
 ```
 
-#### `NetObjectBase:GetNetId(): number`
+#### `NetObject:GetAngularVelocity(): vec3`
+
+Returns the angular velocity of the object.
+
+**Returns:** vec3 - The angular velocity of the object
+
+#### `NetObject:GetNetId(): number`
 
 Returns the network ID of the object.
 
@@ -94,9 +88,7 @@ local netId = object:GetNetId()
 print("Object network ID: " .. netId)
 ```
 
-### Data Management Methods
-
-#### `NetObjectBase:SetData(key: string, value: any): boolean`
+#### `NetObject:SetData(key: string, value: any): boolean`
 
 Sets generic data on the object. Value must be a number, string, bool, vec2, vec3, vec4, or quat. Returns true if the data was set successfully, false otherwise (for unsupported types).
 
@@ -116,7 +108,7 @@ else
 end
 ```
 
-#### `NetObjectBase:GetData(key: string): any`
+#### `NetObject:GetData(key: string): any`
 
 Gets generic data from the object.
 
@@ -131,18 +123,16 @@ local value = object:GetData("customValue")
 print("Retrieved value: " .. tostring(value))
 ```
 
-### Type Checking and Casting Methods
+#### `NetObject:AsPlayer(): NetPlayer | nil`
 
-#### `NetObjectBase:AsPlayer(): NetPlayer | nil`
-
-Returns a NetPlayer instance if the object is a player, otherwise returns nil. This is a safe way to cast a NetObjectBase to a NetPlayer.
+Returns a NetPlayer instance if the object is a player, otherwise returns nil. This is a safe way to cast a NetObject to a NetPlayer.
 
 **Returns:** NetPlayer instance if the object is a player, nil otherwise
 
 **Example:**
 ```lua
 -- Safe casting to NetPlayer
-local netObject = someNetObject -- Assume this is a NetObjectBase instance
+local netObject = someNetObject -- Assume this is a NetObject instance
 local player = netObject:AsPlayer()
 
 if player then
@@ -152,16 +142,16 @@ else
 end
 ```
 
-#### `NetObjectBase:AsVehicle(): NetVehicle | nil`
+#### `NetObject:AsVehicle(): NetVehicle | nil`
 
-Returns a NetVehicle instance if the object is a vehicle, otherwise returns nil. This is a safe way to cast a NetObjectBase to a NetVehicle.
+Returns a NetVehicle instance if the object is a vehicle, otherwise returns nil. This is a safe way to cast a NetObject to a NetVehicle.
 
 **Returns:** NetVehicle instance if the object is a vehicle, nil otherwise
 
 **Example:**
 ```lua
 -- Safe casting to NetVehicle
-local netObject = someNetObject -- Assume this is a NetObjectBase instance
+local netObject = someNetObject -- Assume this is a NetObject instance
 local vehicle = netObject:AsVehicle()
 
 if vehicle then
@@ -171,7 +161,7 @@ else
 end
 ```
 
-#### `NetObjectBase:GetType(): NetObjectType`
+#### `NetObject:GetType(): NetObjectType`
 
 Returns the network object type. Use the [`NetObjectType`](/shared-api/netobjecttype) enum to compare types.
 
@@ -180,7 +170,7 @@ Returns the network object type. Use the [`NetObjectType`](/shared-api/netobject
 **Example:**
 ```lua
 -- Check object type
-local netObject = someNetObject -- Assume this is a NetObjectBase instance
+local netObject = someNetObject -- Assume this is a NetObject instance
 local objectType = netObject:GetType()
 
 if objectType == NetObjectType.Player then
@@ -189,7 +179,3 @@ elseif objectType == NetObjectType.Vehicle then
     print("This is a vehicle object")
 end
 ```
-
-## Related Enums
-
-- [`NetObjectType`](/shared-api/netobjecttype) - Enum for different network object types
