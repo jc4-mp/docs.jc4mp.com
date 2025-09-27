@@ -14,6 +14,9 @@ Example:
 World.SpawnVehicle("v024_car_ecosuper_racing_01", vec3(9503, 517, 8463), vec3(0, 0, 0))
 ```
 
+#### `World.SpawnRigidObject(position: vec3, mode: string, collision: string, rotation?: vec3, health?: number): RigidObject`
+
+Spawns a rigid object at the given position with the given rotation. This is synced to all players. See the [objects list](/reference/objects-list) for a complete list of objects to spawn.
 
 #### `World.Destroy(obj: NetObject)`
 

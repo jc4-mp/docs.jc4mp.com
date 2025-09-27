@@ -1,7 +1,7 @@
 // Class documentation metadata for inheritance system
 // Each class has a name, optional parent, and its own methods/fields
 
-export type ClassName = 'NetObjectBase' | 'NetObjectBase_Server' | 'NetObject' | 'NetObject_Server' | 'NetPlayer' | 'NetPlayer_Server' | 'NetPlayerBase' | 'NetVehicle' | 'NetVehicle_Client' | 'NetVehicle_Server' | 'Vehicle' | 'PlayerClient' | 'PlayerClient_Client' | 'PlayerClient_Server' | 'GameObject' | 'Damageable' | 'Character' | 'NetPlayer2';
+export type ClassName = 'NetObjectBase' | 'NetObjectBase_Server' | 'NetObject' | 'NetObject_Server' | 'NetPlayer' | 'NetPlayer_Server' | 'NetPlayerBase' | 'NetVehicle' | 'NetVehicle_Client' | 'NetVehicle_Server' | 'Vehicle' | 'PlayerClient' | 'PlayerClient_Client' | 'PlayerClient_Server' | 'GameObject' | 'Damageable' | 'Character' | 'NetPlayer2' | 'RigidObject';
 
 // Events inheritance system
 export type EventContextName = 'SharedEvents' | 'ClientEvents' | 'ServerEvents';
@@ -245,7 +245,8 @@ export const classDocs: Record<ClassName, ClassDoc> = {
     name: 'NetObjectBase',
     methods: [
       { name: 'GetPosition', description: 'Returns the position of the object.', returnType: 'vec3' },
-      { name: 'GetRotation', description: 'Returns the rotation of the object.', returnType: 'vec3' },
+      { name: 'GetRotation', description: 'Returns the rotation of the object.', returnType: 'quat' },
+      { name: 'GetEulerRotation', description: 'Returns the euler rotation of the object.', returnType: 'vec3' },
       { name: 'GetHealth', description: 'Returns the current health of the object.', returnType: 'number' },
       { name: 'GetMaxHealth', description: 'Returns the maximum health of the object.', returnType: 'number' },
       { name: 'GetVelocity', description: 'Returns the velocity of the object.', returnType: 'vec3' },
@@ -406,6 +407,13 @@ export const classDocs: Record<ClassName, ClassDoc> = {
       { name: 'GetHP', description: 'Returns the health of the damageable.', returnType: 'number' },
     ],
     docLink: '/client-api/damageable',
+  },
+  RigidObject: {
+    name: 'RigidObject',
+    parent: 'NetObject',
+    methods: [
+    ],
+    docLink: '/shared-api/rigidobject',
   },
   Character: {
     name: 'Character',
