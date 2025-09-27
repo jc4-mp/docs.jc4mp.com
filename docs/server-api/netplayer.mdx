@@ -1,8 +1,6 @@
-import { InheritedComponent } from '../../src/components/InheritedComponent';
-
 # NetPlayer
 
-This is the server-side class for [NetPlayer](/shared-api/netplayer). It has all the same methods and properties as the shared class, plus the following on this page.
+This is the server-side class for [NetPlayer](/shared-api/netplayer). Inherits from [NetObject_Server](/server-api/netobject). It has all the same methods and properties as the shared class, plus the following on this page.
 
 ## Player Class Hierarchy
 
@@ -20,44 +18,69 @@ flowchart LR
 
 ## Class Instance Methods
 
-<InheritedComponent className="NetPlayer_Server" />
+### Player Management Methods
 
-### Class Methods
-
-#### `NetPlayer:Respawn(position: vec3, health: number, max_health: number)`
+#### `NetPlayer:Respawn(position: vec3, health: number, maxHealth: number): void`
 
 Respawns the player at the given position with the given health and max health.
 
 **Parameters:**
-- `position` (vec3): The position to respawn the player at
-- `health` (number): The health to set for the respawned player
-- `max_health` (number): The maximum health to set for the respawned player
+- `position: vec3` - The position to respawn the player at
+- `health: number` - The health to set for the respawned player
+- `maxHealth: number` - The maximum health to set for the respawned player
 
 **Example:**
 ```lua
 player:Respawn(vec3(0, 0, 0), 100, 100)
 ```
 
-#### `NetPlayer:GiveWeapon(string name, int ammo, WeaponSlot slot)`
+#### `NetPlayer:GiveWeapon(name: string, ammo: number, slot: WeaponSlot): void`
 
 Gives a weapon to the player with specified ammo count. View the full list of [weapons here](/reference/weapons-list).
 
-#### `NetPlayer:RemoveWeapon(WeaponSlot slot)`
+**Parameters:**
+- `name: string` - The name of the weapon to give
+- `ammo: number` - The amount of ammo to give with the weapon
+- `slot: WeaponSlot` - The weapon slot to place the weapon in
+
+**Example:**
+```lua
+player:GiveWeapon("SMG", 120, WeaponSlot.Primary)
+```
+
+#### `NetPlayer:RemoveWeapon(slot: WeaponSlot): void`
 
 Removes a weapon from the specified [weapon slot](/shared-api/weaponslot).
 
-#### `NetPlayer:Teleport(pos: vec3)`
+**Parameters:**
+- `slot: WeaponSlot` - The weapon slot to remove the weapon from
+
+**Example:**
+```lua
+player:RemoveWeapon(WeaponSlot.Primary)
+```
+
+#### `NetPlayer:Teleport(position: vec3): void`
 
 Teleports the player to a specific position.
 
 **Parameters:**
-- `pos` (vec3): The position to teleport the player to
+- `position: vec3` - The position to teleport the player to
 
 **Example:**
 ```lua
-player:Teleport(vec3(0, 0, 0))
+player:Teleport(vec3(100, 50, 200))
 ```
 
-#### `NetPlayer:WarpIntoVehicle(NetVehicle vehicle, VehicleSeat seat)`
+#### `NetPlayer:WarpIntoVehicle(vehicle: NetVehicle, seat: VehicleSeat): void`
 
 Warps the player into a [vehicle](/shared-api/netvehicle) at a specific [seat](/shared-api/vehicleseat).
+
+**Parameters:**
+- `vehicle: NetVehicle` - The vehicle to warp the player into
+- `seat: VehicleSeat` - The seat to place the player in
+
+**Example:**
+```lua
+player:WarpIntoVehicle(someVehicle, VehicleSeat.Driver)
+```

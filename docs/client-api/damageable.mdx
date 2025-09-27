@@ -1,7 +1,19 @@
-import { InheritedComponent } from '../../src/components/InheritedComponent';
-
 # Damageable
+
+Inherits from [GameObject](/client-api/gameobject).
 
 ## Instance Methods
 
-<InheritedComponent className="Damageable" />
+### Health Methods
+
+#### `Damageable:GetHP(): number`
+
+Returns the health of the damageable.
+
+**Returns:** number - The current health of the damageable object
+
+**Example:**
+```lua
+local health = damageable:GetHP()
+print("Object health: " .. health)
+```

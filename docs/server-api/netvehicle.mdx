@@ -1,9 +1,112 @@
-import { InheritedComponent } from '../../src/components/InheritedComponent';
-
 # NetVehicle
 
-This is the server-side class for [NetVehicle](/shared-api/netvehicle). It has all the same methods and properties as the shared class, plus the following server-specific methods for vehicle customization.
+This is the server-side class for [NetVehicle](/shared-api/netvehicle). Inherits from [NetVehicle](/shared-api/netvehicle). It has all the same methods and properties as the shared class, plus the following server-specific methods for vehicle customization.
 
 ## Class Instance Methods
 
-<InheritedComponent className="NetVehicle_Server" />
+### Vehicle Color Customization Methods
+
+#### `NetVehicle_Server:SetPrimaryColor(r: number, g: number, b: number): void`
+
+Sets the primary color of the vehicle. RGB values should be floats between 0 and 1.
+
+**Parameters:**
+- `r: number` - Red component (0-1)
+- `g: number` - Green component (0-1)
+- `b: number` - Blue component (0-1)
+
+**Example:**
+```lua
+-- Set primary color to red
+vehicle:SetPrimaryColor(1.0, 0.0, 0.0)
+
+-- Set primary color to blue
+vehicle:SetPrimaryColor(0.0, 0.0, 1.0)
+```
+
+#### `NetVehicle_Server:SetSecondaryColor(r: number, g: number, b: number): void`
+
+Sets the secondary color of the vehicle. RGB values should be floats between 0 and 1.
+
+**Parameters:**
+- `r: number` - Red component (0-1)
+- `g: number` - Green component (0-1)
+- `b: number` - Blue component (0-1)
+
+**Example:**
+```lua
+-- Set secondary color to green
+vehicle:SetSecondaryColor(0.0, 1.0, 0.0)
+```
+
+#### `NetVehicle_Server:SetTertiaryColor(r: number, g: number, b: number): void`
+
+Sets the tertiary color of the vehicle. RGB values should be floats between 0 and 1.
+
+**Parameters:**
+- `r: number` - Red component (0-1)
+- `g: number` - Green component (0-1)
+- `b: number` - Blue component (0-1)
+
+**Example:**
+```lua
+-- Set tertiary color to yellow
+vehicle:SetTertiaryColor(1.0, 1.0, 0.0)
+```
+
+### Vehicle Material Properties
+
+#### `NetVehicle_Server:SetSpecularGloss(value: number): void`
+
+Sets the specular gloss of the vehicle. Value should be a float between 0 and 1.
+
+**Parameters:**
+- `value: number` - The specular gloss value (0-1)
+
+**Example:**
+```lua
+-- Set high specular gloss for a shiny look
+vehicle:SetSpecularGloss(0.9)
+```
+
+#### `NetVehicle_Server:SetClearCoat(value: number): void`
+
+Sets the clear coat value of the vehicle. Value should be a float between 0 and 1.
+
+**Parameters:**
+- `value: number` - The clear coat value (0-1)
+
+**Example:**
+```lua
+-- Set clear coat for extra shine
+vehicle:SetClearCoat(0.8)
+```
+
+#### `NetVehicle_Server:SetMetallic(value: number): void`
+
+Sets the metallic value of the vehicle. Value should be a float between 0 and 1.
+
+**Parameters:**
+- `value: number` - The metallic value (0-1)
+
+**Example:**
+```lua
+-- Set metallic finish
+vehicle:SetMetallic(0.7)
+```
+
+#### `NetVehicle_Server:SetDirt(value: number): void`
+
+Sets the dirt level of the vehicle. Value should be a float between 0 and 1, although higher values can make the vehicle extremely dirty.
+
+**Parameters:**
+- `value: number` - The dirt level (0-1, can be higher)
+
+**Example:**
+```lua
+-- Make vehicle slightly dirty
+vehicle:SetDirt(0.3)
+
+-- Make vehicle very dirty
+vehicle:SetDirt(2.0)
+```

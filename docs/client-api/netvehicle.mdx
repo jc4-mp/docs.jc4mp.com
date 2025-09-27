@@ -1,9 +1,24 @@
-import { InheritedComponent } from '../../src/components/InheritedComponent';
-
 # NetVehicle
 
-This is the client-side class for [NetVehicle](/shared-api/netvehicle). It has all the same methods and properties as the shared class, plus the following on this page.
+This is the client-side class for [NetVehicle](/shared-api/netvehicle). Inherits from [NetVehicle](/shared-api/netvehicle). It has all the same methods and properties as the shared class, plus the following on this page.
 
 ## Class Instance Methods
 
-<InheritedComponent className="NetVehicle_Client" />
+### Vehicle Part Control Methods
+
+#### `NetVehicle_Client:SetPartState(part: VehiclePart, state: VehiclePartState): void`
+
+Transitions a [vehicle part](/shared-api/vehiclepart) to the specified state with animation. Only [VehiclePartState.Open](/shared-api/vehiclepartstate) and [VehiclePartState.Closed](/shared-api/vehiclepartstate) states are supported. Use [VehiclePartState.Open](/shared-api/vehiclepartstate) to animate the part opening, and [VehiclePartState.Closed](/shared-api/vehiclepartstate) to animate the part closing. The state change is not instant - the part will transition smoothly over time.
+
+**Parameters:**
+- `part: VehiclePart` - The vehicle part to control
+- `state: VehiclePartState` - The state to transition to
+
+**Example:**
+```lua
+-- Open a vehicle door
+vehicle:SetPartState(VehiclePart.DoorFrontLeft, VehiclePartState.Open)
+
+-- Close a vehicle door
+vehicle:SetPartState(VehiclePart.DoorFrontLeft, VehiclePartState.Closed)
+```

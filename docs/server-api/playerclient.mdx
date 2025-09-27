@@ -1,5 +1,3 @@
-import { InheritedComponent } from '../../src/components/InheritedComponent';
-
 # PlayerClient
 
 A player's client instance. Inherits from the shared [PlayerClient](/shared-api/playerclient) class.
@@ -18,16 +16,36 @@ flowchart LR
   click NetPlayer href "/server-api/netplayer" "NetPlayer"
 ```
 
-
 ## Class Instance Methods
 
-<InheritedComponent className="PlayerClient_Server" />
+### Access Control Methods
 
+#### `PlayerClient:SetAclLevel(level: AclLevel): void`
 
-#### `PlayerClient:SetAclLevel(level: AclLevel)`
+Sets the [access control list level](./acl) for the player.
 
-Sets the [access control list level](./acl.mdx) for the player.
+**Parameters:**
+- `level: AclLevel` - The access control level to set for the player
+
+**Example:**
+```lua
+-- Set player as an administrator
+playerClient:SetAclLevel(AclLevel.Admin)
+
+-- Set player as a moderator
+playerClient:SetAclLevel(AclLevel.Moderator)
+```
 
 #### `PlayerClient:GetAclLevel(): AclLevel`
 
-Gets the [access control list level](./acl.mdx) for the player.
+Gets the [access control list level](./acl) for the player.
+
+**Returns:** AclLevel - The current access control level of the player
+
+**Example:**
+```lua
+local aclLevel = playerClient:GetAclLevel()
+if aclLevel == AclLevel.Admin then
+    print("Player is an administrator")
+end
+```

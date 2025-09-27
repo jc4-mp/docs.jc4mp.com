@@ -1,26 +1,57 @@
-import { InheritedComponent } from '../../src/components/InheritedComponent';
-
 # RigidObject
+
+Inherits from [NetObject](/shared-api/netobject).
 
 ## Instance Methods
 
-<InheritedComponent className="RigidObject" />
+### Model and Collision Methods
 
-
-## Class Instance Methods
-
-#### `RigidObject:SetModel(model: string)`
+#### `RigidObject:SetModel(model: string): void`
 
 Sets the model of the rigid object.
 
-#### `RigidObject:SetPfx(collision: string)`
+**Parameters:**
+- `model: string` - The model name to set for the rigid object
+
+**Example:**
+```lua
+-- Set the model of a rigid object
+rigidObject:SetModel("some_model_name")
+```
+
+#### `RigidObject:SetPfx(collision: string): void`
 
 Sets the collision (pfx) of the rigid object.
+
+**Parameters:**
+- `collision: string` - The collision (pfx) name to set for the rigid object
+
+**Example:**
+```lua
+-- Set the collision of a rigid object
+rigidObject:SetPfx("some_collision_name")
+```
 
 #### `RigidObject:GetModel(): string`
 
 Gets the model of the rigid object.
 
+**Returns:** string - The current model name of the rigid object
+
+**Example:**
+```lua
+local model = rigidObject:GetModel()
+print("Rigid object model: " .. model)
+```
+
 #### `RigidObject:GetPfx(): string`
 
 Gets the collision (pfx) of the rigid object.
+
+**Returns:** string - The current collision (pfx) name of the rigid object
+
+**Example:**
+```lua
+local collision = rigidObject:GetPfx()
+print("Rigid object collision: " .. collision)
+```

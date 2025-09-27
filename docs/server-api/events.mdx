@@ -1,5 +1,127 @@
 # Events
 
-import { InheritedEventsComponent } from '../../src/components/InheritedComponent';
+### Resource Events
 
-<InheritedEventsComponent contextName="ServerEvents" />
+#### `OnResourceStart(resource: string)`
+
+Called when a resource is started on the server.
+
+**Parameters:**
+- `resource: string` - The name of the resource that started
+
+**Example:**
+```lua
+Event.Add("OnResourceStart", function(resource)
+    print("Resource started: " .. resource)
+end)
+```
+
+### Player Connection Events
+
+#### `OnPlayerJoin(player: PlayerClient)`
+
+This fires when a [player client](./playerclient) joins the server. This does not guarantee that the player has loaded their scripts yet, so do not try to send them data yet.
+
+**Parameters:**
+- `player: PlayerClient` - The player client that joined
+
+**Example:**
+```lua
+Event.Add("OnPlayerJoin", function(player)
+    print("Player " .. player:GetNick() .. " joined the server!")
+end)
+```
+
+#### `OnPlayerQuit(player: PlayerClient)`
+
+This fires when a [player client](./playerclient) leaves the server.
+
+**Parameters:**
+- `player: PlayerClient` - The player client that left
+
+**Example:**
+```lua
+Event.Add("OnPlayerQuit", function(player)
+    print("Player " .. player:GetNick() .. " left the server!")
+end)
+```
+
+### Server Tick Events
+
+#### `OnPreTick()`
+
+This fires every tick on the server _before_ any server logic is run.
+
+**Example:**
+```lua
+Event.Add("OnPreTick", function()
+    print("PreTick! Elapsed seconds: " .. tostring(Server.GetElapsedSeconds()))
+end)
+```
+
+#### `OnPostTick()`
+
+This fires every tick on the server _after_ all server logic is run.
+
+**Example:**
+```lua
+Event.Add("OnPostTick", function()
+    print("PostTick! Elapsed seconds: " .. tostring(Server.GetElapsedSeconds()))
+end)
+```
+
+### Player Resource Events
+
+#### `OnPlayerResourceAction(player: PlayerClient, resource: string, action: ResourceAction)`
+
+This fires when a player's resource is started, stopped, or restarted. See [ResourceAction](/shared-api/resourceaction) for more information on types of actions. If you want to send data to a player when they connect, you should do it here since there resource is fully loaded (on ResourceAction.Start).
+
+**Parameters:**
+- `player: PlayerClient` - The player whose resource changed
+- `resource: string` - The name of the resource
+- `action: ResourceAction` - The action that occurred (Start, Stop, or Restart)
+
+**Example:**
+```lua
+Event.Add("OnPlayerResourceAction", function(player, resource, action)
+    print("Player " .. player:GetNick() .. " " .. action .. " resource " .. resource)
+end)
+```
+
+### Vehicle Events
+
+#### `OnPlayerVehicleEnter(player: NetPlayer, vehicle: NetVehicle, seat: VehicleSeat, occupant: NetPlayer)`
+
+This event fires when a player enters a vehicle. Provides information about the player, vehicle, seat, and any previous occupant.
+
+**Parameters:**
+- `player: NetPlayer` - The player entering the vehicle
+- `vehicle: NetVehicle` - The vehicle being entered
+- `seat: VehicleSeat` - The seat the player is entering
+- `occupant: NetPlayer` - The previous occupant of the seat (if any)
+
+**Example:**
+```lua
+Event.Add("OnPlayerVehicleEnter", function(player, vehicle, seat, occupant)
+    print("Player " .. player:GetNick() .. " entered vehicle " .. vehicle:GetId() .. " in seat " .. tostring(seat))
+    if occupant then
+        print("Previous occupant was " .. occupant:GetNick())
+    end
+end)
+```
+
+#### `OnPlayerVehicleExit(player: NetPlayer, vehicle: NetVehicle, seat: VehicleSeat)`
+
+This event fires when a player exits a vehicle. Provides information about the player, vehicle, and seat they exited from.
+
+**Parameters:**
+- `player: NetPlayer` - The player exiting the vehicle
+- `vehicle: NetVehicle` - The vehicle being exited
+- `seat: VehicleSeat` - The seat the player exited from
+
+**Example:**
+```lua
+Event.Add("OnPlayerVehicleExit", function(player, vehicle, seat)
+    print("Player " .. player:GetNick() .. " exited vehicle " .. vehicle:GetId() .. " from seat " .. tostring(seat))
+end)
+```

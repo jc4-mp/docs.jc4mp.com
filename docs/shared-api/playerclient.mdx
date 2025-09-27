@@ -1,13 +1,69 @@
-import { InheritedComponent } from '../../src/components/InheritedComponent';
-
-
 # PlayerClient
 
 A player's client instance. You can use this class to get information about the player, such as their NetPlayer.
 
 For more information, see the [PlayerClient on the client](/client-api/playerclient) or [PlayerClient on the server](/server-api/playerclient).
 
-
 ## Class Instance Methods
 
-<InheritedComponent className="PlayerClient" />
+### Player Information Methods
+
+#### `PlayerClient:GetNetPlayer(): NetPlayer`
+
+Returns the NetPlayer associated with this PlayerClient.
+
+**Returns:** NetPlayer - The NetPlayer instance associated with this client
+
+**Example:**
+```lua
+local netPlayer = client:GetNetPlayer()
+print("Player name: " .. netPlayer:GetNick())
+```
+
+#### `PlayerClient:GetNick(): string`
+
+Returns the player's nickname as a string.
+
+**Returns:** string - The player's nickname
+
+**Example:**
+```lua
+local nickname = client:GetNick()
+print("Player nickname: " .. nickname)
+```
+
+#### `PlayerClient:GetSteamId(): string`
+
+Returns the player's Steam ID as a string.
+
+**Returns:** string - The player's Steam ID
+
+**Example:**
+```lua
+local steamId = client:GetSteamId()
+print("Player Steam ID: " .. steamId)
+```
+
+#### `PlayerClient:GetNetId(): number`
+
+Returns the player's network ID as a number.
+
+**Returns:** number - The player's network ID
+
+**Example:**
+```lua
+local netId = client:GetNetId()
+print("Player network ID: " .. netId)
+```
+
+#### `PlayerClient:GetPing(): number`
+
+Returns the player's ping as a number.
+
+**Returns:** number - The player's ping in milliseconds
+
+**Example:**
+```lua
+local ping = client:GetPing()
+print("Player ping: " .. ping .. "ms")
+```

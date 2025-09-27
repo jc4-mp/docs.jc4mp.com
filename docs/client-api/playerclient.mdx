@@ -1,9 +1,6 @@
-import { InheritedComponent } from '../../src/components/InheritedComponent';
-
 # PlayerClient
 
 A player's client instance. Inherits from the [PlayerClient](/shared-api/playerclient) class. You can use this class to get information about the player, such as their Character and NetPlayer.
-
 
 ## Player Class Hierarchy
 
@@ -25,9 +22,7 @@ flowchart LR
   click Character href "/client-api/character" "Character"
 ```
 
-
 Example usage:
-
 
 ```lua
 local playerClient = Players.Local()
@@ -35,10 +30,4 @@ local playerClient = Players.Local()
 
 ## Class Instance Methods
 
-<InheritedComponent className="PlayerClient_Client" />
-
-### Class Methods
-
-#### `PlayerClient:GetPlayer(): NetPlayer`
-
-Returns the [NetPlayer](/client-api/netplayer) associated with this PlayerClient.
+This class has no additional methods beyond those inherited from [PlayerClient](/shared-api/playerclient).

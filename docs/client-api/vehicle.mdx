@@ -1,8 +1,6 @@
-import { InheritedComponent } from '../../src/components/InheritedComponent';
-
 # Vehicle
 
-Vehicle game instance APIs. To use these, you must first have a reference to a Vehicle, which you can get from a [NetVehicle](/client-api/netvehicle) using the `:GI()` method.
+Vehicle game instance APIs. Inherits from [Damageable](/client-api/damageable). To use these, you must first have a reference to a Vehicle, which you can get from a [NetVehicle](/client-api/netvehicle) using the `:GI()` method.
 
 ```lua
 -- Get a NetVehicle first, then get its game instance
@@ -12,4 +10,18 @@ local vehicle = netVehicle:GI()
 
 ## Class Instance Methods
 
-<InheritedComponent className="Vehicle" />
+### Game Object Methods
+
+#### `Vehicle:GO(): GameObject`
+
+Returns the GameObject (GO) of the vehicle, used to modify transform.
+
+**Returns:** GameObject - The GameObject instance of the vehicle
+
+**Example:**
+```lua
+-- Get the vehicle's GameObject for transform manipulation
+local gameObject = vehicle:GO()
+local position = gameObject:GetPosition()
+print("Vehicle position: " .. tostring(position))
+```

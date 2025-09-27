@@ -1,7 +1,41 @@
-import { InheritedComponent } from '../../src/components/InheritedComponent';
-
 # GameObject
 
 ## Instance Methods
 
-<InheritedComponent className="GameObject" />
+### Transform Methods
+
+#### `GameObject:GetPosition(): vec3`
+
+Returns the position of the game object.
+
+**Returns:** vec3 - The position of the game object
+
+**Example:**
+```lua
+local position = gameObject:GetPosition()
+print("Game object position: " .. tostring(position))
+```
+
+#### `GameObject:GetRotation(): quat`
+
+Returns the rotation of the game object.
+
+**Returns:** quat - The rotation of the game object
+
+**Example:**
+```lua
+local rotation = gameObject:GetRotation()
+print("Game object rotation: " .. tostring(rotation))
+```
+
+#### `GameObject:GetEulerRotation(): vec3`
+
+Returns the euler rotation of the game object.
+
+**Returns:** vec3 - The euler rotation of the game object
+
+**Example:**
+```lua
+local eulerRotation = gameObject:GetEulerRotation()
+print("Game object euler rotation: " .. tostring(eulerRotation))
+```

@@ -1,7 +1,182 @@
 # Events
 
-import { InheritedEventsComponent } from '../../src/components/InheritedComponent';
-
 List of all events that can be used to listen for events. For usage details and more events, see [Events](/shared-api/events).
 
-<InheritedEventsComponent contextName="ClientEvents" />
+### Connection Events
+
+#### `OnClientJoin()`
+
+Called when the local client joins the server.
+
+**Example:**
+```lua
+Event.Add("OnClientJoin", function()
+    print("Connected to server!")
+end)
+```
+
+### Render Events
+
+#### `OnRender()`
+
+Called every frame. Use the `Render` event to draw elements to the screen underneath the JC4MP UI, such as the chat window. Learn more [here](/client-api/render).
+
+**Example:**
+```lua
+Event.Add("OnRender", function()
+    Render.DrawText(vec2(100, 100), "Hello World!", 1.0, vec4(1, 1, 1, 1))
+end)
+```
+
+#### `OnPostRender()`
+
+Called every frame. Use the `PostRender` event to draw elements to the screen on top of the JC4MP UI, such as the chat window. This is good for full-screen overlays, such as fading to black for transitions. Learn more [here](/client-api/render).
+
+**Example:**
+```lua
+Event.Add("OnPostRender", function()
+    Render.DrawBox(vec2(0, 0), vec2(100, 100), vec4(0, 0, 0, 0.5))
+end)
+```
+
+### Vehicle Events
+
+#### `OnVehicleExplode(vehicle: NetVehicle)`
+
+This event fires when a vehicle explodes. Only available on the client side.
+
+**Parameters:**
+- `vehicle: NetVehicle` - The vehicle that exploded
+
+**Example:**
+```lua
+Event.Add("OnVehicleExplode", function(vehicle)
+    print("Vehicle " .. vehicle:GetId() .. " exploded!")
+end)
+```
+
+#### `OnVehiclePartChangedState(vehicle: NetVehicle, part: VehiclePart, state: VehiclePartState)`
+
+This event is called when a part of a vehicle changes state, such as the door opening on the carrier plane.
+
+**Parameters:**
+- `vehicle: NetVehicle` - The vehicle whose part changed
+- `part: VehiclePart` - The part that changed state
+- `state: VehiclePartState` - The new state of the part
+
+**Example:**
+```lua
+Event.Add("OnVehiclePartChangedState", function(vehicle, part, state)
+    print("Vehicle " .. vehicle:GetId() .. " part " .. tostring(part) .. " changed to state " .. tostring(state))
+end)
+```
+
+#### `OnVehicleNitrousUse(vehicle: NetVehicle)`
+
+This event fires when a vehicle uses nitrous boost.
+
+**Parameters:**
+- `vehicle: NetVehicle` - The vehicle using nitrous
+
+**Example:**
+```lua
+Event.Add("OnVehicleNitrousUse", function(vehicle)
+    print("Vehicle " .. vehicle:GetId() .. " used nitrous!")
+end)
+```
+
+#### `OnVehicleTurboJump(vehicle: NetVehicle)`
+
+This event fires when a vehicle performs a turbo jump.
+
+**Parameters:**
+- `vehicle: NetVehicle` - The vehicle performing the turbo jump
+
+**Example:**
+```lua
+Event.Add("OnVehicleTurboJump", function(vehicle)
+    print("Vehicle " .. vehicle:GetId() .. " performed a turbo jump!")
+end)
+```
+
+#### `OnVehicleCollision(vehicle: NetVehicle, position: vec3, normal: vec3, impulse: float)`
+
+This event fires when a vehicle collides with something, providing collision details including position, surface normal, and impact impulse.
+
+**Parameters:**
+- `vehicle: NetVehicle` - The vehicle that collided
+- `position: vec3` - The collision position
+- `normal: vec3` - The surface normal at the collision point
+- `impulse: float` - The impact impulse
+
+**Example:**
+```lua
+Event.Add("OnVehicleCollision", function(vehicle, position, normal, impulse)
+    print("Vehicle collision at " .. tostring(position) .. " with impulse " .. impulse)
+end)
+```
+
+### Player Events
+
+#### `OnPlayerRagdollStart(player: NetPlayer)`
+
+This event fires when a player starts ragdolling (enters ragdoll state).
+
+**Parameters:**
+- `player: NetPlayer` - The player that started ragdolling
+
+**Example:**
+```lua
+Event.Add("OnPlayerRagdollStart", function(player)
+    print("Player " .. player:GetNick() .. " started ragdolling")
+end)
+```
+
+#### `OnPlayerRagdollEnd(player: NetPlayer)`
+
+This event fires when a player stops ragdolling (exits ragdoll state).
+
+**Parameters:**
+- `player: NetPlayer` - The player that stopped ragdolling
+
+**Example:**
+```lua
+Event.Add("OnPlayerRagdollEnd", function(player)
+    print("Player " .. player:GetNick() .. " stopped ragdolling")
+end)
+```
+
+### Navigation Events
+
+#### `OnWaypointPlace()`
+
+This event fires when a waypoint is placed. This event is cancellable with Event.Cancel().
+
+**Example:**
+```lua
+Event.Add("OnWaypointPlace", function()
+    print("Waypoint placed!")
+    -- Cancel waypoint placement
+    Event.Cancel()
+end)
+```
+
+#### `OnWaypointRemove(reached: bool)`
+
+This event fires when a waypoint is removed. The reached parameter indicates if the waypoint was removed when the local player reached it (true) or for another reason (false). This event is cancellable with Event.Cancel().
+
+**Parameters:**
+- `reached: bool` - Whether the waypoint was reached by the player
+
+**Example:**
+```lua
+Event.Add("OnWaypointRemove", function(reached)
+    if reached then
+        print("Waypoint reached!")
+    else
+        print("Waypoint removed for other reason")
+    end
+    -- Cancel waypoint removal
+    Event.Cancel()
+end)
+```

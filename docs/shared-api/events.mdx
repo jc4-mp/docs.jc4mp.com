@@ -1,6 +1,5 @@
 # Events
 
-import { InheritedEventsComponent } from '../../src/components/InheritedComponent';
 
 These event APIs allow you to send and receive data between different scripts or resources. Events only work cross-resources within the same context. For example:
  - A client script fires an event. Only other client scripts can listen for this event.
@@ -59,4 +58,160 @@ Removes an event handler for the specified event name in a script.
 ## Events
 List of all events on both the client and server.
 
-<InheritedEventsComponent contextName="SharedEvents" />
+### Resource Events
+
+#### `OnResourceStart(resource: string)`
+
+Called when resource starts when a client joins the server. The first argument is the name of the resource that started. If you want to enable abilities for the local player, you should do it here (only on the client).
+
+**Parameters:**
+- `resource: string` - The name of the resource that started
+
+**Example:**
+```lua
+Event.Add("OnResourceStart", function(resource)
+	if resource == Resource.Name then
+		Local.UnlockAbility(Ability.GrapplingHook)
+		Local.UnlockAbility(Ability.Parachute)
+		Local.UnlockAbility(Ability.Wingsuit)
+		Local.UnlockAbility(Ability.ExitVehicle)
+	end
+end)
+```
+
+#### `OnResourceStop(resource: string)`
+
+Called when resource stops. The first argument is the name of the resource that stopped.
+
+**Parameters:**
+- `resource: string` - The name of the resource that stopped
+
+**Example:**
+```lua
+Event.Add("OnResourceStop", function(resource)
+	print("Resource stopped: " .. resource)
+end)
+```
+
+### Player Events
+
+#### `OnPlayerDamage(player: NetPlayer, damager: NetObject, loss: number, hitbone: number, weaponHash: number, hitposition: vec3)`
+
+This event fires when a player is damaged. Use Event.Cancel() (only on the server) to prevent the player from taking damage.
+
+**Parameters:**
+- `player: NetPlayer` - The player that was damaged
+- `damager: NetObject` - The object that caused the damage
+- `loss: number` - The amount of damage dealt
+- `hitbone: number` - The bone index that was hit
+- `weaponHash: number` - The weapon hash used
+- `hitposition: vec3` - The world position where the hit occurred
+
+**Example:**
+```lua
+Event.Add("OnPlayerDamage", function(player, damager, loss, hitbone, weaponHash, hitposition)
+	print("Player " .. player:GetNick() .. " took " .. loss .. " damage")
+	
+	-- Cancel damage on server
+	if Server then
+		Event.Cancel()
+	end
+end)
+```
+
+#### `OnPlayerKilled(player: NetPlayer, damager: NetObject, loss: number, hitbone: number, weaponHash: number, hitposition: vec3)`
+
+This event fires when a player is killed. Parameters match OnPlayerDamage event for consistency.
+
+**Parameters:**
+- `player: NetPlayer` - The player that was killed
+- `damager: NetObject` - The object that caused the death
+- `loss: number` - The amount of damage dealt
+- `hitbone: number` - The bone index that was hit
+- `weaponHash: number` - The weapon hash used
+- `hitposition: vec3` - The world position where the hit occurred
+
+**Example:**
+```lua
+Event.Add("OnPlayerKilled", function(player, damager, loss, hitbone, weaponHash, hitposition)
+	print("Player " .. player:GetNick() .. " was killed")
+end)
+```
+
+### Vehicle Events
+
+#### `OnVehicleDestroy(vehicle: NetVehicle, damager: NetObject, loss: number, hitbone: number, weaponHash: number, hitposition: vec3)`
+
+This event fires when a vehicle is destroyed.
+
+**Parameters:**
+- `vehicle: NetVehicle` - The vehicle that was destroyed
+- `damager: NetObject` - The object that caused the destruction
+- `loss: number` - The amount of damage dealt
+- `hitbone: number` - The bone index that was hit
+- `weaponHash: number` - The weapon hash used
+- `hitposition: vec3` - The world position where the hit occurred
+
+**Example:**
+```lua
+Event.Add("OnVehicleDestroy", function(vehicle, damager, loss, hitbone, weaponHash, hitposition)
+	print("Vehicle " .. vehicle:GetId() .. " was destroyed")
+end)
+```
+
+#### `OnVehicleDamage(vehicle: NetVehicle, damager: NetObject, loss: number, hitbone: number, weaponHash: number, hitposition: vec3)`
+
+This event fires when a vehicle is damaged.
+
+**Parameters:**
+- `vehicle: NetVehicle` - The vehicle that was damaged
+- `damager: NetObject` - The object that caused the damage
+- `loss: number` - The amount of damage dealt
+- `hitbone: number` - The bone index that was hit
+- `weaponHash: number` - The weapon hash used
+- `hitposition: vec3` - The world position where the hit occurred
+
+**Example:**
+```lua
+Event.Add("OnVehicleDamage", function(vehicle, damager, loss, hitbone, weaponHash, hitposition)
+	print("Vehicle " .. vehicle:GetId() .. " took " .. loss .. " damage")
+end)
+```
+
+### Player Action Events
+
+#### `OnPlayerTeleport(player: NetPlayer)`
+
+This event fires when a player teleports (via [NetPlayer:Teleport](/server-api/netplayer)).
+
+**Parameters:**
+- `player: NetPlayer` - The player that teleported
+
+**Example:**
+```lua
+Event.Add("OnPlayerTeleport", function(player)
+	print("Player " .. player:GetNick() .. " teleported")
+end)
+```
+
+### Communication Events
+
+#### `OnChat(sender: NetPlayer, message: string)`
+
+This event fires when a player sends a chat message. On the server, use `Event.Cancel()` to block the message.
+
+**Parameters:**
+- `sender: NetPlayer` - The player who sent the message
+- `message: string` - The chat message content
+
+**Example:**
+```lua
+Event.Add("OnChat", function(sender, message)
+	print(sender:GetNick() .. ": " .. message)
+	
+	-- Block message on server
+	if Server then
+		Event.Cancel()
+	end
+end)
+```

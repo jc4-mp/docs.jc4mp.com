@@ -1,11 +1,48 @@
-import { InheritedComponent } from '../../src/components/InheritedComponent';
-
 # NetObject
 
-Represents a networked entity. 
+Server-side networked entity. Inherits from [NetObjectBase_Server](/server-api/netobjectbase).
 
 ## Class Instance Methods
 
-<InheritedComponent className="NetObject_Server" />
+### Position and Transform Methods
+
+#### `NetObject:SetPosition(position: vec3): void`
+
+Sets the position of the network object. This change is synchronized to all players.
+
+**Parameters:**
+- `position: vec3` - The new position for the object
+
+**Example:**
+```lua
+-- Teleport object to a new position
+object:SetPosition(vec3(100, 50, 200))
+```
+
+#### `NetObject_Server:SetRotation(rotation: quat): void`
+
+Sets the rotation of the network object. This change is synchronized to all players.
+
+**Parameters:**
+- `rotation: quat` - The new rotation for the object
+
+**Example:**
+```lua
+-- Rotate object to face north
+object:SetRotation(quat(0, 0, 1, 0))
+```
+
+#### `NetObject_Server:SetVelocity(velocity: vec3): void`
+
+Sets the velocity of the network object. This change is synchronized to all players.
+
+**Parameters:**
+- `velocity: vec3` - The new velocity for the object
+
+**Example:**
+```lua
+-- Launch object forward at high speed
+object:SetVelocity(vec3(100, 0, 0))
+```
 
 

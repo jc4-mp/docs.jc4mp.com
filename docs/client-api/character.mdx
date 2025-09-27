@@ -1,14 +1,11 @@
-import { InheritedComponent } from '../../src/components/InheritedComponent';
-
 # Character
 
-Character-related APIs. To use these, you must first have a reference to a character, such as the local player's character. Example:
+Character-related APIs. Inherits from [Damageable](/client-api/damageable). To use these, you must first have a reference to a character, such as the local player's character. Example:
 
 ```lua
 local character = Players.Local()
 local localChar = playerClient:GetCharacter()
 ```
-
 
 ## Player Class Hierarchy
 
@@ -36,6 +33,20 @@ flowchart LR
 
 ## Class Instance Methods
 
-<InheritedComponent className="Character" />
+### Game Object Methods
+
+#### `Character:GO(): GameObject`
+
+Returns the GameObject instance of the character.
+
+**Returns:** GameObject - The GameObject instance of the character
+
+**Example:**
+```lua
+-- Get the character's GameObject for transform manipulation
+local gameObject = character:GO()
+local position = gameObject:GetPosition()
+print("Character position: " .. tostring(position))
+```
 
 

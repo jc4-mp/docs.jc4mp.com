@@ -1,16 +1,12 @@
-import { InheritedComponent } from '../../src/components/InheritedComponent';
-
 # NetPlayer
 
-This class reprecents a player on the server.
+This class represents a player on the server. Inherits from [NetObject](/shared-api/netobject).
 
 ## Class Instance Methods
 
-<InheritedComponent className="NetPlayer" />
+### Player Management Methods
 
-### Class Methods
-
-#### `NetPlayer:Respawn()`
+#### `NetPlayer:Respawn(): void`
 
 Respawns the player.
 
@@ -21,10 +17,31 @@ local player = someNetPlayer -- Assume this is a NetPlayer instance
 player:Respawn()
 ```
 
+### Player Information Methods
+
 #### `NetPlayer:GetSkin(): string`
 
 Returns the skin name of the player.
 
-#### `NetPlayer:GetWeaponName(WeaponSlot slot): string`
+**Returns:** string - The skin name of the player
+
+**Example:**
+```lua
+local skinName = player:GetSkin()
+print("Player skin: " .. skinName)
+```
+
+#### `NetPlayer:GetWeaponName(slot: WeaponSlot): string`
 
 Returns the name of the weapon in the specified [weapon slot](/shared-api/weaponslot).
+
+**Parameters:**
+- `slot: WeaponSlot` - The weapon slot to check
+
+**Returns:** string - The name of the weapon in the specified slot
+
+**Example:**
+```lua
+local weaponName = player:GetWeaponName(WeaponSlot.Primary)
+print("Primary weapon: " .. weaponName)
+```

@@ -1,9 +1,32 @@
-import { InheritedComponent } from '../../src/components/InheritedComponent';
-
 # NetObjectBase
 
-Server-side base class for all networked entities. Inherits from the [shared NetObjectBase](/server-api/netobjectbase).
+Server-side base class for all networked entities. Inherits from the [shared NetObjectBase](/shared-api/netobjectbase).
 
 ## Class Instance Methods
 
-<InheritedComponent className="NetObjectBase_Server" />
+### Data Management Methods
+
+#### `NetObjectBase:SetData(key: string, value: any, broadcast: bool): boolean`
+
+Sets generic data on the object. Value must be a number, string, bool, vec2, vec3, vec4, or quat. If broadcast is true, the data will be synchronized to all clients. Returns true if the data was set successfully, false otherwise (for unsupported types).
+
+**Parameters:**
+- `key: string` - The key to store the data under
+- `value: any` - The value to store (must be a supported type)
+- `broadcast: bool` - Whether to synchronize the data to all clients
+
+**Returns:** boolean - true if the data was set successfully, false otherwise
+
+**Example:**
+```lua
+-- Set data and broadcast to all clients
+local success = object:SetData("serverValue", 100, true)
+if success then
+    print("Data set and broadcast successfully")
+else
+    print("Failed to set data")
+end
+
+-- Set data only on server
+local success = object:SetData("localValue", 50, false)
+```

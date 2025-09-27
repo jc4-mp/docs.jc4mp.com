@@ -1,12 +1,135 @@
-import { InheritedComponent } from '../../src/components/InheritedComponent';
-
 # NetObjectBase
 
 Base class for all networked entities.
 
 ## Class Instance Methods
 
-<InheritedComponent className="NetObjectBase" />
+### Position and Transform Methods
+
+#### `NetObjectBase:GetPosition(): vec3`
+
+Returns the position of the object.
+
+**Returns:** vec3 - The position of the object
+
+**Example:**
+```lua
+local position = object:GetPosition()
+print("Object position: " .. tostring(position))
+```
+
+#### `NetObjectBase:GetRotation(): quat`
+
+Returns the rotation of the object.
+
+**Returns:** quat - The rotation of the object
+
+**Example:**
+```lua
+local rotation = object:GetRotation()
+print("Object rotation: " .. tostring(rotation))
+```
+
+#### `NetObjectBase:GetEulerRotation(): vec3`
+
+Returns the euler rotation of the object.
+
+**Returns:** vec3 - The euler rotation of the object
+
+**Example:**
+```lua
+local eulerRotation = object:GetEulerRotation()
+print("Object euler rotation: " .. tostring(eulerRotation))
+```
+
+### Health and Status Methods
+
+#### `NetObjectBase:GetHealth(): number`
+
+Returns the current health of the object.
+
+**Returns:** number - The current health of the object
+
+**Example:**
+```lua
+local health = object:GetHealth()
+print("Object health: " .. health)
+```
+
+#### `NetObjectBase:GetMaxHealth(): number`
+
+Returns the maximum health of the object.
+
+**Returns:** number - The maximum health of the object
+
+**Example:**
+```lua
+local maxHealth = object:GetMaxHealth()
+print("Object max health: " .. maxHealth)
+```
+
+### Movement and Physics Methods
+
+#### `NetObjectBase:GetVelocity(): vec3`
+
+Returns the velocity of the object.
+
+**Returns:** vec3 - The velocity of the object
+
+**Example:**
+```lua
+local velocity = object:GetVelocity()
+print("Object velocity: " .. tostring(velocity))
+```
+
+#### `NetObjectBase:GetNetId(): number`
+
+Returns the network ID of the object.
+
+**Returns:** number - The network ID of the object
+
+**Example:**
+```lua
+local netId = object:GetNetId()
+print("Object network ID: " .. netId)
+```
+
+### Data Management Methods
+
+#### `NetObjectBase:SetData(key: string, value: any): boolean`
+
+Sets generic data on the object. Value must be a number, string, bool, vec2, vec3, vec4, or quat. Returns true if the data was set successfully, false otherwise (for unsupported types).
+
+**Parameters:**
+- `key: string` - The key to store the data under
+- `value: any` - The value to store (must be a supported type)
+
+**Returns:** boolean - true if the data was set successfully, false otherwise
+
+**Example:**
+```lua
+local success = object:SetData("customValue", 42)
+if success then
+    print("Data set successfully")
+else
+    print("Failed to set data")
+end
+```
+
+#### `NetObjectBase:GetData(key: string): any`
+
+Gets generic data from the object.
+
+**Parameters:**
+- `key: string` - The key of the data to retrieve
+
+**Returns:** any - The stored data value
+
+**Example:**
+```lua
+local value = object:GetData("customValue")
+print("Retrieved value: " .. tostring(value))
+```
 
 ### Type Checking and Casting Methods
 
