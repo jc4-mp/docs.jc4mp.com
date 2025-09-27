@@ -1,0 +1,50 @@
+# quat
+
+This class represents a quaternion (x, y, z, and w). Quaternions are often used to represent rotations in 3D space.
+
+#### Constructor: `quat(xyz, w)` or `quat(x, y, z, w)`
+
+Use this constructor to create new `quat` instances.
+
+```lua
+-- Create a quaternion with the same x, y, z values and w = 1
+local myQuat = quat(1, 1)
+
+-- Create a quaternion with individual x, y, z, w values
+local myQuat2 = quat(0.5, 0.2, 0.8, 1.0)
+```
+
+#### Properties
+
+`quat` has four properties: `x`, `y`, `z`, and `w`.
+
+Example:
+```lua
+local myQuat = quat(0.5, 0.2, 0.8, 1.0)
+print(myQuat.x) -- Prints 0.5
+print(myQuat.y) -- Prints 0.2
+print(myQuat.z) -- Prints 0.8
+print(myQuat.w) -- Prints 1.0
+```
+
+## Instance Methods
+
+### quat:normalize
+
+#### `quat:normalize(): quat`
+
+Returns a normalized version of the quaternion (unit quaternion).
+
+**Returns:** quat - A new normalized quaternion
+
+**Example:**
+```lua
+local myQuat = quat(1, 2, 3, 4)
+local normalizedQuat = myQuat:normalize()
+print("Normalized: " .. tostring(normalizedQuat))
+```
+
+## Related Documentation
+
+- [`vec3`](/shared-api/vec3) - For 3D vector operations
+- [`NetObjectBase:GetRotation()`](/shared-api/netobjectbase) - Returns rotation as a quaternion

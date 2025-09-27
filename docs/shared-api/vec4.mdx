@@ -18,12 +18,16 @@ Color channels (between 0 and 1):
  - `z` -> `blue`
  - `w` -> `alpha`
 
-#### Constructor: `vec4(x, y, z, w)`
+#### Constructor: `vec4(x, y, z, w)` or `vec4(xyzw)`
 
 Use this constructor to create new `vec4` instances.
 
 ```lua
+-- Create a vec4 with specific x, y, z, w values
 local myVec = vec4(5, 2, 8, 4)
+
+-- Create a vec4 with the same value for x, y, z, w
+local myVec2 = vec4(3)
 ```
 
 #### Properties
@@ -37,4 +41,98 @@ print(myVec.x) -- Prints 5
 print(myVec.y) -- Prints 2
 print(myVec.z) -- Prints 8
 print(myVec.w) -- Prints 4
+```
+
+## Instance Methods
+
+### vec4:length
+
+#### `vec4:length(): number`
+
+Returns the length (magnitude) of the vector.
+
+**Returns:** number - The length of the vector
+
+**Example:**
+```lua
+local myVec = vec4(3, 4, 0, 0)
+print(myVec:length()) -- Prints 5 (since 3-4-5 triangle)
+```
+
+### vec4:lengthSqr
+
+#### `vec4:lengthSqr(): number`
+
+Returns the squared length (magnitude) of the vector. This is more efficient than `length()` when you only need to compare lengths.
+
+**Returns:** number - The squared length of the vector
+
+**Example:**
+```lua
+local myVec = vec4(3, 4, 0, 0)
+print(myVec:lengthSqr()) -- Prints 25 (3² + 4²)
+```
+
+### vec4:normalize
+
+#### `vec4:normalize(): vec4`
+
+Returns a normalized version of the vector (unit vector).
+
+**Returns:** vec4 - A new vector with the same direction but length 1
+
+**Example:**
+```lua
+local myVec = vec4(3, 4, 0, 0)
+local normalizedVec = myVec:normalize()
+print(normalizedVec:length()) -- Prints 1
+```
+
+## Operators
+
+`vec4` supports various arithmetic operators:
+
+### Addition
+
+```lua
+local vec1 = vec4(1, 2, 3, 4)
+local vec2 = vec4(5, 6, 7, 8)
+local result = vec1 + vec2 -- vec4(6, 8, 10, 12)
+local result2 = vec1 + 5   -- vec4(6, 7, 8, 9)
+```
+
+### Subtraction
+
+```lua
+local vec1 = vec4(5, 4, 3, 2)
+local vec2 = vec4(1, 2, 3, 4)
+local result = vec1 - vec2 -- vec4(4, 2, 0, -2)
+local result2 = vec1 - 1   -- vec4(4, 3, 2, 1)
+```
+
+### Multiplication
+
+```lua
+local vec1 = vec4(2, 3, 4, 5)
+local vec2 = vec4(4, 5, 6, 7)
+local result = vec1 * vec2 -- vec4(8, 15, 24, 35)
+local result2 = vec1 * 2   -- vec4(4, 6, 8, 10)
+```
+
+### Division
+
+```lua
+local vec1 = vec4(8, 6, 4, 2)
+local vec2 = vec4(2, 3, 4, 1)
+local result = vec1 / vec2 -- vec4(4, 2, 1, 2)
+local result2 = vec1 / 2   -- vec4(4, 3, 2, 1)
+```
+
+## String Representation
+
+`vec4` can be converted to a string representation:
+
+```lua
+local myVec = vec4(5, 2, 8, 4)
+print(myVec) -- Prints "vec4(5, 2, 8, 4)"
 ```

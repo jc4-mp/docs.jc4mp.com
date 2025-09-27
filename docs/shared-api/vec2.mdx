@@ -2,12 +2,16 @@
 
 This class represents a two dimensional vector (x and y). It is often used to represent 2D screen coordinates.
 
-#### Constructor: `vec2(x, y)`
+#### Constructor: `vec2(x, y)` or `vec2(xy)`
 
 Use this constructor to create new `vec2` instances.
 
 ```lua
+-- Create a vec2 with specific x, y values
 local myVec = vec2(5, 2)
+
+-- Create a vec2 with the same value for x and y
+local myVec2 = vec2(3)
 ```
 
 #### Properties
@@ -19,4 +23,152 @@ Example:
 local myVec = vec2(5, 2)
 print(myVec.x) -- Prints 5
 print(myVec.y) -- Prints 2
+```
+
+## Instance Methods
+
+### vec2:length
+
+#### `vec2:length(): number`
+
+Returns the length (magnitude) of the vector.
+
+**Returns:** number - The length of the vector
+
+**Example:**
+```lua
+local myVec = vec2(3, 4)
+print(myVec:length()) -- Prints 5 (since 3-4-5 triangle)
+```
+
+### vec2:lengthSqr
+
+#### `vec2:lengthSqr(): number`
+
+Returns the squared length (magnitude) of the vector. This is more efficient than `length()` when you only need to compare lengths.
+
+**Returns:** number - The squared length of the vector
+
+**Example:**
+```lua
+local myVec = vec2(3, 4)
+print(myVec:lengthSqr()) -- Prints 25 (3² + 4²)
+```
+
+### vec2:normalize
+
+#### `vec2:normalize(): vec2`
+
+Returns a normalized version of the vector (unit vector).
+
+**Returns:** vec2 - A new vector with the same direction but length 1
+
+**Example:**
+```lua
+local myVec = vec2(3, 4)
+local normalizedVec = myVec:normalize()
+print(normalizedVec:length()) -- Prints 1
+```
+
+### vec2:distance
+
+#### `vec2:distance(other: vec2): number`
+
+Returns the distance between this vector and another vector.
+
+**Parameters:**
+- `other: vec2` - The other vector to calculate distance to
+
+**Returns:** number - The distance between the two vectors
+
+**Example:**
+```lua
+local vec1 = vec2(0, 0)
+local vec2 = vec2(3, 4)
+print(vec1:distance(vec2)) -- Prints 5
+```
+
+### vec2:distanceSqr
+
+#### `vec2:distanceSqr(other: vec2): number`
+
+Returns the squared distance between this vector and another vector. This is more efficient than `distance()` when you only need to compare distances.
+
+**Parameters:**
+- `other: vec2` - The other vector to calculate squared distance to
+
+**Returns:** number - The squared distance between the two vectors
+
+**Example:**
+```lua
+local vec1 = vec2(0, 0)
+local vec2 = vec2(3, 4)
+print(vec1:distanceSqr(vec2)) -- Prints 25
+```
+
+### vec2:dot
+
+#### `vec2:dot(other: vec2): number`
+
+Returns the dot product of this vector and another vector.
+
+**Parameters:**
+- `other: vec2` - The other vector to calculate dot product with
+
+**Returns:** number - The dot product of the two vectors
+
+**Example:**
+```lua
+local vec1 = vec2(1, 2)
+local vec2 = vec2(3, 4)
+print(vec1:dot(vec2)) -- Prints 11 (1*3 + 2*4)
+```
+
+## Operators
+
+`vec2` supports various arithmetic operators:
+
+### Addition
+
+```lua
+local vec1 = vec2(1, 2)
+local vec2 = vec2(3, 4)
+local result = vec1 + vec2 -- vec2(4, 6)
+local result2 = vec1 + 5   -- vec2(6, 7)
+```
+
+### Subtraction
+
+```lua
+local vec1 = vec2(5, 4)
+local vec2 = vec2(1, 2)
+local result = vec1 - vec2 -- vec2(4, 2)
+local result2 = vec1 - 1   -- vec2(4, 3)
+```
+
+### Multiplication
+
+```lua
+local vec1 = vec2(2, 3)
+local vec2 = vec2(4, 5)
+local result = vec1 * vec2 -- vec2(8, 15)
+local result2 = vec1 * 2   -- vec2(4, 6)
+```
+
+### Division
+
+```lua
+local vec1 = vec2(8, 6)
+local vec2 = vec2(2, 3)
+local result = vec1 / vec2 -- vec2(4, 2)
+local result2 = vec1 / 2   -- vec2(4, 3)
+```
+
+## String Representation
+
+`vec2` can be converted to a string representation:
+
+```lua
+local myVec = vec2(5, 2)
+print(myVec) -- Prints "vec2(5, 2)"
 ```

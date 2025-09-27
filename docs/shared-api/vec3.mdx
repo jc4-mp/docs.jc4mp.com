@@ -2,12 +2,16 @@
 
 This class represents a three dimensional vector (x, y, and z). It is often used to represent world coordinates in the game.
 
-#### Constructor: `vec3(x, y, z)`
+#### Constructor: `vec3(x, y, z)` or `vec3(xyz)`
 
 Use this constructor to create new `vec3` instances.
 
 ```lua
+-- Create a vec3 with specific x, y, z values
 local myVec = vec3(5, 2, 8)
+
+-- Create a vec3 with the same value for x, y, z
+local myVec2 = vec3(3)
 ```
 
 #### Properties
@@ -20,4 +24,170 @@ local myVec = vec3(5, 2, 8)
 print(myVec.x) -- Prints 5
 print(myVec.y) -- Prints 2
 print(myVec.z) -- Prints 8
+```
+
+## Instance Methods
+
+### vec3:length
+
+#### `vec3:length(): number`
+
+Returns the length (magnitude) of the vector.
+
+**Returns:** number - The length of the vector
+
+**Example:**
+```lua
+local myVec = vec3(3, 4, 0)
+print(myVec:length()) -- Prints 5 (since 3-4-5 triangle)
+```
+
+### vec3:lengthSqr
+
+#### `vec3:lengthSqr(): number`
+
+Returns the squared length (magnitude) of the vector. This is more efficient than `length()` when you only need to compare lengths.
+
+**Returns:** number - The squared length of the vector
+
+**Example:**
+```lua
+local myVec = vec3(3, 4, 0)
+print(myVec:lengthSqr()) -- Prints 25 (3² + 4²)
+```
+
+### vec3:normalize
+
+#### `vec3:normalize(): vec3`
+
+Returns a normalized version of the vector (unit vector).
+
+**Returns:** vec3 - A new vector with the same direction but length 1
+
+**Example:**
+```lua
+local myVec = vec3(3, 4, 0)
+local normalizedVec = myVec:normalize()
+print(normalizedVec:length()) -- Prints 1
+```
+
+### vec3:distance
+
+#### `vec3:distance(other: vec3): number`
+
+Returns the distance between this vector and another vector.
+
+**Parameters:**
+- `other: vec3` - The other vector to calculate distance to
+
+**Returns:** number - The distance between the two vectors
+
+**Example:**
+```lua
+local vec1 = vec3(0, 0, 0)
+local vec2 = vec3(3, 4, 0)
+print(vec1:distance(vec2)) -- Prints 5
+```
+
+### vec3:distanceSqr
+
+#### `vec3:distanceSqr(other: vec3): number`
+
+Returns the squared distance between this vector and another vector. This is more efficient than `distance()` when you only need to compare distances.
+
+**Parameters:**
+- `other: vec3` - The other vector to calculate squared distance to
+
+**Returns:** number - The squared distance between the two vectors
+
+**Example:**
+```lua
+local vec1 = vec3(0, 0, 0)
+local vec2 = vec3(3, 4, 0)
+print(vec1:distanceSqr(vec2)) -- Prints 25
+```
+
+### vec3:dot
+
+#### `vec3:dot(other: vec3): number`
+
+Returns the dot product of this vector and another vector.
+
+**Parameters:**
+- `other: vec3` - The other vector to calculate dot product with
+
+**Returns:** number - The dot product of the two vectors
+
+**Example:**
+```lua
+local vec1 = vec3(1, 2, 3)
+local vec2 = vec3(4, 5, 6)
+print(vec1:dot(vec2)) -- Prints 32 (1*4 + 2*5 + 3*6)
+```
+
+### vec3:cross
+
+#### `vec3:cross(other: vec3): vec3`
+
+Returns the cross product of this vector and another vector.
+
+**Parameters:**
+- `other: vec3` - The other vector to calculate cross product with
+
+**Returns:** vec3 - The cross product of the two vectors
+
+**Example:**
+```lua
+local vec1 = vec3(1, 0, 0)
+local vec2 = vec3(0, 1, 0)
+local cross = vec1:cross(vec2) -- vec3(0, 0, 1)
+```
+
+## Operators
+
+`vec3` supports various arithmetic operators:
+
+### Addition
+
+```lua
+local vec1 = vec3(1, 2, 3)
+local vec2 = vec3(4, 5, 6)
+local result = vec1 + vec2 -- vec3(5, 7, 9)
+local result2 = vec1 + 5   -- vec3(6, 7, 8)
+```
+
+### Subtraction
+
+```lua
+local vec1 = vec3(5, 4, 3)
+local vec2 = vec3(1, 2, 3)
+local result = vec1 - vec2 -- vec3(4, 2, 0)
+local result2 = vec1 - 1   -- vec3(4, 3, 2)
+```
+
+### Multiplication
+
+```lua
+local vec1 = vec3(2, 3, 4)
+local vec2 = vec3(4, 5, 6)
+local result = vec1 * vec2 -- vec3(8, 15, 24)
+local result2 = vec1 * 2   -- vec3(4, 6, 8)
+```
+
+### Division
+
+```lua
+local vec1 = vec3(8, 6, 4)
+local vec2 = vec3(2, 3, 4)
+local result = vec1 / vec2 -- vec3(4, 2, 1)
+local result2 = vec1 / 2   -- vec3(4, 3, 2)
+```
+
+## String Representation
+
+`vec3` can be converted to a string representation:
+
+```lua
+local myVec = vec3(5, 2, 8)
+print(myVec) -- Prints "vec3(5, 2, 8)"
 ```
