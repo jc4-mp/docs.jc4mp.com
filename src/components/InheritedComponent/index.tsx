@@ -5,27 +5,28 @@ import CodeBlock from '@theme/CodeBlock';
 import Markdown from 'react-markdown';
 
 /**
- * Displays a simple inheritance heading linking to the parent class.
+ * Displays inheritance information and methods for a given class.
  * Usage: <InheritedComponent className="NetPlayer" />
  */
 export const InheritedComponent: React.FC<{ className: ClassName }> = ({ className }) => {
   const classDoc = classDocs[className];
-  
-  if (!classDoc || !classDoc.parent) {
+
+  if (!classDoc) {
     return null;
   }
 
-  const parentDoc = classDocs[classDoc.parent];
-  if (!parentDoc) {
-    return null;
-  }
-
-  const displayParentName = parentDoc.name.replace('_Server', '').replace('_Client', '').replace('_Shared', '');
+  const parentDoc = classDoc.parent ? classDocs[classDoc.parent] : null;
+  const displayParentName = parentDoc?.name.replace('_Server', '').replace('_Client', '').replace('_Shared', '');
 
   return (
-    <Heading as="h3">
-      Inherits from <a href={parentDoc.docLink}>{displayParentName}</a>
-    </Heading>
+    <div>
+      {parentDoc && (
+        <Heading as="h3">
+          Inherits from <a href={parentDoc.docLink}>{displayParentName}</a>
+        </Heading>
+      )}
+      <InheritedMethodsComponent className={className} />
+    </div>
   );
 };
 
@@ -40,7 +41,7 @@ export const InheritedEventsComponent: React.FC<{ contextName: EventContextName 
   }
 
   const contextDoc = eventDocs[contextName];
-  
+
   if (!contextDoc || contextDoc.events.length === 0) {
     return null;
   }
@@ -60,6 +61,42 @@ export const InheritedEventsComponent: React.FC<{ contextName: EventContextName 
                 {event.example}
               </CodeBlock>
             )}
+          </div>
+        );
+      })}
+    </div>
+  );
+};
+
+/**
+ * Displays all methods for a given class.
+ * Usage: <InheritedMethodsComponent className="NetObjectBase" />
+ */
+export const InheritedMethodsComponent: React.FC<{ className: ClassName }> = ({ className }) => {
+  // Utility to create kebab-case anchor ids
+  function toKebabCase(str: string) {
+    return str.replace(/([a-z])([A-Z])/g, '$1-$2').replace(/[^a-zA-Z0-9]+/g, '-').toLowerCase();
+  }
+
+  const classDoc = classDocs[className];
+
+  if (!classDoc || !classDoc.methods || classDoc.methods.length === 0) {
+    return null;
+  }
+
+  return (
+    <div>
+      {classDoc.methods.map((method) => {
+        const anchorId = toKebabCase(method.name);
+        const signature = method.args ? `${method.name}${method.args}` : method.name;
+        const fullSignature = method.returnType ? `${signature}: ${method.returnType}` : signature;
+
+        return (
+          <div key={method.name}>
+            <Heading as="h4" id={anchorId}>
+              <code>{fullSignature}</code>
+            </Heading>
+            <Markdown>{method.description}</Markdown>
           </div>
         );
       })}
