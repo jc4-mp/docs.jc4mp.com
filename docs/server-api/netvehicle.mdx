@@ -6,7 +6,7 @@ This is the server-side class for [NetVehicle](/shared-api/netvehicle). Inherits
 
 ### Vehicle Color Customization Methods
 
-#### `NetVehicle_Server:SetPrimaryColor(r: number, g: number, b: number): void`
+#### `NetVehicle:SetPrimaryColor(r: number, g: number, b: number): void`
 
 Sets the primary color of the vehicle. RGB values should be floats between 0 and 1.
 
@@ -24,7 +24,7 @@ vehicle:SetPrimaryColor(1.0, 0.0, 0.0)
 vehicle:SetPrimaryColor(0.0, 0.0, 1.0)
 ```
 
-#### `NetVehicle_Server:SetSecondaryColor(r: number, g: number, b: number): void`
+#### `NetVehicle:SetSecondaryColor(r: number, g: number, b: number): void`
 
 Sets the secondary color of the vehicle. RGB values should be floats between 0 and 1.
 
@@ -39,7 +39,7 @@ Sets the secondary color of the vehicle. RGB values should be floats between 0 a
 vehicle:SetSecondaryColor(0.0, 1.0, 0.0)
 ```
 
-#### `NetVehicle_Server:SetTertiaryColor(r: number, g: number, b: number): void`
+#### `NetVehicle:SetTertiaryColor(r: number, g: number, b: number): void`
 
 Sets the tertiary color of the vehicle. RGB values should be floats between 0 and 1.
 
@@ -56,7 +56,7 @@ vehicle:SetTertiaryColor(1.0, 1.0, 0.0)
 
 ### Vehicle Material Properties
 
-#### `NetVehicle_Server:SetSpecularGloss(value: number): void`
+#### `NetVehicle:SetSpecularGloss(value: number): void`
 
 Sets the specular gloss of the vehicle. Value should be a float between 0 and 1.
 
@@ -69,7 +69,7 @@ Sets the specular gloss of the vehicle. Value should be a float between 0 and 1.
 vehicle:SetSpecularGloss(0.9)
 ```
 
-#### `NetVehicle_Server:SetClearCoat(value: number): void`
+#### `NetVehicle:SetClearCoat(value: number): void`
 
 Sets the clear coat value of the vehicle. Value should be a float between 0 and 1.
 
@@ -82,7 +82,7 @@ Sets the clear coat value of the vehicle. Value should be a float between 0 and 
 vehicle:SetClearCoat(0.8)
 ```
 
-#### `NetVehicle_Server:SetMetallic(value: number): void`
+#### `NetVehicle:SetMetallic(value: number): void`
 
 Sets the metallic value of the vehicle. Value should be a float between 0 and 1.
 
@@ -95,7 +95,7 @@ Sets the metallic value of the vehicle. Value should be a float between 0 and 1.
 vehicle:SetMetallic(0.7)
 ```
 
-#### `NetVehicle_Server:SetDirt(value: number): void`
+#### `NetVehicle:SetDirt(value: number): void`
 
 Sets the dirt level of the vehicle. Value should be a float between 0 and 1, although higher values can make the vehicle extremely dirty.
 
@@ -109,4 +109,23 @@ vehicle:SetDirt(0.3)
 
 -- Make vehicle very dirty
 vehicle:SetDirt(2.0)
+```
+
+### Vehicle Part State Methods
+
+#### `NetVehicle:SetPartState(part: ArticulatedPartsSlot, state: ArticulatedPartState): void`
+
+Sets the state of a specific articulated vehicle part (such as doors, trunk, hood, etc.).
+
+**Parameters:**
+- `part: ArticulatedPartsSlot` - The part slot to modify
+- `state: ArticulatedPartState` - The state to set the part to
+
+**Example:**
+```lua
+-- Open the vehicle's hood
+vehicle:SetPartState(ArticulatedPartsSlot.Hood, ArticulatedPartState.Open)
+
+-- Close all doors
+vehicle:SetPartState(ArticulatedPartsSlot.Doors, ArticulatedPartState.Closed)
 ```

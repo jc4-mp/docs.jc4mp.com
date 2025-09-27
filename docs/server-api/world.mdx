@@ -14,9 +14,32 @@ Example:
 World.SpawnVehicle("v024_car_ecosuper_racing_01", vec3(9503, 517, 8463), vec3(0, 0, 0))
 ```
 
-#### `World.SpawnRigidObject(position: vec3, mode: string, collision: string, rotation?: vec3, health?: number): RigidObject`
+#### `World.SpawnMountedGun(id: string, position: vec3, rotation?: vec3, health?: number): NetMountedGun`
+
+Spawns a mounted gun at the given position with the given rotation. This is synced to all players.
+
+**Parameters:**
+- `id: string` - The identifier for the mounted gun
+- `position: vec3` - The position to spawn the mounted gun at
+- `rotation?: vec3` - Optional rotation (defaults to no rotation)
+- `health?: number` - Optional health value (defaults to 100)
+
+**Example:**
+```lua
+-- Spawn a mounted gun at the specified position
+local mountedGun = World.SpawnMountedGun("turret_01", vec3(1000, 100, 2000), vec3(0, 90, 0), 150)
+```
+
+#### `World.SpawnRigidObject(position: vec3, model: string, pfx: string, rotation?: vec3, health?: number): NetRigidObject`
 
 Spawns a rigid object at the given position with the given rotation. This is synced to all players. See the [objects list](/reference/objects-list) for a complete list of objects to spawn.
+
+**Parameters:**
+- `position: vec3` - The position to spawn the object at
+- `model: string` - The model name of the object
+- `pfx: string` - The particle effects file for the object
+- `rotation?: vec3` - Optional rotation (defaults to no rotation)
+- `health?: number` - Optional health value (defaults to 100)
 
 #### `World.Destroy(obj: NetObject)`
 
