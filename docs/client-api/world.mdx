@@ -34,3 +34,15 @@ World.SetGravity(vec3(0,0,0))
 #### `World.GetGravity(): vec3`
 
 Gets the current gravity of the world. Default is `vec3(0, -9.8, 0)`.
+
+#### `World.SpawnPOI(position: vec3, type: POIType, display_mode: POIDisplayMode, minDistance: number, maxDistance: number): POI`
+
+Spawns a [POI](/client-api/poi) at the given position with the given [type](/shared-api/poitype) and [display mode](/shared-api/poidisplaymode).
+
+#### `World.SetWaypoint(position: vec3)`
+
+Sets the waypoint to the given position.
+
+#### `World.ClearWaypoint()`
+
+Clears the waypoint.

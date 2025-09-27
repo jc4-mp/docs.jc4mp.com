@@ -163,6 +163,16 @@ end)`
         name: 'OnVehicleCollision',
         signature: '(vehicle: NetVehicle, position: vec3, normal: vec3, impulse: float)',
         description: 'This event fires when a vehicle collides with something, providing collision details including position, surface normal, and impact impulse.'
+      },
+      {
+        name: 'OnWaypointPlace',
+        signature: '()',
+        description: 'This event fires when a waypoint is placed. This event is cancellable with Event.Cancel().'
+      },
+      {
+        name: 'OnWaypointRemove',
+        signature: '(reached: bool)',
+        description: 'This event fires when a waypoint is removed. The reached parameter indicates if the waypoint was removed when the local player reached it (true) or for another reason (false). This event is cancellable with Event.Cancel().'
       }
     ],
     docLink: '/client-api/events',
@@ -265,7 +275,11 @@ export const classDocs: Record<ClassName, ClassDoc> = {
   NetObject_Server: {
     name: 'NetObject_Server',
     parent: 'NetObjectBase_Server',
-    methods: [], // Add NetObject_Server-specific methods here
+    methods: [
+      { name: 'SetPosition', args: '(position: vec3)', description: 'Sets the position of the network object. This change is synchronized to all players.', returnType: 'void' },
+      { name: 'SetRotation', args: '(rotation: quat)', description: 'Sets the rotation of the network object. This change is synchronized to all players.', returnType: 'void' },
+      { name: 'SetVelocity', args: '(velocity: vec3)', description: 'Sets the velocity of the network object. This change is synchronized to all players.', returnType: 'void' }
+    ], // Add NetObject_Server-specific methods here
     docLink: '/server-api/netobject',
   },
   NetPlayer: {
