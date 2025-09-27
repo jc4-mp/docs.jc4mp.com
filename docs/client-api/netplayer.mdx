@@ -142,6 +142,18 @@ else
 end
 ```
 
+#### `NetPlayer:GetInventory(): table`
+
+Returns the character's inventory as a table containing weapon information.
+
+**Returns:** table - The character's inventory data
+
+**Example:**
+```lua
+local inventory = player:GetInventory()
+print("Player has " .. #inventory .. " items in inventory")
+```
+
 ### Visual Effect Methods
 
 #### `NetPlayer:SetGhostMode(enabled: bool): void`
@@ -158,6 +170,21 @@ player:SetGhostMode(true)
 
 -- Disable ghost mode
 player:SetGhostMode(false)
+```
+
+#### `NetPlayer:IsCloaked(): boolean`
+
+Returns true if the character is currently cloaked, false otherwise.
+
+**Returns:** boolean - true if the character is cloaked, false otherwise
+
+**Example:**
+```lua
+if player:IsCloaked() then
+    print("Player is cloaked")
+else
+    print("Player is not cloaked")
+end
 ```
 
 #### `NetPlayer:SetCloaked(enabled: bool): void`

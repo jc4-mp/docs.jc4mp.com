@@ -1,0 +1,43 @@
+# Cmd
+
+Command-related APIs for registering and managing chat commands that can be executed by players.
+
+## Global Methods
+
+#### `Cmd.Add(name: string, handler: function): Err`
+
+Registers a new chat command that players can execute. When a player types the command in chat, the provided handler function will be called.
+
+**Parameters:**
+- `name: string` - The name of the command (without the leading slash)
+- `handler: function` - The function to execute when the command is called
+
+**Returns:** Err - Error information if the command registration failed
+
+**Example:**
+```lua
+-- Register a simple "hello" command
+Cmd.Add("hello", function()
+    Chat.Print("Hello, world!")
+end)
+
+-- Register a command with arguments
+Cmd.Add("teleport", function(x, y, z)
+    local pos = vec3(x or 0, y or 0, z or 0)
+    Local.SetPosition(pos)
+    Chat.Print("Teleported to " .. tostring(pos))
+end)
+```
+
+#### `Cmd.Remove(name: string)`
+
+Removes a previously registered chat command.
+
+**Parameters:**
+- `name: string` - The name of the command to remove
+
+**Example:**
+```lua
+-- Remove the hello command
+Cmd.Remove("hello")
+```
