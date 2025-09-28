@@ -161,6 +161,44 @@ else
 end
 ```
 
+#### `NetObject:AsMountedGun(): NetMountedGun | nil`
+
+Returns a NetMountedGun instance if the object is a mounted gun, otherwise returns nil. This is a safe way to cast a NetObject to a NetMountedGun.
+
+**Returns:** NetMountedGun instance if the object is a mounted gun, nil otherwise
+
+**Example:**
+```lua
+-- Safe casting to NetMountedGun
+local netObject = someNetObject -- Assume this is a NetObject instance
+local mountedGun = netObject:AsMountedGun()
+
+if mountedGun then
+    print("This is a mounted gun with health: " .. mountedGun:GetHealth())
+else
+    print("This is not a mounted gun")
+end
+```
+
+#### `NetObject:AsRigidObject(): NetRigidObject | nil`
+
+Returns a NetRigidObject instance if the object is a rigid object, otherwise returns nil. This is a safe way to cast a NetObject to a NetRigidObject.
+
+**Returns:** NetRigidObject instance if the object is a rigid object, nil otherwise
+
+**Example:**
+```lua
+-- Safe casting to NetRigidObject
+local netObject = someNetObject -- Assume this is a NetObject instance
+local rigidObject = netObject:AsRigidObject()
+
+if rigidObject then
+    print("This is a rigid object with velocity: " .. tostring(rigidObject:GetVelocity()))
+else
+    print("This is not a rigid object")
+end
+```
+
 #### `NetObject:GetType(): NetObjectType`
 
 Returns the network object type. Use the [`NetObjectType`](/shared-api/netobjecttype) enum to compare types.

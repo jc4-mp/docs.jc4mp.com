@@ -27,7 +27,7 @@ vehicle:SetPartState(VehiclePart.DoorFrontLeft, VehiclePartState.Closed)
 
 #### `NetVehicle:UseLight(lightIndex: number, use: boolean): void`
 
-Controls whether a specific vehicle light is enabled or disabled. This function MUST be used inside the [OnVehicleLightsUpdate](/client-api/events#onvehiclelightsupdate) event.
+Controls whether a specific vehicle light is enabled or disabled. This function MUST be used inside the [OnVehicleRender](/client-api/events#OnVehicleRender) event.
 
 **Parameters:**
 - `lightIndex: number` - The index of the light to control
@@ -35,7 +35,7 @@ Controls whether a specific vehicle light is enabled or disabled. This function 
 
 **Example:**
 ```lua
-Event.Add("OnVehicleLightsUpdate", function(vehicle)
+Event.Add("OnVehicleRender", function(vehicle)
     -- Enable the first light
     vehicle:UseLight(0, true)
 
@@ -55,3 +55,21 @@ Returns the AABB (bounding box) of the vehicle.
 local aabb = vehicle:GetAABB()
 print("Vehicle AABB: " .. tostring(aabb.min) .. " " .. tostring(aabb.max))
 ```
+
+#### `NetVehicle:GetLocalAABB(): AABB`
+
+Returns the local AABB (bounding box) of the vehicle.
+
+**Returns:** [AABB](/shared-api/aabb) - The local AABB of the vehicle. This is a table containing two fields: `min` and `max`, both of which are vec3.
+
+**Example:**
+```lua
+local localAABB = vehicle:GetLocalAABB()
+print("Vehicle local AABB: " .. tostring(localAABB.min) .. " " .. tostring(localAABB.max))
+```
+
+#### `NetVehicle:GetTrailingVehicle(): NetVehicle`
+
+Returns the trailing vehicle (trailers etc).
+
+**Returns:** [NetVehicle](/client-api/netvehicle) - The trailing vehicle.

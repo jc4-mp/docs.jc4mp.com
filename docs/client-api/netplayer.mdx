@@ -218,3 +218,27 @@ else
     print("Player is not grappling towards anything")
 end
 ```
+
+#### `NetPlayer:GetAABB(): AABB`
+
+Returns the axis-aligned bounding box (AABB) of the player in world space.
+
+**Returns:** AABB - The world space bounding box of the player
+
+**Example:**
+```lua
+local aabb = player:GetAABB()
+print("Player AABB: " .. tostring(aabb))
+```
+
+#### `NetPlayer:GetLocalAABB(): AABB`
+
+Returns the axis-aligned bounding box (AABB) of the player in local space.
+
+**Returns:** AABB - The local space bounding box of the player
+
+**Example:**
+```lua
+local localAABB = player:GetLocalAABB()
+print("Player local AABB: " .. tostring(localAABB))
+```

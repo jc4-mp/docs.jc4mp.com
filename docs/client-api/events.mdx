@@ -116,17 +116,17 @@ Event.Add("OnVehicleCollision", function(vehicle, position, normal, impulse)
 end)
 ```
 
-#### `OnVehicleLightsUpdate(vehicle: NetVehicle)`
+#### `OnVehicleRender(vehicle: NetVehicle)`
 
-This function is called when the game updates/renders all vehicle lights, one call per vehicle.
+This function is called when the game updates/renders all vehicles, one call per vehicle.
 
 **Parameters:**
 - `vehicle: NetVehicle` - The vehicle whose lights are being updated
 
 **Example:**
 ```lua
-Event.Add("OnVehicleLightsUpdate", function(vehicle)
-    print("Updating lights for vehicle " .. vehicle:GetId())
+Event.Add("OnVehicleRender", function(vehicle)
+    print("Updating vehicle " .. vehicle:GetId())
 end)
 ```
 

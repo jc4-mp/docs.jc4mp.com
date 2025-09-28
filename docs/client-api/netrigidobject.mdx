@@ -19,3 +19,15 @@ Returns the AABB (bounding box) of the rigid object.
 local aabb = rigidObject:GetAABB()
 print("Rigid object AABB: " .. tostring(aabb.min) .. " " .. tostring(aabb.max))
 ```
+
+#### `NetRigidObject:GetLocalAABB(): AABB`
+
+Returns the local AABB (bounding box) of the rigid object.
+
+**Returns:** [AABB](/shared-api/aabb) - The local AABB of the rigid object. This is a table containing two fields: `min` and `max`, both of which are vec3.
+
+**Example:**
+```lua
+local localAABB = rigidObject:GetLocalAABB()
+print("Rigid object local AABB: " .. tostring(localAABB.min) .. " " .. tostring(localAABB.max))
+```
