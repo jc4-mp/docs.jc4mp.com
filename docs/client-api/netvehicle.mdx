@@ -25,20 +25,6 @@ vehicle:SetPartState(VehiclePart.DoorFrontLeft, VehiclePartState.Open)
 vehicle:SetPartState(VehiclePart.DoorFrontLeft, VehiclePartState.Closed)
 ```
 
-#### `Vehicle:GO(): GameObject`
-
-Returns the GameObject (GO) of the vehicle, used to modify transform.
-
-**Returns:** GameObject - The GameObject instance of the vehicle
-
-**Example:**
-```lua
--- Get the vehicle's GameObject for transform manipulation
-local gameObject = vehicle:GO()
-local position = gameObject:GetPosition()
-print("Vehicle position: " .. tostring(position))
-```
-
 #### `NetVehicle:UseLight(lightIndex: number, use: boolean): void`
 
 Controls whether a specific vehicle light is enabled or disabled. This function MUST be used inside the [OnVehicleLightsUpdate](/client-api/events#onvehiclelightsupdate) event.

@@ -109,11 +109,11 @@ local headPos = player:GetBonePosition(Bone.Head)
 print("Player head position: " .. tostring(headPos))
 ```
 
-#### `NetPlayer:GetVehicle(): Vehicle | nil`
+#### `NetPlayer:GetVehicle(): NetVehicle | nil`
 
-Returns the Vehicle instance that the character is currently in. Returns nil if the character is not in a vehicle.
+Returns the NetVehicle instance that the character is currently in. Returns nil if the character is not in a vehicle.
 
-**Returns:** Vehicle | nil - The vehicle the character is in, or nil if not in a vehicle
+**Returns:** NetVehicle | nil - The vehicle the character is in, or nil if not in a vehicle
 
 **Example:**
 ```lua

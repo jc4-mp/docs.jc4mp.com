@@ -22,11 +22,11 @@ local client = player:GetClient()
 print("Player client: " .. client:GetNick())
 ```
 
-#### `NetPlayer:GetVehicle(): Vehicle | nil`
+#### `NetPlayer:GetVehicle(): NetVehicle | nil`
 
-Returns the Vehicle that the player is currently in. Returns nil if the player is not in a vehicle.
+Returns the NetVehicle that the player is currently in. Returns nil if the player is not in a vehicle.
 
-**Returns:** Vehicle | nil - The vehicle the player is currently in, or nil if not in a vehicle
+**Returns:** NetVehicle | nil - The vehicle the player is currently in, or nil if not in a vehicle
 
 **Example:**
 ```lua
