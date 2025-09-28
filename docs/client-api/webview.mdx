@@ -9,7 +9,7 @@ The WebView system allows server owners to create interactive web-based user int
 - **Remote Content**: Load external websites and web applications
 - **Input Management**: Full mouse and keyboard input support with focus management
 - **Z-Order Control**: Layer multiple webviews with customizable depth ordering
-- **Security**: Restricted file system access, only resource directories are accessible. All storage APIs are disabled. Microphone and camera access is disabled. WebViews are completely reset when joining a server.
+- **Security**: Restricted file system access, only resource directories are accessible. Microphone and camera access is disabled. WebViews are completely reset when joining a server, so any data stored in local storage, IndexedDB, cookies, WebSQL, etc will be lost.
 
 ## Debugging
 
