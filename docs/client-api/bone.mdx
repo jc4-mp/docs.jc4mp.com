@@ -9,10 +9,9 @@ List of all bones on a character.
 The above was rendered via this code:
 ```lua
 Event.Add("OnRender", function()
-    local localPlayer = Players.Local():GI()
-    local char = localPlayer:GetCharacter()
+    local localPlayer = Players.LocalPlayer()
     for bone_name, bone_val in pairs(Bone) do
-        local pos = char:GetBonePosition(bone_val)
+        local pos = localPlayer:GetBonePosition(bone_val)
         local pos_2d = Camera.WorldToScreen(pos)
 
         if pos_2d then

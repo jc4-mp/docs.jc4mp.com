@@ -16,6 +16,6 @@ Returns (in table):
 Example of getting the terrain information at the player's aim position:
 
 ```lua
-local info = Terrain.GetInfo(Players.Local():GI():GetAimPosition())
+local info = Terrain.GetInfo(Players.LocalPlayer():GetAimPosition())
 print(info.hasHit, info.hitPos.x, info.hitPos.y, info.hitPos.z, info.height, info.normal.x, info.normal.y, info.normal.z)
 ```

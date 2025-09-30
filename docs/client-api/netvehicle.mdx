@@ -48,7 +48,7 @@ end)
 
 Returns the AABB (bounding box) of the vehicle.
 
-**Returns:** [AABB](/shared-api/aabb) - The AABB of the vehicle. This is a table containing two fields: `min` and `max`, both of which are vec3.
+**Returns:** [AABB](/shared-api/aabb) - The AABB of the vehicle. This is a table containing two fields: `min` and `max`, both of which are vec3
 
 **Example:**
 ```lua
@@ -60,7 +60,7 @@ print("Vehicle AABB: " .. tostring(aabb.min) .. " " .. tostring(aabb.max))
 
 Returns the local AABB (bounding box) of the vehicle.
 
-**Returns:** [AABB](/shared-api/aabb) - The local AABB of the vehicle. This is a table containing two fields: `min` and `max`, both of which are vec3.
+**Returns:** [AABB](/shared-api/aabb) - The local AABB of the vehicle. This is a table containing two fields: `min` and `max`, both of which are vec3
 
 **Example:**
 ```lua
@@ -72,4 +72,22 @@ print("Vehicle local AABB: " .. tostring(localAABB.min) .. " " .. tostring(local
 
 Returns the trailing vehicle (trailers etc).
 
-**Returns:** [NetVehicle](/client-api/netvehicle) - The trailing vehicle.
+**Returns:** [NetVehicle](/client-api/netvehicle) - The trailing vehicle
+
+#### `NetVehicle:GetType(): VehicleType`
+
+Returns the type of the vehicle.
+
+**Returns:** [VehicleType](/shared-api/vehicletype) - The type of the vehicle
+
+#### `NetVehicle:IsInAir(): boolean`
+
+Returns true if the vehicle is in the air, false otherwise.
+
+**Returns:** `boolean` - true if the vehicle is in the air, false otherwise
+
+#### `NetVehicle:IsHornPlaying(): boolean`
+
+Returns true if the vehicle's horn is playing, false otherwise.
+
+**Returns:** `boolean` - true if the horn is playing, false otherwise
