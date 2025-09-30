@@ -130,6 +130,34 @@ Event.Add("OnVehicleRender", function(vehicle)
 end)
 ```
 
+#### `OnVehicleHornPlay(vehicle: NetVehicle)`
+
+This event fires when a vehicle's horn starts playing.
+
+**Parameters:**
+- `vehicle: NetVehicle` - The vehicle whose horn started playing
+
+**Example:**
+```lua
+Event.Add("OnVehicleHornPlay", function(vehicle)
+    print("Vehicle " .. vehicle:GetId() .. " started honking")
+end)
+```
+
+#### `OnVehicleHornStop(vehicle: NetVehicle)`
+
+This event fires when a vehicle's horn stops playing.
+
+**Parameters:**
+- `vehicle: NetVehicle` - The vehicle whose horn stopped playing
+
+**Example:**
+```lua
+Event.Add("OnVehicleHornStop", function(vehicle)
+    print("Vehicle " .. vehicle:GetId() .. " stopped honking")
+end)
+```
+
 ### Player Events
 
 #### `OnPlayerRagdollStart(player: NetPlayer)`

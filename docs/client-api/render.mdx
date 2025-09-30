@@ -221,9 +221,8 @@ Example usage that draws a semi-transparent blue sphere on the local player's he
 
 ```lua
 Event.Add("OnRender", function()
-    local localPlayer = Players.Local():GI()
-    local char = localPlayer:GetCharacter()
-    local head_pos = char:GetBonePosition(Bone.Head)
+    local localPlayer = Players.LocalPlayer()
+    local head_pos = localPlayer:GetBonePosition(Bone.Head)
     Render.DrawSphere(head_pos, 0.5, vec4(0, 1, 0, 0.5), false)
 end)
 ```
