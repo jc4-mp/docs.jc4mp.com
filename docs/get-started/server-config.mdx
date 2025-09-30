@@ -152,3 +152,7 @@ This field is used to specify whether the server should fallback to the server's
 This field describes the update URL to be used to announce the server to the [JC4MP server list](https://servers.jc4mp.com/). The default value is `https://servers.jc4mp.com/api/v1/servers` and usually should not be changed.
 
 If this field is empty, the server will not appear the server list.
+
+#### `allow_duplicate_players` (string)
+
+This field is default false. If this is set to true, the server will allow players to have multiple accounts on the same server with one Steam ID. This should primarily be used for testing purposes. This allows you to test your server with multiple players on one Steam account. Use the advanced settings in the launcher to enable test players to launch multiple instances when joining a server. Each new test player will have "test X" in their player name, as well as `_testX` suffixed at the end of their Steam ID, where X is the number of the test player.
