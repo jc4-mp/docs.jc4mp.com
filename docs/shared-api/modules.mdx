@@ -7,7 +7,7 @@ Modules are a great way to share static data, functions, classes, and other func
 To create a module, all you need is a table and a return statement, like so:
 
 ```lua
--- resources/test/client/numbers.lua
+-- test/client/numbers.lua
 
 local data = { theNumber = 42 }
 
@@ -30,9 +30,9 @@ Data imported from a module is read-only, meaning that if you modify the importe
 To import the module from above:
 
 ```lua
--- resources/other_script/client/main.lua
+-- other_script/client/main.lua
 
-local numbers = require("resources/test/client/numbers")
+local numbers = require("test/client/numbers")
 
 print(numbers.theNumber) -- Prints 42
 print(numbers.addNumbers(5, 7)) -- Prints 12
@@ -41,7 +41,7 @@ print(numbers.addNumbers(5, 7)) -- Prints 12
 If a module is in the same directory as the script importing it, you can import with shorthand syntax (using the same module from above):
 
 ```lua
--- resources/test/client/main.lua
+-- test/client/main.lua
 
 local numbers = require("numbers")
 ```
