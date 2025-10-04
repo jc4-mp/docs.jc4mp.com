@@ -27,6 +27,14 @@ Sets the world timescale. This value determines how fast the day/night cycle run
 
 Gets the current timescale of the world.
 
+#### `World.GetRenderDeltaTime(): number`
+
+Returns the time elapsed, in milliseconds, between the last two frames. This value can fluctuate depending on the frame rate.
+
+#### `World.GetUpdateDeltaTime(): number`
+
+Returns the fixed time step, in milliseconds, used for physics and game logic updates.
+
 #### `World.SetGravity(value: vec3)`
 
 Sets the world gravity. This affects everything in the world _except_ for regular player movement. If a player enters ragdoll, this will affect the ragdoll gravity.
