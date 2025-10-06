@@ -1,0 +1,43 @@
+.inherited {
+  margin: 16px 0;
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 8px;
+  background: var(--ifm-background-surface-color);
+  overflow: hidden;
+}
+
+.summary {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  list-style: none;
+  padding: 10px 12px;
+  font-weight: 600;
+  color: var(--ifm-color-emphasis-800);
+  background: linear-gradient(0deg, rgba(0,0,0,0.02), rgba(0,0,0,0.02));
+  user-select: none;
+}
+
+.chevron {
+  width: 14px;
+  height: 14px;
+  transition: transform 150ms ease;
+  opacity: 0.8;
+}
+
+.titleLink {
+  text-decoration: none;
+}
+
+.content {
+  padding: 12px 16px;
+}
+
+/* Rotate chevron when open */
+.inherited[open] .chevron {
+  transform: rotate(90deg);
+}
+
+
+

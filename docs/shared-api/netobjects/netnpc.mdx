@@ -1,0 +1,24 @@
+# NetNPC
+
+`NetNPC` shares the same base methods as [`NetObject`](/shared-api/netobjects/netobject) and adds only an identifier accessor.
+
+import NetObjectBase from "@classes/netobjectbase_shared.mdx"
+import Inherited from "@components/Inherited";
+
+<Inherited from="NetObject" href="/shared-api/netobjects/netobject">
+  <NetObjectBase />
+</Inherited>
+
+#### `NetNPC:GetId(): string`
+
+Returns the unique identifier of the NPC.
+
+**Returns:** string - The unique identifier of the NPC
+
+**Example:**
+```lua
+local id = npc:GetId()
+print("NPC ID: " .. id)
+```
+
+

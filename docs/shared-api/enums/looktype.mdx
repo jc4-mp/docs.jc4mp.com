@@ -1,0 +1,20 @@
+# LookType
+
+The `LookType` enum represents different ways an NPC can look at a target.
+
+## Values
+
+| Value | Description |
+|-------|-------------|
+| `LookType.Head` | Makes the NPC look only with the head |
+| `LookType.Body` | Makes the NPC turn around if needed to look with the head |
+
+## Usage Example
+
+```lua
+-- Make an NPC look at a position with just the head
+npc:LookAt(vec3(100, 50, 200), LookType.Head)
+
+-- Make an NPC turn their body to look at a position
+npc:LookAt(vec3(200, 100, 300), LookType.Body)
+```

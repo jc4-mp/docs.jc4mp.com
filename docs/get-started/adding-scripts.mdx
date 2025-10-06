@@ -1,7 +1,3 @@
----
-sidebar_position: 3
----
-
 # Adding Scripts
 
 Adding scripts to your server is the primary way to customize and extend gameplay. This guide will walk you through everything you need to know.
@@ -151,3 +147,7 @@ Use [events](/shared-api/events) to communicate and share dynamic data between s
 4. Restart your server to load the new resource
 
 Your scripts will automatically be loaded and executed when players connect to your server!
+
+## Lua Standard Library Availability
+
+For security and sandboxing, access to the Lua `os` library has been removed. Scripts should avoid using `os.*` functions (such as `os.execute`, `os.remove`, `os.getenv`, etc.). Use provided game APIs (e.g., `SQL`, `Timer`, networking, file-less configs) to perform needed tasks.

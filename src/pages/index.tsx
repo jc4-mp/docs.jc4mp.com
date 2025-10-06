@@ -11,7 +11,7 @@ function HomepageHeader() {
   const { siteConfig } = useDocusaurusContext();
   return (
     <div className={styles.container}>
-      <img src="/img/tornado.webp" alt="JC4 Tornado" className={styles.bgImage} />
+      <img src="/img/tornado.jpg" alt="JC4 Tornado" className={styles.bgImage} />
       <img src="/img/jc4mp.png" alt="JC4MP Logo" className={styles.logo} />
       <p className={styles.subtitle}>{siteConfig.tagline}</p>
       <div className={styles.buttons}>

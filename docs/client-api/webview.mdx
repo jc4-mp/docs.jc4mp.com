@@ -479,3 +479,221 @@ Returns a table containing the IDs of all active webviews.
 
 **Returns:**
 - `table`: A table of strings, where each string is the unique ID of an active WebView
+
+#### `WebView.SetMessageHandler(id: string, handler: function): boolean`
+
+Registers a Lua-side handler for messages coming from the given WebView. The handler signature is `(event: string, data: any)`.
+
+**Parameters:**
+- `id` (string): The WebView ID
+- `handler` (function): Function called with `(event, data)` whenever the web page calls `window.JC4MP.sendMessage(event, data)`
+
+**Returns:**
+- `boolean`: `true` if the handler was registered
+
+**Example:**
+```lua
+local WEBVIEW_ID = "map"
+
+local function handleUIMessage(event, data)
+    if event == "ui:print_to_chat" then
+        if data and data.message then
+            Chat.Print("[UI] " .. tostring(data.message))
+        end
+    end
+end
+
+WebView.SetMessageHandler(WEBVIEW_ID, handleUIMessage)
+```
+
+#### `WebView.SendMessage(id: string, event: string, data: any): boolean`
+
+Sends a message to the web page running inside the specified WebView. In the page, handle this with `window.JC4MP.on(event, callback)` or a global `onMessage`.
+
+**Parameters:**
+- `id` (string): The WebView ID
+- `event` (string): Event name to deliver to the page
+- `data` (any): Serializable payload (objects, arrays, strings, numbers, booleans)
+
+**Returns:**
+- `boolean`: `true` if the message was delivered
+
+**Example:**
+```lua
+local WEBVIEW_ID = "map"
+
+Timer.Set(function()
+    local localPlayer = Players.LocalPlayer()
+    if not localPlayer then return end
+
+    local erot = localPlayer:GetEulerRotation()
+    local pos = localPlayer:GetPosition()
+
+    WebView.SendMessage(WEBVIEW_ID, "update:position", {
+        x = tostring(pos.x),
+        y = tostring(pos.y),
+        z = tostring(pos.z),
+        rotY = tostring(erot.y)
+    })
+end, 50, -1)
+```
+
+## JavaScript API
+
+When your HTML is loaded inside a JC4MP WebView, a bridge object `window.JC4MP` is exposed to enable two-way messaging between your page and the game. You can use this to send messages to your Lua scripts and listen for messages coming from them.
+
+### TypeScript typings
+
+```ts
+interface Jc4MpApi {
+  sendMessage: (event: string, data: any) => void;
+  onMessage?: (event: string, data: any) => void;
+  on?: (event: string, callback: (data: any) => void) => void;
+  isAvailable?: () => boolean;
+}
+
+declare global {
+  interface Window {
+    JC4MP?: Jc4MpApi;
+  }
+}
+```
+
+### Availability check
+
+Because your page might also be opened in a regular browser during development, you should guard all calls behind an availability check.
+
+```ts
+if (window.JC4MP?.isAvailable?.()) {
+  // Safe to use JC4MP bridge
+}
+```
+
+### Sending messages to Lua (from the page)
+
+Use `sendMessage(event, data)` to send a message to your Lua code. On the Lua side, register a handler for a specific WebView with `WebView.SetMessageHandler(id, handler)`.
+
+```ts
+// In your web app
+window.JC4MP?.sendMessage("ui:print_to_chat", { message: "Hello from UI" });
+```
+
+```lua
+-- In your client script
+local function handleUIMessage(event, data)
+    if event == "ui:print_to_chat" and data and data.message then
+        Chat.Print("[UI] " .. tostring(data.message))
+    end
+end
+
+WebView.SetMessageHandler("my_ui", handleUIMessage)
+```
+
+### Receiving messages from Lua
+
+You can subscribe to events from Lua with `window.JC4MP.on(event, callback)` or, for a simple catch-all, implement `window.JC4MP.onMessage` and route by event name.
+
+```ts
+// Specific subscription
+window.JC4MP?.on?.("hud:update", (data) => {
+  document.getElementById("score")!.textContent = String(data.score);
+});
+
+// Global handler
+window.JC4MP!.onMessage = (event, data) => {
+  if (event === "chat:append") {
+    appendChatLine(data.text);
+  }
+};
+```
+
+```lua
+-- From Lua to the WebView
+WebView.SendMessage("my_ui", "chat:append", { text = "Hello from Lua" })
+```
+
+### Example: Full roundtrip
+
+```ts
+// index.ts inside your web page
+function requestPlayerStats() {
+  if (!window.JC4MP?.isAvailable?.()) return;
+  window.JC4MP.sendMessage("ui:request_stats", {});
+}
+
+window.JC4MP?.on?.("ui:stats", (stats) => {
+  document.getElementById("health")!.textContent = String(stats.health);
+  document.getElementById("money")!.textContent = String(stats.money);
+});
+```
+
+```lua
+-- client.lua
+local function handleUIMessage(event, data)
+    if event == "ui:request_stats" then
+        local stats = { health = 800, money = 12345 }
+        WebView.SendMessage("my_ui", "ui:stats", stats)
+    end
+end
+
+WebView.SetMessageHandler("my_ui", handleUIMessage)
+```
+
+### End-to-end example (create/destroy, handler, periodic updates)
+
+```lua
+local WEBVIEW_ID = "map"
+
+local function handleUIMessage(event, data)
+    if event == "ui:print_to_chat" then
+        if data and data.message then
+            Chat.Print("[UI] " .. tostring(data.message))
+        end
+    end
+end
+
+local function create()
+    WebView.Create(WEBVIEW_ID, {
+        url = "https://localhost:5173",
+        position = vec2(10, 10),
+        size = vec2(250, 250),
+        visible = true,
+        input_enabled = false,
+        z_order = 100
+    })
+
+    WebView.SetMessageHandler(WEBVIEW_ID, handleUIMessage)
+end
+
+Timer.Set(function()
+    local localPlayer = Players.LocalPlayer()
+    if not localPlayer then return end
+
+    local pos = localPlayer:GetPosition()
+    local erot = localPlayer:GetEulerRotation()
+
+    WebView.SendMessage(WEBVIEW_ID, "update:position", {
+        x = tostring(pos.x),
+        y = tostring(pos.y),
+        z = tostring(pos.z),
+        rotY = tostring(erot.y)
+    })
+end, 50, -1)
+
+Event.Add("OnKeyDown", function(key)
+    if key == Key.M then
+        local view = WebView.GetInfo(WEBVIEW_ID)
+        if view and view["url"] then
+            WebView.Destroy(WEBVIEW_ID)
+        else
+            create()
+        end
+    end
+end)
+
+create()
+```
+
+Notes:
+- Always null-check `window.JC4MP` so your page keeps working in a normal browser.
+- Prefer event names with namespaces like `ui:*` to avoid collisions.

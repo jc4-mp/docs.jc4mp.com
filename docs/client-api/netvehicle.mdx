@@ -1,4 +1,4 @@
-import NetVehicleShared from "../../src/classes/netvehicle_shared.mdx"
+import NetVehicleShared from "@classes/netvehicle_shared.mdx"
 
 # NetVehicle
 
@@ -10,7 +10,7 @@ This is the client-side class for NetVehicle.
 
 #### `NetVehicle:SetPartState(part: VehiclePart, state: VehiclePartState): void`
 
-Transitions a [vehicle part](/shared-api/vehiclepart) to the specified state with animation. Only [VehiclePartState.Open](/shared-api/vehiclepartstate) and [VehiclePartState.Closed](/shared-api/vehiclepartstate) states are supported. Use [VehiclePartState.Open](/shared-api/vehiclepartstate) to animate the part opening, and [VehiclePartState.Closed](/shared-api/vehiclepartstate) to animate the part closing. The state change is not instant - the part will transition smoothly over time.
+Transitions a [vehicle part](/shared-api/vehicles/vehiclepart) to the specified state with animation. Only [VehiclePartState.Open](/shared-api/vehicles/vehiclepartstate) and [VehiclePartState.Closed](/shared-api/vehicles/vehiclepartstate) states are supported. Use [VehiclePartState.Open](/shared-api/vehicles/vehiclepartstate) to animate the part opening, and [VehiclePartState.Closed](/shared-api/vehicles/vehiclepartstate) to animate the part closing. The state change is not instant - the part will transition smoothly over time.
 
 **Parameters:**
 - `part: VehiclePart` - The vehicle part to control
@@ -27,7 +27,7 @@ vehicle:SetPartState(VehiclePart.DoorFrontLeft, VehiclePartState.Closed)
 
 #### `NetVehicle:UseLight(lightIndex: number, use: boolean): void`
 
-Controls whether a specific vehicle light is enabled or disabled. This function MUST be used inside the [OnVehicleRender](/client-api/events#OnVehicleRender) event.
+Controls whether a specific vehicle light is enabled or disabled. This function MUST be used inside the [OnVehicleRender](/client-api/events#onvehiclerendervehicle-netvehicle) event.
 
 **Parameters:**
 - `lightIndex: number` - The index of the light to control
@@ -48,7 +48,7 @@ end)
 
 Returns the AABB (bounding box) of the vehicle.
 
-**Returns:** [AABB](/shared-api/aabb) - The AABB of the vehicle. This is a table containing two fields: `min` and `max`, both of which are vec3
+**Returns:** [AABB](/shared-api/primitives/aabb) - The AABB of the vehicle. This is a table containing two fields: `min` and `max`, both of which are vec3
 
 **Example:**
 ```lua
@@ -60,7 +60,7 @@ print("Vehicle AABB: " .. tostring(aabb.min) .. " " .. tostring(aabb.max))
 
 Returns the local AABB (bounding box) of the vehicle.
 
-**Returns:** [AABB](/shared-api/aabb) - The local AABB of the vehicle. This is a table containing two fields: `min` and `max`, both of which are vec3
+**Returns:** [AABB](/shared-api/primitives/aabb) - The local AABB of the vehicle. This is a table containing two fields: `min` and `max`, both of which are vec3
 
 **Example:**
 ```lua
@@ -78,7 +78,7 @@ Returns the trailing vehicle (trailers etc).
 
 Returns the type of the vehicle.
 
-**Returns:** [VehicleType](/shared-api/vehicletype) - The type of the vehicle
+**Returns:** [VehicleType](/shared-api/vehicles/vehicletype) - The type of the vehicle
 
 #### `NetVehicle:IsInAir(): boolean`
 

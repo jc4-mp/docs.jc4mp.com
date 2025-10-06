@@ -1,6 +1,9 @@
-import NetObjectBase from "./netobjectbase_shared.mdx"
+import NetObjectBase from "@classes/netobjectbase_shared.mdx"
+import Inherited from "@components/Inherited";
 
-<NetObjectBase />
+<Inherited from="NetObject" href="/shared-api/netobjects/netobject">
+  <NetObjectBase />
+</Inherited>
 
 #### `NetVehicle:GetId(): number`
 
@@ -125,6 +128,6 @@ Returns the metallic value of the vehicle's material.
 Returns the current state of the specified vehicle part.
 
 **Parameters:**
-- `part: VehiclePart` - The [part](/shared-api/vehiclepart) to get the state of
+- `part: VehiclePart` - The [part](/shared-api/vehicles/vehiclepart) to get the state of
 
-**Returns:** [VehiclePartState](/shared-api/vehiclepartstate) - The state of the vehicle part
+**Returns:** [VehiclePartState](/shared-api/vehicles/vehiclepartstate) - The state of the vehicle part

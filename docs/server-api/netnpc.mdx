@@ -1,0 +1,68 @@
+import NetObjectBase from "@classes/netobjectbase_server.mdx";
+
+# NetNPC
+
+This is the server-side class for NetNPC.
+
+## Class Instance Methods
+
+<NetObjectBase />
+
+#### `NetNPC:Move(direction: vec3, moveType: MoveType, moveStyle: MoveStyle): void`
+
+Specifies in which direction the NPC should move. The NPC will keep moving until an idle movement type is specified.
+
+**Parameters:**
+- `direction: vec3` - The direction to move in
+- `moveType: MoveType` - The type of movement (Walk, Run, Sprint, Idle)
+- `moveStyle: MoveStyle` - The style of movement (Normal, Search, etc.)
+
+**Example:**
+```lua
+-- Make NPC walk forward
+npc:Move(vec3(1, 0, 0), MoveType.Walk, MoveStyle.Normal)
+
+-- Make NPC sprint to the right
+npc:Move(vec3(0, 0, 1), MoveType.Sprint, MoveStyle.Patrol)
+
+-- Make NPC idle
+npc:Move(vec3(0, 0, 0), MoveType.Idle, MoveStyle.Normal)
+```
+
+#### `NetNPC:LookAt(position: vec3, type: LookType): void`
+
+Makes the NPC look at a specific position.
+
+**Parameters:**
+- `position: vec3` - The position to look at
+- `type: LookType` - How the NPC should look (Head or Body)
+
+**Example:**
+```lua
+-- Make NPC look at position with just the head
+npc:LookAt(vec3(100, 50, 200), LookType.Head)
+
+-- Make NPC turn their body to look at position
+npc:LookAt(vec3(200, 100, 300), LookType.Body)
+```
+
+#### `NetNPC:SetHealth(health: int): void`
+
+Sets the health of the NPC.
+
+**Parameters:**
+- `health: int` - The health value to set
+
+**Example:**
+```lua
+npc:SetHealth(100)
+```
+
+#### `NetNPC:Destroy(): void`
+
+Destroys the NPC.
+
+**Example:**
+```lua
+npc:Destroy()
+```

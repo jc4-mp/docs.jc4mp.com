@@ -1,0 +1,27 @@
+# NetTether
+
+NetTether represents a tether connection between objects or positions in the game world.
+
+## Class Instance Methods
+
+#### `NetTether:GetOrigin(): NetObject | nil`
+
+Returns the origin object if the tether starts from an object, otherwise `nil` for world-origin tethers.
+
+#### `NetTether:GetTarget(): NetObject`
+
+Returns the target object attached by the tether.
+
+#### `NetTether:Destroy(): void`
+
+Destroys this tether.
+
+## Creation
+
+Server-only creation via [`World.SpawnTether`](/server-api/world):
+
+- `World.SpawnTether(origin: vec3, target: NetObject, targetOffset: vec3): NetTether`
+- `World.SpawnTether(origin: NetObject, originOffset: vec3, target: NetObject, targetOffset: vec3): NetTether`
+
+These APIs create a tether from a fixed world position to an object, or between two objects using offsets.
+

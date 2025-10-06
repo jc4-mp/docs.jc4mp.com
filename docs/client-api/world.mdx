@@ -1,4 +1,4 @@
-import WorldShared from "../../src/classes/world_shared.mdx"
+import WorldShared from "@classes/world_shared.mdx"
 
 
 # World
@@ -50,7 +50,7 @@ Gets the current gravity of the world. Default is `vec3(0, -9.8, 0)`.
 
 #### `World.SpawnPOI(position: vec3, type: POIType, display_mode: POIDisplayMode, minDistance: number, maxDistance: number): POI`
 
-Spawns a [POI](/client-api/poi) at the given position with the given [type](/shared-api/poitype) and [display mode](/shared-api/poidisplaymode).
+Spawns a [POI](/client-api/poi) at the given position with the given [type](/shared-api/enums/poitype) and [display mode](/shared-api/enums/poidisplaymode).
 
 #### `World.SetWaypoint(position: vec3)`
 
@@ -75,4 +75,25 @@ Returns the current waypoint as a [POI](/client-api/poi) instance. Note that thi
 Returns the position of the current waypoint.
 
 **Returns:** vec3 - The position of the current waypoint
+
+#### `World.GetWaterLevel(position: vec3): pair<float, bool>`
+
+Gets the water level at the specified position.
+
+**Parameters:**
+- `position: vec3` - The position to check for water level
+
+**Returns:** pair\<float, bool\> - The water level (float) and whether the water is a waterfall (bool)
+
+**Example:**
+```lua
+local waterLevel, isWaterfall = World.GetWaterLevel(vec3(100, 50, 200))
+if waterLevel > 0 then
+    if isWaterfall then
+        print("Waterfall detected at level: " .. waterLevel)
+    else
+        print("Water detected at level: " .. waterLevel)
+    end
+end
+```
 

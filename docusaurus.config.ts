@@ -1,6 +1,7 @@
 import { themes as prismThemes } from "prism-react-renderer";
 import type { Config } from "@docusaurus/types";
 import type * as Preset from "@docusaurus/preset-classic";
+import path from "path";
 
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
@@ -9,6 +10,7 @@ const config: Config = {
   tagline:
     "Server scripting documentation for the Just Cause 4 Multiplayer Mod",
   favicon: "img/favicon.png",
+
 
   // Set the production url of your site here
   url: "https://docs.jc4mp.com",
@@ -48,7 +50,40 @@ const config: Config = {
     ],
   ],
 
-  themes: ['@docusaurus/theme-mermaid'],
+  themes: [
+    '@docusaurus/theme-mermaid',
+    [
+      require.resolve("@easyops-cn/docusaurus-search-local"),
+      /** @type {import("@easyops-cn/docusaurus-search-local").PluginOptions} */
+      ({
+        hashed: true,
+        highlightSearchTermsOnTargetPage: true,
+        explicitSearchResultPath: true,
+        indexDocs: true,
+        indexPages: true,
+      }),
+    ],
+  ],
+  plugins: [
+    () => {
+      return {
+        name: 'docusaurus-path-alias',
+        configureWebpack() {
+          return {
+            resolve: {
+              alias: {
+                '@classes': path.resolve(__dirname, 'src/classes'),
+                '@components': path.resolve(__dirname, 'src/components'),
+                '@client': path.resolve(__dirname, 'docs/client-api'),
+                '@server': path.resolve(__dirname, 'docs/server-api'),
+                '@shared': path.resolve(__dirname, 'docs/shared-api'),
+              },
+            },
+          };
+        },
+      };
+    }
+  ],
 
   themeConfig: {
     // TODO: Replace with your project's social card

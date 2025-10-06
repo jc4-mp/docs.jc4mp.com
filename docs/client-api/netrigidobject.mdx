@@ -1,4 +1,4 @@
-import NetRigidObjectShared from "../../src/classes/rigidobject_shared.mdx"
+import NetRigidObjectShared from "@classes/rigidobject_shared.mdx"
 
 # NetRigidObject
 
@@ -12,7 +12,7 @@ This is the client-side class for NetRigidObject.
 
 Returns the AABB (bounding box) of the rigid object.
 
-**Returns:** [AABB](/shared-api/aabb) - The AABB of the rigid object. This is a table containing two fields: `min` and `max`, both of which are vec3.
+**Returns:** [AABB](/shared-api/primitives/aabb) - The AABB of the rigid object. This is a table containing two fields: `min` and `max`, both of which are vec3.
 
 **Example:**
 ```lua
@@ -24,7 +24,7 @@ print("Rigid object AABB: " .. tostring(aabb.min) .. " " .. tostring(aabb.max))
 
 Returns the local AABB (bounding box) of the rigid object.
 
-**Returns:** [AABB](/shared-api/aabb) - The local AABB of the rigid object. This is a table containing two fields: `min` and `max`, both of which are vec3.
+**Returns:** [AABB](/shared-api/primitives/aabb) - The local AABB of the rigid object. This is a table containing two fields: `min` and `max`, both of which are vec3.
 
 **Example:**
 ```lua

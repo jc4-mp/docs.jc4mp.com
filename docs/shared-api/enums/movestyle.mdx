@@ -1,0 +1,27 @@
+# MoveStyle
+
+The `MoveStyle` enum represents different movement styles for NPCs.
+
+## Values
+
+| Value | Description |
+|-------|-------------|
+| `MoveStyle.Normal` | Normal movement style |
+| `MoveStyle.Search` | Search movement style |
+| `MoveStyle.NervousBackoff` | Nervous backoff movement style |
+| `MoveStyle.Patrol` | Patrol movement style |
+| `MoveStyle.Concerned` | Concerned movement style |
+| `MoveStyle.NervousWalk` | Nervous walk movement style |
+
+## Usage Example
+
+```lua
+-- Make an NPC patrol normally
+npc:Move(vec3(1, 0, 0), MoveType.Walk, MoveStyle.Patrol)
+
+-- Make an NPC search nervously
+npc:Move(vec3(0, 0, 1), MoveType.Run, MoveStyle.Search)
+
+-- Make an NPC walk with concern
+npc:Move(vec3(-1, 0, 0), MoveType.Walk, MoveStyle.Concerned)
+```
