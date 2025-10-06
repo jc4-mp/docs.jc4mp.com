@@ -1,0 +1,25 @@
+# MoveType
+
+The `MoveType` enum represents different movement types for NPCs.
+
+## Values
+
+| Value | Description |
+|-------|-------------|
+| `MoveType.Walk` | Walking movement |
+| `MoveType.Run` | Running movement |
+| `MoveType.Sprint` | Sprinting movement |
+| `MoveType.Idle` | Idle movement (no movement) |
+
+## Usage Example
+
+```lua
+-- Make an NPC walk
+npc:Move(vec3(1, 0, 0), MoveType.Walk, MoveStyle.Normal)
+
+-- Make an NPC sprint
+npc:Move(vec3(0, 0, 1), MoveType.Sprint, MoveStyle.Patrol)
+
+-- Make an NPC idle
+npc:Move(vec3(0, 0, 0), MoveType.Idle, MoveStyle.Normal)
+```

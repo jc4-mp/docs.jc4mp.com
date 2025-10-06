@@ -188,6 +188,36 @@ Event.Add("OnPlayerRagdollEnd", function(player)
 end)
 ```
 
+#### `OnPlayerKicked(player: NetPlayer)`
+
+This event fires when a player is kicked using the grapple reeling.
+
+**Parameters:**
+- `player: NetPlayer` - The player that was kicked
+
+**Example:**
+```lua
+Event.Add("OnPlayerKicked", function(player)
+    print("Player " .. player:GetNick() .. " was kicked")
+end)
+```
+
+#### `OnPlayerGrappleHit(player: NetPlayer, position: vec3, direction: vec3)`
+
+This event fires when a player is grappled by another player.
+
+**Parameters:**
+- `player: NetPlayer` - The player that was grappled
+- `position: vec3` - The position where the grapple hit
+- `direction: vec3` - The direction of the grapple
+
+**Example:**
+```lua
+Event.Add("OnPlayerGrappleHit", function(player, position, direction)
+    print("Player " .. player:GetNick() .. " was grappled at " .. tostring(position))
+end)
+```
+
 ### Navigation Events
 
 #### `OnWaypointPlace()`

@@ -24,9 +24,9 @@ print("Object rotation: " .. tostring(rotation))
 
 #### `NetObject:GetEulerRotation(): vec3`
 
-Returns the euler rotation of the object.
+Returns the Euler rotation of the object.
 
-**Returns:** vec3 - The euler rotation of the object
+**Returns:** vec3 - Euler rotation
 
 **Example:**
 ```lua
@@ -199,9 +199,47 @@ else
 end
 ```
 
+#### `NetObject:AsNPC(): NetNPC | nil`
+
+Returns a NetNPC instance if the object is an NPC, otherwise returns nil. This is a safe way to cast a NetObject to a NetNPC.
+
+**Returns:** NetNPC instance if the object is an NPC, nil otherwise
+
+**Example:**
+```lua
+-- Safe casting to NetNPC
+local netObject = someNetObject -- Assume this is a NetObject instance
+local npc = netObject:AsNPC()
+
+if npc then
+    print("This is an NPC with ID: " .. npc:GetId())
+else
+    print("This is not an NPC")
+end
+```
+
+#### `NetObject:AsTether(): NetTether | nil`
+
+Returns a NetTether instance if the object is a tether, otherwise returns nil. This is a safe way to cast a NetObject to a NetTether.
+
+**Returns:** NetTether instance if the object is a tether, nil otherwise
+
+**Example:**
+```lua
+-- Safe casting to NetTether
+local netObject = someNetObject -- Assume this is a NetObject instance
+local tether = netObject:AsTether()
+
+if tether then
+    print("This is a tether")
+else
+    print("This is not a tether")
+end
+```
+
 #### `NetObject:GetType(): NetObjectType`
 
-Returns the network object type. Use the [`NetObjectType`](/shared-api/netobjecttype) enum to compare types.
+Returns the network object type. Use the [`NetObjectType`](/shared-api/netobjects/netobjecttype) enum to compare types.
 
 **Returns:** The type of the network object as a NetObjectType enum value
 

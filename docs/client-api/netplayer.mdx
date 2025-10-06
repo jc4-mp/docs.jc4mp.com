@@ -1,4 +1,5 @@
-import NetPlayerShared from "../../src/classes/netplayer_shared.mdx"
+import Inherited from "@components/Inherited";
+import NetPlayerBase from "@classes/netplayerbase_shared.mdx";
 
 # NetPlayer
 
@@ -6,7 +7,9 @@ This is the client-side class for NetPlayer.
 
 ## Class Instance Methods
 
-<NetPlayerShared />
+<Inherited from="NetPlayer (Shared)" href="/shared-api/netobjects/netplayer">
+  <NetPlayerBase />
+</Inherited>
 
 #### `NetPlayer:GetAimPosition(): vec3`
 
@@ -241,4 +244,205 @@ Returns the axis-aligned bounding box (AABB) of the player in local space.
 ```lua
 local localAABB = player:GetLocalAABB()
 print("Player local AABB: " .. tostring(localAABB))
+```
+
+#### `NetPlayer:IsHeadUnderwater(): bool`
+
+Returns true if the player's head is currently underwater, false otherwise.
+
+**Returns:** bool - true if the player's head is underwater, false otherwise
+
+**Example:**
+```lua
+if player:IsHeadUnderwater() then
+    print("Player's head is underwater")
+end
+```
+
+#### `NetPlayer:IsSwimming(): bool`
+
+Returns true if the player is currently swimming, false otherwise.
+
+**Returns:** bool - true if the player is swimming, false otherwise
+
+**Example:**
+```lua
+if player:IsSwimming() then
+    print("Player is swimming")
+end
+```
+
+#### `NetPlayer:GetOxygen(): float`
+
+Returns the player's current oxygen level. The default maximum oxygen is 60.
+
+**Returns:** float - The current oxygen level
+
+**Example:**
+```lua
+local oxygen = player:GetOxygen()
+print("Player oxygen level: " .. oxygen)
+```
+
+#### `NetPlayer:GetMaxOxygen(): float`
+
+Returns the player's maximum oxygen level.
+
+**Returns:** float - The maximum oxygen level
+
+**Example:**
+```lua
+local maxOxygen = player:GetMaxOxygen()
+print("Player max oxygen: " .. maxOxygen)
+```
+
+#### `NetPlayer:GetOxygenRecoveryRate(): float`
+
+Returns the player's oxygen recovery rate.
+
+**Returns:** float - The oxygen recovery rate
+
+**Example:**
+```lua
+local recoveryRate = player:GetOxygenRecoveryRate()
+print("Oxygen recovery rate: " .. recoveryRate)
+```
+
+#### `NetPlayer:SetOxygen(value: float): void`
+
+Sets the player's current oxygen level.
+
+**Parameters:**
+- `value: float` - The oxygen level to set
+
+**Example:**
+```lua
+player:SetOxygen(30.0)
+```
+
+#### `NetPlayer:SetMaxOxygen(value: float): void`
+
+Sets the player's maximum oxygen level.
+
+**Parameters:**
+- `value: float` - The maximum oxygen level to set
+
+**Example:**
+```lua
+player:SetMaxOxygen(120.0)
+```
+
+#### `NetPlayer:SetOxygenRecoveryRate(value: float): void`
+
+Sets the player's oxygen recovery rate.
+
+**Parameters:**
+- `value: float` - The oxygen recovery rate to set
+
+**Example:**
+```lua
+player:SetOxygenRecoveryRate(2.0)
+```
+
+#### `NetPlayer:GetWetFactor(): float`
+
+Returns the player's wet factor (how wet the player is).
+
+**Returns:** float - The wet factor (0.0 to 1.0)
+
+**Example:**
+```lua
+local wetFactor = player:GetWetFactor()
+print("Player wet factor: " .. wetFactor)
+```
+
+#### `NetPlayer:GetSnowFactor(): float`
+
+Returns the player's snow factor (how much snow is on the player).
+
+**Returns:** float - The snow factor (0.0 to 1.0)
+
+**Example:**
+```lua
+local snowFactor = player:GetSnowFactor()
+print("Player snow factor: " .. snowFactor)
+```
+
+#### `NetPlayer:SetWetFactor(value: float): void`
+
+Sets the player's wet factor.
+
+**Parameters:**
+- `value: float` - The wet factor to set (0.0 to 1.0)
+
+**Example:**
+```lua
+player:SetWetFactor(0.5)
+```
+
+#### `NetPlayer:SetSnowFactor(value: float): void`
+
+Sets the player's snow factor.
+
+**Parameters:**
+- `value: float` - The snow factor to set (0.0 to 1.0)
+
+**Example:**
+```lua
+player:SetSnowFactor(0.3)
+```
+
+#### `NetPlayer:PlayAttachedEffect(effect: CharacterAttachedEffect, restartIfPlaying: bool): void`
+
+Plays a character attached effect on the player.
+
+**Parameters:**
+- `effect: CharacterAttachedEffect` - The effect to play
+- `restartIfPlaying: bool` - Whether to restart the effect if it's already playing
+
+**Example:**
+```lua
+player:PlayAttachedEffect(CharacterAttachedEffect.Fire, true)
+```
+
+#### `NetPlayer:IsReloading(): bool`
+
+Returns true if the player is currently reloading their weapon, false otherwise.
+
+**Returns:** bool - true if the player is reloading, false otherwise
+
+**Example:**
+```lua
+if player:IsReloading() then
+    print("Player is reloading")
+end
+```
+
+#### `NetPlayer:IsFiring(): bool`
+
+Returns true if the player is currently firing their weapon, false otherwise.
+
+**Returns:** bool - true if the player is firing, false otherwise
+
+**Example:**
+```lua
+if player:IsFiring() then
+    print("Player is firing")
+end
+```
+
+#### `NetPlayer:HasFiredWeaponRecently(threshold: float): bool`
+
+Checks if the player has fired their current weapon within the last specified threshold seconds.
+
+**Parameters:**
+- `threshold: float` - The time threshold in seconds
+
+**Returns:** bool - true if the weapon has been fired recently, false otherwise
+
+**Example:**
+```lua
+if player:HasFiredWeaponRecently(5.0) then
+    print("Player fired weapon within the last 5 seconds")
+end
 ```

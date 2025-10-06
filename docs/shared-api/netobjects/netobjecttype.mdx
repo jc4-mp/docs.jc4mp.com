@@ -10,6 +10,8 @@ The `NetObjectType` enum represents different types of network objects in the ga
 | `NetObjectType.Vehicle` | Represents a vehicle network object |
 | `NetObjectType.MountedGun` | Represents a mounted gun network object |
 | `NetObjectType.RigidObject` | Represents a rigid object network object |
+| `NetObjectType.NPC` | Represents a non-player character network object |
+| `NetObjectType.Tether` | Represents a tether network object |
 
 ## Usage Example
 
@@ -27,5 +29,13 @@ elseif objectType == NetObjectType.Vehicle then
     -- It's a vehicle, we can safely cast to NetVehicle
     local vehicle = netObject:AsVehicle()
     print("Vehicle position: " .. tostring(vehicle:GetPosition()))
+elseif objectType == NetObjectType.NPC then
+    -- It's an NPC, we can safely cast to NetNPC
+    local npc = netObject:AsNPC()
+    print("NPC position: " .. tostring(npc:GetPosition()))
+elseif objectType == NetObjectType.Tether then
+    -- It's a tether, we can safely cast to NetTether
+    local tether = netObject:AsTether()
+    print("Tether exists: " .. tostring(tether ~= nil))
 end
 ```

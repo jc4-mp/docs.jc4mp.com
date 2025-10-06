@@ -1,0 +1,51 @@
+# CharacterAttachedEffect
+
+The `CharacterAttachedEffect` enum represents different character attached effects that can be played on players.
+
+## Values
+
+| Value | Description |
+|-------|-------------|
+| `CharacterAttachedEffect.AREffectEnter` | AR effect enter animation |
+| `CharacterAttachedEffect.AREffectExit` | AR effect exit animation |
+| `CharacterAttachedEffect.Concussion` | Concussion effect |
+| `CharacterAttachedEffect.NearDeathEnter` | Near death enter effect |
+| `CharacterAttachedEffect.NearDeathExit` | Near death exit effect |
+| `CharacterAttachedEffect.NearDeathLoop` | Near death loop effect |
+| `CharacterAttachedEffect.Died` | Death effect |
+| `CharacterAttachedEffect.RemoveSnow` | Remove snow effect |
+| `CharacterAttachedEffect.Wingsuiting` | Wingsuit effect |
+| `CharacterAttachedEffect.Stunting` | Stunt effect |
+| `CharacterAttachedEffect.Hoverboard` | Hoverboard effect |
+| `CharacterAttachedEffect.Magrail` | Magrail effect |
+| `CharacterAttachedEffect.GetOffHoverboard` | Get off hoverboard effect |
+| `CharacterAttachedEffect.HoverboardJump` | Hoverboard jump effect |
+| `CharacterAttachedEffect.HoverboardLand` | Hoverboard land effect |
+| `CharacterAttachedEffect.HoverboardPushOff` | Hoverboard push off effect |
+| `CharacterAttachedEffect.HoverboardBump` | Hoverboard bump effect |
+| `CharacterAttachedEffect.Persistent` | Persistent effect |
+| `CharacterAttachedEffect.Underwater` | Underwater effect |
+| `CharacterAttachedEffect.Parachuting` | Parachuting effect |
+| `CharacterAttachedEffect.Swimming` | Swimming effect |
+| `CharacterAttachedEffect.Freefalling` | Freefalling effect |
+| `CharacterAttachedEffect.GrappleCharge` | Grapple charge effect |
+| `CharacterAttachedEffect.WaterSplash` | Water splash effect |
+| `CharacterAttachedEffect.EvadeLand` | Evade land effect |
+| `CharacterAttachedEffect.Fire` | Fire effect |
+| `CharacterAttachedEffect.Melee` | Melee effect |
+| `CharacterAttachedEffect.Gib` | Gib effect |
+| `CharacterAttachedEffect.BulletDamage` | Bullet damage effect |
+| `CharacterAttachedEffect.HeavyBulletDamage` | Heavy bullet damage effect |
+
+## Usage Example
+
+```lua
+-- Play a fire effect on a player
+player:PlayAttachedEffect(CharacterAttachedEffect.Fire, true)
+
+-- Play a water splash effect
+player:PlayAttachedEffect(CharacterAttachedEffect.WaterSplash, false)
+
+-- Play a wingsuit effect
+player:PlayAttachedEffect(CharacterAttachedEffect.Wingsuiting, true)
+```

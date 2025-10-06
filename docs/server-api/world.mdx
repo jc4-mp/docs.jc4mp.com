@@ -1,4 +1,4 @@
-import WorldShared from "../../src/classes/world_shared.mdx"
+import WorldShared from "@classes/world_shared.mdx"
 
 # World
 
@@ -45,6 +45,62 @@ Spawns a rigid object at the given position with the given rotation. This is syn
 - `rotation?: vec3` - Optional rotation (defaults to no rotation)
 - `health?: number` - Optional health value (defaults to 100)
 
+#### `World.SpawnNPC(id: string, position: vec3, health?: int, rotation?: vec3): NetNPC`
+
+Spawns an NPC at the given position with the given rotation and health.
+
+**Parameters:**
+- `id: string` - The identifier for the NPC
+- `position: vec3` - The position to spawn the NPC at
+- `health?: int` - Optional health value (defaults to 100)
+- `rotation?: vec3` - Optional rotation (defaults to no rotation)
+
+**Returns:** NetNPC - The spawned NPC instance
+
+**Example:**
+```lua
+-- Spawn an NPC at the specified position
+local npc = World.SpawnNPC("civilian_01", vec3(1000, 100, 2000), 100, vec3(0, 90, 0))
+
+-- Make the NPC patrol
+npc:Move(vec3(1, 0, 0), MoveType.Walk, MoveStyle.Patrol)
+```
+
 #### `World.Destroy(obj: NetObject)`
 
 Destroys a NetObject. This can be used to destroy vehicles and objects.
+
+#### `World.SpawnTether(origin: vec3, target: NetObject, targetOffset: vec3): NetTether`
+
+Creates a tether from a static origin position to a target object with an offset relative to the object.
+
+**Parameters:**
+- `origin: vec3` - World position where the tether starts
+- `target: NetObject` - The object the tether attaches to
+- `targetOffset: vec3` - Offset from the object's origin for the tether attachment
+
+**Returns:** NetTether - The created tether instance
+
+**Example:**
+```lua
+-- Tether a vehicle to a fixed world point
+local tether = World.SpawnTether(vec3(1000, 200, 1500), someVehicle, vec3(0, 1.2, 0))
+```
+
+#### `World.SpawnTether(origin: NetObject, originOffset: vec3, target: NetObject, targetOffset: vec3): NetTether`
+
+Creates a tether between two objects, using offsets relative to each object for the attachment points.
+
+**Parameters:**
+- `origin: NetObject` - The first object
+- `originOffset: vec3` - Offset from the first object's origin for the tether attachment
+- `target: NetObject` - The second object
+- `targetOffset: vec3` - Offset from the second object's origin for the tether attachment
+
+**Returns:** NetTether - The created tether instance
+
+**Example:**
+```lua
+-- Tether two objects together at their roof hardpoints
+local tether = World.SpawnTether(someVehicle, vec3(0, 1.2, 0), someOtherVehicle, vec3(0, 1.7, 0))
+```

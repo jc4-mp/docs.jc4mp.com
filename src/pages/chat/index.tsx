@@ -10,7 +10,9 @@ import styles from "./index.module.css";
 
 import { useChat } from "@ai-sdk/react";
 import { useEffect, useRef, useState, useMemo, useCallback, memo } from "react";
-import { ArrowRight, Loader, LoaderCircle, Copy, Check } from "lucide-react";
+import { ArrowRight, LoaderCircle, Copy, Check, Trash2 } from "lucide-react";
+
+const CHAT_HISTORY_KEY = "jc4mp-chat-history";
 
 /**
  * Splits text into logical chunks for incremental rendering
@@ -285,7 +287,7 @@ function extractFileNamesFromResponse(response: string): string[] {
   let match;
 
   while ((match = fileNameRegex.exec(response)) !== null) {
-    const fileName = match[1];
+    const fileName = match;
     // The file name should already be in the format https://docs.jc4mp.com/...
     if (fileName.startsWith("https://docs.jc4mp.com/")) {
       fileNames.push(fileName);
@@ -484,14 +486,21 @@ function ToolCallIndicator({
 
 export default function Chat() {
   const { siteConfig } = useDocusaurusContext();
-  const { messages, input, handleInputChange, handleSubmit, isLoading, stop } =
-    useChat({
-        api: "https://jc4mp.com/api/v1/chat",
+  const {
+    messages,
+    setMessages,
+    input,
+    handleInputChange,
+    handleSubmit,
+    isLoading,
+    stop,
+  } = useChat({
+    api: "https://jc4mp.com/api/v1/chat",
     //   api: "http://localhost:5173/api/v1/chat",
-      onError: (error) => {
-        console.error(error);
-      },
-    });
+    onError: (error) => {
+      console.error(error);
+    },
+  });
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const messagesContainerRef = useRef<HTMLDivElement>(null);
@@ -499,6 +508,30 @@ export default function Chat() {
     new Set()
   );
   const [shouldAutoScroll, setShouldAutoScroll] = useState(true);
+
+  // Load chat history from local storage on initial render
+  useEffect(() => {
+    const storedMessages = localStorage.getItem(CHAT_HISTORY_KEY);
+    if (storedMessages) {
+      try {
+        const parsedMessages = JSON.parse(storedMessages);
+        if (Array.isArray(parsedMessages)) {
+          setMessages(parsedMessages);
+        }
+      } catch (error) {
+        console.error("Failed to parse chat history:", error);
+      }
+    }
+  }, [setMessages]);
+
+  // Save chat history to local storage whenever messages change
+  useEffect(() => {
+    if (messages.length > 0) {
+      localStorage.setItem(CHAT_HISTORY_KEY, JSON.stringify(messages));
+    } else {
+      localStorage.removeItem(CHAT_HISTORY_KEY);
+    }
+  }, [messages]);
 
   const scrollToBottom = useCallback(() => {
     if (shouldAutoScroll && messagesEndRef.current) {
@@ -538,6 +571,14 @@ export default function Chat() {
       setShouldAutoScroll(isAtBottom);
     }
   }, []);
+
+  const handleClearChat = useCallback(() => {
+    if (
+      window.confirm("Are you sure you want to clear the chat history?")
+    ) {
+      setMessages([]);
+    }
+  }, [setMessages]);
 
   useEffect(() => {
     scrollToBottom();
@@ -681,6 +722,16 @@ export default function Chat() {
 
         <div className={styles.inputContainer}>
           <form onSubmit={handleSubmit} className={styles.inputForm}>
+            {messages.length > 0 && (
+              <button
+                type="button"
+                className={styles.clearButton}
+                onClick={handleClearChat}
+                title="Clear chat history"
+              >
+                <Trash2 size={16} />
+              </button>
+            )}
             <input
               autoFocus
               className={styles.input}
