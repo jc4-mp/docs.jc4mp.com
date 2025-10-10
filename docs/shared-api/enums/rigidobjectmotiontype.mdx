@@ -1,0 +1,24 @@
+# RigidObjectMotionType
+
+The `RigidObjectMotionType` enum represents the motion/physics mode of a rigid object.
+
+## Values
+
+| Value | Description |
+|-------|-------------|
+| `RigidObjectMotionType.Static` | Non-simulated, static object (immovable). |
+| `RigidObjectMotionType.Dynamic` | Fully simulated by physics. |
+
+## Usage Example
+
+```lua
+-- Get the player's aim position
+local localPlayer = Players.LocalPlayer()
+local aimPos = localPlayer:GetAimPosition()
+-- Spawn a dynamic rigid object
+local obj = World.SpawnRigidObject(aimPos, "models/environments/locale_global/glo_prop_metal_fence_a/glo_prop_metal_fence_a_4m_01_debris1.modelc", "models/environments/locale_global/glo_prop_metal_fence_a/glo_prop_metal_fence_a_4m_01_debris1_col.pfxc", RigidObjectMotionType.Static)
+
+obj:SetMotionType(RigidObjectMotionType.Dynamic)
+```
+
+

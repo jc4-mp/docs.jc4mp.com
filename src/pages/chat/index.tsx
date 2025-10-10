@@ -285,9 +285,8 @@ function extractFileNamesFromResponse(response: string): string[] {
   const fileNameRegex = /<file name="([^"]+)"/g;
   const fileNames: string[] = [];
   let match;
-
   while ((match = fileNameRegex.exec(response)) !== null) {
-    const fileName = match;
+    const fileName = match[1];
     // The file name should already be in the format https://docs.jc4mp.com/...
     if (fileName.startsWith("https://docs.jc4mp.com/")) {
       fileNames.push(fileName);

@@ -39,6 +39,28 @@ Event.Add("OnPostRender", function()
 end)
 ```
 
+#### `OnUpdate()`
+
+Thread-safe per-frame update, called every frame. Prefer this over `OnRender` for game logic that must be thread-safe.
+
+**Example:**
+```lua
+Event.Add("OnUpdate", function()
+    -- Update game logic here
+end)
+```
+
+#### `OnPostUpdate()`
+
+Thread-safe per-frame update that runs after `OnUpdate`. Prefer this over `OnPostRender` for logic that must be thread-safe.
+
+**Example:**
+```lua
+Event.Add("OnPostUpdate", function()
+    -- Late update logic here
+end)
+```
+
 ### Vehicle Events
 
 #### `OnVehicleExplode(vehicle: NetVehicle)`

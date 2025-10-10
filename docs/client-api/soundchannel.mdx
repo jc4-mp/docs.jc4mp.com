@@ -1,0 +1,164 @@
+# SoundChannel
+
+This is the client-side class for controlling sound playback returned by `Sound.Play2D` and `Sound.Play3D`.
+
+## Class Instance Methods
+
+#### `SoundChannel:GetPosition(): number`
+
+Returns the current timestamp position of the sound in milliseconds.
+
+**Returns:** number - Current position in milliseconds
+
+**Example:**
+```lua
+local position = channel:GetPosition()
+print("Sound is at " .. position .. " milliseconds")
+```
+
+#### `SoundChannel:SetPosition(positionInMilliseconds: number): void`
+
+Sets the current timestamp position of the sound. This can be used for syncing the exact sound timestamp with other players.
+
+**Parameters:**
+- `positionInMilliseconds: number` - The position to set in milliseconds
+
+**Example:**
+```lua
+-- Sync sound to a specific timestamp
+channel:SetPosition(5000) -- Jump to 5 seconds
+```
+
+#### `SoundChannel:Get3DMinMaxDistance(): {min: number, max: number}`
+
+Returns the minimum and maximum distance settings for 3D audio attenuation.
+
+**Returns:** `{min: number, max: number}` - A table with `min` and `max` distance values
+
+**Example:**
+```lua
+local distances = channel:Get3DMinMaxDistance()
+print("Min distance: " .. distances.min .. ", Max distance: " .. distances.max)
+```
+
+#### `SoundChannel:Set3DMinMaxDistance(min: number, max: number): void`
+
+Sets the minimum and maximum distance for 3D audio attenuation. Sounds will be at full volume within the minimum distance and fade to silence at the maximum distance.
+
+**Parameters:**
+- `min: number` - Minimum distance for full volume
+- `max: number` - Maximum distance where sound becomes silent
+
+**Example:**
+```lua
+-- Set close-range audio (full volume within 5 units, silent beyond 50 units)
+channel:Set3DMinMaxDistance(5.0, 50.0)
+```
+
+#### `SoundChannel:Get3DAttributes(): {position: vec3, velocity: vec3}`
+
+Gets the current 3D position and velocity of the sound.
+
+**Returns:** `{position: vec3, velocity: vec3}` - A table with `position` and `velocity` vectors
+
+**Example:**
+```lua
+local attributes = channel:Get3DAttributes()
+print("Position: " .. tostring(attributes.position))
+print("Velocity: " .. tostring(attributes.velocity))
+```
+
+#### `SoundChannel:Set3DAttributes(position: vec3, velocity: vec3): void`
+
+Sets the 3D position and velocity of the sound for Doppler effect and positional audio.
+
+**Parameters:**
+- `position: vec3` - The world position of the sound
+- `velocity: vec3` - The velocity of the sound source for Doppler effect
+
+**Example:**
+```lua
+-- Update sound position and velocity for a moving object
+channel:Set3DAttributes(vec3(100, 50, 200), vec3(10, 0, 5))
+```
+
+#### `SoundChannel:GetVolume(): number`
+
+Returns the current volume of the sound channel.
+
+**Returns:** number - Current volume (typically 0.0 to 1.0)
+
+**Example:**
+```lua
+local volume = channel:GetVolume()
+print("Current volume: " .. volume)
+```
+
+#### `SoundChannel:SetVolume(volume: number): void`
+
+Sets the volume of the sound channel.
+
+**Parameters:**
+- `volume: number` - Volume level (typically 0.0 to 1.0, where 1.0 is full volume)
+
+**Example:**
+```lua
+-- Set volume to 50%
+channel:SetVolume(0.5)
+```
+
+#### `SoundChannel:GetPitch(): number`
+
+Returns the current pitch of the sound channel.
+
+**Returns:** number - Current pitch multiplier (1.0 is normal pitch)
+
+**Example:**
+```lua
+local pitch = channel:GetPitch()
+print("Current pitch: " .. pitch)
+```
+
+#### `SoundChannel:SetPitch(pitch: number): void`
+
+Sets the pitch of the sound channel.
+
+**Parameters:**
+- `pitch: number` - Pitch multiplier (1.0 is normal pitch, 2.0 is one octave higher, 0.5 is one octave lower)
+
+**Example:**
+```lua
+-- Make sound play at half speed (lower pitch)
+channel:SetPitch(0.5)
+```
+
+#### `SoundChannel:SetPaused(paused: boolean): void`
+
+Pauses or resumes the sound channel.
+
+**Parameters:**
+- `paused: boolean` - `true` to pause, `false` to resume
+
+**Example:**
+```lua
+-- Pause the sound
+channel:SetPaused(true)
+
+-- Resume the sound
+channel:SetPaused(false)
+```
+
+#### `SoundChannel:IsPlaying(): boolean`
+
+Returns whether the sound channel is currently playing.
+
+**Returns:** boolean - `true` if playing, `false` if paused or stopped
+
+**Example:**
+```lua
+if channel:IsPlaying() then
+    print("Sound is currently playing")
+else
+    print("Sound is paused or stopped")
+end
+```

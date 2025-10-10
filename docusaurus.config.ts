@@ -97,13 +97,16 @@ const config: Config = {
       logo: {
         alt: "JC4MP Logo",
         src: "img/favicon.png",
+        style: {
+          borderRadius: "4px",
+        },
       },
       items: [
         {
           type: "docSidebar",
           sidebarId: "tutorialSidebar",
           position: "left",
-          label: "Get Started",
+          label: "Documentation",
         },
         {
           to: "/chat",

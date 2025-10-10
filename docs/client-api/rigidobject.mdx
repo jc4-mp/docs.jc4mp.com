@@ -1,0 +1,65 @@
+# RigidObject
+
+This is the client-side class for `RigidObject` returned by `World.SpawnRigidObject`.
+
+## Class Instance Methods
+
+#### `RigidObject:SetMotionType(type: RigidObjectMotionType): void`
+
+Sets the motion/physics mode of this rigid object on the client.
+
+**Parameters:**
+- `type: RigidObjectMotionType` - The desired motion type (Static, Dynamic)
+
+**Example:**
+```lua
+-- Get the player's aim position
+local localPlayer = Players.LocalPlayer()
+local aimPos = localPlayer:GetAimPosition()
+-- Spawn a dynamic rigid object
+local obj = World.SpawnRigidObject(aimPos, "models/environments/locale_global/glo_prop_metal_fence_a/glo_prop_metal_fence_a_4m_01_debris1.modelc", "models/environments/locale_global/glo_prop_metal_fence_a/glo_prop_metal_fence_a_4m_01_debris1_col.pfxc", RigidObjectMotionType.Static)
+
+obj:SetMotionType(RigidObjectMotionType.Dynamic)
+```
+
+
+#### `RigidObject:EnableCollision(enable: boolean): void`
+
+Enables or disables collision for this rigid object on the client.
+
+**Parameters:**
+- `enable: boolean` - Whether to enable (`true`) or disable (`false`) collision
+
+**Example:**
+```lua
+-- Disable collisions temporarily
+obj:EnableCollision(false)
+
+-- Re-enable collisions later
+obj:EnableCollision(true)
+```
+
+#### `RigidObject:SetPosition(position: vec3): void`
+
+Sets the world-space position of the rigid object on the client.
+
+**Parameters:**
+- `position: vec3` - The new world position
+
+**Example:**
+```lua
+obj:SetPosition(vec3(100, 50, 200))
+```
+
+#### `RigidObject:SetRotation(rotation: vec3): void`
+
+Sets the world-space rotation (in radians) of the rigid object on the client.
+
+**Parameters:**
+- `rotation: vec3` - The new rotation as Euler angles in radians (pitch, yaw, roll)
+
+**Example:**
+```lua
+obj:SetRotation(vec3(0, math.pi, 0))
+```
+

@@ -34,7 +34,7 @@ Spawns a mounted gun at the given position with the given rotation. This is sync
 local mountedGun = World.SpawnMountedGun("turret_01", vec3(1000, 100, 2000), vec3(0, 90, 0), 150)
 ```
 
-#### `World.SpawnRigidObject(position: vec3, model: string, pfx: string, rotation?: vec3, health?: number): NetRigidObject`
+#### `World.SpawnRigidObject(position: vec3, model: string, pfx: string, motionType: RigidObjectMotionType, rotation?: vec3, health?: number): NetRigidObject`
 
 Spawns a rigid object at the given position with the given rotation. This is synced to all players. See the [objects list](/reference/objects-list) for a complete list of objects to spawn.
 
@@ -42,6 +42,7 @@ Spawns a rigid object at the given position with the given rotation. This is syn
 - `position: vec3` - The position to spawn the object at
 - `model: string` - The model name of the object
 - `pfx: string` - The particle effects file for the object
+- `motionType: RigidObjectMotionType` - Initial motion type for the rigid object
 - `rotation?: vec3` - Optional rotation (defaults to no rotation)
 - `health?: number` - Optional health value (defaults to 100)
 

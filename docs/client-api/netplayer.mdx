@@ -1,5 +1,7 @@
 import Inherited from "@components/Inherited";
 import NetPlayerBase from "@classes/netplayerbase_shared.mdx";
+import NetObjectClient from "@classes/netobjectbase_client.mdx";
+import NetObjectBase from "@classes/netobjectbase_shared.mdx";
 
 # NetPlayer
 
@@ -7,9 +9,12 @@ This is the client-side class for NetPlayer.
 
 ## Class Instance Methods
 
-<Inherited from="NetPlayer (Shared)" href="/shared-api/netobjects/netplayer">
-  <NetPlayerBase />
+<Inherited from="NetObject" href="/client-api/netobject">
+  <NetObjectClient />
+  <NetObjectBase />
 </Inherited>
+
+<NetPlayerBase />
 
 #### `NetPlayer:GetAimPosition(): vec3`
 

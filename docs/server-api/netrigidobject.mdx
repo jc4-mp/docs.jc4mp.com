@@ -1,4 +1,7 @@
 import NetRigidObjectShared from "@classes/rigidobject_shared.mdx"
+import Inherited from "@components/Inherited";
+import NetObjectServerOnly from "@classes/netobject_server_only.mdx";
+import NetObjectBase from "@classes/netobjectbase_shared.mdx";
 
 # NetRigidObject
 
@@ -6,4 +9,39 @@ This is the server-side class for NetRigidObject.
 
 ## Class Instance Methods
 
+<Inherited from="NetObject" href="/server-api/netobject">
+  <NetObjectServerOnly />
+  <NetObjectBase />
+</Inherited>
+
 <NetRigidObjectShared />
+
+#### `NetRigidObject:SetMotionType(type: RigidObjectMotionType): void`
+
+Sets the motion/physics mode of the rigid object.
+
+**Parameters:**
+- `type: RigidObjectMotionType` - The desired motion type (Static, Dynamic)
+
+**Example:**
+```lua
+-- Make the object fully simulated
+rigidObject:SetMotionType(RigidObjectMotionType.Dynamic)
+
+-- Later, freeze it in place
+rigidObject:SetMotionType(RigidObjectMotionType.Static)
+```
+
+#### `NetRigidObject:EnableCollision(enable: boolean): void`
+
+Enables or disables collision for this net rigid object on the server.
+
+**Parameters:**
+- `enable: boolean` - Whether to enable (`true`) or disable (`false`) collision
+
+**Example:**
+```lua
+rigidObject:EnableCollision(false)
+-- ... later
+rigidObject:EnableCollision(true)
+```

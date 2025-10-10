@@ -1,0 +1,59 @@
+# Sound
+
+Global table for sound management and playback.
+
+## Global Methods
+
+#### `Sound.Create(id: string, filename: string): boolean`
+
+Loads a WAV file from disk and creates a sound resource with the given ID. The filename parameter is relative to the current script file calling this function.
+
+**Parameters:**
+- `id: string` - Unique identifier for the sound resource
+- `filename: string` - Path to the WAV file relative to the current script file
+
+**Returns:** boolean - `true` if the sound was successfully loaded, `false` otherwise
+
+**Example:**
+```lua
+-- Load a sound file from the same directory as the script
+local success = Sound.Create("explosion", "sounds/explosion.wav")
+if success then
+    print("Sound loaded successfully")
+end
+```
+
+#### `Sound.Play2D(id: string, loop: boolean): SoundChannel`
+
+Plays a 2D sound (no positional audio) with the specified ID.
+
+**Parameters:**
+- `id: string` - The ID of the sound resource to play
+- `loop: boolean` - Whether the sound should loop continuously
+
+**Returns:** [SoundChannel](/client-api/soundchannel) - The sound channel for controlling playback
+
+**Example:**
+```lua
+-- Play a 2D sound that loops
+local channel = Sound.Play2D("background_music", true)
+channel:SetVolume(0.5)
+```
+
+#### `Sound.Play3D(id: string, position: vec3, loop: boolean): SoundChannel`
+
+Plays a 3D positional sound at the specified world position.
+
+**Parameters:**
+- `id: string` - The ID of the sound resource to play
+- `position: vec3` - The world position where the sound should be played
+- `loop: boolean` - Whether the sound should loop continuously
+
+**Returns:** [SoundChannel](/client-api/soundchannel) - The sound channel for controlling playback
+
+**Example:**
+```lua
+-- Play a 3D sound at a specific position
+local channel = Sound.Play3D("explosion", vec3(100, 50, 200), false)
+channel:Set3DMinMaxDistance(10.0, 100.0)
+```
