@@ -131,3 +131,34 @@ Input.SetClipboard("Hello, world!")
 print("Set clipboard to: " .. Input.GetClipboard())
 ```
 
+#### `Input.GetWheelValue(): vec2`
+
+Returns the current scroll wheel delta since the last frame. X is horizontal, Y is vertical.
+
+**Returns:** vec2 - The current wheel delta
+
+**Example:**
+```lua
+local wheel = Input.GetWheelValue()
+if wheel.y > 0 then
+    print("Scrolled up")
+elseif wheel.y < 0 then
+    print("Scrolled down")
+end
+```
+
+## Additional Events
+
+#### `OnMouseWheel(value: vec2)`
+
+Fires when the mouse wheel is scrolled. `value.x` is horizontal and `value.y` is vertical scroll amount.
+
+**Parameters:**
+- `value: vec2` - The wheel delta for this event
+
+**Example:**
+```lua
+Event.Add("OnMouseWheel", function(value)
+    print("Wheel: " .. tostring(value))
+end)
+```

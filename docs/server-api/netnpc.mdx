@@ -1,4 +1,6 @@
-import NetObjectBase from "@classes/netobjectbase_server.mdx";
+import NetObjectServerOnly from "@classes/netobject_server_only.mdx";
+import NetObjectBase from "@classes/netobjectbase_shared.mdx";
+import Inherited from "@components/Inherited";
 
 # NetNPC
 
@@ -6,7 +8,10 @@ This is the server-side class for NetNPC.
 
 ## Class Instance Methods
 
-<NetObjectBase />
+<Inherited from="NetObject" href="/server-api/netobject">
+  <NetObjectServerOnly />
+  <NetObjectBase />
+</Inherited>
 
 #### `NetNPC:Move(direction: vec3, moveType: MoveType, moveStyle: MoveStyle): void`
 

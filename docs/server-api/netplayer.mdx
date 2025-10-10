@@ -1,4 +1,7 @@
 import NetPlayerShared from "@classes/netplayer_shared.mdx";
+import Inherited from "@components/Inherited";
+import NetObjectServerOnly from "@classes/netobject_server_only.mdx";
+import NetObjectBase from "@classes/netobjectbase_shared.mdx";
 
 # NetPlayer
 
@@ -6,7 +9,13 @@ This is the server-side class for NetPlayer.
 
 ## Class Instance Methods
 
+<Inherited from="NetObject" href="/server-api/netobject">
+  <NetObjectServerOnly />
+  <NetObjectBase />
+</Inherited>
+
 <NetPlayerShared />
+
 
 #### `NetPlayer:Respawn(position: vec3, health: number, maxHealth: number): void`
 
@@ -48,6 +57,33 @@ Removes a weapon from the specified [weapon slot](/shared-api/enums/weaponslot).
 player:RemoveWeapon(WeaponSlot.Primary)
 ```
 
+#### `NetPlayer:SetWeaponAmmo(slot: WeaponSlot, mode: WeaponMode, ammo: number): void`
+
+Sets the ammo for a weapon in a specific slot and module (mode).
+
+**Parameters:**
+- `slot: WeaponSlot` - The weapon slot to target. See [WeaponSlot](/shared-api/enums/weaponslot).
+- `mode: WeaponMode` - The weapon mode/module to target. See [WeaponMode](/shared-api/enums/weaponmode).
+- `ammo: number` - The ammo amount to set.
+
+**Example:**
+```lua
+player:SetWeaponAmmo(WeaponSlot.Primary, WeaponMode.Primary, 90)
+```
+
+#### `NetPlayer:SetInventoryAmmo(type: AmmoType, ammo: number): void`
+
+Sets the inventory ammo for the specified ammo type.
+
+**Parameters:**
+- `type: AmmoType` - The ammo type to set. See [AmmoType](/shared-api/enums/ammotype).
+- `ammo: number` - The ammo amount to set.
+
+**Example:**
+```lua
+player:SetInventoryAmmo(AmmoType.SMG, 300)
+```
+
 #### `NetPlayer:Teleport(position: vec3): void`
 
 Teleports the player to a specific position.
@@ -71,16 +107,4 @@ Warps the player into a [vehicle](/server-api/netvehicle) at a specific [seat](/
 **Example:**
 ```lua
 player:WarpIntoVehicle(someVehicle, VehicleSeat.Driver)
-```
-
-#### `NetPlayer:SetHealth(health: int): void`
-
-Sets the player's health to the specified value.
-
-**Parameters:**
-- `health: int` - The health value to set
-
-**Example:**
-```lua
-player:SetHealth(800)
 ```

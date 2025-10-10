@@ -1,10 +1,18 @@
 import NetVehicleShared from "@classes/netvehicle_shared.mdx"
+import Inherited from "@components/Inherited";
+import NetObjectServerOnly from "@classes/netobject_server_only.mdx";
+import NetObjectBase from "@classes/netobjectbase_shared.mdx";
 
 # NetVehicle
 
 This is the server-side class for NetVehicle.
 
 ## Class Instance Methods
+
+<Inherited from="NetObject" href="/server-api/netobject">
+  <NetObjectServerOnly />
+  <NetObjectBase />
+</Inherited>
 
 <NetVehicleShared />
 

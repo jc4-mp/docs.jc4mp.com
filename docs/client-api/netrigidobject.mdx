@@ -1,10 +1,18 @@
 import NetRigidObjectShared from "@classes/rigidobject_shared.mdx"
+import Inherited from "@components/Inherited";
+import NetObjectClient from "@classes/netobjectbase_client.mdx";
+import NetObjectBase from "@classes/netobjectbase_shared.mdx";
 
 # NetRigidObject
 
 This is the client-side class for NetRigidObject.
 
 ## Class Instance Methods
+
+<Inherited from="NetObject" href="/client-api/netobject">
+  <NetObjectClient />
+  <NetObjectBase />
+</Inherited>
 
 <NetRigidObjectShared />
 
@@ -30,4 +38,18 @@ Returns the local AABB (bounding box) of the rigid object.
 ```lua
 local localAABB = rigidObject:GetLocalAABB()
 print("Rigid object local AABB: " .. tostring(localAABB.min) .. " " .. tostring(localAABB.max))
+```
+
+#### `NetRigidObject:EnableCollision(enable: boolean): void`
+
+Enables or disables collision for this net rigid object on the client.
+
+**Parameters:**
+- `enable: boolean` - Whether to enable (`true`) or disable (`false`) collision
+
+**Example:**
+```lua
+rigidObject:EnableCollision(false)
+-- ... later
+rigidObject:EnableCollision(true)
 ```

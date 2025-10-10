@@ -1,4 +1,4 @@
-# NetPlayer (Shared)
+# NetPlayer
 
 Common `NetPlayer` methods available in both client and server contexts.
 
@@ -12,4 +12,19 @@ import NetPlayerBase from "@classes/netplayerbase_shared.mdx";
 
 <NetPlayerBase />
 
+
+#### `NetPlayer:GetWeaponAmmo(): number`
+
+Returns the current ammo count for the equipped weapon module.
+
+**Returns:** number - Current ammo for the active weapon module
+
+#### `NetPlayer:GetInventoryAmmo(type: AmmoType): number`
+
+Returns the current ammo count for the specified inventory ammo type.
+
+**Parameters:**
+- `type: AmmoType` - The ammo type to query. See [AmmoType](/shared-api/enums/ammotype).
+
+**Returns:** number - Current ammo for the requested type
 

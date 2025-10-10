@@ -88,26 +88,6 @@ local netId = object:GetNetId()
 print("Object network ID: " .. netId)
 ```
 
-#### `NetObject:SetData(key: string, value: any): boolean`
-
-Sets generic data on the object. Value must be a number, string, bool, vec2, vec3, vec4, or quat. Returns true if the data was set successfully, false otherwise (for unsupported types).
-
-**Parameters:**
-- `key: string` - The key to store the data under
-- `value: any` - The value to store (must be a supported type)
-
-**Returns:** boolean - true if the data was set successfully, false otherwise
-
-**Example:**
-```lua
-local success = object:SetData("customValue", 42)
-if success then
-    print("Data set successfully")
-else
-    print("Failed to set data")
-end
-```
-
 #### `NetObject:GetData(key: string): any`
 
 Gets generic data from the object.
