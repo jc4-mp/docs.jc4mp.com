@@ -19,6 +19,7 @@ Default config (located at `cfg/config.json`):
     "steam_web_api_key": "",
     "icon_url": "",
     "banner_url": "",
+    "required_dlcs": [],
     "acl": {},
     "update_url": "https://servers.jc4mp.com/api/v1/servers",
     "startup_resources": [
@@ -125,6 +126,44 @@ URL to an image to use as your server's icon image when shown in the server brow
 #### `banner_url` (string)
 
 URL to an image to use as your server's banner image when shown in the server details page. Maximum size is 1280x720, and recommended size is 766x192. Aspect ratio should be landscape. Supported image formats include png, jpg, and webp. Example image URL: `https://jc4mp.com/tornado.webp`. Maximum file size is 2MB. Supported image hosting domains include: Imgur, Steam, Gravatar, ImageKit, and Cloudinary. Using inappropriate or offensive images will result in your server being blocked from the server list.
+
+#### `required_dlcs` (string array)
+
+This field is an array of Steam DLC App IDs that players must own in order to connect to your server. If this field contains any DLC IDs, players will be required to own all of the specified DLCs before they can join your server. If the array is empty (the default), no DLC requirements will be enforced. However, if players use DLC on your server (such as spawning DLC vehicles), players without DLC may experience issues.
+
+Example config snippet that requires all playesr to own the shark and bark vehicles, brawler mech, and sea dogs vehicles:
+```json
+{
+    "required_dlcs": [
+        "1087131",
+        "1087130",
+        "1087123"
+    ]
+}
+```
+
+The following table lists all available Just Cause 4 DLCs with their corresponding Steam App IDs:
+
+| DLC ID | DLC Name |
+|--------|----------|
+| 1087131 | [Just Cause™ 4: Shark & Bark Vehicle Pack](https://store.steampowered.com/app/1087131/) |
+| 1087130 | [Just Cause™ 4: Brawler Mech](https://store.steampowered.com/app/1087130/) |
+| 1087123 | [Just Cause™ 4: Sea Dogs Vehicle Pack](https://store.steampowered.com/app/1087123/) |
+| 1087122 | [Just Cause™ 4: Adversary Vehicle Pack](https://store.steampowered.com/app/1087122/) |
+| 1087121 | [Just Cause™ 4: Soaring Speed Vehicle Pack](https://store.steampowered.com/app/1087121/) |
+| 1087120 | [Just Cause™ 4: Toy Vehicle Pack](https://store.steampowered.com/app/1087120/) |
+| 1028920 | [Just Cause™ 4: The Dragon](https://store.steampowered.com/app/1028920/) |
+| 972351 | [Just Cause™ 4: Los Demonios](https://store.steampowered.com/app/972351/) |
+| 972350 | [Just Cause™ 4: Danger Rising](https://store.steampowered.com/app/972350/) |
+| 971760 | [Just Cause™ 4: Dare Devils of Destruction](https://store.steampowered.com/app/971760/) |
+| 940080 | [Just Cause™ 4: Japanese Audio Pack](https://store.steampowered.com/app/940080/) |
+| 868429 | [Just Cause™ 4: Renegade Pack](https://store.steampowered.com/app/868429/) |
+| 868428 | [Just Cause™ 4: Neon Racer Pack](https://store.steampowered.com/app/868428/) |
+| 868424 | [Just Cause™ 4: Expansion Pass](https://store.steampowered.com/app/868424/) |
+| 868423 | [Just Cause™ 4: Golden Gear Pack](https://store.steampowered.com/app/868423/) |
+| 868422 | [Just Cause™ 4: Digital Deluxe Content](https://store.steampowered.com/app/868422/) |
+| 868421 | [Just Cause™ 4: Wallpaper](https://store.steampowered.com/app/868421/) |
+| 868420 | [Just Cause™ 4: Deathstalker Scorpion Pack](https://store.steampowered.com/app/868420/) |
 
 
 ---
