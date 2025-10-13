@@ -41,3 +41,12 @@ end
 #### `PlayerClient:Kick(reason: string): void`
 
 Kicks the player from the server with the given reason.
+
+#### `PlayerClient:Ban(reason: string): void`
+
+Bans the player from the server with the given reason. They will be unable to join the server until their ban is removed. Bans are stored in `bans.txt` in the server's root directory. 
+
+A ban can be removed by:
+ - Editing `bans.txt`, removing their Steam ID, and restarting the server
+   - `bans.txt` is a text file containing the Steam IDs of banned players, one per line
+ - Typing `unban <steam_id>` in the server console
