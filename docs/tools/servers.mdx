@@ -1,12 +1,14 @@
 # Servers
 
-To host your own JC4MP server, you'll need to download the server files.
+To host your own JC4MP server, you'll need to download the server files. Players can only connect to your server if their client version is the same as the server version.
 
-## Windows
+## Download
 
-TODO
+import ServerDownload from '@site/src/components/ServerDownload/index';
 
-## Linux
+<ServerDownload />
+
+## Linux Compatibility
 
 The only supported Linux distros are Ubuntu 24.04 and above. This is because JC4MP uses features from C++23 feature set, and this requires g++14 and above for full compliance. g++14 (and necessary dynamic system dependencies) only runs on Ubuntu 24.04 and above, so we can only support those distro versions. Please see below for a full compatibility matrix. As more support is added, this table will be updated. The versions below are those that have been tested and validated by the team.
 
