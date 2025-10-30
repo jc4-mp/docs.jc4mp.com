@@ -19,3 +19,23 @@ Example of getting the terrain information at the player's aim position:
 local info = Terrain.GetInfo(Players.LocalPlayer():GetAimPosition())
 print(info.hasHit, info.hitPos.x, info.hitPos.y, info.hitPos.z, info.height, info.normal.x, info.normal.y, info.normal.z)
 ```
+
+#### `Terrain.SpawnVegetationShockwave(position: vec3, startWidth: float, endWidth: float, startHeight: float, endHeight: float, duration: float, intensity: float, falloff: float): void`
+
+Spawns a vegetation shockwave effect that pushes vegetation away from the specified position.
+
+**Parameters:**
+- `position: vec3` - The position where the shockwave originates
+- `startWidth: float` - The initial width of the shockwave
+- `endWidth: float` - The final width of the shockwave
+- `startHeight: float` - The initial height of the shockwave
+- `endHeight: float` - The final height of the shockwave
+- `duration: float` - The duration of the shockwave effect in seconds
+- `intensity: float` - The intensity of the shockwave
+- `falloff: float` - The falloff rate of the shockwave
+
+**Example:**
+```lua
+-- Spawn a vegetation shockwave at an explosion position
+Terrain.SpawnVegetationShockwave(vec3(1000, 100, 2000), 5.0, 20.0, 2.0, 5.0, 3.0, 1.0, 0.5)
+```

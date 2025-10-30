@@ -71,3 +71,21 @@ Destroys the NPC.
 ```lua
 npc:Destroy()
 ```
+
+#### `NetNPC:Follow(objectToFollow: NetObject, moveType: MoveType, moveStyle: MoveStyle): void`
+
+Makes the NPC follow a specified NetObject. The NPC will continuously move towards the target object.
+
+**Parameters:**
+- `objectToFollow: NetObject` - The object for the NPC to follow
+- `moveType: MoveType` - The type of movement (Walk, Run, Sprint, Idle)
+- `moveStyle: MoveStyle` - The style of movement (Normal, Search, etc.)
+
+**Example:**
+```lua
+-- Make NPC follow a player
+npc:Follow(player, MoveType.Run, MoveStyle.Normal)
+
+-- Make NPC follow a vehicle
+npc:Follow(vehicle, MoveType.Sprint, MoveStyle.Patrol)
+```

@@ -451,3 +451,29 @@ if player:HasFiredWeaponRecently(5.0) then
     print("Player fired weapon within the last 5 seconds")
 end
 ```
+
+#### `NetPlayer:IsReeledIn(): bool`
+
+Returns true if the player is currently being reeled in (pulled towards a grappling hook target), false otherwise.
+
+**Returns:** bool - true if the player is being reeled in, false otherwise
+
+**Example:**
+```lua
+if player:IsReeledIn() then
+    print("Player is being reeled in")
+end
+```
+
+#### `NetPlayer:IsReelingIn(): bool`
+
+Returns true if the player is currently reeling in (actively pulling themselves towards a grappling hook target), false otherwise.
+
+**Returns:** bool - true if the player is reeling in, false otherwise
+
+**Example:**
+```lua
+if player:IsReelingIn() then
+    print("Player is reeling in")
+end
+```

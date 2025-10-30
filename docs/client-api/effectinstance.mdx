@@ -1,0 +1,62 @@
+# EffectInstance
+
+An instance of a particle effect that can be controlled and manipulated.
+
+## Class Instance Methods
+
+#### `EffectInstance:Play(position: vec3): bool`
+
+Replays an effect if it was previously stopped. Returns true if successful, false otherwise.
+
+**Parameters:**
+- `position: vec3` - The position where the effect should play
+
+**Returns:** bool - true if the effect was successfully played, false otherwise
+
+**Example:**
+```lua
+local effect = FX.Spawn("explosion_01", vec3(1000, 100, 2000), vec3(0, 0, 0))
+-- ... later ...
+effect:Play(vec3(1500, 200, 2500))
+```
+
+#### `EffectInstance:Stop(instant: bool): bool`
+
+Stops the effect. Returns true if successful, false otherwise.
+
+**Parameters:**
+- `instant: bool` - Whether to stop the effect instantly (true) or allow it to fade out naturally (false)
+
+**Returns:** bool - true if the effect was successfully stopped, false otherwise
+
+**Example:**
+```lua
+local effect = FX.Spawn("explosion_01", vec3(1000, 100, 2000), vec3(0, 0, 0))
+-- Stop the effect instantly
+effect:Stop(true)
+
+-- Stop the effect with a fade out
+effect:Stop(false)
+```
+
+#### `EffectInstance:SetParameter(paramHash: uint, value: vec4, discrete: bool): void`
+
+Sets a parameter value for the effect. Common parameter names include RPM, Velocity, Intensity, etc. You can hash parameter names using the [hashing tool](/tools/hashing/) to get the `paramHash` value.
+
+**Parameters:**
+- `paramHash: uint` - The hash of the parameter name (use the [hashing tool](/tools/hashing/) to get this value)
+- `value: vec4` - The parameter value to set
+- `discrete: bool` - Whether the parameter value should be discrete (true) or continuous (false)
+
+**Example:**
+```lua
+local effect = FX.Spawn("engine_fire", vec3(1000, 100, 2000), vec3(0, 0, 0))
+-- Set RPM parameter (hash "RPM" using the hashing tool to get the hash value)
+local rpmHash = -- hash value from hashing tool
+effect:SetParameter(rpmHash, vec4(5000.0, 0.0, 0.0, 0.0), false)
+
+-- Set Intensity parameter
+local intensityHash = -- hash value from hashing tool
+effect:SetParameter(intensityHash, vec4(1.0, 0.0, 0.0, 0.0), true)
+```
+

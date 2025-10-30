@@ -1,0 +1,28 @@
+# FX
+
+Global methods for spawning and managing particle effects.
+
+## Global Methods
+
+#### `FX.Spawn(effectName: string, position: vec3, rotation: vec3): EffectInstance`
+
+Spawns and plays a particle effect at the specified position and rotation. Returns an [EffectInstance](/client-api/effectinstance) that can be used to control the effect.
+
+**Parameters:**
+- `effectName: string` - The name of the effect to spawn
+- `position: vec3` - The position where the effect should spawn
+- `rotation: vec3` - The rotation of the effect
+
+**Returns:** EffectInstance - An instance of the effect that can be used to control it
+
+**Example:**
+```lua
+-- Spawn an explosion effect
+local explosion = FX.Spawn("explosion_01", vec3(1000, 100, 2000), vec3(0, 0, 0))
+
+-- Spawn an engine fire effect and control it
+local engineFire = FX.Spawn("engine_fire", vec3(0, 0, 0), vec3(0, 0, 0))
+-- Set parameters, stop/play as needed
+engineFire:SetParameter(someHash, vec4(1.0, 0.0, 0.0, 0.0), false)
+```
+

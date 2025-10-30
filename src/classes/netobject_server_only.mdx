@@ -36,6 +36,19 @@ Sets the health of the network object. This change is synchronized to all player
 object:SetHealth(100)
 ```
 
+#### `NetObject:SetMaxHealth(value: int): void`
+
+Sets the maximum health of the network object. This change is synchronized to all players.
+
+**Parameters:**
+- `value: int` - The new maximum health value for the object
+
+**Example:**
+```lua
+-- Set object max health to 200
+object:SetMaxHealth(200)
+```
+
 #### `NetObject:SetPosition(position: vec3): void`
 
 Sets the position of the network object. This change is synchronized to all players.
