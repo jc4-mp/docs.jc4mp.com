@@ -602,7 +602,7 @@ export default function Chat() {
                   <p>
                     👋 Hello! I'm here to help you with JC4MP development
                     questions. Ask me anything about the API, scripting, or
-                    gamemode development!
+                    gamemode development! <i>(note: not all answers may be correct - double check with the docs)</i>
                   </p>
                 </div>
               </div>
