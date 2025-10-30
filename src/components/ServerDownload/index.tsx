@@ -108,28 +108,36 @@ export default function ServerDownload() {
       )}
 
       {version && !loading && !error && (
-        <div className={styles.downloadButtons}>
-          <button
-            onClick={() => handleDownloadClick("windows")}
-            className={clsx(styles.downloadButton, styles.windowsButton)}
-          >
-            Download Latest Windows Server ({version})
-          </button>
-          
-          <button
-            onClick={() => handleDownloadClick("linux")}
-            className={clsx(styles.downloadButton, styles.linuxButton)}
-          >
-            Download Latest Linux Server ({version})
-          </button>
-          
-          <button
-            onClick={() => handleDownloadClick("linux-aarch64")}
-            className={clsx(styles.downloadButton, styles.linuxButton)}
-          >
-            Download Latest Linux Server ARM64 ({version})
-          </button>
-        </div>
+        <>
+          <p className={styles.introText}>
+            Download the server for your platform below. The latest server version is <code>{version}</code>.
+          </p>
+          <div className={styles.downloadButtons}>
+            <button
+              onClick={() => handleDownloadClick("windows")}
+              className={clsx(styles.downloadButton, styles.windowsButton)}
+            >
+              <span className={styles.buttonMainText}>Download Windows Server</span>
+              <span className={styles.buttonVersionText}>Version {version}</span>
+            </button>
+            
+            <button
+              onClick={() => handleDownloadClick("linux")}
+              className={clsx(styles.downloadButton, styles.linuxButton)}
+            >
+              <span className={styles.buttonMainText}>Download Linux Server</span>
+              <span className={styles.buttonVersionText}>Version {version}</span>
+            </button>
+            
+            <button
+              onClick={() => handleDownloadClick("linux-aarch64")}
+              className={clsx(styles.downloadButton, styles.linuxButton)}
+            >
+              <span className={styles.buttonMainText}>Download Linux Server ARM64</span>
+              <span className={styles.buttonVersionText}>Version {version}</span>
+            </button>
+          </div>
+        </>
       )}
 
       {showModal && (

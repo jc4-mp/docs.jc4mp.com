@@ -17,6 +17,18 @@
   border: 1px solid var(--ifm-color-danger);
 }
 
+.introText {
+  margin-bottom: 1rem;
+  color: var(--ifm-color-emphasis-700);
+}
+
+.introText code {
+  background-color: var(--ifm-color-emphasis-200);
+  padding: 0.125rem 0.375rem;
+  border-radius: var(--ifm-global-radius);
+  font-size: 0.9em;
+}
+
 .downloadButtons {
   display: flex;
   flex-direction: column;
@@ -36,6 +48,20 @@
   color: var(--ifm-color-white);
   background-color: var(--ifm-color-primary);
   max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.buttonMainText {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.buttonVersionText {
+  font-size: 0.875rem;
+  font-weight: 400;
+  opacity: 0.9;
 }
 
 .downloadButton:hover {
