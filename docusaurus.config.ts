@@ -88,11 +88,11 @@ const config: Config = {
   themeConfig: {
     // TODO: Replace with your project's social card
     // image: "img/docusaurus-social-card.jpg",
-    announcementBar: {
-      id: "announcement-bar",
-      backgroundColor: "yellow",
-      content: "This site is under construction and all documentation is subject to change. Visit <a href='https://jc4mp.com' target='_blank'>jc4mp.com</a> for the latest news.",
-    },
+    // announcementBar: {
+    //   id: "announcement-bar",
+    //   backgroundColor: "yellow",
+    //   content: "This site is under construction and all documentation is subject to change. Visit <a href='https://jc4mp.com' target='_blank'>jc4mp.com</a> for the latest news.",
+    // },
     navbar: {
       logo: {
         alt: "JC4MP Logo",

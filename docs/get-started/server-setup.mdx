@@ -4,4 +4,142 @@ sidebar_position: 1
 
 # Server Setup
 
-This page is in progress.
+Get ready to launch your very own Just Cause 4 Multiplayer server! 🚀 In just a few simple steps, you'll have your server up and running, ready to welcome players from around the world.
+
+Follow this guide step-by-step, and you'll be hosting chaos in no time!
+
+## Step 1: Download the Server
+
+First things first - you'll need to download the server files for your platform. Head over to the [Servers](/tools/servers) page and grab the latest build that matches your system.
+
+**Important:** Make sure the server version matches your client version - players can only connect if their client version matches the server version exactly!
+
+:::tip Linux Users
+If you're running Linux, make sure you're on Ubuntu 24.04 or above. Check out the [Linux Compatibility](/tools/servers#linux-compatibility) section for more details!
+:::
+
+## Step 2: Generate Your Config File
+
+Once you've downloaded and extracted the server files, run the server for the first time. This will automatically create a default configuration file at `cfg/config.json` with all the necessary settings!
+
+Simply start your server executable - it will generate the config file and then exit (or you can stop it manually). Don't worry about any errors you might see during this first run - we'll configure everything next!
+
+## Step 3: Customize Your Server Name and Description
+
+Open up `cfg/config.json` in your favorite text editor. You'll see a default configuration file with all the necessary fields.
+
+Update these two fields to make your server unique:
+
+- **`name`** - Choose a catchy name that will appear in the server browser!
+- **`description`** - Write a fun description that tells players what your server is all about!
+
+```json
+{
+    "name": "My Awesome JC4MP Server",
+    "description": "Come join us for epic multiplayer chaos and destruction!",
+    // ... rest of config
+}
+```
+
+## Step 4: Get Your JC4MP Server Key
+
+To make your server appear on the official [JC4MP server list](https://servers.jc4mp.com), you'll need a server key!
+
+1. Visit the [JC4MP Server Dashboard](https://servers.jc4mp.com/dashboard)
+2. Log in with your Steam account
+3. Generate a new server key (it will look like `JC4MP_pBJVVEZXi3V1e3FDTC039hnc2QYAXloP`)
+4. Copy the key and paste it into the `key` field in your `config.json`
+
+:::warning Keep Your Key Safe
+**Never share your server key with anyone!** This key is unique to your server and should be kept private. If you need multiple servers, generate a separate key for each one.
+:::
+
+## Step 5: Get Your Steam Web API Key
+
+Your server needs a Steam Web API key to authenticate players through Steam. Don't worry - this is free and easy to get!
+
+1. Visit [Steam's Web API Key page](https://steamcommunity.com/dev/apikey)
+2. Log in with your Steam account
+3. Enter a domain name (you can use any valid domain, such as `example.com` - this is just for identification)
+4. Click "Register" and copy your API key
+5. Paste it into the `steam_web_api_key` field in your `config.json`
+
+:::tip One Key, Many Servers
+You can use the same Steam Web API key for all your servers - no need to generate a new one for each server!
+:::
+
+## Step 6: Add Your Server Icon and Banner (Optional but Recommended!)
+
+Make your server stand out in the server browser with custom images!
+
+### Server Icon
+- **Size:** 512x512 pixels (square)
+- **Format:** PNG, JPG, or WEBP
+- **Max Size:** 1MB
+- **Hosting:** Use Imgur, Steam, Gravatar, ImageKit, or Cloudinary
+
+Add your icon URL to the `icon_url` field:
+
+```json
+{
+    "icon_url": "https://example.com/my-server-icon.png",
+    // ... rest of config
+}
+```
+
+### Server Banner
+- **Size:** 1280x720 maximum (766x192 recommended, landscape)
+- **Format:** PNG, JPG, or WEBP
+- **Max Size:** 2MB
+- **Hosting:** Use Imgur, Steam, Gravatar, ImageKit, or Cloudinary
+
+Add your banner URL to the `banner_url` field:
+
+```json
+{
+    "banner_url": "https://example.com/my-server-banner.png",
+    // ... rest of config
+}
+```
+
+:::info Image Guidelines
+Using inappropriate or offensive images will result in your server being blocked from the server list. Keep it clean and fun!
+:::
+
+## Step 7: Configure Your Firewall
+
+Before starting your server, make sure your firewall allows the necessary ports through!
+
+By default, your server uses port **7777** for player connections. The server also opens a HTTP server on port **7778** (port + 1) for server information and mod distribution.
+
+**Make sure both ports are open:**
+- Port `7777` (or whatever port you set in the config)
+- Port `7778` (or port + 1)
+
+If you're using a different port, adjust accordingly - always allow both your main port and port+1!
+
+## Step 8: Start Your Server!
+
+Everything is configured? Excellent! It's time to launch your server and watch the magic happen! 🎉
+
+Start your server executable and you should see it initialize. Once it's running:
+
+1. Your server will automatically appear on the [JC4MP server list](https://servers.jc4mp.com) (if you set `announce` to `true` and have a valid `key`)
+2. Players can now find and connect to your server!
+3. You can connect yourself using the JC4MP launcher
+
+## What's Next?
+
+Congratulations! Your server is now running!
+
+Want to customize it further? Check out the [Server Configuration](/get-started/server-config) guide for all the advanced options available, including:
+
+- Setting up resources and scripts
+- Configuring access control lists (ACL)
+- Managing mods
+- Setting up DLC requirements
+- And much more!
+
+Ready to add some custom scripts? Head over to the [Adding Scripts](/get-started/adding-scripts) guide to start building amazing features for your server!
+
+Happy hosting!
