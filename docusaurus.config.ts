@@ -114,6 +114,11 @@ const config: Config = {
           label: "Chat with Rico",
         },
         {
+          to: "https://jc4mp.com",
+          position: "left",
+          label: "Download JC4MP",
+        },
+        {
           href: "https://jc4mp.com/discord",
           label: "Discord",
           position: "right",
