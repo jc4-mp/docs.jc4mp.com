@@ -4,9 +4,9 @@ Input-related APIs.
 
 ## Events
 
-#### `KeyDown: (key: number)`
+#### `OnKeyDown: (key: number)`
 
-The `KeyDown` event fires every time a key on the keyboard is pressed. The first argument is the numerical value of the key that was pressed. To get a list of non-numerical key values (such as the delete key), see [Key](/client-api/key).
+The `OnKeyDown` event fires every time a key on the keyboard is pressed. The first argument is the numerical value of the key that was pressed. To get a list of non-numerical key values (such as the delete key), see [Key](/client-api/key).
 
 Example that teleports the local player to their aim position when they press F:
 
@@ -20,9 +20,9 @@ Event.Add("OnKeyDown", function(key)
 end)
 ```
 
-#### `KeyUp: (key: number)`
+#### `OnKeyUp: (key: number)`
 
-The `KeyUp` event fires every time a key on the keyboard is pressed. The first argument is the numerical value of the key that was pressed. To get a list of non-numerical key values (such as the delete key), see [Key](/client-api/key).
+The `OnKeyUp` event fires every time a key on the keyboard is released. The first argument is the numerical value of the key that was pressed. To get a list of non-numerical key values (such as the delete key), see [Key](/client-api/key).
 
 Example that teleports the local player to their aim position when they press F:
 
@@ -36,9 +36,9 @@ Event.Add("OnKeyUp", function(key)
 end)
 ```
 
-#### `MouseDown`
+#### `OnMouseDown`
 
-The `MouseDown` event fires every time a button on the mouse is pressed down. Use `Key.MouseLeft` for left clicks, `Key.MouseRight` for right clicks, and `Key.MouseMid` for middle clicks.
+The `OnMouseDown` event fires every time a button on the mouse is pressed down. Use `Key.MouseLeft` for left clicks, `Key.MouseRight` for right clicks, and `Key.MouseMid` for middle clicks.
 
 Example that teleports the local player to their aim position when they left clicking:
 
