@@ -1,0 +1,151 @@
+---
+sidebar_position: 3
+---
+
+# Troubleshooting
+
+Running into issues with your server or client? This guide covers common problems and their solutions.
+
+## Server Connection Issues
+
+### "Failed to connect to server. Are you sure it is up?"
+
+If you're experiencing this error message, it's usually related to firewall or port configuration issues.
+
+**Solution:**
+
+Make sure that both ports are open in your firewall:
+
+- Port `7777` (or whatever port you set in your config as the `port` field)
+- Port `7778` (or your configured port + 1)
+
+The server uses two ports:
+- The main port (default 7777) for player connections
+- Port + 1 (default 7778) for the HTTP server that serves server information and mods
+
+**To check if your ports are open:**
+
+1. **Windows Firewall:**
+   - Open Windows Defender Firewall
+   - Click "Advanced settings"
+   - Create inbound rules for both TCP ports (your port and port+1)
+
+2. **Linux (iptables/ufw):**
+   ```bash
+   # For ufw
+   sudo ufw allow 7777/tcp
+   sudo ufw allow 7778/tcp
+   
+   # For iptables
+   sudo iptables -A INPUT -p tcp --dport 7777 -j ACCEPT
+   sudo iptables -A INPUT -p tcp --dport 7778 -j ACCEPT
+   ```
+
+3. **Router/Network Configuration:**
+   - If you're hosting from home, make sure your router forwards both ports to your server's local IP address
+   - Check that your ISP isn't blocking these ports
+
+4. **Cloud Hosting:**
+   - Verify that your cloud provider's security groups/firewall rules allow both ports
+   - Some providers require you to explicitly open ports in their control panel
+
+:::tip Port Configuration
+If you've changed your server's port in `config.json`, remember to open both the new port AND port+1. For example, if your server uses port 8888, you'll need to open ports 8888 and 8889.
+:::
+
+### "Invalid address. IPv6 is not supported"
+
+If you see this error message, it means your machine is using IPv6, but JC4MP servers require IPv4 connectivity. You'll need to configure your system or network to use IPv4.
+
+**Solution:**
+
+JC4MP servers only support IPv4 addresses. Here are common ways to resolve this issue:
+
+#### For Linux Cloud Hosting
+
+If you're hosting on a cloud provider (AWS, DigitalOcean, Linode, etc.):
+
+**Reserve a Public IPv4 Address**
+   - Most cloud providers assign IPv6 by default or require you to explicitly request an IPv4 address
+   - In your cloud provider's control panel, look for networking settings
+   - Request or allocate a public IPv4 address for your server instance
+   - Make sure your server is binding to the IPv4 address (usually `0.0.0.0` or your specific IPv4 address)
+
+#### For Home/Residential Setup
+
+If you're hosting from home:
+
+1. **Check Router Settings**
+   - Log into your router's admin panel (usually `192.168.1.1` or `192.168.0.1`)
+   - Look for IPv6 settings and disable IPv6 if it's causing issues
+   - Ensure your router is forwarding IPv4 traffic properly
+
+2. **Update Port Forwarding**
+   - Make sure your router's port forwarding rules are configured for IPv4
+   - Verify that your server's local IPv4 address is being used (not IPv6)
+
+3. **ISP Configuration**
+   - Some ISPs may provide IPv6-only connections
+   - Contact your ISP to request IPv4 connectivity or a dual-stack connection
+   - You may need to request a static IPv4 address
+
+#### For Windows Servers
+
+1. **Disable IPv6 (if needed)**
+   - Open Network and Sharing Center
+   - Go to your network adapter properties
+   - Uncheck "Internet Protocol Version 6 (TCP/IPv6)"
+   - Restart your network adapter
+
+2. **Verify IPv4 Binding**
+   - Ensure your server is binding to IPv4 addresses (check your server configuration)
+
+#### Testing Your Configuration
+
+To verify you're using IPv4:
+
+```bash
+# Check your IP address (should show IPv4)
+ip addr show    # Linux
+ipconfig        # Windows
+
+# Test connectivity using IPv4
+ping -4 google.com    # Linux
+ping -4 google.com    # Windows (PowerShell)
+```
+
+:::warning IPv6 Support
+JC4MP currently only supports IPv4. If you're on an IPv6-only network, you'll need to configure IPv4 connectivity or use a tunnel service that provides IPv4 access.
+:::
+
+## Other Common Issues
+
+### Server Not Appearing in Server List
+
+If your server isn't showing up in the [JC4MP server list](https://servers.jc4mp.com):
+
+1. **Check your `announce` field** - Make sure it's set to `true` in your `config.json`
+2. **Verify your server key** - Ensure you have a valid `key` from the [JC4MP Server Dashboard](https://servers.jc4mp.com/dashboard)
+3. **Check your `update_url`** - Should be set to `https://servers.jc4mp.com/api/v1/servers`
+4. **Wait a few moments** - Server list updates may take a few moments to propagate
+
+### Version Mismatch Errors
+
+If players can't connect and see version mismatch errors:
+
+- **Server version must match client version exactly**
+- Make sure both your server and clients are using the latest version
+- Check the [Servers](/tools/servers) page to ensure you have the latest server build
+
+### Authentication Issues
+
+If players are having trouble authenticating:
+
+1. **Verify your Steam Web API Key** - Make sure your `steam_web_api_key` in `config.json` is valid
+2. **Check Steam API Status** - Visit [Steam's API status page](https://steamstat.us/) to ensure Steam services are operational
+3. **Regenerate your API key** - If issues persist, try generating a new Steam Web API key from [Steam's Web API Key page](https://steamcommunity.com/dev/apikey)
+
+---
+
+Need more help? Check out our other guides or visit the [JC4MP Discord](https://jc4mp.com/discord) for community support!
+
