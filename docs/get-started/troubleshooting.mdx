@@ -145,6 +145,24 @@ If players are having trouble authenticating:
 2. **Check Steam API Status** - Visit [Steam's API status page](https://steamstat.us/) to ensure Steam services are operational
 3. **Regenerate your API key** - If issues persist, try generating a new Steam Web API key from [Steam's Web API Key page](https://steamcommunity.com/dev/apikey)
 
+### Connecting Directly via IP
+
+If your server isn't appearing in the server list, or if you want to connect quickly, you can connect directly using the IP address:
+
+**How to connect:**
+1. Open the JC4MP launcher
+2. Type the server's IP address at the top of the launcher (include the port if not using default 7777, e.g., `192.168.1.100:7777`)
+3. Press Enter to connect
+
+**For local servers:**
+If you're hosting locally at home and want to connect from the same machine:
+- Use `localhost` (or `127.0.0.1`) to connect to your local server
+- Or find your local IP address:
+  - **Windows:** Open Command Prompt and run `ipconfig` - look for "IPv4 Address" under your network adapter
+  - **Linux/Mac:** Open Terminal and run `ifconfig` or `ip addr show` - look for your local IP (usually starts with `192.168.` or `10.`)
+
+Example: If your local IP is `192.168.1.100`, type `192.168.1.100:7777` in the launcher to connect.
+
 ---
 
 Need more help? Check out our other guides or visit the [JC4MP Discord](https://jc4mp.com/discord) for community support!
