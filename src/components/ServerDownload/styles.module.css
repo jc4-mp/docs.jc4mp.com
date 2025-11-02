@@ -28,6 +28,188 @@
   font-size: 0.9em;
 }
 
+.tableWrapper {
+  margin-top: 1rem;
+  overflow-x: auto;
+}
+
+.downloadTable {
+  border-collapse: collapse;
+  border-spacing: 0;
+  background-color: var(--ifm-background-color);
+  border-radius: var(--ifm-global-radius);
+}
+
+.downloadTable thead {
+  background-color: var(--ifm-color-emphasis-100);
+}
+
+.downloadTable th {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ifm-color-emphasis-700);
+  border-bottom: 2px solid var(--ifm-color-emphasis-200);
+}
+
+.downloadTable tbody {
+
+  border: 1px solid var(--ifm-color-emphasis-300);
+}
+
+.downloadTable td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--ifm-color-emphasis-200);
+  color: var(--ifm-color-emphasis-800);
+}
+
+.downloadTable tbody tr:hover {
+  background-color: var(--ifm-color-emphasis-50);
+}
+
+.downloadTable tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.latestBadge {
+  display: inline-block;
+  margin-left: 0.5rem;
+  padding: 0.125rem 0.5rem;
+  background-color: var(--ifm-color-primary);
+  color: var(--ifm-color-white);
+  border-radius: var(--ifm-global-radius);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.downloadLink {
+  color: var(--ifm-color-primary);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: inherit;
+  text-align: left;
+}
+
+.downloadLink:hover {
+  color: var(--ifm-color-primary-dark);
+  text-decoration: underline;
+}
+
+.latestSection {
+  margin-top: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.sectionTitle {
+  margin-bottom: 0.75rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--ifm-color-emphasis-900);
+}
+
+.previousSection {
+  margin-top: 2rem;
+  border-top: 1px solid var(--ifm-color-emphasis-200);
+  padding-top: 1.5rem;
+}
+
+.toggleButton {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  background-color: var(--ifm-color-emphasis-100);
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: var(--ifm-global-radius);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--ifm-color-emphasis-800);
+}
+
+.toggleButton:hover {
+  background-color: var(--ifm-color-emphasis-200);
+  border-color: var(--ifm-color-emphasis-300);
+}
+
+.toggleButtonText {
+  flex: 1;
+  text-align: left;
+}
+
+.toggleIcon {
+  font-size: 0.75rem;
+  transition: transform 0.2s ease;
+  color: var(--ifm-color-emphasis-600);
+}
+
+.toggleIconOpen {
+  transform: rotate(180deg);
+}
+
+.previousContent {
+  margin-top: 1rem;
+  max-height: 500px;
+  overflow-y: auto;
+  padding-right: 0.5rem;
+}
+
+.previousContent::-webkit-scrollbar {
+  width: 8px;
+}
+
+.previousContent::-webkit-scrollbar-track {
+  background: var(--ifm-color-emphasis-100);
+  border-radius: 4px;
+}
+
+.previousContent::-webkit-scrollbar-thumb {
+  background: var(--ifm-color-emphasis-300);
+  border-radius: 4px;
+}
+
+.previousContent::-webkit-scrollbar-thumb:hover {
+  background: var(--ifm-color-emphasis-400);
+}
+
+/* Dark mode adjustments */
+[data-theme='dark'] .downloadTable {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme='dark'] .downloadTable thead {
+  background-color: var(--ifm-color-emphasis-100);
+}
+
+[data-theme='dark'] .downloadTable tbody tr:hover {
+  background-color: var(--ifm-color-emphasis-100);
+}
+
+[data-theme='dark'] .previousContent::-webkit-scrollbar-track {
+  background: var(--ifm-color-emphasis-200);
+}
+
+[data-theme='dark'] .previousContent::-webkit-scrollbar-thumb {
+  background: var(--ifm-color-emphasis-400);
+}
+
+[data-theme='dark'] .previousContent::-webkit-scrollbar-thumb:hover {
+  background: var(--ifm-color-emphasis-500);
+}
+
 .downloadButtons {
   display: flex;
   flex-direction: column;
