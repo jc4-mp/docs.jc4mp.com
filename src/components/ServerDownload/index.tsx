@@ -95,15 +95,27 @@ export default function ServerDownload() {
      */
     const fetchArtifacts = async () => {
       try {
-        const response = await fetch("https://jc4mp.com/server-artifacts", {
+        // Fetch latest version
+        const latestResponse = await fetch("https://artifacts.jc4mp.com/releases/latest.txt", {
           cache: "no-cache",
         });
-        if (!response.ok) {
+        if (!latestResponse.ok) {
+          throw new Error("Failed to fetch latest version");
+        }
+        const latestVersionText = await latestResponse.text();
+        const latestVer = latestVersionText.trim();
+        setLatestVersion(latestVer);
+
+        // Fetch all artifacts for history
+        const artifactsResponse = await fetch("https://jc4mp.com/server-artifacts", {
+          cache: "no-cache",
+        });
+        if (!artifactsResponse.ok) {
           throw new Error("Failed to fetch artifacts");
         }
-        const data: ServerArtifactsResponse = await response.json();
+        const data: ServerArtifactsResponse = await artifactsResponse.json();
         
-        // Parse artifacts
+        // Parse all artifacts
         const parsed: ParsedArtifact[] = [];
         for (const artifact of data.client) {
           const version = parseVersion(artifact.url);
@@ -118,35 +130,76 @@ export default function ServerDownload() {
           });
         }
 
-        // Find latest version
-        let latestVer: string | null = null;
-        if (parsed.length > 0) {
-          const versions = [...new Set(parsed.map(a => a.version))];
-          versions.sort(compareVersions);
-          latestVer = versions[0];
-          setLatestVersion(latestVer);
+        // Construct latest artifacts URLs
+        const latestArtifactsUrls = [
+          `https://artifacts.jc4mp.com/releases/JC4MP_server_windows_${latestVer}.zip`,
+          `https://artifacts.jc4mp.com/releases/JC4MP_server_linux_${latestVer}.zip`,
+          `https://artifacts.jc4mp.com/releases/JC4MP_server_linux_aarch64_${latestVer}.zip`,
+        ];
+
+        // Find matching artifacts from history for latest version to get sizes
+        const latestArtifactsList: ParsedArtifact[] = [];
+        const platformMap = {
+          windows: { platform: "windows" as const, display: "Windows" },
+          linux: { platform: "linux" as const, display: "Linux" },
+          linux_aarch64: { platform: "aarch" as const, display: "Linux ARM64" },
+        };
+
+        for (const url of latestArtifactsUrls) {
+          // Extract filename from URL for comparison
+          const urlFilename = url.split("/").pop() || "";
+          
+          // Try to find matching artifact in parsed list for size (compare by filename)
+          const matchingArtifact = parsed.find(a => {
+            const artifactFilename = a.url.split("/").pop() || "";
+            return artifactFilename === urlFilename;
+          });
+          
+          if (matchingArtifact) {
+            // Use the constructed URL but keep the size and metadata from history
+            latestArtifactsList.push({
+              ...matchingArtifact,
+              url, // Use the constructed URL
+            });
+          } else {
+            // If not found in history, construct artifact with unknown size
+            let platformInfo;
+            if (url.includes("_windows_")) {
+              platformInfo = platformMap.windows;
+            } else if (url.includes("_linux_aarch64_")) {
+              platformInfo = platformMap.linux_aarch64;
+            } else {
+              platformInfo = platformMap.linux;
+            }
+            
+            latestArtifactsList.push({
+              url,
+              size: 0, // Size unknown if not in history
+              last_modified: new Date().toISOString(),
+              version: latestVer,
+              platform: platformInfo.platform,
+              platformDisplay: platformInfo.display,
+            });
+          }
         }
 
-        // Sort: latest versions first, then within each version: windows, linux, aarch
+        // Sort latest artifacts: windows, linux, aarch
         const platformOrder = { windows: 0, linux: 1, aarch: 2 };
-        parsed.sort((a, b) => {
+        latestArtifactsList.sort((a, b) => platformOrder[a.platform] - platformOrder[b.platform]);
+
+        // Filter out latest version from previous artifacts
+        const previousArtifactsList = parsed.filter(a => a.version !== latestVer);
+
+        // Sort previous artifacts: latest versions first, then within each version: windows, linux, aarch
+        previousArtifactsList.sort((a, b) => {
           const versionCompare = compareVersions(a.version, b.version);
           if (versionCompare !== 0) return versionCompare;
           return platformOrder[a.platform] - platformOrder[b.platform];
         });
 
-        // Separate latest and previous artifacts
-        if (latestVer) {
-          const latest = parsed.filter(a => a.version === latestVer);
-          const previous = parsed.filter(a => a.version !== latestVer);
-          setLatestArtifacts(latest);
-          setPreviousArtifacts(previous);
-        } else {
-          setLatestArtifacts([]);
-          setPreviousArtifacts(parsed);
-        }
-
-        setArtifacts(parsed);
+        setLatestArtifacts(latestArtifactsList);
+        setPreviousArtifacts(previousArtifactsList);
+        setArtifacts([...latestArtifactsList, ...previousArtifactsList]);
       } catch (err) {
         setError("Failed to load server artifacts");
         console.error("Error fetching artifacts:", err);
@@ -225,7 +278,7 @@ export default function ServerDownload() {
                 </td>
               )}
               <td>{artifact.platformDisplay}</td>
-              <td>{formatFileSize(artifact.size)}</td>
+              <td>{artifact.size > 0 ? formatFileSize(artifact.size) : "Unknown"}</td>
               <td>
                 <button
                   type="button"
