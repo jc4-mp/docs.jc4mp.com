@@ -122,7 +122,63 @@ If you're using a different port, adjust accordingly - always allow both your ma
 If you're hosting your server from home, be aware that your public IP address will be visible to anyone who connects to your server or views it on the server list. This can expose your location and make your home network a target. Consider using a cloud hosting provider or a VPN if privacy is a concern.
 :::
 
-## Step 8: Start Your Server!
+## Step 8: Download and Add Default Scripts
+
+To get started quickly with essential server functionality, you can download the official default scripts! These include helpful features like chat commands, player management, and more.
+
+### Download the Default Scripts
+
+1. Download the default scripts zip file:
+   - **Direct Download:** [default-scripts.zip](https://github.com/jc4-mp/default-scripts/archive/refs/heads/main.zip)
+   - **GitHub Repository:** [jc4-mp/default-scripts](https://github.com/jc4-mp/default-scripts)
+
+2. Extract the zip file - you'll see a folder called `default-scripts-main` (or similar)
+
+3. Open the extracted folder and copy all the resource folders inside (they should be folders like `chat`, `commands`, etc.)
+
+4. Paste these folders into your server's `resources` folder:
+   ```
+   your-server/
+   └── resources/
+       ├── freeroam/
+       ├── spawn-menu/
+       └── ... (other default script folders)
+   ```
+
+### Add Scripts to Startup Resources
+
+Now you need to tell your server to load these scripts when it starts:
+
+1. Open `cfg/config.json` in your text editor
+
+2. Find the `startup_resources` field - it should look like this:
+   ```json
+   "startup_resources": [
+       "resource1",
+       "resource2",
+       "resource3"
+   ]
+   ```
+
+3. Replace the example resource names with the actual default script folder names. For example:
+   ```json
+   "startup_resources": [
+       "freeroam",
+       "spawn-menu"
+   ]
+   ```
+
+   Add all the default script folder names to this array. Make sure the names match exactly (case-sensitive)!
+
+:::tip Finding Resource Names
+The resource name is simply the folder name inside your `resources` directory. If you have a folder at `resources/chat/`, the resource name is `chat`.
+:::
+
+:::info Default Scripts are Optional
+You can skip this step if you want to build everything from scratch, but the default scripts provide a great starting point and include essential functionality for most servers!
+:::
+
+## Step 9: Start Your Server!
 
 Everything is configured? Excellent! It's time to launch your server and watch the magic happen! 🎉
 
