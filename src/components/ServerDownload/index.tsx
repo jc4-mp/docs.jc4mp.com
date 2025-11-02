@@ -95,7 +95,9 @@ export default function ServerDownload() {
      */
     const fetchArtifacts = async () => {
       try {
-        const response = await fetch("https://jc4mp.com/server-artifacts");
+        const response = await fetch("https://jc4mp.com/server-artifacts", {
+          cache: "no-cache",
+        });
         if (!response.ok) {
           throw new Error("Failed to fetch artifacts");
         }
