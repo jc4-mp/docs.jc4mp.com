@@ -108,3 +108,15 @@ Warps the player into a [vehicle](/server-api/netvehicle) at a specific [seat](/
 ```lua
 player:WarpIntoVehicle(someVehicle, VehicleSeat.Driver)
 ```
+
+#### `NetPlayer:SetSkin(name: string): void`
+
+Sets the skin of the player. See the [Skins List](/reference/skins-list) for a list of available skins.
+
+**Parameters:**
+- `name: string` - The name of the skin to set
+
+**Example:**
+```lua
+player:SetSkin("Mira")
+```
