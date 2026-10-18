@@ -13,7 +13,7 @@ interface ParsedArtifact {
   size: number;
   last_modified: string;
   version: string;
-  platform: "windows" | "linux" | "aarch";
+  platform: "windows" | "linux";
   platformDisplay: string;
 }
 
@@ -44,19 +44,17 @@ export default function ServerDownload() {
    */
   const parseVersion = (url: string): string | null => {
     // Match: JC4MP_server_{platform}_{version}.zip
-    // Platform can be: windows, linux, or linux_aarch64
-    const match = url.match(/JC4MP_server_(?:windows|linux(?:_aarch64)?)_(.+?)\.zip$/);
+    // Platform can be: windows or linux; version is a single filename segment.
+    const match = url.match(/JC4MP_server_(?:windows|linux)_([^_/]+)\.zip$/);
     return match ? match[1] : null;
   };
 
   /**
    * Parses platform from URL.
    */
-  const parsePlatform = (url: string): { platform: "windows" | "linux" | "aarch"; display: string } => {
+  const parsePlatform = (url: string): { platform: "windows" | "linux"; display: string } => {
     if (url.includes("_windows_")) {
       return { platform: "windows", display: "Windows" };
-    } else if (url.includes("_linux_aarch64_")) {
-      return { platform: "aarch", display: "Linux ARM64" };
     } else if (url.includes("_linux_")) {
       return { platform: "linux", display: "Linux" };
     }
@@ -134,7 +132,6 @@ export default function ServerDownload() {
         const latestArtifactsUrls = [
           `https://artifacts.jc4mp.com/releases/JC4MP_server_windows_${latestVer}.zip`,
           `https://artifacts.jc4mp.com/releases/JC4MP_server_linux_${latestVer}.zip`,
-          `https://artifacts.jc4mp.com/releases/JC4MP_server_linux_aarch64_${latestVer}.zip`,
         ];
 
         // Find matching artifacts from history for latest version to get sizes
@@ -142,7 +139,6 @@ export default function ServerDownload() {
         const platformMap = {
           windows: { platform: "windows" as const, display: "Windows" },
           linux: { platform: "linux" as const, display: "Linux" },
-          linux_aarch64: { platform: "aarch" as const, display: "Linux ARM64" },
         };
 
         for (const url of latestArtifactsUrls) {
@@ -166,8 +162,6 @@ export default function ServerDownload() {
             let platformInfo;
             if (url.includes("_windows_")) {
               platformInfo = platformMap.windows;
-            } else if (url.includes("_linux_aarch64_")) {
-              platformInfo = platformMap.linux_aarch64;
             } else {
               platformInfo = platformMap.linux;
             }
@@ -183,14 +177,14 @@ export default function ServerDownload() {
           }
         }
 
-        // Sort latest artifacts: windows, linux, aarch
-        const platformOrder = { windows: 0, linux: 1, aarch: 2 };
+        // Sort latest artifacts: windows, linux
+        const platformOrder = { windows: 0, linux: 1 };
         latestArtifactsList.sort((a, b) => platformOrder[a.platform] - platformOrder[b.platform]);
 
         // Filter out latest version from previous artifacts
         const previousArtifactsList = parsed.filter(a => a.version !== latestVer);
 
-        // Sort previous artifacts: latest versions first, then within each version: windows, linux, aarch
+        // Sort previous artifacts: latest versions first, then within each version: windows, linux
         previousArtifactsList.sort((a, b) => {
           const versionCompare = compareVersions(a.version, b.version);
           if (versionCompare !== 0) return versionCompare;
