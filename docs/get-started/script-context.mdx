@@ -4,7 +4,7 @@ sidebar_position: 4
 
 # Script Context
 
-Every `.lua` script runs in isolation of every other `.lua` script. This means that each script has no knowledge of the other, and all variables are completely isolated.
+Every `.lua` script runs in isolation of every other `.lua` script, in its own Lua state. This means that each script has no knowledge of the other, and all variables are completely isolated. This is true even for two files in the same resource.
 
 For example, if you declare a non-local variable in one script:
 ```lua
@@ -20,4 +20,10 @@ Another script in the same resource (or any other resource) **_cannot_** access 
 print(tostring(MyGlobalVar)) -- Prints "nil"
 ```
 
-If you want to share static data and functionality between scripts (eg. in the example above), you can use **[Modules](/shared-api/modules)**. If you want to share dynamic data between scripts at runtime, such as telling a script to add one to a counter when a user does an action, you can use **[Events](/shared-api/events)**.
+Use `local` for your variables and functions, and share between scripts like this:
+
+- **Static data and functions:** put them in a module that returns a table, and load it with **[`require`](/shared/resources#require)**. Module names are paths from the `resources` folder with dots, so `resources/test/shared/config.lua` is `require("test.shared.config")`.
+- **Dynamic data at runtime**, such as telling a script to add one to a counter when a user does an action: use **[Events](/shared/events)** (`Event.Add` / `Event.Fire`).
+- **Between the server and players:** use **[Net](/shared/net)** messages.
+
+The order in which the files of a resource start is not defined, so don't rely on another file having run first. Do setup that depends on other files in `OnResourceStart`. See [Resources](/shared/resources#scripts) for details.

@@ -6,7 +6,7 @@ sidebar_position: 2
 
 Every server needs to have a valid configuration file.
 
-Default config (located at `cfg/config.json`):
+The server creates a default config at `cfg/config.json` the first time it starts:
 ```json
 {
     "name": "Just Cause 4 Multiplayer Server",
@@ -14,7 +14,7 @@ Default config (located at `cfg/config.json`):
     "port": 7777,
     "max_players": 100,
     "password": "",
-    "announce": true,
+    "announce": false,
     "key": "",
     "steam_web_api_key": "",
     "icon_url": "",
@@ -22,13 +22,13 @@ Default config (located at `cfg/config.json`):
     "required_dlcs": [],
     "acl": {},
     "update_url": "https://servers.jc4mp.com/api/v1/servers",
-    "startup_resources": [
-        "resource1",
-        "resource2",
-        "resource3"
-    ]
+    "startup_resources": []
 }
 ```
+
+:::info Upgrading from 1.x
+Config files from 1.x keep working in 2.0.0: every key keeps its name and meaning. 2.0.0 adds two optional keys, [`peer_timeout`](#peer_timeout-number) and [`crash_upload`](#crash_upload-boolean).
+:::
 
 
 #### `name` (string)
@@ -55,27 +55,26 @@ This is the password for your server. If it is a valid string, then players who 
 
 #### `announce` (boolean)
 
-Set this to true if you would like to announce your server to the [JC4MP server list](https://servers.jc4mp.com), allowing anyone to see it and connect to it. If this is false, your server will still run properly, but it will not appear in the server list, so players will need to direct connect with your server's IP instead.
+Set this to `true` if you would like to announce your server to the [JC4MP server list](https://servers.jc4mp.com), allowing anyone to see it and connect to it. If this is false, your server will still run properly, but it will not appear in the server list, so players will need to direct connect with your server's IP instead.
 
-Keep in mind that you also need to have a valid `key` and `update_url` for your server to appear on the server list - setting this to true is not enough.
+The default value is `false`, so a new server stays private until you turn this on. Keep in mind that you also need to have a valid `key` and `update_url` for your server to appear on the server list - setting this to true is not enough.
 
 #### `startup_resources` (string array)
 
-This field is a list of resources to load when the server starts up. To learn more about adding resources, see the [Adding Scripts](/get-started/adding-scripts) guide.
+This field is a list of resources to start when the server starts up, by resource (folder) name. It is empty by default. To learn more about adding resources, see the [Adding Scripts](/get-started/adding-scripts) guide.
 
 
 #### `acl` (object)
 
-This field is used to specify the access control list roles for players on your server. The default value is an empty object, which means that all players will have the default role.
+This field gives players permission levels on your server. It maps a player's Steam ID to one role. The default value is an empty object, which means that no player has any permissions.
 
 Valid roles are:
 
 - `owner`
 - `admin`
 - `moderator`
-- `normal`
 
-The default role is `normal`.
+Players who are not listed are regular players. Scripts read these roles as [`AclLevel`](/shared/enums/acl-level) flags (`client:HasAcl(AclLevel.Admin)`), and can change them at runtime with `client:SetAcl(...)`.
 
 Example of roles for players via Steam ID:
 
@@ -92,6 +91,7 @@ Example of roles for players via Steam ID:
     "steam_web_api_key": "",
     "icon_url": "",
     "banner_url": "",
+    "required_dlcs": [],
     "acl": {
         "76561198000000000": "owner",
         "76561198000000001": "admin",
@@ -99,9 +99,8 @@ Example of roles for players via Steam ID:
     },
     "update_url": "https://servers.jc4mp.com/api/v1/servers",
     "startup_resources": [
-        "resource1",
-        "resource2",
-        "resource3"
+        "freeroam",
+        "spawn-menu"
     ]
 }
 ```
@@ -131,7 +130,7 @@ URL to an image to use as your server's banner image when shown in the server de
 
 This field is an array of Steam DLC App IDs that players must own in order to connect to your server. If this field contains any DLC IDs, players will be required to own all of the specified DLCs before they can join your server. If the array is empty (the default), no DLC requirements will be enforced. However, if players use DLC on your server (such as spawning DLC vehicles), players without DLC may experience issues.
 
-Example config snippet that requires all playesr to own the shark and bark vehicles, brawler mech, and sea dogs vehicles:
+Example config snippet that requires all players to own the shark and bark vehicles, brawler mech, and sea dogs vehicles:
 ```json
 {
     "required_dlcs": [
@@ -192,6 +191,20 @@ This field describes the update URL to be used to announce the server to the [JC
 
 If this field is empty, the server will not appear the server list.
 
-#### `allow_duplicate_players` (string)
+#### `peer_timeout` (number)
+
+How many seconds the server waits for a player that stopped sending data before dropping them. The default is `20`. Raise it if players with unstable connections get dropped too often; lower it to free the slots of crashed players faster.
+
+```json
+{
+    "peer_timeout": 30
+}
+```
+
+#### `crash_upload` (boolean)
+
+Whether the server uploads crash reports to the JC4MP team when it crashes. The default is `true`, which helps us fix server crashes. Set it to `false` to keep crash dumps on your machine only, for example on a private or test server.
+
+#### `allow_duplicate_players` (boolean)
 
 This field is default false. If this is set to true, the server will allow players to have multiple accounts on the same server with one Steam ID. This should primarily be used for testing purposes. This allows you to test your server with multiple players on one Steam account. Use the advanced settings in the launcher to enable test players to launch multiple instances when joining a server. Each new test player will have "test X" in their player name, as well as `_testX` suffixed at the end of their Steam ID, where X is the number of the test player.

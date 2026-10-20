@@ -1,0 +1,9 @@
+{
+  "label": "Client API",
+  "position": 8,
+  "className": "category-client-api",
+  "link": {
+    "type": "generated-index",
+    "slug": "/client"
+  }
+}

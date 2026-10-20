@@ -1,7 +1,6 @@
 import { themes as prismThemes } from "prism-react-renderer";
 import type { Config } from "@docusaurus/types";
 import type * as Preset from "@docusaurus/preset-classic";
-import path from "path";
 
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
@@ -30,7 +29,9 @@ const config: Config = {
   },
 
   markdown: {
-    mermaid: true
+    mermaid: true,
+    // .md pages (synced from the game repo) are plain CommonMark, .mdx pages are MDX
+    format: "detect",
   },
   presets: [
     [
@@ -64,35 +65,13 @@ const config: Config = {
       }),
     ],
   ],
-  plugins: [
-    () => {
-      return {
-        name: 'docusaurus-path-alias',
-        configureWebpack() {
-          return {
-            resolve: {
-              alias: {
-                '@classes': path.resolve(__dirname, 'src/classes'),
-                '@components': path.resolve(__dirname, 'src/components'),
-                '@client': path.resolve(__dirname, 'docs/client-api'),
-                '@server': path.resolve(__dirname, 'docs/server-api'),
-                '@shared': path.resolve(__dirname, 'docs/shared-api'),
-              },
-            },
-          };
-        },
-      };
-    }
-  ],
-
   themeConfig: {
     // TODO: Replace with your project's social card
     // image: "img/docusaurus-social-card.jpg",
-    // announcementBar: {
-    //   id: "announcement-bar",
-    //   backgroundColor: "yellow",
-    //   content: "This site is under construction and all documentation is subject to change. Visit <a href='https://jc4mp.com' target='_blank'>jc4mp.com</a> for the latest news.",
-    // },
+    announcementBar: {
+      id: "release-2-0-0",
+      content: "JC4MP 2.0.0 is out with a new scripting API. Read the <a href='/changelogs/v2-0-0'>changelog</a> and the <a href='/porting'>porting guide</a>.",
+    },
     navbar: {
       logo: {
         alt: "JC4MP Logo",
@@ -107,11 +86,6 @@ const config: Config = {
           sidebarId: "tutorialSidebar",
           position: "left",
           label: "Documentation",
-        },
-        {
-          to: "/chat",
-          position: "left",
-          label: "Chat with Rico",
         },
         {
           to: "https://jc4mp.com",

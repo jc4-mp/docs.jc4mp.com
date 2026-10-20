@@ -88,3 +88,17 @@ pre, pre *, code, code * {
 .navbar__search-input:focus-visible {
   outline: none!important;
 }
+.category-changelogs > div > a::before {
+  content: "📝";
+  margin-right: 0.5rem;
+}
+
+.sidebar-porting > a::before {
+  content: "🔄";
+  margin-right: 0.5rem;
+}
+
+.sidebar-scripting-reference > a::before {
+  content: "📖";
+  margin-right: 0.5rem;
+}

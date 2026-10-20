@@ -1,0 +1,9 @@
+{
+  "label": "Shared API",
+  "position": 6,
+  "className": "category-shared-api",
+  "link": {
+    "type": "generated-index",
+    "slug": "/shared"
+  }
+}
