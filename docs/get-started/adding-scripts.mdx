@@ -3,12 +3,12 @@
 Adding scripts to your server is the primary way to customize and extend gameplay. This guide will walk you through everything you need to know.
 
 :::tip New to Scripting?
-If you're just getting started, consider downloading the [official default scripts](/tools/servers#default-scripts)! They include essential features like chat commands and player management, and serve as great examples for learning how scripts work. See the [Server Setup](/get-started/server-setup#step-8-download-and-add-default-scripts) guide for installation instructions.
+If you're just getting started, consider downloading the [official default scripts](/tools/servers#default-scripts)! They include freeroam, menus, player management and a few gamemodes, and serve as great examples for learning how scripts work. See the [Server Setup](/get-started/server-setup#step-8-download-and-add-default-scripts) guide for installation instructions.
 :::
 
 ## How Scripts Work
 
-Scripts in JC4MP are organized into **resources** - collections of related scripts that work together. Each resource is a folder containing scripts and assets that provide specific functionality to your server.
+Scripts in JC4MP are organized into **resources** - collections of related scripts that work together. Each resource is a folder containing scripts and assets that provide specific functionality to your server. There is no manifest or meta file: the folder layout is all there is. The full rules are on the [Resources](/shared/resources) page.
 
 ## Basic File Structure
 
@@ -33,7 +33,7 @@ Each resource folder can contain three special directories:
 Resources can contain various file types:
 
 - **`.lua`** - Main script files (most common)
-- **`.html`, `.css`, `.js`** - For creating [webviews](/client-api/webview) (UI elements - these files must be in the `client` folder)
+- **`.html`, `.css`, `.js`** - For creating [webviews](/client/ui) (all UI is made of web pages - put these files in the `client` folder)
 - **`.json`, `.txt`** - Configuration and data files
 - **Images, sounds, models** - Other assets
 
@@ -50,7 +50,8 @@ When players connect to your server:
 - **Client scripts** run on each player's computer
 - **Server scripts** run only on your server
 - **Shared scripts** run on both client and server
-- Client and server scripts can both import and use shared scripts via the [modules system](/shared-api/modules)
+- Client and server scripts can both load shared modules with [`require`](/shared/resources#require)
+- Scripts run on **LuaJIT** (Lua 5.1 syntax). See the [Sandbox](/shared/sandbox) for which libraries each side can use
 
 ## Example Directory Structure
 
@@ -95,7 +96,7 @@ resources/
 
 ## Nested Resources
 
-You can organize scripts with subfolders. The system searches for `client`, `server`, and `shared` folders at any depth:
+You can group resources in subfolders. Any folder, at any depth inside `resources`, that contains a `client`, `server` or `shared` folder is a resource, and its name is the folder name. In the example below, `racing`, `weapons` and `utilities` are three separate resources. Resource names must be unique across the whole `resources` folder.
 
 ```
 resources/
@@ -117,41 +118,45 @@ resources/
             └── common_functions.lua
 ```
 
-## Hidden Folders
+## Files That Aren't Scripts
 
-To hide folders from the resource system, prefix them with two underscores (`__`):
+Only the `client`, `server` and `shared` folders of a resource are used. Files directly in the resource folder, or in any other folder next to them, are neither run nor sent to players, so you can keep notes, sources and build files there:
 
 ```
 resources/
 └── my-webview-script/
     ├── client/
-    │   └── webview_client.lua
-    ├── __node_modules/          # Hidden from resource system
-    │   └── some-framework/
-    │       └── client/          # This won't be treated as a script folder
-    └── __build-tools/           # Also hidden
-        └── webpack.config.js
+    │   ├── webview_client.lua
+    │   └── ui/                  # built web UI, sent to players
+    │       └── index.html
+    ├── src/                     # UI sources, never sent to players
+    ├── package.json
+    └── README.md
 ```
 
-This is especially useful when working with web frameworks for webviews that might have their own `client` folders in dependencies.
+:::warning
+Don't create folders named `client`, `server` or `shared` deeper inside a resource: such a folder makes its parent look like another resource. This includes dependencies, such as a `node_modules` package with its own `client` folder, so keep `node_modules` outside of `resources`. The `__` folder prefix that hid folders in 1.x no longer exists in 2.0.0.
+:::
 
 ## Sharing Code Between Scripts
 
+Every `.lua` file is a separate script with its own globals (see [Script Context](/get-started/script-context)).
+
 ### Static Data and Methods
-Use the [modules system](/shared-api/modules) to share static data and functions between different scripts.
+Use [`require`](/shared/resources#require) to share static data and functions between different scripts.
 
 ### Dynamic Runtime Data
-Use [events](/shared-api/events) to communicate and share dynamic data between scripts while your server is running.
+Use [events](/shared/events) to communicate and share dynamic data between scripts while your server is running, and [Net](/shared/net) to send data between the server and players.
 
 ## Getting Started
 
 1. Create a new folder in your `resources` directory
 2. Add `client`, `server`, or `shared` folders as needed
 3. Place your `.lua` scripts in the appropriate folders
-4. Restart your server to load the new resource
+4. Type `start <resource_name>` in the server console (or add it to `startup_resources` and restart the server)
 
-Your scripts will automatically be loaded and executed when players connect to your server!
+The server runs the server and shared scripts, and players download and run the client and shared scripts when they join. For a complete walkthrough, see [Your First Resource](/get-started/first-resource).
 
 ## Lua Standard Library Availability
 
-For security and sandboxing, access to the Lua `os` library has been removed. Scripts should avoid using `os.*` functions (such as `os.execute`, `os.remove`, `os.getenv`, etc.). Use provided game APIs (e.g., `SQL`, `Timer`, networking, file-less configs) to perform needed tasks.
+Scripts run in a sandbox. Only `os.time` and `os.date` are available from the `os` library, `io` and `debug` are not available, and precompiled bytecode is refused. Client scripts also can't use `package`, `loadfile` or `dofile`. Use the provided game APIs (e.g., `SQL`, `Timer`, `Net`) to perform needed tasks. See the [Sandbox](/shared/sandbox) page for the full list per side.

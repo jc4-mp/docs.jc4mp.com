@@ -1,0 +1,9 @@
+{
+  "label": "Changelogs",
+  "position": 3,
+  "className": "category-changelogs",
+  "link": {
+    "type": "generated-index",
+    "slug": "/changelogs"
+  }
+}

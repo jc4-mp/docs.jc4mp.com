@@ -14,6 +14,10 @@ First things first - you'll need to download the server files for your platform.
 
 **Important:** Make sure the server version matches your client version - players can only connect if their client version matches the server version exactly!
 
+:::warning Upgrading from 1.x?
+2.0.0 changes the scripting API, so scripts written for 1.x won't run until they're ported. Your `cfg/config.json` keeps working as-is. See the [2.0.0 changelog](/changelogs/v2-0-0) and [Porting to 2.0.0](/porting) before you upgrade a live server.
+:::
+
 :::tip Linux Users
 If you're running Linux, make sure you're on Ubuntu 24.04 or above. Check out the [Linux Compatibility](/tools/servers#linux-compatibility) section for more details!
 :::
@@ -28,15 +32,17 @@ Simply start your server executable - it will generate the config file and then 
 
 Open up `cfg/config.json` in your favorite text editor. You'll see a default configuration file with all the necessary fields.
 
-Update these two fields to make your server unique:
+Update these fields to make your server unique:
 
 - **`name`** - Choose a catchy name that will appear in the server browser!
 - **`description`** - Write a fun description that tells players what your server is all about!
+- **`announce`** - Set this to `true` to list your server on the server browser. It is `false` by default, so a new server stays private.
 
 ```json
 {
     "name": "My Awesome JC4MP Server",
     "description": "Come join us for epic multiplayer chaos and destruction!",
+    "announce": true,
     // ... rest of config
 }
 ```
@@ -112,7 +118,7 @@ Before starting your server, make sure your firewall allows the necessary ports 
 
 By default, your server uses port **7777** for player connections. The server also opens a HTTP server on port **7778** (port + 1) for server information and mod distribution.
 
-**Make sure both ports are open:**
+**Make sure both ports are open, for both TCP and UDP:**
 - Port `7777` (or whatever port you set in the config)
 - Port `7778` (or port + 1)
 
@@ -124,7 +130,11 @@ If you're hosting your server from home, be aware that your public IP address wi
 
 ## Step 8: Download and Add Default Scripts
 
-To get started quickly with essential server functionality, you can download the official default scripts! These include helpful features like chat commands, player management, and more.
+To get started quickly with essential server functionality, you can download the official default scripts! These include helpful features like freeroam, spawn and teleport menus, player management, admin tools, and a few gamemodes.
+
+:::note
+The default scripts are ported to 2.0.0 except **chat**, which is coming later. See the [changelog](/changelogs/v2-0-0#default-scripts) for what changed in each one.
+:::
 
 ### Download the Default Scripts
 
@@ -134,7 +144,7 @@ To get started quickly with essential server functionality, you can download the
 
 2. Extract the zip file - you'll see a folder called `default-scripts-main` (or similar)
 
-3. Open the extracted folder and copy all the resource folders inside (they should be folders like `chat`, `commands`, etc.)
+3. Open the extracted folder and copy all the resource folders inside (they should be folders like `freeroam`, `spawn-menu`, etc.)
 
 4. Paste these folders into your server's `resources` folder:
    ```
@@ -151,16 +161,12 @@ Now you need to tell your server to load these scripts when it starts:
 
 1. Open `cfg/config.json` in your text editor
 
-2. Find the `startup_resources` field - it should look like this:
+2. Find the `startup_resources` field - it is empty by default:
    ```json
-   "startup_resources": [
-       "resource1",
-       "resource2",
-       "resource3"
-   ]
+   "startup_resources": []
    ```
 
-3. Replace the example resource names with the actual default script folder names. For example:
+3. Add the default script folder names. For example:
    ```json
    "startup_resources": [
        "freeroam",
@@ -171,7 +177,7 @@ Now you need to tell your server to load these scripts when it starts:
    Add all the default script folder names to this array. Make sure the names match exactly (case-sensitive)!
 
 :::tip Finding Resource Names
-The resource name is simply the folder name inside your `resources` directory. If you have a folder at `resources/chat/`, the resource name is `chat`.
+The resource name is simply the folder name inside your `resources` directory. If you have a folder at `resources/freeroam/`, the resource name is `freeroam`.
 :::
 
 :::info Default Scripts are Optional
@@ -208,7 +214,7 @@ Want to customize it further? Check out the [Server Configuration](/get-started/
 
 Ready to add some custom scripts? Head over to the [Adding Scripts](/get-started/adding-scripts) guide to start building amazing features for your server!
 
-Need help writing scripts? Check out our [Chat with Rico](/chat) page - an AI assistant that can help you learn how to make scripts or even write scripts for your JC4MP server!
+Need help writing scripts? Start with [Your First Resource](/get-started/first-resource), then browse the [Scripting Reference](/scripting-reference).
 
 Having issues with your server? Check out the [Troubleshooting](/get-started/troubleshooting) guide for common problems and solutions.
 

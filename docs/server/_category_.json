@@ -1,0 +1,9 @@
+{
+  "label": "Server API",
+  "position": 7,
+  "className": "category-server-api",
+  "link": {
+    "type": "generated-index",
+    "slug": "/server"
+  }
+}

@@ -14,7 +14,7 @@ If you're experiencing this error message, it's usually related to firewall or p
 
 **Solution:**
 
-Make sure that both ports are open in your firewall:
+Make sure that both ports are open in your firewall, for both TCP and UDP:
 
 - Port `7777` (or whatever port you set in your config as the `port` field)
 - Port `7778` (or your configured port + 1)
@@ -28,17 +28,17 @@ The server uses two ports:
 1. **Windows Firewall:**
    - Open Windows Defender Firewall
    - Click "Advanced settings"
-   - Create inbound rules for both TCP ports (your port and port+1)
+   - Create inbound rules for both ports (your port and port+1), for TCP and for UDP
 
 2. **Linux (iptables/ufw):**
    ```bash
    # For ufw
-   sudo ufw allow 7777/tcp
-   sudo ufw allow 7778/tcp
+   sudo ufw allow 7777:7778/tcp
+   sudo ufw allow 7777:7778/udp
    
    # For iptables
-   sudo iptables -A INPUT -p tcp --dport 7777 -j ACCEPT
-   sudo iptables -A INPUT -p tcp --dport 7778 -j ACCEPT
+   sudo iptables -A INPUT -p tcp --dport 7777:7778 -j ACCEPT
+   sudo iptables -A INPUT -p udp --dport 7777:7778 -j ACCEPT
    ```
 
 3. **Router/Network Configuration:**
@@ -118,13 +118,25 @@ ping -4 google.com    # Windows (PowerShell)
 JC4MP currently only supports IPv4. If you're on an IPv6-only network, you'll need to configure IPv4 connectivity or use a tunnel service that provides IPv4 access.
 :::
 
+## Script Issues
+
+### Scripts Stopped Working After Updating to 2.0.0
+
+2.0.0 replaced the scripting API, so resources written for 1.x need to be ported. Typical symptoms are syntax errors at load time (`//`, `&` and other Lua 5.4 operators don't exist in LuaJIT) and errors like "attempt to index a nil value" for tables that were renamed or removed (`Players`, `Chat.Print`, `UI.Begin`...).
+
+**Solution:** Follow [Porting to 2.0.0](/porting). It lists every change and what to search your scripts for. You can also [download it as a single file](pathname:///porting-to-2.0.0.md) and give it to an AI assistant such as Claude together with your scripts.
+
+### Finding Script Errors
+
+Server script errors are written to the server console and to the in-game script debugger of every joined player. Client script errors are shown in that player's script debugger, which you toggle with the `dbg` client command. If a file fails while its resource starts, the whole resource doesn't start. See [Sandbox](/shared/sandbox#errors) for details.
+
 ## Other Common Issues
 
 ### Server Not Appearing in Server List
 
 If your server isn't showing up in the [JC4MP server list](https://servers.jc4mp.com):
 
-1. **Check your `announce` field** - Make sure it's set to `true` in your `config.json`
+1. **Check your `announce` field** - Make sure it's set to `true` in your `config.json` (it is `false` by default)
 2. **Verify your server key** - Ensure you have a valid `key` from the [JC4MP Server Dashboard](https://servers.jc4mp.com/dashboard)
 3. **Check your `update_url`** - Should be set to `https://servers.jc4mp.com/api/v1/servers`
 4. **Wait a few moments** - Server list updates may take a few moments to propagate

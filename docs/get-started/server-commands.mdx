@@ -4,7 +4,9 @@ sidebar_position: 5
 
 # Server Commands
 
-Server commands are a way to interact with the server from the console. They are useful for debugging and testing.
+Server commands are typed in the server's console window. Use them to manage resources and players while the server is running. Command names are not case-sensitive.
+
+Scripts can't add or call console commands. To start and stop resources from a script, see [Resources (server)](/server/resources).
 
 ## Available Commands
 
@@ -12,19 +14,24 @@ Server commands are a way to interact with the server from the console. They are
 
 | Command | Aliases | Description |
 |---------|---------|-------------|
-| `stop` | `x`, `exit` | Stops the server |
-| `help` | `h`, `?` | Shows help information |
+| `stop` | `x`, `exit` | Shuts the server down (`stop` with no resource name) |
+| `help` | `h`, `?` | Shows the list of commands |
 
 ### Resource Management
 
 | Command | Aliases | Parameters | Description | Example |
 |---------|---------|------------|-------------|---------|
-| `load` | `start` | `<resource_name>` | Loads a specific resource | `load my_script` |
-| `unload` | `stop` | `<resource_name>` | Unloads a specific resource | `unload my_script` |
-| `reload` | `restart` | `<resource_name>` | Reloads a specific resource | `reload my_script` |
+| `start` | `load` | `<resource_name>` | Starts a resource | `start my_script` |
+| `stop` | `unload` | `<resource_name>` | Stops only that resource | `stop my_script` |
+| `restart` | `reload` | `<resource_name>` | Stops and starts a resource again, picking up changed files. Players download the changes and restart it too | `restart my_script` |
+| `list` | `ls` | | Lists every resource and its status (running, stopped, starting) | `list` |
 
-### Information
+Starting a resource rescans the `resources` folder, so new resources and changed files are picked up without restarting the server.
 
-| Command | Aliases | Description |
-|---------|---------|-------------|
-| `list` | `ls` | Lists resources or information |
+### Player Management
+
+| Command | Parameters | Description | Example |
+|---------|------------|-------------|---------|
+| `kick` | `<steam_id> [reason]` | Kicks the player with that Steam ID. The reason is the rest of the line | `kick 76561198000000000 Spamming` |
+| `ban` | `<steam_id>` | Adds the Steam ID to the ban list and kicks the player if they're connected | `ban 76561198000000000` |
+| `unban` | `<steam_id>` | Removes the Steam ID from the ban list | `unban 76561198000000000` |
