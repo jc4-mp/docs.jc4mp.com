@@ -16,6 +16,7 @@ Every model in the game that has a matching collision file (4356 models), for [`
 
 - Server: the object is synced to every player ([RigidObjectHandle](../shared/objects/rigid-object.md)). A client only shows it once its game has loaded both files, which happens when the game uses that model nearby; until then the object is waiting on that client. The default `freeroam` resource checks this with [`Asset.IsLoaded`](../client/asset.md) before asking the server for a barrel.
 - Client: `World.SpawnRigidObject` loads both files itself and creates a local object only that player sees.
+- Your own models: [`Asset.LoadGLB`](../client/asset.md#assetloadglbfile-callback-options) converts a `.glb` file into a model and collision you can pass here.
 - Paths are lowercase and typed exactly as listed. Models in a folder marked with a DLC only exist for players who own that DLC.
 
 **Example**
