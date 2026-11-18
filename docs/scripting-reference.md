@@ -95,7 +95,7 @@ Shared enums: [AclLevel](./shared/enums/acl-level.md), [Key](./shared/enums/key.
 | [RoadGraph](./client/road-graph.md) | Roads, sea and air routes, paths and railways |
 | [Weapon](./client/weapons.md) | The weapon a player holds |
 | [GameUI](./client/game-ui.md) | The game's own HUD |
-| [Asset](./client/asset.md) | Checking whether game assets are loaded |
+| [Asset](./client/asset.md) | Checking whether game assets are loaded, loading custom GLB models |
 | [UI and WebView](./client/ui.md) | Web UIs from Lua: creating, showing and messaging webviews |
 | [WebView pages (JavaScript)](./client/webview.md) | The `JC4MP` bridge inside a webview page |
 

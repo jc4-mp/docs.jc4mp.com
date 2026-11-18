@@ -102,7 +102,7 @@ Spawns a physics prop from a model file and its physics (collision) file. The cl
 
 Spawns a networked rigid object that every player in range sees and that is kept in sync (see [Rigid object](../shared/objects/rigid-object.md)).
 
-A player's game only shows the object once both files are already loaded in that game (check with `Asset.IsLoaded` on the client, see [Asset](../client/asset.md)). Use models from [Rigid objects](../lists/rigid-objects.md) that the game has loaded everywhere, otherwise some players may not see the object.
+A player's game only shows the object once both files are already loaded in that game (check with `Asset.IsLoaded` on the client, see [Asset](../client/asset.md)). Use models from [Rigid objects](../lists/rigid-objects.md) that the game has loaded everywhere, otherwise some players may not see the object. Custom models loaded on the clients with [`Asset.LoadGLB`](../client/asset.md#assetloadglbfile-callback-options) work too: pass the paths it gives, for example `"models/jc4mp/test_model.modelc"` and `"models/jc4mp/test_model_col.pfxc"`.
 
 **Side:** Server
 
